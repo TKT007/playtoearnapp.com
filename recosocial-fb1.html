@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <title>Reco Social – Get Paid To Play Games</title>
+  <style>
+    :root {
+      --bg:        #06040f;
+      --surface:   #120d24;
+      --border:    rgba(167,108,248,.15);
+      --primary:   #a76cf8;
+      --primary2:  #c44fd4;
+      --glow:      rgba(167,108,248,.5);
+      --accent:    #f472b6;
+      --accent2:   #fbbf24;
+      --text:      #f5f0ff;
+      --muted:     #a89bbf;
+      --muted2:    #5a4a72;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      font-family: system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      overflow-x: hidden;
+      overscroll-behavior: none;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .bg-layer {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .bg-layer::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(167,108,248,.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 110%, rgba(196,79,212,.14) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 90% 10%, rgba(251,191,36,.08) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 30% at 10% 90%, rgba(244,114,182,.1) 0%, transparent 50%);
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: rise linear infinite;
+    }
+    @keyframes rise {
+      0%   { transform: translateY(0) scale(1); opacity: .4; }
+      100% { transform: translateY(-110vh) scale(.3); opacity: 0; }
+    }
+
+    .page {
+      position: relative; z-index: 1;
+      min-height: 100dvh;
+      display: flex; flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 100px;
+    }
+    .inner { width: 100%; max-width: 400px; display: flex; flex-direction: column; align-items: center; }
+
+    /* ===== WORDMARK ===== */
+    .wordmark {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 28px;
+      animation: fadeUp .5s ease both;
+    }
+    .logo-icon {
+      width: 40px; height: 40px; border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 18px rgba(167,108,248,.5);
+      flex-shrink: 0;
+    }
+    .logo-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .wordmark-text { font-size: 1.7rem; font-weight: 900; letter-spacing: -.02em; }
+    .wordmark-text .w1 { color: var(--text); }
+    .wordmark-text .w2 {
+      background: linear-gradient(90deg, #a76cf8, #f472b6);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* ===== HERO ===== */
+    .hero { text-align: center; margin-bottom: 20px; animation: fadeUp .55s .05s ease both; }
+    .hero h1 { font-size: 2.1rem; font-weight: 900; line-height: 1.1; color: var(--text); }
+    .hero h1 .hl {
+      background: linear-gradient(90deg, #a76cf8, #c44fd4, #f472b6);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p { margin-top: 6px; font-size: .9rem; color: var(--muted); }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 10px;
+      background: rgba(167,108,248,.12);
+      border: 1px solid rgba(167,108,248,.32);
+      border-radius: 999px; padding: 5px 14px;
+      font-size: .75rem; font-weight: 700;
+    }
+    .badge svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .badge-text {
+      background: linear-gradient(90deg, #a76cf8, #f472b6);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub { margin-top: 8px; font-size: .75rem; color: var(--muted); }
+
+    /* ===== CTA ===== */
+    .cta-btn {
+      width: 100%; margin: 18px 0 10px;
+      padding: 16px;
+      background: linear-gradient(135deg, #5b8af8 0%, #a76cf8 35%, #c44fd4 65%, #f472b6 100%);
+      border: none; border-radius: 14px;
+      font-size: 1.05rem; font-weight: 800;
+      color: #fff; cursor: pointer;
+      box-shadow: 0 6px 32px rgba(167,108,248,.45);
+      transition: transform .15s, box-shadow .15s;
+      animation: fadeUp .6s .1s ease both, cta-pulse 3s 1s ease-in-out infinite;
+      display: block; text-decoration: none; text-align: center; line-height: normal;
+      touch-action: manipulation; -webkit-appearance: none;
+      text-shadow: 0 1px 4px rgba(0,0,0,.2);
+    }
+    @keyframes cta-pulse {
+      0%,100% { box-shadow: 0 6px 32px rgba(167,108,248,.45); }
+      50%      { box-shadow: 0 8px 44px rgba(196,79,212,.7); }
+    }
+    .cta-btn:active { transform: scale(.97); }
+
+    /* ===== TRUST ===== */
+    .trust {
+      display: flex; align-items: center; justify-content: center; gap: 18px;
+      font-size: .72rem; color: var(--muted); margin-bottom: 20px;
+      animation: fadeUp .6s .15s ease both;
+    }
+    .trust span::before { content: '✓ '; color: var(--accent); font-weight: 700; }
+
+    /* ===== VIDEO SECTION ===== */
+    .video-section {
+      width: 100%;
+      margin-bottom: 20px;
+      animation: fadeUp .63s .19s ease both;
+    }
+    .video-label {
+      font-size: .6rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .video-title {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--text);
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .video-sub {
+      font-size: .75rem;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .video-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(167,108,248,.2);
+      box-shadow: 0 8px 32px rgba(0,0,0,.5), 0 0 20px rgba(167,108,248,.1);
+    }
+
+    /* ===== STICKY BOTTOM CTA ===== */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 999;
+      padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
+      background: linear-gradient(to top, rgba(6,4,15,1) 60%, rgba(6,4,15,0) 100%);
+      transform: translateY(110%);
+      transition: transform .3s ease;
+      pointer-events: none;
+    }
+    .sticky-cta.visible {
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .sticky-cta a {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 16px;
+      background: linear-gradient(135deg, #5b8af8 0%, #a76cf8 35%, #c44fd4 65%, #f472b6 100%);
+      border: none; border-radius: 14px;
+      font-size: 1.05rem; font-weight: 800;
+      color: #fff; cursor: pointer;
+      box-shadow: 0 6px 32px rgba(167,108,248,.55);
+      text-decoration: none; text-align: center;
+      text-shadow: 0 1px 4px rgba(0,0,0,.2);
+      animation: cta-pulse 3s ease-in-out infinite;
+    }
+
+    /* ===== EARN CALCULATOR ===== */
+    .earn-calc {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid rgba(167,108,248,.2);
+      border-radius: 20px;
+      overflow: hidden;
+      padding: 24px 20px 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.6), 0 0 30px rgba(167,108,248,.12);
+      animation: fadeUp .62s .18s ease both;
+    }
+    .earn-calc-title {
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+    .earn-calc-title .t-earn,
+    .earn-calc-title .t-back {
+      background: linear-gradient(90deg, #a76cf8, #c44fd4, #f472b6);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .earn-calc-sub {
+      text-align: center;
+      font-size: .7rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .earn-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .earn-card {
+      background: #0e0a1e;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 12px;
+      padding: 16px 12px 14px;
+      text-align: center;
+    }
+    .earn-card.highlighted {
+      border: 1.5px solid rgba(167,108,248,.5);
+    }
+    .earn-card-label {
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--muted2);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .earn-card-value {
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1;
+    }
+    .earn-card.highlighted .earn-card-value {
+      background: linear-gradient(90deg, #a76cf8, #c44fd4, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .slider-row {
+      padding: 0 2px;
+    }
+    .earn-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+      margin-bottom: 10px;
+      background: #2d2540;
+    }
+    .earn-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #a76cf8;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 0 4px rgba(167,108,248,.2);
+    }
+    .earn-slider::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #a76cf8;
+      cursor: pointer;
+      border: none;
+    }
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: .7rem;
+      color: var(--muted2);
+      font-weight: 600;
+    }
+
+    /* ===== STEPS CARD ===== */
+    .steps-card {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid rgba(167,108,248,.2);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.6), 0 0 30px rgba(167,108,248,.15);
+      margin-bottom: 20px;
+      animation: fadeUp .65s .2s ease both;
+    }
+    .steps-title {
+      font-size: .7rem;
+      font-weight: 700;
+      text-align: center;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(167,108,248,.12);
+    }
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(167,108,248,.1);
+    }
+    .step-item:last-child { border-bottom: none; }
+    .step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #a76cf8, #c44fd4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(167,108,248,.45);
+    }
+    .step-body { flex: 1; text-align: left; }
+    .step-body b { display: block; font-size: .95rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .step-body span { font-size: .78rem; color: var(--muted); line-height: 1.4; }
+
+    /* ===== CHALLENGE BANNER ===== */
+    .challenge-banner {
+      width: 100%;
+      background: linear-gradient(135deg, #1a0d2e 0%, #150a22 100%);
+      border: 1px solid rgba(196,79,212,.3);
+      border-radius: 16px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp .68s .22s ease both;
+      box-shadow: 0 0 24px rgba(196,79,212,.12);
+    }
+    .challenge-banner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(167,108,248,.07), transparent);
+      animation: shimmer-banner 4s ease-in-out infinite;
+    }
+    @keyframes shimmer-banner {
+      0%,100% { left: -100%; }
+      50% { left: 100%; }
+    }
+    .challenge-icon { font-size: 1.6rem; flex-shrink: 0; filter: drop-shadow(0 2px 6px rgba(196,79,212,.4)); }
+    .challenge-body { flex: 1; text-align: left; }
+    .challenge-label { font-size: .6rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #c44fd4; margin-bottom: 4px; }
+    .challenge-title { font-size: .92rem; font-weight: 800; color: var(--text); line-height: 1.3; }
+    .challenge-title .free { color: #f472b6; }
+    .challenge-title .amount {
+      background: linear-gradient(90deg, #f472b6, #fbbf24);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .challenge-sub { font-size: .7rem; color: var(--muted); margin-top: 3px; }
+
+    /* ===== STATS ===== */
+    .stats {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; font-size: .72rem; color: var(--muted);
+      animation: fadeUp .7s .25s ease both;
+    }
+    .stats-sep { color: var(--muted2); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 360px) {
+      .hero h1 { font-size: 1.75rem; }
+      .step-item { padding: 16px; gap: 12px; }
+      .earn-card-value { font-size: 1.4rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-layer" id="bgLayer"></div>
+
+<div class="page">
+  <div class="inner">
+
+    <!-- WORDMARK -->
+    <div class="wordmark">
+      <div class="logo-icon">
+        <img src="https://play-lh.googleusercontent.com/DiVZQT6nkJjZBPV0Wg_RGLzL3F5Dq6ytDEnu1-z1n9rVKlVzdFzdSWRRmM4eUxh6z797=w480-h960-rw" alt="Reco Social">
+      </div>
+      <div class="wordmark-text"><span class="w1">reco</span><span class="w2">social</span></div>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <h1>Get Paid For Testing <span class="hl">Apps &amp; Games</span></h1>
+      <p>Play games you'd play anyway and earn <strong>real cash</strong> — PayPal, gift cards &amp; more.</p>
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="color:#a76cf8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="badge-text">Real cash — not in-game lives or boosters.</span>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <a class="cta-btn" href="https://go.dailybonus.app/click" onclick="handleClick(event)">Download Now →</a>
+
+    <!-- TRUST -->
+    <div class="trust">
+      <span>Free</span>
+      <span>Instant Payout</span>
+      <span>60-second signup</span>
+    </div>
+
+    <!-- EARN CALCULATOR -->
+    <div class="earn-calc">
+      <div class="earn-calc-title">See what you could <span class="t-earn">earn</span> <span class="t-back">back</span></div>
+      <div class="earn-calc-sub">Drag the slider — based on real average payouts on in-game milestones.</div>
+
+      <div class="earn-cards">
+        <div class="earn-card">
+          <div class="earn-card-label">You Spend</div>
+          <div class="earn-card-value" id="spend-val">$60</div>
+        </div>
+        <div class="earn-card highlighted">
+          <div class="earn-card-label">You Earn</div>
+          <div class="earn-card-value" id="earn-val">$480</div>
+        </div>
+      </div>
+
+      <div class="slider-row">
+        <input class="earn-slider" type="range" id="earn-slider" min="20" max="200" step="5" value="60" />
+        <div class="slider-labels">
+          <span>$20</span>
+          <span>$200</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO SECTION -->
+    <div class="video-section">
+      <div class="video-label">How It Works</div>
+      <div class="video-title">Don't take our word for it</div>
+      <div class="video-sub">Real users share their experience — from download to first payout</div>
+      <div class="video-wrap">
+        <iframe
+          src="https://play.tynk.ai/p/1dc57629-c402-4b2b-aa82-501a1f60c531"
+          style="width:100%;aspect-ratio:16/9;border:0;display:block;border-radius:14px;"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+
+    <!-- STEPS CARD -->
+    <div class="steps-card">
+      <div class="steps-title">Your Earning Journey</div>
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <b>Download &amp; Get Your $10 Bonus</b>
+          <span>Available on iOS &amp; Android – Takes less than 60 seconds</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <b>Play Games &amp; Complete Offers</b>
+          <span>Test apps &amp; games, watch videos, or take surveys!</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <b>Cash Out Your Earnings</b>
+          <span>Instant Payouts: PayPal, CashApp, Venmo, Crypto &amp; Wire</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVATION BANNER -->
+    <div class="challenge-banner" style="position:relative;">
+      <div style="position:absolute;top:-1px;right:-1px;background:linear-gradient(135deg,#a76cf8,#c44fd4);border-radius:0 16px 0 10px;padding:5px 12px;font-size:.6rem;font-weight:800;letter-spacing:1px;color:#fff;text-transform:uppercase;">Important</div>
+      <div class="challenge-icon">🔒</div>
+      <div class="challenge-body">
+        <div class="challenge-label" style="color:#7dd3fc;">Activation Required</div>
+        <div class="challenge-title" style="-webkit-text-fill-color:unset;color:var(--text);font-weight:400;">New users: Complete <span style="color:#4ade80;">2 quick offers</span> to unlock full access and start earning</div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <span>10M+ Users</span>
+      <span class="stats-sep">·</span>
+      <span>$50M+ Paid Out</span>
+      <span class="stats-sep">·</span>
+      <span>🇺🇸 US</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- STICKY BOTTOM CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <a href="https://go.dailybonus.app/click" onclick="handleClick(event)">Download Now →</a>
+</div>
+
+<script>
+(function(){
+  const layer = document.getElementById('bgLayer');
+  const colors = ['#a76cf8','#c44fd4','#f472b6','#5b8af8','#fbbf24'];
+  for(let i=0;i<18;i++){
+    const p = document.createElement('div');
+    p.className='particle';
+    const sz = Math.random()*4+2;
+    p.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;bottom:${Math.random()*20}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${Math.random()*10+8}s;animation-delay:${Math.random()*8}s;`;
+    layer.appendChild(p);
+  }
+})();
+
+// Sticky CTA observer
+(function(){
+  const mainBtn = document.querySelector('.cta-btn');
+  const stickyCta = document.getElementById('stickyCta');
+  const observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        stickyCta.classList.remove('visible');
+      } else {
+        stickyCta.classList.add('visible');
+      }
+    });
+  }, { threshold: 0 });
+  observer.observe(mainBtn);
+})();
+
+// Earn Calculator
+(function(){
+  const slider = document.getElementById('earn-slider');
+  const spendEl = document.getElementById('spend-val');
+  const earnEl  = document.getElementById('earn-val');
+
+  function update() {
+    const spend = parseInt(slider.value);
+    const earn  = spend * 8;
+    spendEl.textContent = '$' + spend;
+    earnEl.textContent  = '$' + earn;
+    const pct = (spend - 20) / (200 - 20) * 100;
+    slider.style.background = `linear-gradient(to right, #a76cf8 0%, #c44fd4 ${pct}%, #2d2540 ${pct}%, #2d2540 100%)`;
+  }
+
+  slider.addEventListener('input', update);
+  update();
+})();
+
+function handleClick(event) {
+  event.preventDefault();
+  const baseUrl = 'https://go.dailybonus.app/click';
+  const qs = window.location.search;
+  const redirect = qs ? baseUrl + (baseUrl.includes('?') ? '&' : '?') + qs.substring(1) : baseUrl;
+  window.location.href = redirect;
+}
+</script>
+
+</body>
+</html>
