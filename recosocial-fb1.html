@@ -5,6 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
   <meta name="format-detection" content="telephone=no">
   <title>Reco Social – Get Paid To Play Games</title>
+
+  <!-- ===== META PIXEL 1622607825790430 ===== -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init', '1622607825790430');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent', {
+      content_name: 'Reco Social Landing Page',
+      content_category: 'GPT Offer',
+      content_type: 'product'
+    });
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1622607825790430&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- ===== FIM META PIXEL ===== -->
+
   <style>
     :root {
       --bg:        #06040f;
@@ -441,7 +467,6 @@
         <svg viewBox="0 0 24 24" fill="currentColor" style="color:#a76cf8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         <span class="badge-text">Real cash — not in-game lives or boosters.</span>
       </div>
-
     </div>
 
     <!-- CTA -->
@@ -580,14 +605,29 @@
   update();
 })();
 
+// ===== HANDLE CLICK — dispara Lead e redireciona =====
 function handleClick(event) {
   event.preventDefault();
-  const baseUrl = 'https://tr.playtoearnapp.com/click';
-  const qs = window.location.search;
-  const redirect = qs ? baseUrl + (baseUrl.includes('?') ? '&' : '?') + qs.substring(1) : baseUrl;
-  window.location.href = redirect;
+
+  var baseUrl = 'https://tr.playtoearnapp.com/click';
+  var qs = window.location.search;
+  var redirect = qs ? baseUrl + (baseUrl.includes('?') ? '&' : '?') + qs.substring(1) : baseUrl;
+
+  // Dispara evento Lead no Pixel Meta
+  if (typeof fbq === 'function') {
+    fbq('track', 'Lead', {
+      content_name: 'Reco Social Download',
+      content_category: 'GPT Offer'
+    });
+  }
+
+  // Aguarda 300ms para garantir o envio do evento antes de redirecionar
+  setTimeout(function() {
+    window.location.href = redirect;
+  }, 300);
 }
 </script>
 
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
