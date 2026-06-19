@@ -1,0 +1,826 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <title>Playful Rewards – Get Paid To Play Games</title>
+
+  <!-- TikTok Pixel Code Start -->
+  <script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+    var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+    ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+    ttq.load('D4DO8HRC77UCI3HO4RHG');
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
+  <!-- TikTok Pixel Code End -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:        #07040f;
+      --surface:   #0f0a1e;
+      --surface2:  #170f2d;
+      --border:    rgba(167,139,250,.18);
+      --primary:   #c084fc;
+      --primary2:  #a855f7;
+      --primary3:  #7c3aed;
+      --glow:      rgba(192,132,252,.5);
+      --glow2:     rgba(167,139,250,.15);
+      --text:      #f5f0ff;
+      --muted:     #9d8cbf;
+      --muted2:    #4d3d6e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: var(--text);
+      overflow-x: hidden;
+      overscroll-behavior: none;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ── Background ── */
+    .bg-layer {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .bg-layer::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(167,139,250,.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 90% 100%, rgba(124,58,237,.1) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 30% at 10% 60%, rgba(192,132,252,.06) 0%, transparent 50%);
+    }
+    .bg-layer::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a855f7' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--primary);
+      opacity: 0;
+      animation: rise linear infinite;
+    }
+    @keyframes rise {
+      0%   { transform: translateY(0) scale(1); opacity: .4; }
+      100% { transform: translateY(-110vh) scale(.3); opacity: 0; }
+    }
+
+    /* ── Floating game icons ── */
+    .float-icon {
+      position: fixed;
+      border-radius: 20%;
+      object-fit: cover;
+      pointer-events: none;
+      opacity: .18;
+      filter: blur(.8px) saturate(1.2);
+      animation: floatIcon ease-in-out infinite;
+    }
+    @keyframes floatIcon {
+      0%,100% { transform: translateY(0) rotate(var(--r)); }
+      50%      { transform: translateY(-14px) rotate(var(--r)); }
+    }
+
+    /* ── Layout ── */
+    .page {
+      position: relative; z-index: 1;
+      min-height: 100dvh;
+      display: flex; flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 40px;
+    }
+    .inner { width: 100%; max-width: 400px; display: flex; flex-direction: column; align-items: center; }
+
+    /* ── Wordmark ── */
+    .wordmark {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 28px;
+      animation: fadeUp .5s ease both;
+    }
+    .logo-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.4);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .logo-x {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.3rem; font-weight: 900;
+      color: var(--muted2);
+      padding: 0 2px;
+    }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 20px rgba(168,85,247,.5)} 50%{box-shadow:0 0 32px rgba(168,85,247,.85)} }
+    .wordmark-text {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.65rem; font-weight: 900;
+      letter-spacing: -.03em; color: var(--text);
+    }
+    .wordmark-text span { color: var(--primary); text-shadow: 0 0 24px var(--glow); }
+
+    /* ── Step indicator ── */
+    .step-bar {
+      display: flex; align-items: center; gap: 0;
+      margin-bottom: 32px; width: 100%; max-width: 280px;
+      animation: fadeUp .52s .04s ease both;
+    }
+    .step-item {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      flex: 1;
+    }
+    .step-num {
+      width: 30px; height: 30px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Nunito', sans-serif;
+      font-size: .7rem; font-weight: 900;
+      border: 1.5px solid var(--border);
+      color: var(--muted2);
+      background: var(--surface);
+      transition: all .4s cubic-bezier(.34,1.56,.64,1);
+      position: relative; z-index: 1;
+    }
+    .step-num.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      border-color: var(--primary);
+      color: #fff;
+      box-shadow: 0 0 16px rgba(168,85,247,.6);
+      transform: scale(1.1);
+    }
+    .step-num.done {
+      background: var(--primary3);
+      border-color: var(--primary2);
+      color: #fff;
+    }
+    .step-lbl {
+      font-size: .58rem; font-weight: 600; letter-spacing: .04em;
+      color: var(--muted2); text-transform: uppercase;
+      transition: color .3s;
+    }
+    .step-lbl.active { color: var(--primary); }
+    .step-connector {
+      flex: 1; height: 1.5px;
+      background: var(--border);
+      margin: 0 4px; margin-bottom: 20px;
+      transition: background .4s;
+      max-width: 48px;
+    }
+    .step-connector.done { background: var(--primary3); }
+
+    /* ── Screen transitions ── */
+    .screen { width: 100%; }
+    .screen.hidden { display: none; }
+    .screen.enter { animation: fadeUp .4s ease both; }
+
+    /* ── STEP 1: Game Picker ── */
+    .pick-head { text-align: center; margin-bottom: 24px; }
+    .pick-eyebrow {
+      font-size: .65rem; font-weight: 800; letter-spacing: .12em;
+      color: var(--primary); text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .pick-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 2rem; font-weight: 900; line-height: 1.1;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .pick-sub { font-size: .85rem; color: var(--muted); font-weight: 500; }
+
+    .game-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; width: 100%; margin-bottom: 20px;
+    }
+
+    /* ── Sequential card highlight ── */
+    .game-card-wrap {
+      border-radius: 22px;
+      position: relative;
+      transition: transform .18s;
+      cursor: pointer;
+      border: 1.5px solid rgba(167,139,250,.18);
+    }
+    .game-card-wrap:hover { transform: translateY(-3px); }
+
+    /* canvas arc overlay */
+    .game-card-wrap canvas.arc-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border-radius: 22px;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .game-card-wrap.seq-glow canvas.arc-canvas,
+    .game-card-wrap.selected-card canvas.arc-canvas { opacity: 1; }
+
+    .game-card-wrap.seq-glow .game-card { background: rgba(168,85,247,.08); }
+    .game-card-wrap.selected-card .game-card { background: rgba(168,85,247,.14); }
+    .game-card-wrap.selected-card .check-badge { opacity: 1 !important; transform: scale(1) !important; }
+
+    .game-card {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 20px 14px 16px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 12px;
+      transition: background .25s;
+      -webkit-tap-highlight-color: transparent;
+      position: relative; overflow: hidden;
+    }
+    .game-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(192,132,252,.07), transparent);
+      opacity: 0; transition: opacity .25s;
+    }
+    .game-card-wrap:hover .game-card::before,
+    .game-card-wrap.seq-glow .game-card::before { opacity: 1; }
+
+    .check-badge {
+      position: absolute; top: 10px; right: 10px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--primary2);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0);
+      transition: opacity .25s, transform .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .check-badge svg { width: 11px; height: 11px; stroke: white; stroke-width: 2.5; fill: none; }
+    .game-icon {
+      width: 68px; height: 68px; border-radius: 18px;
+      object-fit: cover;
+      box-shadow: 0 4px 16px rgba(0,0,0,.4);
+      transition: transform .2s;
+    }
+    .game-card-wrap:hover .game-icon,
+    .game-card-wrap.seq-glow .game-icon,
+    .game-card-wrap.selected-card .game-icon { transform: scale(1.05); }
+    .game-meta { display: flex; flex-direction: column; gap: 3px; }
+    .game-tag {
+      font-size: .58rem; font-weight: 800; letter-spacing: .08em;
+      color: var(--muted); text-transform: uppercase;
+    }
+    .game-name {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem; font-weight: 900;
+      color: var(--primary); line-height: 1.2;
+    }
+
+    /* ── STEP 2: Main LP ── */
+    .hero { text-align: center; margin-bottom: 22px; animation: fadeUp .5s ease both; }
+    .hero h1 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 2.2rem; font-weight: 900;
+      line-height: 1.1; color: var(--text);
+    }
+    .hero h1 .hl { color: var(--primary); text-shadow: 0 0 28px var(--glow); }
+    .hero p { margin-top: 8px; font-size: .92rem; color: var(--muted); font-weight: 500; }
+
+    .badge-row { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(168,85,247,.12);
+      border: 1px solid rgba(192,132,252,.3);
+      border-radius: 999px; padding: 5px 14px;
+      font-size: .75rem; font-weight: 700; color: var(--primary);
+      letter-spacing: .02em;
+    }
+    .badge svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    .game-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(124,58,237,.15);
+      border: 1px solid rgba(192,132,252,.25);
+      border-radius: 999px; padding: 4px 12px 4px 6px;
+      font-size: .75rem; font-weight: 700; color: var(--primary);
+    }
+    .game-pill img { width: 22px; height: 22px; border-radius: 6px; }
+
+    .hero-sub { margin-top: 10px; font-size: .77rem; color: var(--muted); font-weight: 500; }
+
+    /* ── CTA Button ── */
+    .cta-btn {
+      width: 100%; margin: 20px 0 12px;
+      padding: 17px;
+      background: linear-gradient(135deg, var(--primary), var(--primary2), var(--primary3));
+      border: none; border-radius: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem; font-weight: 900;
+      color: #fff; cursor: pointer;
+      box-shadow: 0 6px 36px rgba(124,58,237,.55);
+      transition: transform .15s, box-shadow .15s;
+      animation: fadeUp .55s .1s ease both, cta-pulse 3s 1.5s ease-in-out infinite;
+      display: block; text-decoration: none; text-align: center; line-height: normal;
+      touch-action: manipulation; -webkit-appearance: none;
+      letter-spacing: .01em;
+    }
+    @keyframes cta-pulse {
+      0%,100% { box-shadow: 0 6px 36px rgba(124,58,237,.55); }
+      50%      { box-shadow: 0 10px 50px rgba(124,58,237,.85); }
+    }
+    .cta-btn:active { transform: scale(.97); }
+
+    /* ── Trust row ── */
+    .trust {
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      font-size: .73rem; color: var(--muted); margin-bottom: 22px;
+      animation: fadeUp .6s .15s ease both;
+      flex-wrap: wrap;
+    }
+    .trust-item { display: flex; align-items: center; gap: 5px; }
+    .trust-item::before { content: '✓'; color: var(--primary); font-weight: 800; font-size: .8rem; }
+
+    /* ── How it works card ── */
+    .how-card {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 22px;
+      animation: fadeUp .65s .2s ease both;
+    }
+    .how-title {
+      padding: 16px 20px;
+      font-size: .65rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .how-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 20px; border-bottom: 1px solid var(--border);
+    }
+    .how-num {
+      width: 30px; height: 30px; border-radius: 9px;
+      background: var(--primary2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Nunito', sans-serif;
+      font-size: .8rem; font-weight: 900; color: #fff;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .how-text { display: flex; flex-direction: column; gap: 3px; }
+    .how-text b { font-size: .95rem; font-weight: 700; color: var(--text); }
+    .how-text span { font-size: .8rem; color: var(--muted); line-height: 1.45; }
+
+    /* ── Activation banner ── */
+    .activation-banner {
+      width: 100%;
+      background: rgba(220,38,38,.07);
+      border: 1.5px solid rgba(220,38,38,.45);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 22px;
+      position: relative;
+      animation: fadeUp .68s .22s ease both;
+    }
+    .activation-tag {
+      position: absolute; top: -1px; right: -1px;
+      background: #dc2626;
+      color: #fff;
+      font-size: .6rem; font-weight: 800; letter-spacing: .08em;
+      padding: 4px 10px;
+      border-radius: 0 14px 0 10px;
+    }
+    .activation-body {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding-right: 52px;
+    }
+    .activation-lock { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+    .activation-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: .9rem; font-weight: 800; color: var(--text);
+      margin-bottom: 5px;
+    }
+    .activation-desc {
+      font-size: .78rem; color: var(--muted); line-height: 1.55;
+    }
+    .activation-hl {
+      color: #4ade80; font-weight: 700;
+    }
+
+    /* ── Stats ── */
+    .stats {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; font-size: .73rem; color: var(--muted);
+      animation: fadeUp .7s .25s ease both;
+    }
+    .stats-sep { color: var(--muted2); }
+
+    /* ── Back btn ── */
+    .back-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: .8rem; font-weight: 600;
+      display: flex; align-items: center; gap: 5px;
+      margin-bottom: 20px; padding: 6px 0;
+      transition: color .2s;
+    }
+    .back-btn:hover { color: var(--primary); }
+    .back-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 360px) {
+      .pick-title, .hero h1 { font-size: 1.75rem; }
+      .game-card { padding: 16px 10px 12px; }
+      .game-icon { width: 58px; height: 58px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-layer" id="bgLayer"></div>
+
+<!-- Floating game icons -->
+<img class="float-icon" src="https://i.ibb.co/1JvCb59p/app-clash-BDO5fjxc.png" style="width:58px;height:58px;top:8%;left:6%;--r:-10deg;animation-duration:4.2s;" alt="">
+<img class="float-icon" src="https://i.ibb.co/7d28L07C/app-blocks-BETcljm-M.png" style="width:50px;height:50px;top:22%;right:7%;--r:9deg;animation-duration:3.7s;animation-delay:.8s;" alt="">
+<img class="float-icon" src="https://i.ibb.co/8nKMJnnX/app-subway-DW2-AKz-Zj.png" style="width:44px;height:44px;top:55%;left:3%;--r:6deg;animation-duration:5s;animation-delay:1.5s;" alt="">
+<img class="float-icon" src="https://i.ibb.co/1JvCb59p/app-clash-BDO5fjxc.png" style="width:46px;height:46px;top:70%;right:5%;--r:-12deg;animation-duration:4.5s;animation-delay:.4s;" alt="">
+<img class="float-icon" src="https://i.ibb.co/7d28L07C/app-blocks-BETcljm-M.png" style="width:40px;height:40px;top:40%;right:4%;--r:13deg;animation-duration:3.9s;animation-delay:2s;" alt="">
+
+<div class="page">
+  <div class="inner">
+
+    <!-- Wordmark -->
+    <div class="wordmark">
+      <img src="https://play-lh.googleusercontent.com/Lx-lkUUlaa-VfYYO_bgxW4Cp5a-4X3nfjnEHXt1iHn2FZW15s3ewUH5PT-kq9MrI5vs" class="logo-icon" alt="Playful Rewards" style="object-fit:cover;">
+    </div>
+
+    <!-- Step Bar -->
+    <div class="step-bar">
+      <div class="step-item">
+        <div class="step-num active" id="sn1">1</div>
+        <div class="step-lbl active" id="sl1">Choose</div>
+      </div>
+      <div class="step-connector" id="sc1"></div>
+      <div class="step-item">
+        <div class="step-num" id="sn2">2</div>
+        <div class="step-lbl" id="sl2">Sign Up</div>
+      </div>
+      <div class="step-connector" id="sc2"></div>
+      <div class="step-item">
+        <div class="step-num" id="sn3">3</div>
+        <div class="step-lbl" id="sl3">Earn</div>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 1: Game Picker ── -->
+    <div class="screen" id="screen1">
+      <div class="pick-head">
+        <div class="pick-eyebrow">Step 1 of 3</div>
+        <h1 class="pick-title">Choose Your Game</h1>
+        <p class="pick-sub">Pick a game below to start earning real cash while you play</p>
+      </div>
+
+      <div class="game-grid">
+        <div class="game-card-wrap" onclick="selectGame(this, 'Block Blast', 'https://i.ibb.co/7d28L07C/app-blocks-BETcljm-M.png')">
+          <canvas class="arc-canvas"></canvas>
+          <div class="game-card">
+            <div class="check-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <img class="game-icon" src="https://i.ibb.co/7d28L07C/app-blocks-BETcljm-M.png" alt="Block Blast">
+            <div class="game-meta">
+              <div class="game-tag">Get Paid To Play</div>
+              <div class="game-name">Block Blast</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-card-wrap" onclick="selectGame(this, 'Clash Royale', 'https://i.ibb.co/1JvCb59p/app-clash-BDO5fjxc.png')">
+          <canvas class="arc-canvas"></canvas>
+          <div class="game-card">
+            <div class="check-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <img class="game-icon" src="https://i.ibb.co/1JvCb59p/app-clash-BDO5fjxc.png" alt="Clash Royale">
+            <div class="game-meta">
+              <div class="game-tag">Get Paid To Play</div>
+              <div class="game-name">Clash Royale</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-card-wrap" onclick="selectGame(this, 'Subway Surfers', 'https://i.ibb.co/8nKMJnnX/app-subway-DW2-AKz-Zj.png')">
+          <canvas class="arc-canvas"></canvas>
+          <div class="game-card">
+            <div class="check-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <img class="game-icon" src="https://i.ibb.co/8nKMJnnX/app-subway-DW2-AKz-Zj.png" alt="Subway Surfers">
+            <div class="game-meta">
+              <div class="game-tag">Get Paid To Play</div>
+              <div class="game-name">Subway Surfers</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-card-wrap" onclick="selectGame(this, 'Roblox', 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Roblox_Logo_2025.png')">
+          <canvas class="arc-canvas"></canvas>
+          <div class="game-card">
+            <div class="check-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <img class="game-icon" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Roblox_Logo_2025.png" alt="Roblox">
+            <div class="game-meta">
+              <div class="game-tag">Get Paid To Play</div>
+              <div class="game-name">Roblox</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats" style="margin-top:20px;">
+        <span>10M+ Users</span>
+        <span class="stats-sep">·</span>
+        <span>$50M+ Paid Out</span>
+        <span class="stats-sep">·</span>
+        <span>🇺🇸 US</span>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 2: Main LP ── -->
+    <div class="screen hidden" id="screen2">
+
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back
+      </button>
+
+      <!-- Hero -->
+      <div class="hero">
+        <h1>Get Paid To <span class="hl">Play</span></h1>
+        <p>Earn real cash playing games &amp; completing tasks!</p>
+        <div class="badge-row">
+          <div class="badge">
+            <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+            $10 SIGN-UP BONUS!
+          </div>
+          <div class="game-pill" id="gamePill">
+            <img id="pillImg" src="" alt="">
+            <span id="pillName">Block Blast</span>
+          </div>
+        </div>
+        <p class="hero-sub">🎮 Play games, take surveys &amp; watch videos for cash</p>
+      </div>
+
+      <!-- CTA -->
+      <a class="cta-btn" href="https://linkthem.net/aff_c?offer_id=4439&aff_id=88388&source=PLY1" onclick="handleClick(event)">Download Now — It's Free →</a>
+
+      <!-- Trust -->
+      <div class="trust">
+        <div class="trust-item">Free</div>
+        <div class="trust-item">Instant Payout</div>
+        <div class="trust-item">No Credit Card</div>
+      </div>
+
+      <!-- How it works -->
+      <div class="how-card">
+        <div class="how-title">HOW IT WORKS</div>
+        <div class="how-item">
+          <div class="how-num">1</div>
+          <div class="how-text">
+            <b>Download the App</b>
+            <span>iOS &amp; Android — takes less than 60 seconds</span>
+          </div>
+        </div>
+        <div class="how-item">
+          <div class="how-num">2</div>
+          <div class="how-text">
+            <b>Play Featured Games</b>
+            <span>Block Blast, Clash Royale, Subway Surfers, Roblox &amp; more</span>
+          </div>
+        </div>
+        <div class="how-item" style="border-bottom:none;">
+          <div class="how-num">3</div>
+          <div class="how-text">
+            <b>Cash Out Instantly</b>
+            <span>PayPal, CashApp, Venmo, Crypto &amp; Wire</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activation banner -->
+      <div class="activation-banner">
+        <div class="activation-tag">IMPORTANT</div>
+        <div class="activation-body">
+          <span class="activation-lock">🔒</span>
+          <div>
+            <div class="activation-title">Activation Required</div>
+            <div class="activation-desc">New users: Complete <span class="activation-hl">2 quick offers</span> to unlock full access and start earning with paid-to-scroll features and top Games like Roblox, Subway Surfers, and more.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats">
+        <span>10M+ Users</span>
+        <span class="stats-sep">·</span>
+        <span>$50M+ Paid Out</span>
+        <span class="stats-sep">·</span>
+        <span>🇺🇸 US</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ── Particles ── */
+(function() {
+  const layer = document.getElementById('bgLayer');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 3 + 1.5;
+    p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;bottom:${Math.random()*20}%;animation-duration:${Math.random()*10+8}s;animation-delay:${Math.random()*8}s;`;
+    layer.appendChild(p);
+  }
+})();
+
+/* ── Canvas arc spinner ── */
+const canvases = document.querySelectorAll('canvas.arc-canvas');
+let arcAngle = 0;
+let arcRafId = null;
+
+function initCanvas(cv) {
+  const wrap = cv.parentElement;
+  const r = wrap.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  cv.width  = r.width  * dpr;
+  cv.height = r.height * dpr;
+  const ctx = cv.getContext('2d');
+  ctx.scale(dpr, dpr);
+  cv._w = r.width;
+  cv._h = r.height;
+}
+
+function drawArc(cv, angle) {
+  const ctx = cv.getContext('2d');
+  const w = cv._w, h = cv._h;
+  if (!w) return;
+  ctx.clearRect(0, 0, w, h);
+
+  const radius = 20; // border-radius of card
+  const lw = 3;
+  const half = lw / 2;
+  const x = half, y = half, rw = w - lw, rh = h - lw;
+
+  /* build rounded-rect path */
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + rw - radius, y);
+  ctx.arcTo(x + rw, y, x + rw, y + radius, radius);
+  ctx.lineTo(x + rw, y + rh - radius);
+  ctx.arcTo(x + rw, y + rh, x + rw - radius, y + rh, radius);
+  ctx.lineTo(x + radius, y + rh);
+  ctx.arcTo(x, y + rh, x, y + rh - radius, radius);
+  ctx.lineTo(x, y + radius);
+  ctx.arcTo(x, y, x + radius, y, radius);
+  ctx.closePath();
+
+  /* perimeter for dashoffset calc */
+  const perim = 2 * ((rw - 2*radius) + (rh - 2*radius)) + 2 * Math.PI * radius;
+  const arcLen = perim * 0.28; /* arc length = 28% of perimeter */
+
+  const grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0,   'rgba(232,121,249,0)');
+  grad.addColorStop(0.3, '#e879f9');
+  grad.addColorStop(0.6, '#a855f7');
+  grad.addColorStop(1,   'rgba(124,58,237,0.8)');
+
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = lw;
+  ctx.lineCap = 'round';
+  ctx.setLineDash([arcLen, perim - arcLen]);
+  ctx.lineDashOffset = -angle * perim;
+
+  ctx.shadowColor = '#c084fc';
+  ctx.shadowBlur = 8;
+  ctx.stroke();
+}
+
+function arcLoop() {
+  arcAngle = (arcAngle + 0.008) % 1;
+  canvases.forEach(cv => {
+    if (cv.classList.contains('active-arc') || cv.parentElement.classList.contains('seq-glow') || cv.parentElement.classList.contains('selected-card')) {
+      drawArc(cv, arcAngle);
+    }
+  });
+  arcRafId = requestAnimationFrame(arcLoop);
+}
+
+window.addEventListener('load', () => {
+  canvases.forEach(initCanvas);
+  arcLoop();
+});
+window.addEventListener('resize', () => canvases.forEach(initCanvas));
+
+/* ── Sequential card sequencer ── */
+let _seqIndex = 0;
+let _seqTimer = null;
+const SEQ_INTERVAL = 900;
+
+function startSequence() {
+  const wraps = document.querySelectorAll('.game-card-wrap');
+  function step() {
+    wraps.forEach(w => w.classList.remove('seq-glow'));
+    wraps[_seqIndex].classList.add('seq-glow');
+    _seqIndex = (_seqIndex + 1) % wraps.length;
+    _seqTimer = setTimeout(step, SEQ_INTERVAL);
+  }
+  step();
+}
+function stopSequence() {
+  clearTimeout(_seqTimer);
+  document.querySelectorAll('.game-card-wrap').forEach(w => w.classList.remove('seq-glow'));
+}
+
+startSequence();
+
+/* ── Game selection ── */
+let _selectedGame = null;
+let _selectedImg  = null;
+
+function selectGame(wrap, name, img) {
+  stopSequence();
+  document.querySelectorAll('.game-card-wrap').forEach(c => c.classList.remove('selected-card'));
+  wrap.classList.add('selected-card');
+  _selectedGame = name;
+  _selectedImg  = img;
+  setTimeout(goToStep2, 380);
+}
+
+/* ── Step transitions ── */
+function goToStep2() {
+  if (!_selectedGame) return;
+  document.getElementById('sn1').classList.remove('active');
+  document.getElementById('sn1').classList.add('done');
+  document.getElementById('sl1').classList.remove('active');
+  document.getElementById('sc1').classList.add('done');
+  document.getElementById('sn2').classList.add('active');
+  document.getElementById('sl2').classList.add('active');
+  document.getElementById('pillName').textContent = _selectedGame;
+  document.getElementById('pillImg').src = _selectedImg;
+  document.getElementById('screen1').classList.add('hidden');
+  const s2 = document.getElementById('screen2');
+  s2.classList.remove('hidden');
+  s2.classList.add('enter');
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  document.getElementById('sn1').classList.add('active');
+  document.getElementById('sn1').classList.remove('done');
+  document.getElementById('sl1').classList.add('active');
+  document.getElementById('sc1').classList.remove('done');
+  document.getElementById('sn2').classList.remove('active');
+  document.getElementById('sl2').classList.remove('active');
+  document.querySelectorAll('.game-card-wrap').forEach(c => c.classList.remove('selected-card', 'seq-glow'));
+  document.getElementById('screen2').classList.add('hidden');
+  document.getElementById('screen1').classList.remove('hidden');
+  _seqIndex = 0;
+  startSequence();
+  window.scrollTo(0, 0);
+}
+
+/* ── CTA click handler ── */
+async function handleClick(event) {
+  event.preventDefault();
+  const urlParams = new URLSearchParams(window.location.search);
+  const ttclid = urlParams.get('ttclid') || '';
+  try {
+    if (window.ttq) {
+      ttq.track('AddToCart',            { content_type: 'product', content_id: 'playful-rewards', value: 1.00, currency: 'USD' });
+      ttq.track('CompleteRegistration', { content_type: 'product', content_id: 'playful-rewards', value: 1.00, currency: 'USD' });
+      ttq.track('Purchase',             { content_type: 'product', content_id: 'playful-rewards', value: 1.00, currency: 'USD' });
+    }
+  } catch (e) {}
+  const events = ['AddToCart', 'CompleteRegistration', 'Purchase'];
+  const prefixes = ['atc_', 'reg_', 'pur_'];
+  for (let i = 0; i < events.length; i++) {
+    try {
+      await fetch('/api/cpi', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event_name: events[i], event_id: prefixes[i] + Date.now() + '_' + Math.random().toString(36).substr(2,9), ttclid, user_agent: navigator.userAgent, page_url: window.location.href, referrer_url: document.referrer, selected_game: _selectedGame }) });
+    } catch (e) {}
+  }
+  const baseUrl = 'https://linkthem.net/aff_c?offer_id=4439&aff_id=88388&source=PLY1';
+  const qs = window.location.search;
+  window.location.href = qs ? baseUrl + (baseUrl.includes('?') ? '&' : '?') + qs.substring(1) : baseUrl;
+}
+</script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"026d1f61bbfb423a96f53124a981a0a5","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
