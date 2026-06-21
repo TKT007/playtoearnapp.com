@@ -69,12 +69,20 @@
     .wordmark-text .w1 { color: var(--text); }
     .wordmark-text .w2 { background: linear-gradient(90deg, #a76cf8, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .hero { text-align: center; margin-bottom: 20px; animation: fadeUp .55s .05s ease both; }
-    .hero h1 { font-size: 2.1rem; font-weight: 900; line-height: 1.1; color: var(--text); }
-    .hero h1 .hl { background: linear-gradient(90deg, #a76cf8, #c44fd4, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero p { margin-top: 6px; font-size: .9rem; color: var(--muted); }
-    .badge { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; background: rgba(167,108,248,.12); border: 1px solid rgba(167,108,248,.32); border-radius: 999px; padding: 5px 14px; font-size: .75rem; font-weight: 700; }
-    .badge svg { width: 13px; height: 13px; flex-shrink: 0; }
-    .badge-text { background: linear-gradient(90deg, #a76cf8, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero h1 { font-size: 2.8rem; font-weight: 900; line-height: 1.05; color: var(--text); letter-spacing: -.02em; }
+    .hero h1 .hl { background: linear-gradient(90deg, #a76cf8, #c44fd4, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; }
+    .hero p { margin-top: 14px; font-size: .95rem; color: var(--muted); line-height: 1.6; max-width: 340px; margin-left: auto; margin-right: auto; }
+
+    .trustpilot { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 22px; margin-bottom: 16px; }
+    .tp-stars { display: flex; gap: 3px; }
+    .tp-star { width: 26px; height: 26px; background: #22c55e; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: .85rem; color: #fff; }
+    .tp-text { text-align: left; }
+    .tp-text b { display: block; font-size: .9rem; font-weight: 800; color: var(--text); }
+    .tp-text span { font-size: .72rem; color: var(--muted); }
+    .tp-text span b { display: inline; font-size: .72rem; color: var(--text); }
+
+    .trust-badges { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+    .trust-badge { display: flex; align-items: center; gap: 6px; padding: 7px 14px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 999px; font-size: .75rem; font-weight: 500; color: var(--muted); }
     .cta-btn {
       width: 100%; margin: 18px 0 10px; padding: 16px;
       background: linear-gradient(135deg, #5b8af8 0%, #a76cf8 35%, #c44fd4 65%, #f472b6 100%);
@@ -91,9 +99,15 @@
       0%,100% { box-shadow: 0 6px 32px rgba(167,108,248,.45); }
       50%      { box-shadow: 0 8px 44px rgba(196,79,212,.7); }
     }
+    .cta-btn .arrow, .sticky-cta a .arrow {
+      font-family: Arial, sans-serif;
+      font-weight: 400;
+      font-size: 1.2em;
+      margin-left: 2px;
+    }
     .cta-btn:active { transform: scale(.97); }
-    .trust { display: flex; align-items: center; justify-content: center; gap: 18px; font-size: .72rem; color: var(--muted); margin-bottom: 20px; animation: fadeUp .6s .15s ease both; }
-    .trust span::before { content: '✓ '; color: var(--accent); font-weight: 700; }
+    .trust { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: .75rem; color: var(--muted); margin-bottom: 20px; animation: fadeUp .6s .15s ease both; }
+    .trust .t-sep { color: var(--muted2); }
     .sticky-cta {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
       padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
@@ -315,8 +329,39 @@
       margin-bottom: 8px; letter-spacing: -.02em;
     }
     .result-perday {
-      font-size: .85rem; color: var(--muted); margin-bottom: 24px;
+      font-size: .82rem; color: var(--muted); margin-bottom: 16px;
     }
+    .result-urgency {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      font-size: .73rem; color: var(--muted);
+      background: rgba(167,108,248,.08);
+      border: 1px solid rgba(167,108,248,.18);
+      border-radius: 999px; padding: 6px 14px;
+      margin-bottom: 18px;
+    }
+    .result-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #22c55e; flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(34,197,94,.2);
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { box-shadow: 0 0 0 3px rgba(34,197,94,.2); }
+      50%      { box-shadow: 0 0 0 6px rgba(34,197,94,.08); }
+    }
+    #resultViewers { color: var(--text); font-weight: 700; }
+    .result-perks {
+      width: 100%; background: #0f0a1f;
+      border: 1px solid rgba(167,108,248,.12);
+      border-radius: 14px; padding: 14px 16px;
+      display: flex; flex-direction: column; gap: 10px;
+      margin-bottom: 20px; text-align: left;
+    }
+    .result-perk {
+      display: flex; align-items: center; gap: 10px;
+      font-size: .78rem; color: var(--muted); line-height: 1.4;
+    }
+    .result-perk svg { flex-shrink: 0; }
     .result-disclaimer {
       background: #0f0a1f;
       border: 1px solid rgba(167,108,248,.12);
@@ -368,19 +413,40 @@
     </div>
 
     <div class="hero">
-      <h1>Get Paid For Testing <span class="hl">Apps &amp; Games</span></h1>
-      <p>Play games you'd play anyway and earn <strong>real cash</strong>: PayPal, gift cards &amp; more.</p>
-      <div class="badge">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="color:#a76cf8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <span class="badge-text">Real cash. Not in-game lives or boosters.</span>
+      <h1>Stop Using Your<br><span class="hl">Phone For Free</span></h1>
+      <p>Earn <strong>real cash</strong> by playing games, testing apps, and answering quick surveys. Cash out anytime to PayPal, Venmo, or your bank.</p>
+
+      <div class="trustpilot">
+        <div class="tp-stars">
+          <span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span><span class="tp-star">★</span>
+        </div>
+        <div class="tp-text">
+          <b>Excellent</b>
+          <span>34,937 reviews on <b>Trustpilot</b></span>
+        </div>
+      </div>
+
+      <div class="trust-badges">
+        <div class="trust-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          Encrypted
+        </div>
+        <div class="trust-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+          No credit card
+        </div>
+        <div class="trust-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+          2M+ users
+        </div>
       </div>
     </div>
 
-    <button class="cta-btn" id="mainCta" onclick="openQuiz()">See What You Could Earn →</button>
+    <button class="cta-btn" id="mainCta" onclick="openQuiz()">See What You Could Earn <span class="arrow">→</span></button>
 
     <div class="trust">
-      <span>Free</span>
-      <span>Instant Payout</span>
+      <span>Free</span><span class="t-sep">·</span>
+      <span>Instant Payout</span><span class="t-sep">·</span>
       <span>60-second signup</span>
     </div>
 
@@ -438,7 +504,7 @@
 </div>
 
 <div class="sticky-cta" id="stickyCta">
-  <a id="stickyCtaBtn" href="#" onclick="openQuiz(); return false;">See What You Could Earn →</a>
+  <a id="stickyCtaBtn" href="#" onclick="openQuiz(); return false;">See What You Could Earn <span class="arrow">→</span></a>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -594,17 +660,35 @@
         <div class="result-check">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
         </div>
-        <div class="result-sublabel">Your daily estimate</div>
+        <div class="result-sublabel">Your spot is reserved</div>
         <div class="result-amount" id="resultAmount">$130–$260</div>
-        <div class="result-perday">per day, based on your answers</div>
-        <div class="result-disclaimer">
-          Estimates are based on completed deals from users with similar preferences. Actual earnings depend on deal availability and consistency. In-app spending is optional and can increase the upper range.
+        <div class="result-perday">per day waiting for you to claim</div>
+
+        <div class="result-urgency">
+          <span class="result-dot"></span>
+          <span id="resultViewers">847 people</span> viewed this offer in the last hour
         </div>
+
+        <div class="result-perks">
+          <div class="result-perk">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            <span>$10 welcome bonus added to your account</span>
+          </div>
+          <div class="result-perk">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            <span>Cash out same day via PayPal or Venmo</span>
+          </div>
+          <div class="result-perk">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            <span>No credit card. No personal info required.</span>
+          </div>
+        </div>
+
         <a class="result-claim" id="resultClaimBtn" href="#">
-          Claim my spot
+          Claim My $10 Bonus Now
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
         </a>
-        <div class="result-foot">No credit card. Instant $10 welcome bonus.</div>
+        <div class="result-foot">Free forever. Takes 60 seconds to start.</div>
       </div>
 
     </div><!-- /quiz-body -->
