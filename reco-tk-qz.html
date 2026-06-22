@@ -144,59 +144,13 @@
     .step-body { flex: 1; text-align: left; }
     .step-body b { display: block; font-size: .95rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
     .step-body span { font-size: .78rem; color: var(--muted); line-height: 1.4; }
-    .boost-banner {
-      width: 100%;
-      background: linear-gradient(135deg, #221705 0%, #1a1208 100%);
-      border: 1px solid rgba(251,191,36,.35);
-      border-radius: 18px; padding: 20px 20px 18px;
-      margin-bottom: 20px; position: relative; overflow: hidden;
-      text-align: center;
-      animation: fadeUp .68s .22s ease both;
-      box-shadow: 0 0 32px rgba(251,191,36,.18), inset 0 0 40px rgba(251,191,36,.04);
-    }
-    .boost-banner::before {
-      content: ''; position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
-      width: 140%; height: 80%;
-      background: radial-gradient(ellipse at center, rgba(251,191,36,.18) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .boost-badge {
-      display: inline-block; position: relative;
-      background: linear-gradient(135deg, #fbbf24, #f59e0b);
-      color: #1a1208; font-size: .65rem; font-weight: 900;
-      letter-spacing: .5px; text-transform: uppercase;
-      padding: 5px 14px; border-radius: 999px; margin-bottom: 12px;
-      box-shadow: 0 4px 14px rgba(251,191,36,.4);
-    }
-    .boost-headline {
-      position: relative;
-      font-size: 1.45rem; font-weight: 900; color: var(--text);
-      line-height: 1.15; margin-bottom: 10px; letter-spacing: -.01em;
-    }
-    .boost-hl {
-      background: linear-gradient(90deg, #fbbf24, #f59e0b);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .boost-text {
-      position: relative;
-      font-size: .82rem; color: var(--muted); line-height: 1.55;
-      margin-bottom: 14px;
-    }
-    .boost-text b { color: #fbbf24; font-weight: 700; }
-    .boost-foot {
-      position: relative;
-      display: inline-flex; align-items: center; gap: 7px;
-      font-size: .72rem; font-weight: 700; color: #fbbf24;
-    }
-    .boost-dot {
-      width: 7px; height: 7px; border-radius: 50%; background: #fbbf24;
-      box-shadow: 0 0 0 3px rgba(251,191,36,.2);
-      animation: pulse-dot-y 1.5s ease-in-out infinite;
-    }
-    @keyframes pulse-dot-y {
-      0%,100% { box-shadow: 0 0 0 3px rgba(251,191,36,.25); }
-      50%      { box-shadow: 0 0 0 6px rgba(251,191,36,.08); }
-    }
+    .challenge-banner { width: 100%; background: linear-gradient(135deg, #1a0d2e 0%, #150a22 100%); border: 1px solid rgba(196,79,212,.3); border-radius: 16px; padding: 16px 18px; display: flex; align-items: center; gap: 14px; margin-bottom: 20px; position: relative; overflow: hidden; animation: fadeUp .68s .22s ease both; box-shadow: 0 0 24px rgba(196,79,212,.12); }
+    .challenge-banner::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(167,108,248,.07), transparent); animation: shimmer-banner 4s ease-in-out infinite; }
+    @keyframes shimmer-banner { 0%,100% { left: -100%; } 50% { left: 100%; } }
+    .challenge-icon { font-size: 1.6rem; flex-shrink: 0; filter: drop-shadow(0 2px 6px rgba(196,79,212,.4)); }
+    .challenge-body { flex: 1; text-align: left; }
+    .challenge-label { font-size: .6rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #c44fd4; margin-bottom: 4px; }
+    .challenge-title { font-size: .92rem; font-weight: 800; color: var(--text); line-height: 1.3; }
     .stats { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: .72rem; color: var(--muted); animation: fadeUp .7s .25s ease both; }
     .stats-sep { color: var(--muted2); }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
@@ -585,13 +539,12 @@
       </div>
     </div>
 
-    <div class="boost-banner">
-      <div class="boost-badge">💰 Boosted Earnings</div>
-      <div class="boost-headline">Spend <span class="boost-hl">$10</span>, Make <span class="boost-hl">$100+</span> Back</div>
-      <div class="boost-text">Top earners unlock <b>high-value milestones</b> by making a small in-app purchase on any game. It's optional, but it's how members hit the upper payout tiers fastest.</div>
-      <div class="boost-foot">
-        <span class="boost-dot"></span>
-        Limited boosted slots available today
+    <div class="challenge-banner" style="position:relative;">
+      <div style="position:absolute;top:-1px;right:-1px;background:linear-gradient(135deg,#a76cf8,#c44fd4);border-radius:0 16px 0 10px;padding:5px 12px;font-size:.6rem;font-weight:800;letter-spacing:1px;color:#fff;text-transform:uppercase;">Important</div>
+      <div class="challenge-icon">🔒</div>
+      <div class="challenge-body">
+        <div class="challenge-label" style="color:var(--primary);">Activation Required</div>
+        <div class="challenge-title" style="-webkit-text-fill-color:unset;color:var(--text);font-weight:600;">New users: Complete <span style="background:linear-gradient(90deg,#a76cf8,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;">2 quick offers</span> to unlock full access and start earning</div>
       </div>
     </div>
 
