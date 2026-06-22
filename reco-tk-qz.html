@@ -99,11 +99,10 @@
       0%,100% { box-shadow: 0 6px 32px rgba(167,108,248,.45); }
       50%      { box-shadow: 0 8px 44px rgba(196,79,212,.7); }
     }
-    .cta-btn .arrow, .sticky-cta a .arrow {
-      font-family: Arial, sans-serif;
-      font-weight: 400;
-      font-size: 1.2em;
-      margin-left: 2px;
+    .cta-arrow {
+      width: 18px; height: 18px;
+      display: inline-block; vertical-align: middle;
+      margin-left: 4px;
     }
     .cta-btn:active { transform: scale(.97); }
     .trust { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: .75rem; color: var(--muted); margin-bottom: 20px; animation: fadeUp .6s .15s ease both; }
@@ -145,13 +144,59 @@
     .step-body { flex: 1; text-align: left; }
     .step-body b { display: block; font-size: .95rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
     .step-body span { font-size: .78rem; color: var(--muted); line-height: 1.4; }
-    .challenge-banner { width: 100%; background: linear-gradient(135deg, #1a0d2e 0%, #150a22 100%); border: 1px solid rgba(196,79,212,.3); border-radius: 16px; padding: 16px 18px; display: flex; align-items: center; gap: 14px; margin-bottom: 20px; position: relative; overflow: hidden; animation: fadeUp .68s .22s ease both; box-shadow: 0 0 24px rgba(196,79,212,.12); }
-    .challenge-banner::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(167,108,248,.07), transparent); animation: shimmer-banner 4s ease-in-out infinite; }
-    @keyframes shimmer-banner { 0%,100% { left: -100%; } 50% { left: 100%; } }
-    .challenge-icon { font-size: 1.6rem; flex-shrink: 0; filter: drop-shadow(0 2px 6px rgba(196,79,212,.4)); }
-    .challenge-body { flex: 1; text-align: left; }
-    .challenge-label { font-size: .6rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #c44fd4; margin-bottom: 4px; }
-    .challenge-title { font-size: .92rem; font-weight: 800; color: var(--text); line-height: 1.3; }
+    .boost-banner {
+      width: 100%;
+      background: linear-gradient(135deg, #221705 0%, #1a1208 100%);
+      border: 1px solid rgba(251,191,36,.35);
+      border-radius: 18px; padding: 20px 20px 18px;
+      margin-bottom: 20px; position: relative; overflow: hidden;
+      text-align: center;
+      animation: fadeUp .68s .22s ease both;
+      box-shadow: 0 0 32px rgba(251,191,36,.18), inset 0 0 40px rgba(251,191,36,.04);
+    }
+    .boost-banner::before {
+      content: ''; position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
+      width: 140%; height: 80%;
+      background: radial-gradient(ellipse at center, rgba(251,191,36,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .boost-badge {
+      display: inline-block; position: relative;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #1a1208; font-size: .65rem; font-weight: 900;
+      letter-spacing: .5px; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 999px; margin-bottom: 12px;
+      box-shadow: 0 4px 14px rgba(251,191,36,.4);
+    }
+    .boost-headline {
+      position: relative;
+      font-size: 1.45rem; font-weight: 900; color: var(--text);
+      line-height: 1.15; margin-bottom: 10px; letter-spacing: -.01em;
+    }
+    .boost-hl {
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .boost-text {
+      position: relative;
+      font-size: .82rem; color: var(--muted); line-height: 1.55;
+      margin-bottom: 14px;
+    }
+    .boost-text b { color: #fbbf24; font-weight: 700; }
+    .boost-foot {
+      position: relative;
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: .72rem; font-weight: 700; color: #fbbf24;
+    }
+    .boost-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: #fbbf24;
+      box-shadow: 0 0 0 3px rgba(251,191,36,.2);
+      animation: pulse-dot-y 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-dot-y {
+      0%,100% { box-shadow: 0 0 0 3px rgba(251,191,36,.25); }
+      50%      { box-shadow: 0 0 0 6px rgba(251,191,36,.08); }
+    }
     .stats { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: .72rem; color: var(--muted); animation: fadeUp .7s .25s ease both; }
     .stats-sep { color: var(--muted2); }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
@@ -311,33 +356,100 @@
     .quiz-result { display: none; text-align: center; }
     .quiz-result.active { display: block; animation: qSlideIn .35s ease both; }
 
-    .result-check {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: rgba(34,197,94,.14);
-      display: flex; align-items: center; justify-content: center;
-      margin: 4px auto 20px;
+    .result-ready-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.3);
+      color: #22c55e; font-size: .68rem; font-weight: 800;
+      letter-spacing: .5px; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 14px;
+    }
+    .result-headline {
+      font-size: 1.5rem; font-weight: 900; color: var(--text);
+      line-height: 1.15; margin-bottom: 18px; letter-spacing: -.01em;
+    }
+    .result-estimate-box {
+      width: 100%; background: #0f0a1f;
+      border: 1px solid rgba(167,108,248,.15);
+      border-radius: 16px; padding: 16px; margin-bottom: 14px;
     }
     .result-sublabel {
       font-size: .6rem; font-weight: 800; letter-spacing: 2px;
       text-transform: uppercase; color: var(--muted);
-      margin-bottom: 10px;
+      margin-bottom: 6px;
     }
     .result-amount {
-      font-size: 3rem; font-weight: 900; line-height: 1;
+      font-size: 2.6rem; font-weight: 900; line-height: 1;
       background: linear-gradient(90deg, #a76cf8, #c44fd4, #f472b6);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      margin-bottom: 8px; letter-spacing: -.02em;
+      margin-bottom: 4px; letter-spacing: -.02em;
     }
     .result-perday {
-      font-size: .82rem; color: var(--muted); margin-bottom: 16px;
+      font-size: .78rem; color: var(--muted);
     }
+
+    /* boosted earnings */
+    .result-boost {
+      width: 100%; position: relative;
+      background: linear-gradient(135deg, #221705 0%, #1a1208 100%);
+      border: 1px solid rgba(251,191,36,.4);
+      border-radius: 16px; padding: 18px 16px 16px;
+      margin-bottom: 16px; overflow: hidden;
+      box-shadow: 0 0 28px rgba(251,191,36,.18), inset 0 0 36px rgba(251,191,36,.04);
+    }
+    .result-boost::before {
+      content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+      width: 130%; height: 90%;
+      background: radial-gradient(ellipse at center, rgba(251,191,36,.16) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .result-boost-top {
+      position: relative; display: flex; align-items: center; justify-content: center;
+      gap: 8px; margin-bottom: 8px; flex-wrap: wrap;
+    }
+    .result-boost-label {
+      font-size: .65rem; font-weight: 800; letter-spacing: .3px;
+      text-transform: uppercase; color: #fbbf24;
+    }
+    .result-boost-tag {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #1a1208; font-size: .58rem; font-weight: 900;
+      text-transform: uppercase; letter-spacing: .5px;
+      padding: 3px 9px; border-radius: 999px;
+    }
+    .result-boost-limited {
+      position: relative; display: inline-flex; align-items: center; gap: 5px;
+      border: 1px solid rgba(251,191,36,.4); border-radius: 999px;
+      color: #fbbf24; font-size: .6rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .5px;
+      padding: 3px 10px; margin-bottom: 12px;
+    }
+    .result-boost-amount {
+      position: relative; font-size: 2.3rem; font-weight: 900; line-height: 1;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b, #f472b6);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 14px; letter-spacing: -.02em;
+    }
+    .result-boost-divider {
+      position: relative; display: flex; align-items: center; gap: 10px;
+      margin-bottom: 10px;
+    }
+    .result-boost-divider::before, .result-boost-divider::after {
+      content: ''; flex: 1; height: 1px; background: rgba(251,191,36,.25);
+    }
+    .result-boost-divider span {
+      font-size: .58rem; font-weight: 800; letter-spacing: 1px;
+      text-transform: uppercase; color: rgba(251,191,36,.7);
+    }
+    .result-boost-text {
+      position: relative; font-size: .76rem; color: var(--muted);
+      line-height: 1.55;
+    }
+    .result-boost-text b { color: #fbbf24; font-weight: 800; }
+
     .result-urgency {
       display: flex; align-items: center; justify-content: center; gap: 7px;
-      font-size: .73rem; color: var(--muted);
-      background: rgba(167,108,248,.08);
-      border: 1px solid rgba(167,108,248,.18);
-      border-radius: 999px; padding: 6px 14px;
-      margin-bottom: 18px;
+      font-size: .72rem; color: var(--muted);
+      margin-bottom: 16px;
     }
     .result-dot {
       width: 7px; height: 7px; border-radius: 50%;
@@ -350,43 +462,31 @@
       50%      { box-shadow: 0 0 0 6px rgba(34,197,94,.08); }
     }
     #resultViewers { color: var(--text); font-weight: 700; }
-    .result-perks {
-      width: 100%; background: #0f0a1f;
-      border: 1px solid rgba(167,108,248,.12);
-      border-radius: 14px; padding: 14px 16px;
-      display: flex; flex-direction: column; gap: 10px;
-      margin-bottom: 20px; text-align: left;
-    }
-    .result-perk {
-      display: flex; align-items: center; gap: 10px;
-      font-size: .78rem; color: var(--muted); line-height: 1.4;
-    }
-    .result-perk svg { flex-shrink: 0; }
-    .result-disclaimer {
-      background: #0f0a1f;
-      border: 1px solid rgba(167,108,248,.12);
-      border-radius: 14px; padding: 14px 16px;
-      text-align: left; font-size: .73rem;
-      color: var(--muted); line-height: 1.6; margin-bottom: 20px;
-    }
+
     .result-claim {
       width: 100%; padding: 17px;
-      background: #22c55e; border: none; border-radius: 16px;
-      font-size: 1rem; font-weight: 800; color: #fff; cursor: pointer;
-      box-shadow: 0 6px 28px rgba(34,197,94,.32);
+      background: #22c55e;
+      border: none; border-radius: 16px;
+      font-size: 1.05rem; font-weight: 900; color: #fff; cursor: pointer;
+      box-shadow: 0 6px 28px rgba(34,197,94,.35);
       transition: transform .12s, box-shadow .15s;
       display: flex; align-items: center; justify-content: center; gap: 6px;
-      text-decoration: none; text-shadow: 0 1px 3px rgba(0,0,0,.15);
+      text-decoration: none; text-shadow: 0 1px 3px rgba(0,0,0,.2);
       margin-bottom: 10px;
+      animation: claim-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes claim-pulse {
+      0%,100% { box-shadow: 0 6px 28px rgba(34,197,94,.35); }
+      50%      { box-shadow: 0 8px 40px rgba(34,197,94,.6); }
     }
     .result-claim:active { transform: scale(.97); }
-    .result-claim svg { width: 16px; height: 16px; }
+    .result-claim svg { width: 17px; height: 17px; }
     .result-foot {
-      font-size: .7rem; color: var(--muted2); text-align: center;
+      font-size: .68rem; color: var(--muted2); text-align: center;
     }
 
     /* confetti */
-    .result-confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: 28px 28px 0 0; }
+    .result-confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: 24px; }
     .conf-dot {
       position: absolute; border-radius: 50%;
       animation: confFall 1s ease-out both;
@@ -413,7 +513,7 @@
     </div>
 
     <div class="hero">
-      <h1>Stop Using Your<br><span class="hl">Phone For Free</span></h1>
+      <h1>STOP USING YOUR<br><span class="hl">PHONE FOR FREE</span></h1>
       <p>Earn <strong>real cash</strong> by playing games, testing apps, and answering quick surveys. Cash out anytime to PayPal, Venmo, or your bank.</p>
 
       <div class="trustpilot">
@@ -442,7 +542,7 @@
       </div>
     </div>
 
-    <button class="cta-btn" id="mainCta" onclick="openQuiz()">See What You Could Earn <span class="arrow">→</span></button>
+    <button class="cta-btn" id="mainCta" onclick="openQuiz()">See What You Could Earn <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
 
     <div class="trust">
       <span>Free</span><span class="t-sep">·</span>
@@ -485,12 +585,13 @@
       </div>
     </div>
 
-    <div class="challenge-banner" style="position:relative;">
-      <div style="position:absolute;top:-1px;right:-1px;background:linear-gradient(135deg,#a76cf8,#c44fd4);border-radius:0 16px 0 10px;padding:5px 12px;font-size:.6rem;font-weight:800;letter-spacing:1px;color:#fff;text-transform:uppercase;">Important</div>
-      <div class="challenge-icon">🔒</div>
-      <div class="challenge-body">
-        <div class="challenge-label" style="color:var(--primary);">Activation Required</div>
-        <div class="challenge-title" style="-webkit-text-fill-color:unset;color:var(--text);font-weight:600;">New users: Complete <span style="background:linear-gradient(90deg,#a76cf8,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;">2 quick offers</span> to unlock full access and start earning</div>
+    <div class="boost-banner">
+      <div class="boost-badge">💰 Boosted Earnings</div>
+      <div class="boost-headline">Spend <span class="boost-hl">$10</span>, Make <span class="boost-hl">$100+</span> Back</div>
+      <div class="boost-text">Top earners unlock <b>high-value milestones</b> by making a small in-app purchase on any game. It's optional, but it's how members hit the upper payout tiers fastest.</div>
+      <div class="boost-foot">
+        <span class="boost-dot"></span>
+        Limited boosted slots available today
       </div>
     </div>
 
@@ -504,7 +605,7 @@
 </div>
 
 <div class="sticky-cta" id="stickyCta">
-  <a id="stickyCtaBtn" href="#" onclick="openQuiz(); return false;">See What You Could Earn <span class="arrow">→</span></a>
+  <a id="stickyCtaBtn" href="#" onclick="openQuiz(); return false;">See What You Could Earn <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></a>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -657,38 +758,44 @@
 
       <!-- RESULT -->
       <div class="quiz-result" id="quiz-result">
-        <div class="result-check">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+        <div class="result-ready-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/></svg>
+          Estimate Ready
         </div>
-        <div class="result-sublabel">Your spot is reserved</div>
-        <div class="result-amount" id="resultAmount">$130–$260</div>
-        <div class="result-perday">per day waiting for you to claim</div>
+        <div class="result-headline">Here's what you can earn</div>
+
+        <!-- base estimate -->
+        <div class="result-estimate-box">
+          <div class="result-sublabel">Your daily estimate</div>
+          <div class="result-amount" id="resultAmount">$130–$260</div>
+          <div class="result-perday">per day</div>
+        </div>
+
+        <!-- boosted earnings -->
+        <div class="result-boost">
+          <div class="result-boost-top">
+            <span class="result-boost-label">You're eligible for Boosted Earnings</span>
+            <span class="result-boost-tag">Daily</span>
+          </div>
+          <div class="result-boost-limited">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Limited Time
+          </div>
+          <div class="result-boost-amount" id="resultBoostAmount">$297–$1,152</div>
+          <div class="result-boost-divider"><span>How it works</span></div>
+          <div class="result-boost-text">Make a single <b>$10</b> in-app purchase on any game and unlock premium milestones that pay up to <b>$100+ back</b>. This is how top members hit the highest tiers.</div>
+        </div>
 
         <div class="result-urgency">
           <span class="result-dot"></span>
-          <span id="resultViewers">847 people</span> viewed this offer in the last hour
-        </div>
-
-        <div class="result-perks">
-          <div class="result-perk">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-            <span>$10 welcome bonus added to your account</span>
-          </div>
-          <div class="result-perk">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-            <span>Cash out same day via PayPal or Venmo</span>
-          </div>
-          <div class="result-perk">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-            <span>No credit card. No personal info required.</span>
-          </div>
+          <span id="resultViewers">847 people</span> claimed a boost in the last hour
         </div>
 
         <a class="result-claim" id="resultClaimBtn" href="#">
-          Claim My $10 Bonus Now
+          Claim My Boost Now
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
         </a>
-        <div class="result-foot">Free forever. Takes 60 seconds to start.</div>
+        <div class="result-foot">$10 welcome bonus included · No credit card · 60 seconds</div>
       </div>
 
     </div><!-- /quiz-body -->
@@ -821,6 +928,20 @@ function showResult(){
   var estimate = RANGES[dev][time][goal];
 
   document.getElementById('resultAmount').textContent=estimate;
+
+  // boosted = base range multiplied (~2.2x low, ~4.4x high) to show upside of in-app spend
+  var nums = estimate.replace(/\$/g,'').split('–');
+  var lo = parseInt(nums[0],10);
+  var hi = parseInt(nums[1],10);
+  var boostLo = Math.round(lo*2.2/5)*5;
+  var boostHi = Math.round(hi*4.4/10)*10;
+  document.getElementById('resultBoostAmount').textContent =
+    '$'+boostLo.toLocaleString('en-US')+'–$'+boostHi.toLocaleString('en-US');
+
+  // randomize social proof number
+  var viewers = 200 + Math.floor(Math.random()*900);
+  document.getElementById('resultViewers').textContent = viewers.toLocaleString('en-US')+' people';
+
   document.getElementById('resultClaimBtn').href=offerUrl;
 
   document.getElementById('slide-2').classList.remove('active');
