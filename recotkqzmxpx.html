@@ -494,7 +494,6 @@ var answers=[null,null,null];
 var TOTAL=3;
 
 function openQuiz(){
-  firePixelEvents(); // dispara pixels ao abrir o quiz
   document.getElementById('quizOverlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
@@ -553,9 +552,6 @@ function showResult(){
   document.getElementById('quiz-result').classList.add('active');
   setProgress(TOTAL+1);
   spawnConfetti();
-
-  // dispara pixels no resultado também
-  firePixelEvents();
 }
 
 function spawnConfetti(){
