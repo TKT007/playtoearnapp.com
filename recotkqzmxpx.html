@@ -544,7 +544,9 @@ function showResult(){
   document.getElementById('resultAmount').textContent=estimate;
   var nums=estimate.replace(/\$/g,'').split('–');
   var lo=parseInt(nums[0],10), hi=parseInt(nums[1],10);
-  document.getElementById('resultBoostAmount').textContent='$'+Math.round(lo*2.2/5)*5+',000–$'+Math.round(hi*4.4/10)*10+'0';
+  var boostLo = Math.round(lo*2.2/5)*5;
+  var boostHi = Math.round(hi*4.4/10)*10;
+  document.getElementById('resultBoostAmount').textContent='$'+boostLo.toLocaleString('en-US')+'–$'+boostHi.toLocaleString('en-US');
   document.getElementById('resultViewers').textContent=(200+Math.floor(Math.random()*900)).toLocaleString('en-US')+' people';
   document.getElementById('resultClaimBtn').href = offerUrl;
   document.getElementById('slide-2').classList.remove('active');
