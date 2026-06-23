@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Paid to Test Apps</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #060b06;
+      --surface:    #0d1a0e;
+      --surface-2:  #111f12;
+      --border:     #1c3520;
+      --border-2:   #223d25;
+      --green:      #2dd972;
+      --green-glow: rgba(45, 217, 114, 0.15);
+      --green-dim:  rgba(45, 217, 114, 0.08);
+      --amber:      #f59e0b;
+      --amber-dim:  rgba(245, 158, 11, 0.12);
+      --text:       #eef2ee;
+      --muted:      #6b8a6e;
+      --muted-2:    #8faa93;
+      --font:       'Inter', -apple-system, system-ui, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── SCREEN SYSTEM ─── */
+    .screen { display: none; }
+    .screen.active { display: flex; }
+
+    .screen.active {
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #screen-c.active {
+      align-items: flex-start;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 420px;
+      padding: 56px 24px 52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* ─── PILL BADGE ─── */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--green-dim);
+      border: 1px solid rgba(45, 217, 114, 0.28);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 28px;
+    }
+    .pill-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+    .pill-dot.pulse {
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(45,217,114,0.5); }
+      50%       { box-shadow: 0 0 0 5px rgba(45,217,114,0); }
+    }
+
+    /* ─── SCREEN A ─── */
+    .app-icon {
+      width: 80px; height: 80px;
+      border-radius: 22px;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+      box-shadow: 0 0 0 1px var(--border), 0 0 40px rgba(45,217,114,0.12);
+    }
+    .app-icon img { width: 80px; height: 80px; object-fit: cover; }
+
+    .app-icon-placeholder {
+      width: 80px; height: 80px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #16401e 0%, #0d2611 100%);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+      box-shadow: 0 0 0 1px var(--border), 0 0 40px rgba(45,217,114,0.12);
+      font-size: 36px;
+    }
+
+    h1 {
+      font-size: clamp(34px, 9vw, 46px);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    h1 .accent { color: var(--green); }
+
+    .subtext {
+      font-size: 14px;
+      color: var(--muted-2);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 300px;
+    }
+
+    .info-card {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px 18px;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+    .info-card-label {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 18px;
+    }
+    .info-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin-bottom: 14px;
+    }
+    .info-row:last-child { margin-bottom: 0; }
+    .info-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: var(--green-dim);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .info-icon svg {
+      width: 16px; height: 16px;
+      stroke: var(--green); fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .info-row-text {
+      font-size: 13.5px; color: #9db8a0; line-height: 1.55;
+    }
+    .info-row-text strong { color: #fff; font-weight: 700; }
+
+    /* ─── BUTTONS ─── */
+    .btn-primary {
+      display: block; width: 100%;
+      background: var(--green); color: #000;
+      border: none; border-radius: 14px;
+      padding: 16px 24px;
+      font-size: 15.5px; font-weight: 800;
+      cursor: pointer; text-decoration: none;
+      margin-bottom: 10px;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      letter-spacing: -0.01em;
+    }
+    .btn-primary:hover {
+      background: #28c864;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 28px rgba(45,217,114,0.25);
+    }
+    .btn-primary:active { transform: translateY(0); box-shadow: none; }
+
+    .btn-ghost {
+      display: block; width: 100%;
+      background: transparent; color: var(--muted);
+      border: 1px solid var(--border-2); border-radius: 14px;
+      padding: 15px 24px;
+      font-size: 14.5px; font-weight: 500;
+      cursor: pointer; text-decoration: none;
+      transition: border-color 0.15s, color 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-ghost:hover { border-color: #2a4a2e; color: var(--muted-2); }
+
+    /* ─── SCREEN Q2 ─── */
+    #screen-q2 .page { max-width: 420px; }
+    .q2-icon {
+      width: 76px; height: 76px;
+      background: var(--green-dim);
+      border: 1px solid rgba(45,217,114,0.22);
+      border-radius: 22px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+    }
+    .q2-icon svg {
+      width: 36px; height: 36px;
+      stroke: var(--green); fill: none;
+      stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .choice-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 17px 20px;
+      font-size: 15px; font-weight: 600; color: #fff;
+      cursor: pointer; margin-bottom: 10px;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent; text-align: left;
+    }
+    .choice-btn:hover {
+      border-color: var(--green);
+      background: var(--green-dim);
+      transform: translateY(-1px);
+    }
+    .choice-btn:active { transform: translateY(0); }
+    .choice-arrow { color: var(--green); font-size: 20px; flex-shrink: 0; }
+
+    .choice-btn.passive { color: var(--muted); border-color: #1a2e1c; }
+    .choice-btn.passive:hover { border-color: var(--border-2); background: transparent; transform: none; }
+    .choice-btn.passive .choice-arrow { color: var(--muted); }
+
+    /* ─── SCREEN B ─── */
+    .lock-wrap {
+      width: 80px; height: 80px;
+      background: #151515;
+      border: 1px solid #242424;
+      border-radius: 22px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 32px;
+    }
+    .lock-wrap svg {
+      width: 36px; height: 36px;
+      stroke: #888; fill: none;
+      stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: #ccc;
+      border: 1px solid #2a2a2a; border-radius: 14px;
+      padding: 14px 30px; font-size: 14.5px; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-back:hover { border-color: #444; background: #111; color: #fff; }
+    .btn-back svg {
+      width: 16px; height: 16px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* ─── SCREEN C ─── */
+    #screen-c { background: #0a1010; }
+    #screen-c .page {
+      max-width: 490px;
+      padding: 36px 22px 60px;
+    }
+
+    .logos {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 18px;
+    }
+    .logo-box {
+      width: 52px; height: 52px;
+      border-radius: 14px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      background: #1b2230;
+    }
+    .logo-box img { width: 52px; height: 52px; object-fit: cover; }
+    .logo-box.tiktok { background: #010101; }
+    .logo-box.tiktok img { width: 34px; height: 34px; object-fit: contain; }
+    .logo-box-placeholder {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #16401e 0%, #0d2611 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+    }
+    .logo-sep { color: #4a5a4e; font-size: 18px; }
+
+    .eligible-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      border: 1px solid rgba(45,217,114,0.35);
+      border-radius: 999px; padding: 6px 16px;
+      font-size: 10.5px; font-weight: 700;
+      color: var(--green); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .eligible-badge svg {
+      width: 12px; height: 12px;
+      stroke: var(--green); fill: none;
+      stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    #screen-c h1 {
+      font-size: clamp(26px, 6.5vw, 36px);
+      font-weight: 800; line-height: 1.18;
+      letter-spacing: -0.022em;
+      color: #fff; margin-bottom: 12px;
+    }
+
+    #screen-c .cta-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%;
+      background: var(--green); color: #000;
+      border: none; border-radius: 16px;
+      padding: 17px 38px;
+      font-size: 16.5px; font-weight: 800;
+      letter-spacing: -0.01em;
+      cursor: pointer; text-decoration: none; margin-bottom: 22px;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #screen-c .cta-btn:hover {
+      background: #28c864;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 32px rgba(45,217,114,0.3);
+    }
+    #screen-c .cta-btn:active { transform: translateY(0); box-shadow: none; }
+
+    .warning-box {
+      width: 100%;
+      background: var(--amber-dim);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 14px;
+      overflow: hidden; margin-bottom: 32px; position: relative;
+    }
+    .warning-ribbon {
+      position: absolute; top: 0; right: 0;
+      background: var(--amber); color: #000;
+      font-size: 9.5px; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 12px; border-bottom-left-radius: 10px;
+    }
+    .warning-body {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px 16px 16px 16px;
+    }
+    .warning-emoji { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+    .warning-title {
+      font-size: 13.5px; font-weight: 800; color: #fff;
+      margin-bottom: 5px; padding-right: 70px;
+    }
+    .warning-text {
+      font-size: 12.5px; color: #b09060; line-height: 1.6;
+    }
+    .warning-hl { color: var(--amber); font-weight: 700; }
+
+    .section-eyebrow {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 16px; align-self: center;
+    }
+
+    .steps { display: flex; flex-direction: column; gap: 12px; width: 100%; margin-bottom: 44px; }
+
+    .step-card {
+      background: #121a14;
+      border: 1px solid #1c2e1e;
+      border-radius: 16px; padding: 18px; display: flex; gap: 14px; align-items: flex-start;
+      text-align: left;
+    }
+    .step-num {
+      width: 40px; height: 40px;
+      border-radius: 10px; background: var(--green-dim);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 16px; font-weight: 900; color: var(--green);
+    }
+    .step-body { flex: 1; }
+    .step-title { font-weight: 700; font-size: 13.5px; color: #fff; margin-bottom: 6px; line-height: 1.4; }
+    .step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 10px; }
+    .step-desc .hi { color: var(--green); font-weight: 600; }
+    .step-desc .warn { color: var(--amber); font-weight: 600; }
+    .step-tag {
+      display: inline-block;
+      border: 1px solid rgba(45,217,114,0.28);
+      border-radius: 6px; padding: 3px 9px;
+      font-size: 10px; font-weight: 700; color: rgba(45,217,114,0.55);
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+
+    footer {
+      display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%;
+    }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 11.5px; color: #3a4e3b; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 400px) {
+      .page { padding: 44px 18px 44px; }
+      #screen-c .page { padding: 28px 18px 48px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pill-dot.pulse { animation: none; }
+      .btn-primary, .btn-ghost, .choice-btn, .cta-btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       SCREEN A — Age gate
+  ══════════════════════════════════════ -->
+  <div id="screen-a" class="screen active">
+    <div class="page">
+
+      <div class="app-icon">
+        <img src="https://i.imgur.com/d4rEH4U.png" alt="Freecash" fetchpriority="high" />
+      </div>
+
+      <div class="pill">
+        <span class="pill-dot pulse"></span>
+        Paid To Play Games
+      </div>
+
+      <h1>ARE YOU <span class="accent">21+</span>?</h1>
+      <p class="subtext">Earn real cash just by testing apps on your phone.</p>
+
+      <div class="info-card">
+        <div class="info-card-label">
+          <span class="pill-dot"></span>
+          Give this a quick read
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+          </div>
+          <div class="info-row-text">
+            You must be <strong>at least 21 years old</strong> to sign up and get paid for tasks.
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          </div>
+          <div class="info-row-text">
+            <strong>New accounts only</strong> — existing Freecash accounts are not eligible for this offer.
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btn-yes">Yes, I'm 21 or older</button>
+      <button class="btn-ghost" id="btn-no">No, I'm under 21</button>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       SCREEN Q2 — PayPal question
+  ══════════════════════════════════════ -->
+  <div id="screen-q2" class="screen">
+    <div class="page">
+
+      <div class="q2-icon">
+        <svg viewBox="0 0 24 24">
+          <rect x="2" y="7" width="20" height="11" rx="5"/>
+          <line x1="7" y1="12" x2="11" y2="12"/>
+          <line x1="9" y1="10" x2="9" y2="14"/>
+          <circle cx="15.5" cy="10.5" r="0.9" fill="#2dd972" stroke="none"/>
+          <circle cx="17.5" cy="13" r="0.9" fill="#2dd972" stroke="none"/>
+        </svg>
+      </div>
+
+      <div class="pill">
+        <span class="pill-dot"></span>
+        One quick question
+      </div>
+
+      <h1>Do you want <span class="accent">to get paid</span> for testing apps?</h1>
+      <p class="subtext">Earn real money — no experience needed.</p>
+
+      <button class="choice-btn" id="q2-yes">
+        <span>Yes, show me how</span>
+        <span class="choice-arrow">›</span>
+      </button>
+      <button class="choice-btn passive" id="q2-no">
+        <span>No, not for me</span>
+        <span class="choice-arrow">›</span>
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       SCREEN B — Under 21 block
+  ══════════════════════════════════════ -->
+  <div id="screen-b" class="screen">
+    <div class="page">
+
+      <div class="lock-wrap">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+
+      <h1 style="text-transform: uppercase; margin-bottom: 14px;">Minimum Age: 21+</h1>
+      <p style="font-size:14px; color:#666; line-height:1.7; margin-bottom:44px; max-width:280px;">
+        This offer is only available for users who are 21 or older. Go back and confirm your age to continue.
+      </p>
+
+      <button class="btn-back" id="btn-back">
+        <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Go back
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       SCREEN C — Offer / CTA
+  ══════════════════════════════════════ -->
+  <div id="screen-c" class="screen">
+    <div class="page">
+
+      <div class="logos">
+        <div class="logo-box">
+          <img src="https://i.imgur.com/d4rEH4U.png" alt="Freecash" fetchpriority="high" />
+        </div>
+      </div>
+
+      <div class="eligible-badge">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        You're Eligible
+      </div>
+
+      <h1>Congratulations! You're Eligible to <span class="accent">Get Paid</span> for Testing Apps</h1>
+      <p class="subtext" style="margin-bottom:28px;">Follow the two steps below to start earning today.</p>
+
+      <button class="cta-btn" id="cta-btn">
+        Sign Up to Freecash — It's Free
+        <span>→</span>
+      </button>
+
+      <div class="warning-box">
+        <span class="warning-ribbon">⚠ Important</span>
+        <div class="warning-body">
+          <span class="warning-emoji">🔒</span>
+          <div>
+            <div class="warning-title">Paid-to-play is locked by default</div>
+            <div class="warning-text">
+              You must <span class="warning-hl">complete Step 2 within 10 minutes</span> of signing up to unlock the paid-to-play feature in your dashboard.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="section-eyebrow">How to get started</span>
+
+      <div class="steps">
+
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Sign up on Freecash — enter 21+ as your age</div>
+            <div class="step-desc">
+              Click the button above to create your free account.
+              <span class="hi">Make sure you enter 21 or older as your age</span> during sign-up — this is required to unlock the offer.
+            </div>
+            <span class="step-tag">Free · takes 60 sec</span>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Start one offer within 10 minutes to unlock paid-to-play</div>
+            <div class="step-desc">
+              After signing up, <span class="hi">immediately start one task or game install</span> from your dashboard.
+              <span class="warn">You must do this within 10 minutes</span> to verify activity and unlock the feature.
+            </div>
+            <span class="step-tag">Takes 2–5 min</span>
+          </div>
+        </div>
+
+      </div>
+
+      <footer>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Disclaimer</a>
+        </div>
+        <span class="footer-copy">© 2026 All rights reserved.</span>
+      </footer>
+
+    </div>
+  </div>
+
+
+  <script>
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(function(s) {
+        s.classList.remove('active');
+      });
+      var el = document.getElementById(id);
+      el.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    // Screen A
+    document.getElementById('btn-yes').addEventListener('click', function(e) {
+      e.preventDefault();
+      showScreen('screen-q2');
+    });
+    document.getElementById('btn-no').addEventListener('click', function(e) {
+      e.preventDefault();
+      showScreen('screen-b');
+    });
+
+    // Screen Q2 — both go to Screen C
+    document.getElementById('q2-yes').addEventListener('click', function() {
+      showScreen('screen-c');
+    });
+    document.getElementById('q2-no').addEventListener('click', function() {
+      showScreen('screen-c');
+    });
+
+    // Screen B
+    document.getElementById('btn-back').addEventListener('click', function(e) {
+      e.preventDefault();
+      showScreen('screen-a');
+    });
+
+    // Screen C CTA
+    document.getElementById('cta-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = 'https://tk.unlockbonusapp.com/click';
+    });
+  </script>
+
+</body>
+</html>
