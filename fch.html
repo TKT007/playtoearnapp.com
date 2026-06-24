@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Paid To Game — Turn Screen Time Into Real Cash</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:      #2cc76e;
+      --green-glow: rgba(44,199,110,0.55);
+      --green-dim:  rgba(44,199,110,0.12);
+      --green-dim2: rgba(44,199,110,0.07);
+      --amber:      #f59e0b;
+      --amber-dim:  rgba(245,158,11,0.12);
+      --bg:         #050e06;
+      --card:       rgba(13,26,14,0.85);
+      --border:     rgba(44,199,110,0.15);
+      --border2:    rgba(44,199,110,0.25);
+      --text:       #e8f0e9;
+      --muted:      #5a7a5e;
+      --font:       'Inter', -apple-system, system-ui, sans-serif;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HERO GRADIENT (like reference) ── */
+    .hero-glow {
+      pointer-events: none;
+      position: fixed;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 140%;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(44,199,110,0.28) 0%, rgba(20,80,30,0.18) 50%, transparent 100%);
+      filter: blur(10px);
+      z-index: 0;
+    }
+    .side-glow-l {
+      pointer-events: none;
+      position: fixed;
+      top: 35%; left: -100px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(44,199,110,0.14) 0%, transparent 70%);
+      filter: blur(40px);
+      z-index: 0;
+    }
+    .side-glow-r {
+      pointer-events: none;
+      position: fixed;
+      top: 60%; right: -100px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(30,120,60,0.18) 0%, transparent 70%);
+      filter: blur(40px);
+      z-index: 0;
+    }
+
+    /* ── PARTICLES ── */
+    .particles {
+      pointer-events: none;
+      position: fixed; inset: 0;
+      overflow: hidden; z-index: 0;
+    }
+    .particle {
+      position: absolute; bottom: -20px;
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translate3d(0,0,0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translate3d(var(--drift), -110vh, 0); opacity: 0; }
+    }
+
+    /* ── SCREENS ── */
+    .screen { display: none; }
+    .screen.active {
+      display: flex;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    #screen-c.active {
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 460px;
+      padding: 52px 22px 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── PILL BADGE ── */
+    .pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--green-dim);
+      border: 1px solid rgba(44,199,110,0.3);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 10.5px; font-weight: 700;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 26px;
+    }
+    .pill-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); flex-shrink: 0;
+    }
+    .pill-dot.pulse { animation: pulse 2s ease infinite; }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(44,199,110,0.5); }
+      50%      { box-shadow: 0 0 0 5px rgba(44,199,110,0); }
+    }
+
+    /* ── SCREEN A ── */
+    .app-icon {
+      width: 80px; height: 80px; border-radius: 22px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+      box-shadow: 0 0 0 1px var(--border2), 0 0 40px rgba(44,199,110,0.18);
+    }
+    .app-icon img { width: 80px; height: 80px; object-fit: cover; }
+
+    h1 {
+      font-size: clamp(36px, 10vw, 50px);
+      font-weight: 900; line-height: 1.06;
+      letter-spacing: -0.028em; color: #fff;
+      margin-bottom: 12px;
+    }
+    h1 .accent {
+      color: var(--green);
+      text-shadow: 0 0 40px rgba(44,199,110,0.7), 0 0 80px rgba(44,199,110,0.3);
+    }
+    .subtext {
+      font-size: 14px; color: rgba(200,230,205,0.65);
+      line-height: 1.65; margin-bottom: 28px; max-width: 310px;
+    }
+
+    .info-card {
+      width: 100%; background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px; padding: 20px 18px;
+      margin-bottom: 24px; text-align: left;
+      backdrop-filter: blur(8px);
+    }
+    .info-card-label {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 18px;
+    }
+    .info-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .info-row:last-child { margin-bottom: 0; }
+    .info-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--green-dim);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .info-icon svg { width: 16px; height: 16px; stroke: var(--green); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .info-row-text { font-size: 13.5px; color: rgba(180,210,185,0.75); line-height: 1.55; }
+    .info-row-text strong { color: #fff; font-weight: 700; }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: block; width: 100%;
+      background: var(--green); color: #000;
+      border: none; border-radius: 14px;
+      padding: 16px 24px; font-size: 15.5px; font-weight: 800;
+      cursor: pointer; text-decoration: none; margin-bottom: 10px;
+      transition: background .15s, transform .1s, box-shadow .15s;
+      -webkit-tap-highlight-color: transparent;
+      letter-spacing: -0.01em;
+    }
+    .btn-primary:hover { background: #28c864; transform: translateY(-1px); box-shadow: 0 8px 28px rgba(44,199,110,0.35); }
+    .btn-primary:active { transform: translateY(0); box-shadow: none; }
+
+    .btn-ghost {
+      display: block; width: 100%;
+      background: transparent; color: var(--muted);
+      border: 1px solid rgba(44,199,110,0.15); border-radius: 14px;
+      padding: 15px 24px; font-size: 14.5px; font-weight: 500;
+      cursor: pointer; text-decoration: none;
+      transition: border-color .15s, color .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-ghost:hover { border-color: rgba(44,199,110,0.3); color: rgba(180,210,185,0.8); }
+
+    /* ── SCREEN Q2 ── */
+    .q2-icon {
+      width: 76px; height: 76px;
+      background: var(--green-dim);
+      border: 1px solid rgba(44,199,110,0.22);
+      border-radius: 22px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+    }
+    .q2-icon svg { width: 36px; height: 36px; stroke: var(--green); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .choice-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 17px 20px;
+      font-size: 15px; font-weight: 600; color: #fff;
+      cursor: pointer; margin-bottom: 10px;
+      transition: border-color .15s, background .15s, transform .1s;
+      -webkit-tap-highlight-color: transparent; text-align: left;
+      backdrop-filter: blur(6px);
+    }
+    .choice-btn:hover { border-color: var(--green); background: var(--green-dim2); transform: translateY(-1px); }
+    .choice-btn:active { transform: translateY(0); }
+    .choice-arrow { color: var(--green); font-size: 20px; flex-shrink: 0; }
+    .choice-btn.passive { color: var(--muted); border-color: rgba(44,199,110,0.08); }
+    .choice-btn.passive:hover { border-color: var(--border); background: transparent; transform: none; }
+    .choice-btn.passive .choice-arrow { color: var(--muted); }
+
+    /* ── SCREEN B ── */
+    .lock-wrap {
+      width: 80px; height: 80px; background: #111;
+      border: 1px solid #222; border-radius: 22px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 32px;
+    }
+    .lock-wrap svg { width: 36px; height: 36px; stroke: #666; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: #bbb;
+      border: 1px solid #252525; border-radius: 14px;
+      padding: 14px 30px; font-size: 14.5px; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      transition: border-color .15s, background .15s, color .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-back:hover { border-color: #444; background: #111; color: #fff; }
+    .btn-back svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── SCREEN C HEADER ── */
+    #screen-c { background: var(--bg); }
+
+    .sc-header {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 460px;
+      padding: 16px 22px 0;
+      position: relative; z-index: 2;
+    }
+    .sc-brand { display: flex; align-items: center; gap: 9px; }
+    .sc-logo {
+      width: 34px; height: 34px; border-radius: 9px; overflow: hidden;
+      border: 1px solid var(--border2);
+      box-shadow: 0 0 20px rgba(44,199,110,0.2);
+    }
+    .sc-logo img { width: 100%; height: 100%; object-fit: cover; }
+    .sc-brand-text {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--green);
+    }
+    .sc-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+    .sc-users { display: flex; align-items: center; gap: 5px; font-size: 11px; }
+    .sc-users strong { color: #fff; font-weight: 700; }
+    .sc-users span { color: var(--muted); }
+    .sc-flag {
+      display: flex; align-items: center; gap: 4px;
+      border: 1px solid rgba(44,199,110,0.2);
+      background: rgba(44,199,110,0.06);
+      border-radius: 999px; padding: 2px 10px;
+      font-size: 10px; font-weight: 600; color: rgba(200,230,205,0.7);
+    }
+
+    /* ── SCREEN C PAGE ── */
+    #screen-c .page {
+      max-width: 460px;
+      padding: 20px 22px 110px;
+    }
+
+    /* Big hero headline */
+    .hero-headline {
+      font-size: clamp(52px, 14vw, 80px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .hero-headline .line1 { display: block; color: #fff; drop-shadow: 0 0 24px rgba(255,255,255,0.15); }
+    .hero-headline .line2 {
+      display: block;
+      color: var(--green);
+      text-shadow: 0 0 40px rgba(44,199,110,0.7), 0 0 80px rgba(44,199,110,0.35);
+    }
+
+    /* ── GAME CAROUSEL ── */
+    .game-card {
+      width: 100%; background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px; overflow: hidden;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      position: relative;
+    }
+    .game-card-label {
+      position: absolute; top: 10px; right: 12px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--green);
+      z-index: 2;
+    }
+    .game-inner { position: relative; height: 84px; }
+    .game-slide {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; gap: 14px; padding: 16px;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .6s ease, transform .6s ease;
+      pointer-events: none;
+    }
+    .game-slide.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .game-thumb {
+      width: 52px; height: 52px; border-radius: 13px;
+      object-fit: cover; flex-shrink: 0;
+      box-shadow: 0 0 24px rgba(44,199,110,0.4);
+    }
+    .game-info { flex: 1; text-align: left; min-width: 0; }
+    .game-name { font-weight: 700; font-size: 14.5px; color: #fff; margin-bottom: 2px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+    .game-badge-pill {
+      font-size: 10px; font-weight: 800;
+      background: var(--green); color: #000;
+      border-radius: 5px; padding: 1px 7px;
+      box-shadow: 0 0 10px rgba(44,199,110,0.6);
+    }
+    .game-sub { font-size: 12px; color: var(--muted); }
+    .game-earn { text-align: right; flex-shrink: 0; }
+    .game-amount {
+      font-size: 24px; font-weight: 900; color: var(--green);
+      text-shadow: 0 0 20px rgba(44,199,110,0.6);
+      line-height: 1;
+    }
+    .game-stars { display: flex; align-items: center; justify-content: flex-end; gap: 3px; font-size: 11px; color: var(--green); margin-top: 4px; }
+    .game-dots { display: flex; justify-content: center; gap: 4px; padding: 0 16px 12px; }
+    .game-dot {
+      height: 4px; border-radius: 4px;
+      background: rgba(44,199,110,0.2);
+      transition: width .3s, background .3s; width: 4px;
+    }
+    .game-dot.active { width: 16px; background: var(--green); }
+
+    /* ── ELIGIBLE BADGE ── */
+    .eligible-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      border: 1px solid rgba(44,199,110,0.35);
+      border-radius: 999px; padding: 6px 16px;
+      font-size: 10.5px; font-weight: 700;
+      color: var(--green); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .eligible-badge svg { width: 12px; height: 12px; stroke: var(--green); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── WARNING BOX ── */
+    .warning-box {
+      width: 100%; background: var(--amber-dim);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 14px; overflow: hidden;
+      margin-bottom: 28px; position: relative;
+    }
+    .warning-ribbon {
+      position: absolute; top: 0; right: 0;
+      background: var(--amber); color: #000;
+      font-size: 9.5px; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 12px; border-bottom-left-radius: 10px;
+    }
+    .warning-body { display: flex; align-items: flex-start; gap: 12px; padding: 16px; }
+    .warning-emoji { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+    .warning-title { font-size: 13.5px; font-weight: 800; color: #fff; margin-bottom: 5px; padding-right: 70px; }
+    .warning-text { font-size: 12.5px; color: #b09060; line-height: 1.6; }
+    .warning-hl { color: var(--amber); font-weight: 700; }
+
+    /* ── STEPS ── */
+    .section-eyebrow {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 16px; align-self: center;
+    }
+    .steps { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 36px; position: relative; }
+    .steps-connector {
+      position: absolute; left: 27px; top: 44px; bottom: 44px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--green) 0%, rgba(44,199,110,0.1) 100%);
+      opacity: 0.35;
+    }
+    .step-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 16px 16px;
+      display: flex; gap: 14px; align-items: center; text-align: left;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .step-num {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 15px; font-weight: 900; color: #000;
+      box-shadow: 0 0 20px rgba(44,199,110,0.65);
+      position: relative; z-index: 1;
+    }
+    .step-body { flex: 1; }
+    .step-title { font-weight: 700; font-size: 13.5px; color: #fff; margin-bottom: 5px; line-height: 1.4; }
+    .step-desc { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+    .step-desc .hi { color: var(--green); font-weight: 600; }
+    .step-desc .warn { color: var(--amber); font-weight: 600; }
+    .step-tag {
+      display: inline-block;
+      border: 1px solid rgba(44,199,110,0.28); border-radius: 6px;
+      padding: 3px 9px; font-size: 10px; font-weight: 700;
+      color: rgba(44,199,110,0.55); letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .step-bonus {
+      display: inline-block;
+      background: var(--green-dim);
+      border: 1px solid rgba(44,199,110,0.4);
+      border-radius: 6px; padding: 3px 10px;
+      font-size: 10px; font-weight: 800; color: var(--green);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      box-shadow: 0 0 14px rgba(44,199,110,0.3);
+    }
+
+    /* ── TRUST ROW ── */
+    .trust-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; flex-wrap: wrap;
+      padding: 13px 16px; margin-bottom: 28px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; width: 100%;
+      font-size: 11.5px; color: var(--muted);
+      backdrop-filter: blur(6px);
+    }
+    .trust-item { display: flex; align-items: center; gap: 4px; }
+    .trust-item .hl { color: #fff; font-weight: 700; }
+    .trust-green { color: var(--green); font-weight: 700; }
+
+    /* ── SUPPORT ── */
+    .support-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border2); background: var(--card);
+      border-radius: 999px; padding: 8px 18px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #fff; margin-bottom: 16px;
+      backdrop-filter: blur(6px);
+    }
+    .support-badge svg { width: 15px; height: 15px; stroke: var(--green); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .support-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: pulse 2s ease infinite; }
+
+    /* ── FOOTER ── */
+    footer { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color .15s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 11.5px; color: rgba(44,199,110,0.15); }
+
+    /* ── FIXED CTA BAR ── */
+    .fixed-cta {
+      display: none;
+      position: fixed; inset-x: 0; bottom: 0; z-index: 40;
+      padding: 0 14px 14px;
+    }
+    .fixed-cta.visible { display: block; }
+    .fixed-cta-blur {
+      position: absolute; inset-x: 0; bottom: 0; height: 110px;
+      background: linear-gradient(to top, var(--bg) 35%, transparent);
+      pointer-events: none;
+    }
+    .fixed-cta-inner { position: relative; max-width: 460px; margin: 0 auto; }
+    .fixed-cta-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; background: var(--green); color: #000;
+      border: none; border-radius: 18px; padding: 16px 20px;
+      cursor: pointer; text-decoration: none;
+      transition: background .15s, transform .1s;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 10px 40px rgba(44,199,110,0.55);
+      position: relative; overflow: hidden;
+    }
+    .fixed-cta-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.22) 50%, transparent 70%);
+      pointer-events: none;
+    }
+    .fixed-cta-btn:hover { background: #28c864; transform: translateY(-1px); }
+    .fixed-cta-btn:active { transform: translateY(0); }
+    .fixed-cta-left { text-align: left; position: relative; }
+    .fixed-cta-title { font-size: 15.5px; font-weight: 800; display: flex; align-items: center; gap: 7px; line-height: 1; }
+    .fixed-cta-title svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .fixed-cta-sub { font-size: 11px; font-weight: 500; opacity: 0.85; margin-top: 4px; }
+    .fixed-cta-badge {
+      font-size: 11px; font-weight: 800; flex-shrink: 0;
+      background: rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.22);
+      border-radius: 7px; padding: 5px 9px; position: relative;
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; left: 12px; top: 12px; z-index: 50;
+      display: none;
+      align-items: center; gap: 10px;
+      background: rgba(10,22,11,0.95);
+      border: 1px solid rgba(44,199,110,0.3);
+      border-radius: 999px;
+      padding: 8px 14px 8px 8px;
+      max-width: 260px;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.5);
+    }
+    .toast.show {
+      display: flex;
+      animation: toastIn .4s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes toastIn {
+      from { transform: translateX(-110%); opacity: 0; }
+      to   { transform: translateX(0); opacity: 1; }
+    }
+    .toast-avatar {
+      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #2cc76e, #16a34a);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900; color: #fff;
+      box-shadow: 0 0 14px rgba(44,199,110,0.5);
+    }
+    .toast-text { font-size: 12px; line-height: 1.35; min-width: 0; }
+    .toast-text strong { color: #fff; }
+    .toast-earn { color: var(--green); font-weight: 700; }
+    .toast-meta { font-size: 10px; color: var(--muted); }
+
+    @media (max-width: 400px) {
+      .page { padding: 44px 16px 110px; }
+      #screen-c .page { padding: 16px 16px 110px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .particle, .pill-dot.pulse, .support-dot { animation: none; }
+      .btn-primary, .choice-btn, .fixed-cta-btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background glows -->
+  <div class="hero-glow"></div>
+  <div class="side-glow-l"></div>
+  <div class="side-glow-r"></div>
+
+  <!-- Particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <div class="toast-avatar" id="toast-avatar">$</div>
+    <div class="toast-text">
+      <div><strong id="toast-name">Isabella</strong> earned <span class="toast-earn" id="toast-amount">+$6.22</span></div>
+      <div class="toast-meta" id="toast-meta">completed Tutorial bonus · 26s ago</div>
+    </div>
+  </div>
+
+
+  <!-- ══════════ SCREEN A — Age Gate ══════════ -->
+  <div id="screen-a" class="screen active">
+    <div class="page">
+
+      <div class="app-icon">
+        <img src="https://i.imgur.com/d4rEH4U.png" alt="Freecash" fetchpriority="high" />
+      </div>
+
+      <div class="pill">
+        <span class="pill-dot pulse"></span>
+        Paid To Play Games
+      </div>
+
+      <h1>ARE YOU <span class="accent">21+</span>?</h1>
+      <p class="subtext">Earn real cash just by testing apps on your phone.</p>
+
+      <div class="info-card">
+        <div class="info-card-label">
+          <span class="pill-dot"></span>
+          Give this a quick read
+        </div>
+        <div class="info-row">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+          </div>
+          <div class="info-row-text">
+            You must be <strong>at least 21 years old</strong> to sign up and get paid for tasks.
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          </div>
+          <div class="info-row-text">
+            <strong>New accounts only</strong> — existing Freecash accounts are not eligible for this offer.
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btn-yes">Yes, I'm 21 or older</button>
+      <button class="btn-ghost" id="btn-no">No, I'm under 21</button>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════ SCREEN Q2 — Qualification ══════════ -->
+  <div id="screen-q2" class="screen">
+    <div class="page">
+
+      <div class="q2-icon">
+        <svg viewBox="0 0 24 24">
+          <rect x="2" y="7" width="20" height="11" rx="5"/>
+          <line x1="7" y1="12" x2="11" y2="12"/>
+          <line x1="9" y1="10" x2="9" y2="14"/>
+          <circle cx="15.5" cy="10.5" r="0.9" fill="#2cc76e" stroke="none"/>
+          <circle cx="17.5" cy="13" r="0.9" fill="#2cc76e" stroke="none"/>
+        </svg>
+      </div>
+
+      <div class="pill">
+        <span class="pill-dot"></span>
+        One quick question
+      </div>
+
+      <h1>Do you want <span class="accent">to get paid</span> for testing apps?</h1>
+      <p class="subtext">Earn real money — no experience needed.</p>
+
+      <button class="btn-primary" id="q2-yes">Yes, show me how</button>
+      <button class="choice-btn passive" id="q2-no">
+        <span>No, not for me</span>
+        <span class="choice-arrow">›</span>
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════ SCREEN B — Under 21 ══════════ -->
+  <div id="screen-b" class="screen">
+    <div class="page">
+
+      <div class="lock-wrap">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+
+      <h1 style="text-transform:uppercase;margin-bottom:14px;">Minimum Age: 21+</h1>
+      <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:44px;max-width:280px;">
+        This offer is only available for users who are 21 or older. Go back and confirm your age to continue.
+      </p>
+
+      <button class="btn-back" id="btn-back">
+        <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Go back
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════ SCREEN C — Offer ══════════ -->
+  <div id="screen-c" class="screen">
+
+    <div class="sc-header">
+      <div class="sc-brand">
+        <div class="sc-logo">
+          <img src="https://i.imgur.com/d4rEH4U.png" alt="Freecash" />
+        </div>
+        <span class="sc-brand-text">Official Partnership</span>
+      </div>
+      <div class="sc-meta">
+        <div class="sc-users">
+          <span class="pill-dot pulse"></span>
+          <strong>1.4M+</strong> <span>users</span>
+        </div>
+        <div class="sc-flag">🇺🇸 US</div>
+      </div>
+    </div>
+
+    <div class="page">
+
+      <!-- Big headline like reference -->
+      <div class="hero-headline">
+        <span class="line1">Get Paid</span>
+        <span class="line2">To Game</span>
+      </div>
+      <p class="subtext">Turn your screen time into real cash.</p>
+      <p class="subtext" style="margin-top:-18px;margin-bottom:26px;font-size:13px;">Download the app, sign up, and play games for a bonus!</p>
+
+      <!-- Game carousel -->
+      <div class="game-card">
+        <span class="game-card-label">Featured Games</span>
+        <div class="game-inner" id="game-inner">
+
+          <div class="game-slide active">
+            <img class="game-thumb" src="https://cdn.prod.website-files.com/66ba0cbc63210953b4fc73a8/66ba4dab628d3ffb9065bc2a_royal_match_page_king_robert%206.webp" alt="Royal Match" />
+            <div class="game-info">
+              <div class="game-name">Royal Match <span class="game-badge-pill">$390</span></div>
+              <div class="game-sub">Earn up to $390 playing.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$390</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://play-lh.googleusercontent.com/Uv8KIWsfsXZJDk2ypWzrc_MCMGY32MvieP8hH9pujaBGwKRr4z88FpLwNuC8e5UxjioOHx9PcZU3XchZNZ4JjQ=w240-h480-rw" alt="RAID: Shadow Legends" />
+            <div class="game-info">
+              <div class="game-name">RAID: Shadow Legends <span class="game-badge-pill">$393</span></div>
+              <div class="game-sub">Earn up to $393 playing.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$393</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7ujXG8cq_cU1dU7QWETBB1OVZFOrSuYFFF1R0vlNf3Q&s=10" alt="Call of Dragons" />
+            <div class="game-info">
+              <div class="game-name">Call of Dragons <span class="game-badge-pill">$799</span></div>
+              <div class="game-sub">Earn up to $799 playing.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$799</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://play-lh.googleusercontent.com/5MLgC2WWXcq1Pol8qRAXOKzIJY9qySkjF43DnWyd5F9fPj_heinHeIxvgIpPQwcaQ1w-mUzUmoP1Xeslf29irg=w240-h480-rw" alt="Dice Dreams" />
+            <div class="game-info">
+              <div class="game-name">Dice Dreams <span class="game-badge-pill">$155</span></div>
+              <div class="game-sub">Earn up to $155 playing.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$155</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://play-lh.googleusercontent.com/uRuDPQjLnKBD-1wNw4zpd8xHnzqfwEilY8gLYmvzYJQgguAsTd6nMC5Cxex0EisSH5ZzN6FKrcSqQeRKdCzeWw" alt="Magnet Miner" />
+            <div class="game-info">
+              <div class="game-name">Magnet Miner <span class="game-badge-pill">$200</span></div>
+              <div class="game-sub">Earn up to $200 playing.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$200</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTLqllEm3FbHNxqWQaYLwd_DjIPSgJkj6-cfSp0A9k4NwiTdeRIm10jBE&s=10" alt="Animals & Coins" />
+            <div class="game-info">
+              <div class="game-name">Animals & Coins <span class="game-badge-pill">$302</span></div>
+              <div class="game-sub">Earn up to $302 playing.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$302</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="game-dots" id="game-dots">
+          <div class="game-dot active"></div>
+          <div class="game-dot"></div>
+          <div class="game-dot"></div>
+          <div class="game-dot"></div>
+          <div class="game-dot"></div>
+          <div class="game-dot"></div>
+        </div>
+      </div>
+
+      <!-- Eligible badge -->
+      <div class="eligible-badge">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        You're Eligible
+      </div>
+
+      <p class="subtext" style="margin-bottom:22px;">Follow the two steps below to start earning today.</p>
+
+      <!-- Warning -->
+      <div class="warning-box">
+        <span class="warning-ribbon">⚠ Important</span>
+        <div class="warning-body">
+          <span class="warning-emoji">🔒</span>
+          <div>
+            <div class="warning-title">Paid-to-play is locked by default</div>
+            <div class="warning-text">
+              You must <span class="warning-hl">complete Step 2 within 10 minutes</span> of signing up to unlock the paid-to-play feature in your dashboard.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Steps -->
+      <span class="section-eyebrow">How to get started</span>
+      <div class="steps">
+        <div class="steps-connector"></div>
+
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Sign up & Create your account</div>
+            <div class="step-desc">
+              Takes less than 60 seconds — app download required.
+              <br><span class="hi">Enter 21 or older as your age</span> during sign-up to unlock the offer.
+            </div>
+            <span class="step-bonus">$50 Sign-up Bonus</span>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Start one offer within 10 minutes</div>
+            <div class="step-desc">
+              After signing up, <span class="hi">immediately start one task or game install</span> from your dashboard.
+              <span class="warn">You must do this within 10 minutes</span> to unlock the paid-to-play feature.
+            </div>
+            <span class="step-tag">Takes 2–5 min</span>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Get paid</div>
+            <div class="step-desc">
+              <span class="hi">Instant payouts:</span> PayPal, Cash App, Crypto, Bank Transfer, Venmo & Gift Cards.
+            </div>
+            <span class="step-tag">Instant withdrawal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust -->
+      <div class="trust-row">
+        <div class="trust-item"><span class="trust-green">★ Trustpilot</span>&nbsp;<span class="hl">4.8</span> · 251k+ reviews</div>
+        <div class="trust-item">📱 <span class="hl">iOS & Android</span></div>
+        <div class="trust-item">No credit card required</div>
+      </div>
+
+      <!-- Support -->
+      <div class="support-badge">
+        <svg viewBox="0 0 24 24"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
+        24/7 Support
+        <span class="support-dot"></span>
+      </div>
+
+      <footer>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Disclaimer</a>
+        </div>
+        <span class="footer-copy">© 2026 All rights reserved.</span>
+      </footer>
+
+    </div>
+  </div>
+
+
+  <!-- Fixed CTA (all screens) -->
+  <div class="fixed-cta" id="fixed-cta">
+    <div class="fixed-cta-blur"></div>
+    <div class="fixed-cta-inner">
+      <a href="javascript:void(0)" class="fixed-cta-btn" id="fixed-cta-btn">
+        <div class="fixed-cta-left">
+          <div class="fixed-cta-title">
+            <svg viewBox="0 0 24 24"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
+            Create Free Account
+          </div>
+          <div class="fixed-cta-sub"><strong>Instant payouts:</strong> PayPal, Cash App, Crypto & more.</div>
+        </div>
+        <span class="fixed-cta-badge">21+</span>
+      </a>
+    </div>
+  </div>
+
+
+  <script>
+    /* ── PARTICLES ── */
+    (function(){
+      var c = document.getElementById('particles');
+      var cols = ['rgba(44,199,110,1)','rgba(60,210,120,1)','rgba(100,220,140,1)','rgba(255,255,255,1)'];
+      for(var i=0;i<10;i++){
+        var s=document.createElement('span');
+        var sz=2+Math.random()*4;
+        var col=cols[Math.floor(Math.random()*cols.length)];
+        var dur=14+Math.random()*18;
+        var delay=-(Math.random()*30);
+        var drift=(Math.random()*70-35)+'px';
+        s.className='particle';
+        s.style.cssText=[
+          'left:'+(Math.random()*100)+'%',
+          'width:'+sz+'px','height:'+sz+'px',
+          'background:'+col,
+          'opacity:'+(0.25+Math.random()*0.45),
+          'box-shadow:0 0 '+(sz*3)+'px '+col,
+          '--drift:'+drift,
+          'animation-duration:'+dur+'s',
+          'animation-delay:'+delay+'s'
+        ].join(';');
+        c.appendChild(s);
+      }
+    })();
+
+    /* ── GAME CAROUSEL ── */
+    (function(){
+      var slides=document.querySelectorAll('.game-slide');
+      var dots=document.querySelectorAll('.game-dot');
+      var cur=0;
+      function go(n){
+        slides[cur].classList.remove('active');
+        dots[cur].classList.remove('active');
+        cur=(n+slides.length)%slides.length;
+        slides[cur].classList.add('active');
+        dots[cur].classList.add('active');
+      }
+      setInterval(function(){go(cur+1);},2800);
+    })();
+
+    /* ── TOAST ── */
+    (function(){
+      var toasts=[
+        {name:'Dylan',   init:'D', amount:'+$2.66',  meta:'matched 5 in a row · 8s ago'},
+        {name:'Isabella',init:'I', amount:'+$6.22',  meta:'completed Tutorial bonus · 26s ago'},
+        {name:'Marcus',  init:'M', amount:'+$14.50', meta:'finished Royal Match task · 1m ago'},
+        {name:'Sophie',  init:'S', amount:'+$31.00', meta:'withdrew to PayPal · 2m ago'},
+        {name:'Carlos',  init:'C', amount:'+$9.75',  meta:'completed game install · 3m ago'},
+      ];
+      var idx=0;
+      var el=document.getElementById('toast');
+      function show(){
+        var t=toasts[idx%toasts.length]; idx++;
+        document.getElementById('toast-avatar').textContent=t.init;
+        document.getElementById('toast-name').textContent=t.name;
+        document.getElementById('toast-amount').textContent=t.amount;
+        document.getElementById('toast-meta').textContent=t.meta;
+        el.classList.remove('show');
+        void el.offsetWidth;
+        el.classList.add('show');
+        setTimeout(function(){el.classList.remove('show');},4500);
+      }
+      show();
+      setInterval(show,7000);
+    })();
+
+    /* ── REDIRECT ── */
+    function goToOffer(e){
+      e.preventDefault();
+      window.location.href='https://tk.unlockbonusapp.com/click';
+    }
+
+    /* ── SCREENS ── */
+    function showScreen(id){
+      document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+      document.getElementById(id).classList.add('active');
+      window.scrollTo(0,0);
+      var cta = document.getElementById('fixed-cta');
+      if(id === 'screen-c'){ cta.classList.add('visible'); }
+      else { cta.classList.remove('visible'); }
+    }
+
+    document.getElementById('btn-yes').addEventListener('click',function(e){e.preventDefault();showScreen('screen-q2');});
+    document.getElementById('btn-no').addEventListener('click',function(e){e.preventDefault();showScreen('screen-b');});
+    document.getElementById('q2-yes').addEventListener('click',function(){showScreen('screen-c');});
+    document.getElementById('q2-no').addEventListener('click',function(){showScreen('screen-c');});
+    document.getElementById('btn-back').addEventListener('click',function(e){e.preventDefault();showScreen('screen-a');});
+    document.getElementById('fixed-cta-btn').addEventListener('click',goToOffer);
+  </script>
+
+</body>
+</html>
