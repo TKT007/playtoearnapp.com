@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xa96djel82");
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <title>Reco Social – Get Paid To Play Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #06040f;
+      --surface: #120d24;
+      --primary: #a76cf8;
+      --primary2:#c44fd4;
+      --glow:    rgba(167,108,248,.5);
+      --accent:  #f472b6;
+      --accent2: #fbbf24;
+      --text:    #f5f0ff;
+      --muted:   #a89bbf;
+      --muted2:  #5a4a72;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      overflow-x: hidden;
+      overscroll-behavior: none;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .bg-layer::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(167,108,248,.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 110%, rgba(196,79,212,.14) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 90% 10%, rgba(251,191,36,.08) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 30% at 10% 90%, rgba(244,114,182,.1) 0%, transparent 50%);
+    }
+    .particle { position: absolute; border-radius: 50%; opacity: 0; animation: rise linear infinite; }
+    @keyframes rise { 0% { transform: translateY(0) scale(1); opacity: .4; } 100% { transform: translateY(-110vh) scale(.3); opacity: 0; } }
+    .page { position: relative; z-index: 1; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; padding: 48px 20px 100px; }
+    .inner { width: 100%; max-width: 400px; display: flex; flex-direction: column; align-items: center; }
+    .wordmark { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; animation: fadeUp .5s ease both; }
+    .logo-icon { width: 40px; height: 40px; border-radius: 12px; overflow: hidden; box-shadow: 0 0 18px rgba(167,108,248,.5); flex-shrink: 0; }
+    .logo-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .wordmark-text { font-size: 1.7rem; font-weight: 900; letter-spacing: -.02em; }
+    .wordmark-text .w1 { color: var(--text); }
+    .wordmark-text .w2 { background: linear-gradient(90deg, #a76cf8, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero { text-align: center; margin-bottom: 20px; animation: fadeUp .55s .05s ease both; }
+    .hero h1 { font-size: 2.4rem; font-weight: 900; line-height: 1.05; color: var(--text); letter-spacing: -.02em; }
+    .hero h1 .hl { background: linear-gradient(90deg, #a76cf8, #c44fd4, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; }
+    .hero p { margin-top: 14px; font-size: .95rem; color: var(--muted); line-height: 1.6; max-width: 340px; margin-left: auto; margin-right: auto; }
+    .trustpilot { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 16px; margin-bottom: 10px; }
+    .tp-img { display: block; height: 22px; width: auto; }
+    .tp-text { text-align: left; }
+    .tp-text b { display: block; font-size: .8rem; font-weight: 800; color: var(--text); }
+    .tp-text span { font-size: .65rem; color: var(--muted); }
+    .tp-text span b { display: inline; font-size: .65rem; color: var(--text); }
+    .trust-badges { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: nowrap; margin-bottom: 0; }
+    .trust-badge { display: flex; align-items: center; gap: 5px; padding: 5px 10px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 999px; font-size: .68rem; font-weight: 500; color: var(--muted); white-space: nowrap; }
+    .cta-btn {
+      width: 100%; margin: 12px 0 8px; padding: 16px;
+      background: linear-gradient(135deg, #5b8af8 0%, #a76cf8 35%, #c44fd4 65%, #f472b6 100%);
+      border: none; border-radius: 14px; font-size: 1.05rem; font-weight: 800;
+      color: #fff; cursor: pointer; box-shadow: 0 6px 32px rgba(167,108,248,.45);
+      transition: transform .15s, box-shadow .15s;
+      animation: fadeUp .6s .1s ease both, cta-pulse 3s 1s ease-in-out infinite;
+      display: block; text-decoration: none; text-align: center; line-height: normal;
+      touch-action: manipulation; -webkit-appearance: none; text-shadow: 0 1px 4px rgba(0,0,0,.2);
+    }
+    @keyframes cta-pulse { 0%,100% { box-shadow: 0 6px 32px rgba(167,108,248,.45); } 50% { box-shadow: 0 8px 44px rgba(196,79,212,.7); } }
+    .cta-arrow { width: 18px; height: 18px; display: inline-block; vertical-align: middle; margin-left: 4px; }
+    .cta-btn:active { transform: scale(.97); }
+    .trust { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: .75rem; color: var(--muted); margin-bottom: 20px; animation: fadeUp .6s .15s ease both; }
+    .trust .t-sep { color: var(--muted2); }
+    .sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); background: linear-gradient(to top, rgba(6,4,15,1) 60%, rgba(6,4,15,0) 100%); transform: translateY(110%); transition: transform .3s ease; pointer-events: none; }
+    .sticky-cta.visible { transform: translateY(0); pointer-events: auto; }
+    .sticky-cta a { display: block; width: 100%; max-width: 400px; margin: 0 auto; padding: 16px; background: linear-gradient(135deg, #5b8af8 0%, #a76cf8 35%, #c44fd4 65%, #f472b6 100%); border: none; border-radius: 14px; font-size: 1.05rem; font-weight: 800; color: #fff; cursor: pointer; box-shadow: 0 6px 32px rgba(167,108,248,.55); text-decoration: none; text-align: center; text-shadow: 0 1px 4px rgba(0,0,0,.2); animation: cta-pulse 3s ease-in-out infinite; }
+    .earn-calc { width: 100%; background: var(--surface); border: 1px solid rgba(167,108,248,.2); border-radius: 20px; overflow: hidden; padding: 24px 20px 22px; margin-bottom: 20px; box-shadow: 0 12px 40px rgba(0,0,0,.6), 0 0 30px rgba(167,108,248,.12); animation: fadeUp .62s .18s ease both; }
+    .earn-calc-title { text-align: center; font-size: 1.3rem; font-weight: 900; color: var(--text); margin-bottom: 6px; line-height: 1.2; }
+    .earn-calc-title .t-earn, .earn-calc-title .t-back { background: linear-gradient(90deg, #a76cf8, #c44fd4, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .earn-calc-sub { text-align: center; font-size: .85rem; color: var(--muted); margin-bottom: 18px; }
+    .earn-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .earn-card { background: #0e0a1e; border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 16px 12px 14px; text-align: center; }
+    .earn-card.highlighted { border: 1.5px solid rgba(167,108,248,.5); }
+    .earn-card-label { font-size: .58rem; font-weight: 700; letter-spacing: 1.5px; color: var(--muted2); text-transform: uppercase; margin-bottom: 8px; }
+    .earn-card-value { font-size: 1.7rem; font-weight: 900; color: var(--text); line-height: 1; }
+    .earn-card.highlighted .earn-card-value { background: linear-gradient(90deg, #a76cf8, #c44fd4, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .earn-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; border-radius: 4px; outline: none; cursor: pointer; margin-bottom: 10px; background: #2d2540; }
+    .earn-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #a76cf8; cursor: pointer; border: none; box-shadow: 0 0 0 4px rgba(167,108,248,.2); }
+    .earn-slider::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #a76cf8; cursor: pointer; border: none; }
+    .slider-labels { display: flex; justify-content: space-between; font-size: .7rem; color: var(--muted2); font-weight: 600; }
+    .steps-card { width: 100%; background: var(--surface); border: 1px solid rgba(167,108,248,.2); border-radius: 20px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,.6), 0 0 30px rgba(167,108,248,.15); margin-bottom: 20px; animation: fadeUp .65s .2s ease both; }
+    .steps-title { font-size: .7rem; font-weight: 700; text-align: center; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; padding: 20px 0; border-bottom: 1px solid rgba(167,108,248,.12); }
+    .step-item { display: flex; align-items: flex-start; gap: 16px; padding: 20px 24px; border-bottom: 1px solid rgba(167,108,248,.1); }
+    .step-item:last-child { border-bottom: none; }
+    .step-num { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #a76cf8, #c44fd4); display: flex; align-items: center; justify-content: center; font-size: .85rem; font-weight: 800; color: #fff; flex-shrink: 0; box-shadow: 0 0 12px rgba(167,108,248,.45); }
+    .step-body { flex: 1; text-align: left; }
+    .step-body b { display: block; font-size: .95rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .step-body span { font-size: .78rem; color: var(--muted); line-height: 1.4; }
+    .challenge-banner { width: 100%; background: linear-gradient(135deg, #1a0d2e 0%, #150a22 100%); border: 1px solid rgba(196,79,212,.3); border-radius: 16px; padding: 16px 18px; display: flex; align-items: center; gap: 14px; margin-bottom: 20px; position: relative; overflow: hidden; animation: fadeUp .68s .22s ease both; box-shadow: 0 0 24px rgba(196,79,212,.12); }
+    .challenge-banner::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(167,108,248,.07), transparent); animation: shimmer-banner 4s ease-in-out infinite; }
+    @keyframes shimmer-banner { 0%,100% { left: -100%; } 50% { left: 100%; } }
+    .challenge-icon { font-size: 1.6rem; flex-shrink: 0; filter: drop-shadow(0 2px 6px rgba(196,79,212,.4)); }
+    .challenge-body { flex: 1; text-align: left; }
+    .challenge-label { font-size: .6rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #c44fd4; margin-bottom: 4px; }
+    .challenge-title { font-size: .92rem; font-weight: 800; color: var(--text); line-height: 1.3; }
+    .stats { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: .72rem; color: var(--muted); animation: fadeUp .7s .25s ease both; }
+    .stats-sep { color: var(--muted2); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 360px) { .hero h1 { font-size: 1.75rem; } .step-item { padding: 16px; gap: 12px; } .earn-card-value { font-size: 1.4rem; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+    /* ═══ DEVICE GATE ═══ */
+    .device-gate {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #06040f;
+      display: flex; align-items: center; justify-content: center;
+      padding: 28px 24px;
+      transition: opacity .45s ease;
+    }
+    .device-gate-inner { max-width: 420px; width: 100%; text-align: center; animation: fadeUp .5s ease both; }
+    .device-gate h2 { font-size: 2rem; font-weight: 900; color: var(--text); line-height: 1.15; margin-bottom: 12px; letter-spacing: -.02em; }
+    .device-gate h2 .hl { background: linear-gradient(90deg, #a76cf8, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .device-gate p { font-size: .9rem; color: var(--muted); margin-bottom: 36px; line-height: 1.6; }
+    .device-gate p strong { color: var(--text); }
+    .device-btn {
+      width: 100%; display: flex; align-items: center; gap: 16px;
+      padding: 18px 20px; border-radius: 16px; border: none; cursor: pointer;
+      margin-bottom: 12px; transition: transform .12s, opacity .12s;
+      -webkit-tap-highlight-color: transparent; text-align: left;
+    }
+    .device-btn:active { transform: scale(.97); opacity: .85; }
+    .device-btn.primary {
+      background: linear-gradient(135deg, #5b8af8 0%, #a76cf8 35%, #c44fd4 65%, #f472b6 100%);
+      box-shadow: 0 4px 24px rgba(167,108,248,.4);
+    }
+    .device-btn.secondary {
+      background: var(--surface);
+      border: 1.5px solid rgba(167,108,248,.2);
+    }
+    .device-btn-icon { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .device-btn-icon svg { width: 28px; height: 28px; }
+    .device-btn-text { flex: 1; }
+    .device-btn-title { font-size: 1rem; font-weight: 800; color: #fff; display: block; margin-bottom: 2px; }
+    .device-btn-sub { font-size: .75rem; color: rgba(255,255,255,.55); display: block; }
+    .device-btn.secondary .device-btn-title { color: var(--text); }
+    .device-btn.secondary .device-btn-sub { color: var(--muted); }
+
+    /* ═══ QUIZ MODAL ═══ */
+    .quiz-overlay { position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,.72); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; padding: 16px; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+    .quiz-overlay.open { opacity: 1; pointer-events: auto; }
+    .quiz-modal { width: 100%; max-width: 420px; background: #18102e; border-radius: 24px; border: 1px solid rgba(167,108,248,.18); box-shadow: 0 24px 80px rgba(0,0,0,.8), 0 0 40px rgba(167,108,248,.12); max-height: 88dvh; display: flex; flex-direction: column; transform: translateY(20px) scale(.97); transition: transform .35s cubic-bezier(.34,1.56,.64,1); }
+    .quiz-overlay.open .quiz-modal { transform: translateY(0) scale(1); }
+    .quiz-handle { display: none; }
+    .quiz-header { padding: 16px 20px 14px; flex-shrink: 0; }
+    .quiz-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .quiz-step-label { font-size: .65rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .quiz-close { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,.08); border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: .85rem; }
+    .quiz-bar-track { width: 100%; height: 3px; border-radius: 3px; background: rgba(255,255,255,.08); overflow: hidden; }
+    .quiz-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #a76cf8, #c44fd4, #f472b6); transition: width .4s cubic-bezier(.4,0,.2,1); }
+    .quiz-body { flex: 1; overflow-y: auto; padding: 24px 20px 32px; -webkit-overflow-scrolling: touch; }
+    .quiz-slide { display: none; }
+    .quiz-slide.active { display: block; animation: qSlideIn .28s ease both; }
+    @keyframes qSlideIn { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: translateX(0); } }
+    .quiz-q-text { font-size: 1.35rem; font-weight: 800; color: var(--text); line-height: 1.2; margin-bottom: 6px; }
+    .quiz-q-sub { font-size: .8rem; color: var(--muted); margin-bottom: 22px; line-height: 1.4; }
+    .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+    .quiz-option { display: flex; align-items: center; gap: 14px; padding: 15px 16px; background: #0f0a1f; border: 1.5px solid rgba(255,255,255,.07); border-radius: 16px; cursor: pointer; transition: border-color .15s, background .15s, transform .1s; -webkit-tap-highlight-color: transparent; }
+    .quiz-option:active { transform: scale(.98); }
+    .quiz-option.selected { border-color: var(--primary); background: rgba(167,108,248,.1); }
+    .qopt-icon-box { width: 38px; height: 38px; border-radius: 10px; background: rgba(167,108,248,.14); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .quiz-option.selected .qopt-icon-box { background: rgba(167,108,248,.22); }
+    .qopt-texts { flex: 1; text-align: left; }
+    .qopt-title { font-size: .95rem; font-weight: 700; color: var(--text); display: block; }
+    .qopt-sub { font-size: .73rem; color: var(--muted); margin-top: 2px; display: block; }
+    .qopt-radio { width: 22px; height: 22px; border-radius: 50%; border: 2px solid rgba(167,108,248,.25); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: border-color .15s, background .15s; }
+    .quiz-option.selected .qopt-radio { border-color: var(--primary); background: var(--primary); }
+    .qopt-radio::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #fff; opacity: 0; transition: opacity .15s; }
+    .quiz-option.selected .qopt-radio::after { opacity: 1; }
+    .quiz-result { display: none; text-align: center; }
+    .quiz-result.active { display: block; animation: qSlideIn .35s ease both; }
+    .result-ready-pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.3); color: #22c55e; font-size: .68rem; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; margin-bottom: 14px; }
+    .result-headline { font-size: 1.5rem; font-weight: 900; color: var(--text); line-height: 1.15; margin-bottom: 18px; letter-spacing: -.01em; }
+    .result-estimate-box { width: 100%; background: #0f0a1f; border: 1px solid rgba(167,108,248,.15); border-radius: 16px; padding: 18px 16px; margin-bottom: 14px; }
+    .result-sublabel { font-size: .62rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .result-boost-expires { background: rgba(0,0,0,.3); border: 1px solid rgba(251,191,36,.2); border-radius: 10px; padding: 10px 14px; font-size: .8rem; color: #fbbf24; font-weight: 600; margin-bottom: 14px; }
+    .result-amount { font-size: 2.6rem; font-weight: 900; line-height: 1; background: linear-gradient(90deg, #a76cf8, #c44fd4, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -.02em; }
+    .result-boost { width: 100%; position: relative; background: linear-gradient(135deg, #221705 0%, #1a1208 100%); border: 1px solid rgba(251,191,36,.4); border-radius: 16px; padding: 18px 16px 16px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 0 28px rgba(251,191,36,.18), inset 0 0 36px rgba(251,191,36,.04); }
+    .result-boost::before { content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 130%; height: 90%; background: radial-gradient(ellipse at center, rgba(251,191,36,.16) 0%, transparent 65%); pointer-events: none; }
+    .result-boost-top { position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; }
+    .result-boost-label { font-size: .65rem; font-weight: 800; letter-spacing: .3px; text-transform: uppercase; color: #fbbf24; }
+    .result-boost-limited { position: relative; display: inline-flex; align-items: center; gap: 5px; border: 1px solid rgba(251,191,36,.4); border-radius: 999px; color: #fbbf24; font-size: .6rem; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; padding: 3px 10px; margin-bottom: 12px; }
+    .result-boost-amount { position: relative; font-size: 2.3rem; font-weight: 900; line-height: 1; background: linear-gradient(90deg, #fbbf24, #f59e0b, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 14px; letter-spacing: -.02em; }
+    .result-boost-divider { position: relative; display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .result-boost-divider::before, .result-boost-divider::after { content: ''; flex: 1; height: 1px; background: rgba(251,191,36,.25); }
+    .result-boost-divider span { font-size: .58rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(251,191,36,.7); }
+    .result-boost-text { position: relative; font-size: .76rem; color: var(--muted); line-height: 1.55; }
+    .result-boost-text b { color: #fbbf24; font-weight: 800; }
+    .result-urgency { display: flex; align-items: center; justify-content: center; gap: 7px; font-size: .72rem; color: var(--muted); margin-bottom: 16px; }
+    .result-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; flex-shrink: 0; box-shadow: 0 0 0 3px rgba(34,197,94,.2); animation: pulse-dot 1.5s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 3px rgba(34,197,94,.2); } 50% { box-shadow: 0 0 0 6px rgba(34,197,94,.08); } }
+    #resultViewers { color: var(--text); font-weight: 700; }
+    .result-claim { width: 100%; padding: 17px; background: #22c55e; border: none; border-radius: 16px; font-size: 1.05rem; font-weight: 900; color: #fff; cursor: pointer; box-shadow: 0 6px 28px rgba(34,197,94,.35); transition: transform .12s; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; text-shadow: 0 1px 3px rgba(0,0,0,.2); margin-bottom: 10px; animation: claim-pulse 2.5s ease-in-out infinite; }
+    @keyframes claim-pulse { 0%,100% { box-shadow: 0 6px 28px rgba(34,197,94,.35); } 50% { box-shadow: 0 8px 40px rgba(34,197,94,.6); } }
+    .result-claim:active { transform: scale(.97); }
+    .result-claim svg { width: 17px; height: 17px; }
+    .result-foot { font-size: .68rem; color: var(--muted2); text-align: center; }
+    .result-confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: 24px; }
+    .conf-dot { position: absolute; border-radius: 50%; animation: confFall 1s ease-out both; }
+    @keyframes confFall { 0% { transform: translateY(-8px) scale(0); opacity: 1; } 80% { opacity: .8; } 100% { transform: translateY(90px) scale(1); opacity: 0; } }
+  </style>
+</head>
+<body>
+
+<!-- DEVICE GATE -->
+<div class="device-gate" id="deviceGate">
+  <div class="device-gate-inner">
+    <h2>Confirm your device to<br><span class="hl">unlock</span></h2>
+    <p>Reserved for users who complete a quick verification.<br><strong>Takes under 2 minutes.</strong></p>
+    <button class="device-btn primary" onclick="selectDevice()">
+      <div class="device-btn-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" fill="#fff"/></svg>
+      </div>
+      <div class="device-btn-text">
+        <span class="device-btn-title">I'm on iPhone / iPad</span>
+        <span class="device-btn-sub">Native app payout</span>
+      </div>
+    </button>
+    <button class="device-btn secondary" onclick="selectDevice()">
+      <div class="device-btn-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341c-.5 0-.904-.405-.904-.904 0-.499.405-.904.904-.904.499 0 .904.405.904.904 0 .499-.405.904-.904.904m-11.046 0c-.5 0-.904-.405-.904-.904 0-.499.405-.904.904-.904.499 0 .904.405.904.904 0 .499-.405.904-.904.904m11.37-6.018l1.806-3.13a.376.376 0 0 0-.138-.513.376.376 0 0 0-.513.138l-1.83 3.169A11.428 11.428 0 0 0 12 7.842a11.43 11.43 0 0 0-5.172 1.145l-1.83-3.169a.376.376 0 0 0-.513-.138.376.376 0 0 0-.138.513l1.806 3.13C2.871 11.073.5 14.291 0 18.087h24c-.5-3.796-2.871-7.014-6.153-8.764" fill="#a76cf8"/></svg>
+      </div>
+      <div class="device-btn-text">
+        <span class="device-btn-title">I'm on Android / Other</span>
+        <span class="device-btn-sub">Payout via PayPal or wire</span>
+      </div>
+    </button>
+  </div>
+</div>
+
+<div class="bg-layer" id="bgLayer"></div>
+
+<div class="page">
+  <div class="inner">
+    <div class="wordmark">
+      <div class="logo-icon"><img src="https://play-lh.googleusercontent.com/DiVZQT6nkJjZBPV0Wg_RGLzL3F5Dq6ytDEnu1-z1n9rVKlVzdFzdSWRRmM4eUxh6z797=w480-h960-rw" alt="Reco Social"></div>
+      <div class="wordmark-text"><span class="w1">reco</span><span class="w2">social</span></div>
+    </div>
+    <div class="hero">
+      <h1>STOP USING YOUR<br><span class="hl">PHONE FOR FREE</span></h1>
+      <p>Earn <strong>real cash</strong> by playing games, testing apps, and answering quick surveys. Cash out anytime to PayPal, Venmo, or your bank.</p>
+      <div class="trustpilot">
+        <img class="tp-img" src="https://static.cdnlogo.com/logos/s/99/stars-5.svg" alt="5 stars" height="24">
+        <div class="tp-text"><b>Excellent</b><span>34,937 reviews on <b>Trustpilot</b></span></div>
+      </div>
+      <div class="trust-badges">
+        <div class="trust-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Encrypted</div>
+        <div class="trust-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m9 12 2 2 4-4"></path></svg>No credit card</div>
+        <div class="trust-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>2M+ users</div>
+      </div>
+    </div>
+    <button class="cta-btn" id="mainCta" onclick="openQuiz()">See What You Could Earn <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+    <div class="trust"><span>Free</span><span class="t-sep">·</span><span>Instant Payout</span><span class="t-sep">·</span><span>60-second signup</span></div>
+    <div class="earn-calc">
+      <div class="earn-calc-title">See what you could <span class="t-earn">earn</span> <span class="t-back">back</span></div>
+      <div class="earn-calc-sub">Drag the slider. Based on real average payouts on in-game milestones.</div>
+      <div class="earn-cards">
+        <div class="earn-card"><div class="earn-card-label">You Spend</div><div class="earn-card-value" id="spend-val">$60</div></div>
+        <div class="earn-card highlighted"><div class="earn-card-label">You Earn</div><div class="earn-card-value" id="earn-val">$480</div></div>
+      </div>
+      <div class="slider-row">
+        <input class="earn-slider" type="range" id="earn-slider" min="20" max="200" step="5" value="60">
+        <div class="slider-labels"><span>$20</span><span>$200</span></div>
+      </div>
+    </div>
+    <div class="steps-card">
+      <div class="steps-title">Your Earning Journey</div>
+      <div class="step-item"><div class="step-num">1</div><div class="step-body"><b>Download &amp; Get Your $10 Bonus</b><span>Available on iOS &amp; Android – Takes less than 60 seconds</span></div></div>
+      <div class="step-item"><div class="step-num">2</div><div class="step-body"><b>Play Games &amp; Complete Offers</b><span>Test apps &amp; games, watch videos, or take surveys!</span></div></div>
+      <div class="step-item"><div class="step-num">3</div><div class="step-body"><b>Cash Out Your Earnings</b><span>Instant Payouts: PayPal, CashApp, Venmo, Crypto &amp; Wire</span></div></div>
+    </div>
+    <div class="challenge-banner" style="position:relative;">
+      <div style="position:absolute;top:-1px;right:-1px;background:linear-gradient(135deg,#a76cf8,#c44fd4);border-radius:0 16px 0 10px;padding:5px 12px;font-size:.6rem;font-weight:800;letter-spacing:1px;color:#fff;text-transform:uppercase;">Tip</div>
+      <div class="challenge-icon">💡</div>
+      <div class="challenge-body">
+        <div class="challenge-label" style="color:var(--primary);">Pro Tip</div>
+        <div class="challenge-title" style="-webkit-text-fill-color:unset;color:var(--text);font-weight:600;">Make an in-app purchase on any game and unlock <span style="background:linear-gradient(90deg,#a76cf8,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;">premium milestones</span> that help you multiply your earnings even faster!</div>
+      </div>
+    </div>
+    <div class="stats"><span>10M+ Users</span><span class="stats-sep">·</span><span>$50M+ Paid Out</span><span class="stats-sep">·</span><span>🇺🇸 US</span></div>
+  </div>
+</div>
+
+<div class="sticky-cta" id="stickyCta">
+  <a id="stickyCtaBtn" href="javascript:void(0)" onclick="openQuiz(); return false;">See What You Could Earn <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></a>
+</div>
+
+<!-- QUIZ MODAL -->
+<div class="quiz-overlay" id="quizOverlay" onclick="handleOverlayClick(event)">
+  <div class="quiz-modal" id="quizModal" style="position:relative;">
+    <div class="result-confetti" id="confettiLayer"></div>
+    <div class="quiz-handle"></div>
+    <div class="quiz-header">
+      <div class="quiz-header-row">
+        <span class="quiz-step-label" id="stepLabel">STEP 1 OF 3</span>
+        <button class="quiz-close" onclick="closeQuiz()">✕</button>
+      </div>
+      <div class="quiz-bar-track"><div class="quiz-bar-fill" id="quizBarFill" style="width:33%"></div></div>
+    </div>
+    <div class="quiz-body">
+      <div class="quiz-slide active" id="slide-0">
+        <div class="quiz-q-text">What device do you use?</div>
+        <div class="quiz-q-sub">Pick one. We'll tailor your estimate.</div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectAndAdvance(this, 0, 1)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path></svg></div><div class="qopt-texts"><b class="qopt-title">iPhone (iOS)</b><span class="qopt-sub">Any iPhone model</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 0, 0)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"></path><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg></div><div class="qopt-texts"><b class="qopt-title">Android</b><span class="qopt-sub">Samsung, Motorola, Pixel, and others</span></div><div class="qopt-radio"></div></div>
+        </div>
+      </div>
+      <div class="quiz-slide" id="slide-1">
+        <div class="quiz-q-text">How much time can you spend on your phone daily?</div>
+        <div class="quiz-q-sub">Be honest. It affects your estimate.</div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectAndAdvance(this, 1, 0)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"></path><path d="M14 2v2"></path><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"></path><path d="M6 2v2"></path></svg></div><div class="qopt-texts"><b class="qopt-title">15–30 minutes</b><span class="qopt-sub">A quick session before work</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 1, 1)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg></div><div class="qopt-texts"><b class="qopt-title">1–2 hours</b><span class="qopt-sub">Consistent daily side income</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 1, 2)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg></div><div class="qopt-texts"><b class="qopt-title">2–4 hours</b><span class="qopt-sub">Serious about supplemental income</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 1, 3)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg></div><div class="qopt-texts"><b class="qopt-title">4+ hours</b><span class="qopt-sub">Treating this like a real hustle</span></div><div class="qopt-radio"></div></div>
+        </div>
+      </div>
+      <div class="quiz-slide" id="slide-2">
+        <div class="quiz-q-text">What's your earning goal?</div>
+        <div class="quiz-q-sub">This determines which deals to prioritize.</div>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectAndAdvance(this, 2, 0)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div><div class="qopt-texts"><b class="qopt-title">Extra $20–$50 / day</b><span class="qopt-sub">Coffee money, subscriptions</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 2, 1)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg></div><div class="qopt-texts"><b class="qopt-title">$50–$150 / day</b><span class="qopt-sub">Solid side income every month</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 2, 2)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></div><div class="qopt-texts"><b class="qopt-title">$150–$300 / day</b><span class="qopt-sub">Replace a part-time job</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 2, 3)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg></div><div class="qopt-texts"><b class="qopt-title">Maximum possible</b><span class="qopt-sub">I want every dollar available</span></div><div class="qopt-radio"></div></div>
+        </div>
+      </div>
+      <div class="quiz-result" id="quiz-result">
+        <div class="result-ready-pill"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/></svg>You Are Qualified!</div>
+        <div class="result-headline">You're In the Top Tier 🚀</div>
+        <div class="result-estimate-box">
+          <div class="result-sublabel">⚡ Your Estimated Daily Earnings</div>
+          <div class="result-amount" id="resultAmount">$130–$260</div>
+        </div>
+        <div class="result-boost">
+          <div class="result-boost-top">
+            <span class="result-boost-label">🎁 Exclusive New User Bonus</span>
+            <div class="result-boost-limited"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Limited Time</div>
+          </div>
+          <div class="result-boost-amount" id="resultBoostAmount">$297–$1,152</div>
+          <div class="result-boost-expires" id="resultExpires"></div>
+          <div class="result-boost-divider"><span>How to Unlock It</span></div>
+          <div class="result-boost-text">Spend <b>$5 on in-app purchases</b> on any game and instantly unlock premium milestones that pay <b>$250+ each</b>.</div>
+        </div>
+        <div class="result-urgency"><span class="result-dot"></span><span id="resultViewers">847 people</span> claimed their bonus in the last hour</div>
+        <a href="javascript:void(0)" class="result-claim" id="resultClaimBtn">Claim My Bonus Now &nbsp;›</a>
+        <div class="result-foot">$10 welcome bonus included · No credit card · 60 seconds</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── DEVICE GATE ─────────────────────────────────────────────
+document.body.style.overflow = 'hidden';
+function selectDevice() {
+  var gate = document.getElementById('deviceGate');
+  gate.style.opacity = '0';
+  setTimeout(function() {
+    gate.style.display = 'none';
+    document.body.style.overflow = '';
+  }, 450);
+}
+
+// ─── PARTICLES ───────────────────────────────────────────────
+(function(){
+  var layer=document.getElementById('bgLayer');
+  var colors=['#a76cf8','#c44fd4','#f472b6','#5b8af8','#fbbf24'];
+  for(var i=0;i<18;i++){
+    var p=document.createElement('div'); p.className='particle';
+    var sz=Math.random()*4+2;
+    p.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+Math.random()*100+'%;bottom:'+Math.random()*20+'%;background:'+colors[Math.floor(Math.random()*colors.length)]+';animation-duration:'+(Math.random()*10+8)+'s;animation-delay:'+(Math.random()*8)+'s;';
+    layer.appendChild(p);
+  }
+})();
+
+// ─── STICKY CTA ──────────────────────────────────────────────
+(function(){
+  var mainBtn=document.getElementById('mainCta');
+  var stickyCta=document.getElementById('stickyCta');
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ stickyCta.classList[e.isIntersecting?'remove':'add']('visible'); });
+  },{threshold:0});
+  obs.observe(mainBtn);
+})();
+
+// ─── EARN CALC ───────────────────────────────────────────────
+(function(){
+  var slider=document.getElementById('earn-slider');
+  var spendEl=document.getElementById('spend-val');
+  var earnEl=document.getElementById('earn-val');
+  function update(){
+    var s=parseInt(slider.value);
+    spendEl.textContent='$'+s;
+    earnEl.textContent='$'+(s*8);
+    var pct=(s-20)/(200-20)*100;
+    slider.style.background='linear-gradient(to right,#a76cf8 0%,#c44fd4 '+pct+'%,#2d2540 '+pct+'%,#2d2540 100%)';
+  }
+  slider.addEventListener('input',update); update();
+})();
+
+// ─── OFFER URL ───────────────────────────────────────────────
+var BASE_URL = 'https://linkthem.net/aff_c?tl_id=16e420d2';
+var _source  = new URLSearchParams(window.location.search).get('source') || '';
+var offerUrl = _source ? BASE_URL + '&source=' + encodeURIComponent(_source) : BASE_URL;
+
+// ─── QUIZ ────────────────────────────────────────────────────
+var answers=[null,null,null];
+var TOTAL=3;
+
+function openQuiz(){
+  document.getElementById('quizOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeQuiz(){
+  document.getElementById('quizOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function handleOverlayClick(e){
+  if(e.target===document.getElementById('quizOverlay')) closeQuiz();
+}
+function setProgress(step){
+  var pct=Math.round((step/TOTAL)*100);
+  if(pct>100) pct=100;
+  document.getElementById('quizBarFill').style.width=pct+'%';
+  document.getElementById('stepLabel').textContent=step<=TOTAL?'STEP '+step+' OF '+TOTAL:'';
+}
+function selectAndAdvance(el, qIdx, optIdx){
+  el.parentNode.querySelectorAll('.quiz-option').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+  answers[qIdx]=optIdx;
+  setTimeout(function(){
+    if(qIdx<TOTAL-1){
+      document.getElementById('slide-'+qIdx).classList.remove('active');
+      document.getElementById('slide-'+(qIdx+1)).classList.add('active');
+      setProgress(qIdx+2);
+    } else { showResult(); }
+  }, 260);
+}
+
+var RANGES=[
+  [['$20–$45','$30–$60','$45–$90','$60–$130'],['$40–$80','$60–$140','$90–$180','$130–$260'],['$60–$130','$100–$200','$150–$300','$200–$400'],['$80–$180','$150–$300','$250–$450','$350–$700']],
+  [['$25–$50','$35–$70','$50–$100','$70–$150'],['$45–$90','$70–$160','$100–$200','$140–$280'],['$70–$150','$110–$220','$160–$320','$220–$440'],['$90–$200','$160–$320','$280–$500','$380–$760']]
+];
+
+function showResult(){
+  var dev=answers[0]!==null?answers[0]:0;
+  var time=answers[1]!==null?answers[1]:1;
+  var goal=answers[2]!==null?answers[2]:1;
+  var estimate=RANGES[dev][time][goal];
+  document.getElementById('resultAmount').textContent=estimate;
+  var nums=estimate.replace(/\$/g,'').split('–');
+  var lo=parseInt(nums[0],10), hi=parseInt(nums[1],10);
+  var boostLo=Math.round(lo*2.2/5)*5, boostHi=Math.round(hi*4.4/10)*10;
+  document.getElementById('resultBoostAmount').textContent='$'+boostLo.toLocaleString('en-US')+'–$'+boostHi.toLocaleString('en-US');
+  document.getElementById('resultViewers').textContent=(200+Math.floor(Math.random()*900)).toLocaleString('en-US')+' people';
+  var now=new Date(); var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('resultExpires').textContent='\u23F0 Offer expires: '+months[now.getMonth()]+' '+now.getDate()+', '+now.getFullYear()+' — Don\'t miss out';
+  document.getElementById('slide-2').classList.remove('active');
+  document.getElementById('quiz-result').classList.add('active');
+  setProgress(TOTAL+1);
+  spawnConfetti();
+}
+
+function spawnConfetti(){
+  var layer=document.getElementById('confettiLayer');
+  var colors=['#a76cf8','#c44fd4','#f472b6','#4ade80','#fbbf24','#5b8af8','#fff'];
+  layer.innerHTML='';
+  for(var i=0;i<28;i++){
+    var d=document.createElement('div'); d.className='conf-dot';
+    var sz=3+Math.random()*5;
+    d.style.cssText='left:'+(Math.random()*100)+'%;top:'+(5+Math.random()*35)+'%;width:'+sz+'px;height:'+sz+'px;background:'+colors[Math.floor(Math.random()*colors.length)]+';animation-delay:'+(Math.random()*.5)+'s;animation-duration:'+(0.7+Math.random()*.7)+'s;';
+    layer.appendChild(d);
+  }
+}
+
+// Result claim — javascript:void(0) href, redirect via JS
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('resultClaimBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    window.location.href = offerUrl;
+  });
+});
+</script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
