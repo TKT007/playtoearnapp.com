@@ -321,8 +321,7 @@
       <div class="quiz-bar-track"><div class="quiz-bar-fill" id="quizBarFill" style="width:50%"></div></div>
     </div>
     <div class="quiz-body">
-      </div>
-      <div class="quiz-slide active" id="slide-1">
+      <div class="quiz-slide active" id="slide-0">
         <div class="quiz-q-text">How much time can you spend on your phone daily?</div>
         <div class="quiz-q-sub">Be honest. It affects your estimate.</div>
         <div class="quiz-options">
@@ -332,7 +331,7 @@
           <div class="quiz-option" onclick="selectAndAdvance(this, 0, 3)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg></div><div class="qopt-texts"><b class="qopt-title">4+ hours</b><span class="qopt-sub">Treating this like a real hustle</span></div><div class="qopt-radio"></div></div>
         </div>
       </div>
-      <div class="quiz-slide" id="slide-2">
+      <div class="quiz-slide" id="slide-1">
         <div class="quiz-q-text">What's your earning goal?</div>
         <div class="quiz-q-sub">This determines which deals to prioritize.</div>
         <div class="quiz-options">
@@ -473,7 +472,7 @@ function showResult(){
   document.getElementById('resultViewers').textContent=(200+Math.floor(Math.random()*900)).toLocaleString('en-US')+' people';
   var now=new Date(); var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
   document.getElementById('resultExpires').textContent='\u23F0 Offer expires: '+months[now.getMonth()]+' '+now.getDate()+', '+now.getFullYear()+' — Don\'t miss out';
-  document.getElementById('slide-1').classList.remove('active');
+  document.getElementById('slide-0').classList.remove('active');
   document.getElementById('quiz-result').classList.add('active');
   setProgress(TOTAL+1);
   spawnConfetti();
