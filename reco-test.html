@@ -315,38 +315,31 @@
     <div class="quiz-handle"></div>
     <div class="quiz-header">
       <div class="quiz-header-row">
-        <span class="quiz-step-label" id="stepLabel">STEP 1 OF 3</span>
+        <span class="quiz-step-label" id="stepLabel">STEP 1 OF 2</span>
         <button class="quiz-close" onclick="closeQuiz()">✕</button>
       </div>
-      <div class="quiz-bar-track"><div class="quiz-bar-fill" id="quizBarFill" style="width:33%"></div></div>
+      <div class="quiz-bar-track"><div class="quiz-bar-fill" id="quizBarFill" style="width:50%"></div></div>
     </div>
     <div class="quiz-body">
-      <div class="quiz-slide active" id="slide-0">
-        <div class="quiz-q-text">What device do you use?</div>
-        <div class="quiz-q-sub">Pick one. We'll tailor your estimate.</div>
-        <div class="quiz-options">
-          <div class="quiz-option" onclick="selectAndAdvance(this, 0, 1)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path></svg></div><div class="qopt-texts"><b class="qopt-title">iPhone (iOS)</b><span class="qopt-sub">Any iPhone model</span></div><div class="qopt-radio"></div></div>
-          <div class="quiz-option" onclick="selectAndAdvance(this, 0, 0)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"></path><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg></div><div class="qopt-texts"><b class="qopt-title">Android</b><span class="qopt-sub">Samsung, Motorola, Pixel, and others</span></div><div class="qopt-radio"></div></div>
-        </div>
       </div>
-      <div class="quiz-slide" id="slide-1">
+      <div class="quiz-slide active" id="slide-1">
         <div class="quiz-q-text">How much time can you spend on your phone daily?</div>
         <div class="quiz-q-sub">Be honest. It affects your estimate.</div>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="selectAndAdvance(this, 1, 0)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"></path><path d="M14 2v2"></path><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"></path><path d="M6 2v2"></path></svg></div><div class="qopt-texts"><b class="qopt-title">15–30 minutes</b><span class="qopt-sub">A quick session before work</span></div><div class="qopt-radio"></div></div>
-          <div class="quiz-option" onclick="selectAndAdvance(this, 1, 1)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg></div><div class="qopt-texts"><b class="qopt-title">1–2 hours</b><span class="qopt-sub">Consistent daily side income</span></div><div class="qopt-radio"></div></div>
-          <div class="quiz-option" onclick="selectAndAdvance(this, 1, 2)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg></div><div class="qopt-texts"><b class="qopt-title">2–4 hours</b><span class="qopt-sub">Serious about supplemental income</span></div><div class="qopt-radio"></div></div>
-          <div class="quiz-option" onclick="selectAndAdvance(this, 1, 3)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg></div><div class="qopt-texts"><b class="qopt-title">4+ hours</b><span class="qopt-sub">Treating this like a real hustle</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 0, 0)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"></path><path d="M14 2v2"></path><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"></path><path d="M6 2v2"></path></svg></div><div class="qopt-texts"><b class="qopt-title">15–30 minutes</b><span class="qopt-sub">A quick session before work</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 0, 1)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg></div><div class="qopt-texts"><b class="qopt-title">1–2 hours</b><span class="qopt-sub">Consistent daily side income</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 0, 2)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg></div><div class="qopt-texts"><b class="qopt-title">2–4 hours</b><span class="qopt-sub">Serious about supplemental income</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 0, 3)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg></div><div class="qopt-texts"><b class="qopt-title">4+ hours</b><span class="qopt-sub">Treating this like a real hustle</span></div><div class="qopt-radio"></div></div>
         </div>
       </div>
       <div class="quiz-slide" id="slide-2">
         <div class="quiz-q-text">What's your earning goal?</div>
         <div class="quiz-q-sub">This determines which deals to prioritize.</div>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="selectAndAdvance(this, 2, 0)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div><div class="qopt-texts"><b class="qopt-title">Extra $20–$50 / day</b><span class="qopt-sub">Coffee money, subscriptions</span></div><div class="qopt-radio"></div></div>
-          <div class="quiz-option" onclick="selectAndAdvance(this, 2, 1)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg></div><div class="qopt-texts"><b class="qopt-title">$50–$150 / day</b><span class="qopt-sub">Solid side income every month</span></div><div class="qopt-radio"></div></div>
-          <div class="quiz-option" onclick="selectAndAdvance(this, 2, 2)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></div><div class="qopt-texts"><b class="qopt-title">$150–$300 / day</b><span class="qopt-sub">Replace a part-time job</span></div><div class="qopt-radio"></div></div>
-          <div class="quiz-option" onclick="selectAndAdvance(this, 2, 3)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg></div><div class="qopt-texts"><b class="qopt-title">Maximum possible</b><span class="qopt-sub">I want every dollar available</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 1, 0)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div><div class="qopt-texts"><b class="qopt-title">Extra $20–$50 / day</b><span class="qopt-sub">Coffee money, subscriptions</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 1, 1)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg></div><div class="qopt-texts"><b class="qopt-title">$50–$150 / day</b><span class="qopt-sub">Solid side income every month</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 1, 2)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></div><div class="qopt-texts"><b class="qopt-title">$150–$300 / day</b><span class="qopt-sub">Replace a part-time job</span></div><div class="qopt-radio"></div></div>
+          <div class="quiz-option" onclick="selectAndAdvance(this, 1, 3)"><div class="qopt-icon-box"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a76cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg></div><div class="qopt-texts"><b class="qopt-title">Maximum possible</b><span class="qopt-sub">I want every dollar available</span></div><div class="qopt-radio"></div></div>
         </div>
       </div>
       <div class="quiz-result" id="quiz-result">
@@ -429,8 +422,8 @@ var _source  = new URLSearchParams(window.location.search).get('source') || '';
 var offerUrl = _source ? BASE_URL + '&source=' + encodeURIComponent(_source) : BASE_URL;
 
 // ─── QUIZ ────────────────────────────────────────────────────
-var answers=[null,null,null];
-var TOTAL=3;
+var answers=[null,null];
+var TOTAL=2;
 
 function openQuiz(){
   document.getElementById('quizOverlay').classList.add('open');
@@ -468,9 +461,9 @@ var RANGES=[
 ];
 
 function showResult(){
-  var dev=answers[0]!==null?answers[0]:0;
-  var time=answers[1]!==null?answers[1]:1;
-  var goal=answers[2]!==null?answers[2]:1;
+  var dev=1; // device confirmed via gate (default iOS)
+  var time=answers[0]!==null?answers[0]:1;
+  var goal=answers[1]!==null?answers[1]:1;
   var estimate=RANGES[dev][time][goal];
   document.getElementById('resultAmount').textContent=estimate;
   var nums=estimate.replace(/\$/g,'').split('–');
@@ -480,7 +473,7 @@ function showResult(){
   document.getElementById('resultViewers').textContent=(200+Math.floor(Math.random()*900)).toLocaleString('en-US')+' people';
   var now=new Date(); var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
   document.getElementById('resultExpires').textContent='\u23F0 Offer expires: '+months[now.getMonth()]+' '+now.getDate()+', '+now.getFullYear()+' — Don\'t miss out';
-  document.getElementById('slide-2').classList.remove('active');
+  document.getElementById('slide-1').classList.remove('active');
   document.getElementById('quiz-result').classList.add('active');
   setProgress(TOTAL+1);
   spawnConfetti();
