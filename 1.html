@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head><base href="/lander/fc-age-gate_copy_copy_1782054505_copy_copy_copy_copy_copy_copy/">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="theme-color" content="#faf8ff" />
+    <title>Age Verification</title>
+    <style>
+      :root{
+        --bg:#faf8ff;
+        --fg:#1d1733;
+        --muted:#6d6688;
+        --card:#ffffff;
+        --border:#ece6f7;
+        --border-strong:#e0d8f2;
+        --primary:#7a4ff2;
+        --grad:linear-gradient(95deg,#fb8a34,#ef4d8f 52%,#7a4ff2);
+        --shadow:0 10px 30px rgba(90,47,208,.08);
+      }
+      *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+      html,body{height:100%;height:100dvh;margin:0;overflow:hidden;overscroll-behavior:none;position:fixed;inset:0;width:100%}
+      body{
+        background:var(--bg);color:var(--fg);
+        font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+        line-height:1.45;letter-spacing:-.01em;touch-action:manipulation;
+      }
+      .glow{position:fixed;border-radius:50%;filter:blur(80px);opacity:.5;pointer-events:none;z-index:0}
+      .g1{width:380px;height:380px;background:radial-gradient(circle,rgba(138,99,245,.3),transparent 70%);top:-150px;left:50%;transform:translateX(-50%)}
+      .g2{width:320px;height:320px;background:radial-gradient(circle,rgba(245,97,160,.22),transparent 70%);bottom:-150px;right:-120px}
+      
+      .age-gate{
+        position:relative;z-index:1;height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+        padding:20px;text-align:center;
+      }
+      .age-gate h1{font-size:clamp(28px,8vw,42px);font-weight:900;letter-spacing:-.03em;line-height:1.08;margin:0 0 12px}
+      .age-gate p{color:var(--muted);font-size:clamp(15px,4vw,17px);margin:0 0 32px;max-width:26rem}
+      .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+      
+      .opts{display:flex;flex-direction:column;gap:12px;width:100%;max-width:22rem}
+      .opt{
+        width:100%;text-align:center;font-family:inherit;font-size:17px;font-weight:800;color:#fff;
+        background:var(--grad);border:0;border-radius:14px;
+        padding:18px 22px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+        box-shadow:0 12px 28px rgba(138,80,220,.32);transition:transform .12s ease,box-shadow .2s ease;
+      }
+      .opt:hover{box-shadow:0 16px 34px rgba(138,80,220,.42)}
+      .opt:active{transform:scale(.98)}
+      .opt.secondary{background:#fff;color:var(--fg);border:1.5px solid var(--border-strong);box-shadow:var(--shadow)}
+      .opt svg{width:20px;height:20px}
+      
+      .hidden{display:none!important}
+      
+      @media(max-width:480px){
+        .age-gate h1{font-size:clamp(24px,7vw,32px)}
+        .opt{font-size:16px;padding:16px 20px}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
+
+    <!-- AGE GATE -->
+    <div class="age-gate" id="ageGate">
+      <h1>Are you <span class="grad-text">18 or older</span>?</h1>
+      <p>Age verification required to continue</p>
+      <div class="opts">
+        <button class="opt" onclick="answerAge(true)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5" />
+          </svg>
+          Yes, I'm 18 or older
+        </button>
+        <button class="opt secondary" onclick="answerAge(false)">
+          No, I'm under 18
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const PLAYFUL_URL = 'https://scrollrefund.com/cnsM7rPZ?ttclid=__CLICKID__&creative_id=__CID__&source=__CAMPAIGN_NAME__&adgroup_name=__AID_NAME__&creative_name=__CID_NAME__';
+      const RECO_OFFER_URL = 'https://scrollrefund.com/?_lp=1&_token=2rb8toh1rdvciu.1782400207.34.74dad351f3b926fb72b6bfbec70579c3'; // Placeholder to be replaced
+
+      function answerAge(is18Plus) {
+        if (is18Plus) {
+          // Show Reco landing page
+          document.getElementById('ageGate').classList.add('hidden');
+          document.getElementById('recoLander').classList.remove('hidden');
+          document.body.style.overflow = 'auto';
+          document.body.style.position = 'static';
+          document.documentElement.style.overflow = 'auto';
+        } else {
+          // Redirect to Playful
+          window.location.href = PLAYFUL_URL;
+        }
+      }
+    </script>
+
+    <!-- RECO LANDING PAGE (hidden initially) -->
+    <div id="recoLander" class="hidden" style="overflow-y:auto">
+      <style>
+        body{overflow-y:auto!important;position:static!important}
+        html{overflow-y:auto!important;position:static!important;height:auto!important}
+        #recoLander{display:block}
+        :root{
+          --bg:#faf8ff; --bg-soft:#f3eefb;
+          --fg:#1d1733; --muted:#6d6688;
+          --card:#ffffff; --border:#ece6f7; --border-strong:#e0d8f2;
+          --primary:#7a4ff2; --primary-ink:#5a2fd0;
+          --pink:#ef4d8f; --orange:#fb8a34; --green:#16a564;
+          --grad:linear-gradient(95deg,#fb8a34,#ef4d8f 52%,#7a4ff2);
+          --grad-soft:linear-gradient(95deg,#ff9a4d,#f561a0 52%,#8a63f5);
+          --shadow:0 10px 30px rgba(90,47,208,.08);
+          --shadow-lg:0 18px 50px rgba(90,47,208,.12);
+          --radius:18px;
+          --starmask:url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMmwyLjkzIDUuOTNMNy4xNiAxMi45MyAxMiAxOGwyLjg0LTUuMDcgNi4wMS41OUwxMiAyeiIvPjwvc3ZnPg==');
+        }
+        img{max-width:100%;height:auto;display:block}
+        a{text-decoration:none;color:inherit}
+        .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+        .section{padding:26px 0}
+        .eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--primary)}
+        h1,h2,h3{margin:0;font-weight:900;letter-spacing:-.025em;line-height:1.08}
+
+        /* HEADER */
+        .hdr{position:sticky;top:0;z-index:50;background:rgba(250,248,255,.82);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--border)}
+        .hdr-in{max-width:760px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+        .brand{display:flex;align-items:center;gap:10px;min-width:0}
+        .brand img{width:36px;height:36px;border-radius:10px;box-shadow:0 4px 14px rgba(90,47,208,.22)}
+        .brand b{font-size:16px;font-weight:900;letter-spacing:-.02em}
+        .live{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:700;color:var(--muted);white-space:nowrap}
+        .live .dot{position:relative;width:8px;height:8px;flex:0 0 8px}
+        .live .dot::before{content:'';position:absolute;inset:0;border-radius:50%;background:var(--green);opacity:.45;animation:ping 1.6s cubic-bezier(0,0,.2,1) infinite}
+        .live .dot::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--green)}
+        .live b{color:var(--fg);font-weight:900}
+        @keyframes ping{75%,100%{transform:scale(2.4);opacity:0}}
+
+        /* HERO */
+        .hero{padding:30px 0 8px;text-align:center}
+        .hero h1{font-size:clamp(30px,8.4vw,52px)}
+        .hero p.sub{margin:14px auto 0;max-width:30rem;color:var(--muted);font-size:clamp(15px,4vw,18px)}
+        .hero p.sub strong{color:var(--fg);font-weight:700}
+        .info{display:flex;gap:10px;align-items:flex-start;text-align:left;max-width:30rem;margin:16px auto 0;padding:12px 14px;border:1px solid var(--border-strong);border-radius:14px;background:var(--card);box-shadow:var(--shadow)}
+        .info .ic{flex:0 0 20px;color:var(--green);margin-top:1px}
+        .info p{margin:0;font-size:13.5px;color:var(--muted)}
+        .info p strong{color:var(--fg);font-weight:700}
+        .cta{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;max-width:30rem;margin:18px auto 0;padding:17px 22px;border:0;border-radius:14px;cursor:pointer;
+          font-family:inherit;font-size:17px;font-weight:800;letter-spacing:.01em;color:#fff;background:var(--grad);
+          box-shadow:0 12px 28px rgba(138,80,220,.32);transition:transform .15s ease,box-shadow .2s ease}
+        .cta:hover{box-shadow:0 16px 34px rgba(138,80,220,.42)}
+        .cta:active{transform:scale(.985)}
+        .cta svg{width:20px;height:20px}
+        .pills{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin:16px auto 0;font-size:13px;color:var(--muted);font-weight:600}
+        .pills span{display:inline-flex;align-items:center;gap:6px}
+        .pills .tick{color:var(--green)}
+
+        /* STEPS */
+        .steps-head{text-align:center;margin-bottom:14px}
+        .steps-head .eyebrow{display:block;margin-bottom:6px}
+        .steps-head h2{font-size:clamp(20px,5.5vw,26px)}
+        .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+        .step{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 12px;text-align:center;box-shadow:var(--shadow)}
+        .step .num{width:30px;height:30px;margin:0 auto 9px;border-radius:9px;background:var(--grad);color:#fff;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(138,80,220,.3)}
+        .step b{display:block;font-size:14px;font-weight:800}
+        .step p{margin:4px 0 0;font-size:11.5px;color:var(--muted);line-height:1.35}
+
+        /* SLIDER */
+        .calc{background:var(--card);border:1px solid var(--border-strong);border-radius:24px;padding:22px 20px 24px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+        .calc::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(122,79,242,.04),transparent 40%);pointer-events:none}
+        .calc h2{font-size:clamp(22px,6vw,30px);text-align:center}
+        .calc .lede{text-align:center;color:var(--muted);font-size:13.5px;margin:8px auto 18px;max-width:26rem}
+        .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+        .calc-cell{border-radius:16px;padding:16px 14px;text-align:center}
+        .calc-cell.spend{border:1px solid var(--border-strong);background:var(--bg-soft)}
+        .calc-cell.earn{border:1px solid rgba(122,79,242,.32);background:linear-gradient(180deg,rgba(122,79,242,.07),rgba(239,77,143,.05))}
+        .calc-cell .k{font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--muted)}
+        .calc-cell .v{font-size:clamp(26px,8vw,36px);font-weight:900;margin-top:4px;line-height:1}
+        .calc-cell.earn .v{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+        .calc input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:99px;outline:none;cursor:pointer;
+          background:linear-gradient(90deg,var(--primary) 0%,var(--pink) var(--pct,22%),var(--border-strong) var(--pct,22%))}
+        .calc input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;border:3px solid var(--primary);box-shadow:0 4px 12px rgba(122,79,242,.45);cursor:grab}
+        .calc input[type=range]::-webkit-slider-thumb:active{cursor:grabbing}
+        .calc input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:#fff;border:3px solid var(--primary);box-shadow:0 4px 12px rgba(122,79,242,.45);cursor:grab}
+        .calc .scale{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:8px;font-weight:600}
+        .calc .nudge{text-align:center;font-size:12px;color:var(--muted);margin-top:14px}
+
+        /* TRUST BAND */
+        .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+        .stat{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 8px;text-align:center;box-shadow:var(--shadow)}
+        .stat .v{font-size:clamp(22px,6.4vw,30px);font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+        .stat .l{font-size:11px;color:var(--muted);margin-top:3px;font-weight:600}
+        .trustpilot{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 10px;margin-top:16px;font-size:14px}
+        .trustpilot .ex{font-weight:800}
+        .trustpilot .rev{color:var(--muted);font-size:13px}
+        .trustpilot .tp{font-weight:800;display:inline-flex;align-items:center;gap:5px}
+        .trustpilot .tp .star{color:#00b67a}
+        .stars{display:inline-flex;gap:3px}
+        .st{width:18px;height:18px;display:inline-block;background:#00b67a;-webkit-mask:var(--starmask) center/contain no-repeat;mask:var(--starmask) center/contain no-repeat;position:relative}
+        .st.half{background:linear-gradient(90deg,#00b67a 50%,#d8d2e6 50%)}
+        .tcard .st{background:#fbbf24}
+        .tcard .st.half{background:linear-gradient(90deg,#fbbf24 50%,#e7e1f2 50%)}
+
+        /* GENERIC CARD LISTS */
+        .h2c{text-align:center;font-size:clamp(22px,6vw,30px);margin-bottom:16px}
+        .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        .tile{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 14px;text-align:center;box-shadow:var(--shadow)}
+        .tile .ti{width:38px;height:38px;margin:0 auto 9px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:var(--bg-soft);color:var(--primary)}
+        .tile b{font-size:14.5px;font-weight:800}
+        .tile p{margin:3px 0 0;font-size:12px;color:var(--muted)}
+        .note{text-align:center;font-size:12.5px;color:var(--muted);margin-top:14px}
+        .note strong{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-weight:800}
+
+        .rows{display:flex;flex-direction:column;gap:10px}
+        .row{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+        .row .ri{flex:0 0 40px;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--bg-soft);color:var(--primary)}
+        .row b{font-size:15.5px;font-weight:800}
+        .row p{margin:3px 0 0;font-size:13px;color:var(--muted);line-height:1.45}
+
+        /* CTA BANNER */
+        .banner{background:linear-gradient(180deg,#fff,var(--bg-soft));border:1px solid var(--border-strong);border-radius:24px;padding:28px 22px;text-align:center;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+        .banner .tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.18em;color:var(--orange);margin-bottom:10px}
+        .banner h3{font-size:clamp(22px,6vw,30px);line-height:1.12}
+        .banner .bsub{color:var(--muted);font-size:14px;margin:10px auto 0;max-width:24rem}
+        .banner .bsub b{color:var(--fg)}
+        .banner .fine{font-size:12px;color:var(--muted);margin-top:12px}
+
+        /* TESTIMONIALS */
+        .tm-head{text-align:center;margin-bottom:14px}
+        .tm-head h2{font-size:clamp(22px,6vw,30px)}
+        .marquee{position:relative;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+        .track{display:flex;gap:12px;width:max-content;animation:scroll 60s linear infinite}
+        .marquee:hover .track{animation-play-state:paused}
+        @keyframes scroll{to{transform:translateX(-50%)}}
+        .tcard{flex:0 0 290px;width:290px;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+        .tcard .stars{margin-bottom:8px}
+        .tcard .tq{margin:0 0 12px;font-size:13.5px;color:var(--fg);line-height:1.5}
+        .tcard .tn{margin:0;font-size:13px;font-weight:800}
+        .tcard .tn span{color:var(--muted);font-weight:500}
+
+        /* FOOTER */
+        .foot{text-align:center;padding:8px 0 40px}
+        .foot h2{font-size:clamp(22px,6vw,30px)}
+        .foot .fsub{color:var(--muted);font-size:14px;margin:10px auto 0;max-width:26rem}
+        .disc{font-size:11.5px;color:var(--muted);opacity:.85;margin-top:18px;max-width:32rem;margin-left:auto;margin-right:auto}
+
+        @media(max-width:480px){
+          .wrap{padding:0 16px}
+          .hdr-in{padding:9px 16px}
+          .section{padding:22px 0}
+          .hero{padding:22px 0 6px}
+          .step{padding:13px 8px}
+          .step b{font-size:12.5px}
+          .step p{font-size:10.5px}
+          .calc{padding:18px 16px 20px;border-radius:20px}
+          .row{padding:14px}
+        }
+        @media(prefers-reduced-motion:reduce){
+          .track{animation:none}
+          .live .dot::before{animation:none}
+        }
+      </style>
+
+      <header class="hdr">
+        <div class="hdr-in">
+          <div class="brand">
+            <img src="https://i.imgur.com/jAu2tpO_d.png?maxwidth=520&shape=thumb&fidelity=high" alt="Reco Social" />
+            <b>Reco Social</b>
+          </div>
+          <div class="live"><span class="dot"></span><b id="liveCount">4,130</b>&nbsp;NOW EARNING</div>
+        </div>
+      </header>
+
+      <main>
+        <!-- HERO -->
+        <section class="hero wrap">
+          <h1>Get paid for testing <span class="grad-text">apps &amp; games</span></h1>
+          <p class="sub">
+            Instead of playing for free. Download Reco and earn<strong> real cash rewards for playing games.</strong>
+            &mdash; redeem via PayPal, bank transfer or gift cards.
+          </p>
+          <div class="info">
+            <span class="ic"
+              ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                <path d="M20 6 9 17l-5-5" /></svg
+            ></span>
+            <p>These are <strong>real cash rewards</strong> &mdash; not in-game lives or boosters.</p>
+          </div>
+          <a class="cta" href="https://scrollrefund.com/?_lp=1&_token=2rb8toh1rdvciu.1782400207.34.74dad351f3b926fb72b6bfbec70579c3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+            Sign up free
+          </a>
+          <div class="pills">
+            <span><span class="tick">&#10003;</span> Get paid to play</span>
+            <span><span class="tick">&#10003;</span> Real cash rewards</span>
+            <span><span class="tick">&#10003;</span> 60-second signup</span>
+          </div>
+        </section>
+
+        <!-- STEPS -->
+        <section class="section wrap">
+          <div class="steps-head">
+            <span class="eyebrow">Earn in minutes</span>
+            <h2>Here&rsquo;s how it works</h2>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <div class="num">1</div>
+              <b>Choose an offer</b>
+              <p>Games, surveys &amp; app trials &mdash; free to start.</p>
+            </div>
+            <div class="step">
+              <div class="num">2</div>
+              <b>Complete it</b>
+              <p>Most take a few minutes and earn coins.</p>
+            </div>
+            <div class="step">
+              <div class="num">3</div>
+              <b>Get paid</b>
+              <p>Cash out via PayPal, gift cards &amp; more.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDER -->
+        <section class="section wrap">
+          <div class="calc">
+            <h2>See what you could <span class="grad-text">earn back</span></h2>
+            <p class="lede">Drag the slider &mdash; based on real average payouts on in-game milestones.</p>
+            <div class="calc-grid">
+              <div class="calc-cell spend">
+                <div class="k">YOU SPEND</div>
+                <div class="v" id="spendVal">$60</div>
+              </div>
+              <div class="calc-cell earn">
+                <div class="k">YOU EARN</div>
+                <div class="v" id="earnVal">$480</div>
+              </div>
+            </div>
+            <input type="range" id="slider" min="20" max="200" step="5" value="60" aria-label="Amount you spend" />
+            <div class="scale"><span>$20</span><span>$200</span></div>
+            <p class="nudge">The more you put in, the more milestones you unlock &mdash; and the more you earn back.</p>
+            <a class="cta" href="https://scrollrefund.com/?_lp=1&_token=2rb8toh1rdvciu.1782400207.34.74dad351f3b926fb72b6bfbec70579c3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+              Claim my bonus
+            </a>
+          </div>
+        </section>
+
+        <!-- TRUST BAND -->
+        <section class="section wrap">
+          <div class="stats">
+            <div class="stat">
+              <div class="v">2M+</div>
+              <div class="l">Active members</div>
+            </div>
+            <div class="stat">
+              <div class="v">200+</div>
+              <div class="l">Reward options</div>
+            </div>
+            <div class="stat">
+              <div class="v">4.6&#9733;</div>
+              <div class="l">Member rating</div>
+            </div>
+          </div>
+          <div class="trustpilot">
+            <span class="ex">Excellent</span>
+            <span class="stars" aria-label="4.5 stars"
+              ><i class="st full"></i><i class="st full"></i><i class="st full"></i><i class="st full"></i
+              ><i class="st half"></i
+            ></span>
+            <span class="rev">274,977 reviews on</span>
+            <span class="tp"><span class="star">&#9733;</span>Trustpilot</span>
+          </div>
+        </section>
+
+        <!-- CTA BANNER -->
+        <section class="section wrap">
+          <div class="banner">
+            <span class="tag">&#9889; LIMITED &middot; STARTS TODAY</span>
+            <h3>Pick any offer.<br />Get paid within 24 hours.</h3>
+            <p class="bsub">Join <b id="liveCount2">4,130</b> people earning right now.</p>
+            <a class="cta" href="https://scrollrefund.com/?_lp=1&_token=2rb8toh1rdvciu.1782400207.34.74dad351f3b926fb72b6bfbec70579c3" style="margin-top:18px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+              Unlock the app &mdash; free
+            </a>
+            <p class="fine">Instant access &middot; No card required</p>
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+        <section class="foot wrap">
+          <h2>Start earning <span class="grad-text">today</span></h2>
+          <p class="fsub">Join over 2 million members already earning real cash rewards.</p>
+          <a class="cta" href="https://scrollrefund.com/?_lp=1&_token=2rb8toh1rdvciu.1782400207.34.74dad351f3b926fb72b6bfbec70579c3" style="margin-top:18px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+            Get started now
+          </a>
+          <p class="disc">
+            Reco Social is a rewards platform. Earn coins by testing apps, playing games and taking surveys. Redeem for cash via PayPal, bank transfer, Visa prepaid or 200+ gift cards. 18+ only. Terms apply.
+          </p>
+        </section>
+      </main>
+
+      <script>
+        // Slider logic
+        const slider = document.getElementById('slider');
+        const spendVal = document.getElementById('spendVal');
+        const earnVal = document.getElementById('earnVal');
+        const mult = 8;
+
+        function updateCalc() {
+          const spend = parseInt(slider.value);
+          const earn = spend * mult;
+          spendVal.textContent = '$' + spend;
+          earnVal.textContent = '$' + earn;
+          const pct = ((spend - 20) / (200 - 20)) * 100;
+          slider.style.setProperty('--pct', pct + '%');
+        }
+        slider.addEventListener('input', updateCalc);
+        updateCalc();
+
+        // Live counter animation
+        function animateCount() {
+          const base = 4130;
+          const variance = 50;
+          const count = base + Math.floor(Math.random() * variance);
+          document.querySelectorAll('#liveCount, #liveCount2').forEach(el => {
+            el.textContent = count.toLocaleString();
+          });
+        }
+        setInterval(animateCount, 3000);
+      </script>
+    </div>
+  </body>
+</html>
