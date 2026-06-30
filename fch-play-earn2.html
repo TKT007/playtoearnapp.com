@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Freecash — Get Paid to Play</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050e06;
+  --surface: #0a110b;
+  --surface-border: rgba(44, 199, 110, 0.15);
+  --card: rgba(13, 26, 14, 0.85);
+  --card-inner: #060c07;
+  --card-inner-border: rgba(44, 199, 110, 0.2);
+  --text: #e8f0e9;
+  --text-muted: #5a7a5e;
+  --emerald: #01D676;
+  --emerald-dark: #00b060;
+  --emerald-glow: rgba(1, 214, 118, 0.22);
+  --emerald-glow-soft: rgba(1, 214, 118, 0.07);
+  --emerald-glow-strong: rgba(1, 214, 118, 0.55);
+  --amber: #fbbf24;
+  --amber-dim: rgba(251, 191, 36, 0.08);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html { background: var(--bg); -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  overscroll-behavior: none;
+}
+
+#bg-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-glow {
+  pointer-events: none;
+  position: fixed;
+  top: -120px; left: 50%;
+  transform: translateX(-50%);
+  width: 140%;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(44, 199, 110, 0.22) 0%, rgba(20, 80, 30, 0.12) 50%, transparent 100%);
+  filter: blur(10px);
+  z-index: 0;
+}
+
+.side-glow-l {
+  pointer-events: none;
+  position: fixed;
+  top: 35%; left: -100px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(44, 199, 110, 0.1) 0%, transparent 70%);
+  filter: blur(40px);
+  z-index: 0;
+}
+
+.side-glow-r {
+  pointer-events: none;
+  position: fixed;
+  top: 60%; right: -100px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(30, 120, 60, 0.12) 0%, transparent 70%);
+  filter: blur(40px);
+  z-index: 0;
+}
+
+.page {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.4} }
+@keyframes shimmer { 0%{left:-100%} 50%,100%{left:120%} }
+@keyframes glow-pulse {
+  0%,100%{box-shadow:0 4px 24px var(--emerald-glow),0 0 48px var(--emerald-glow-soft)}
+  50%{box-shadow:0 6px 36px var(--emerald-glow-strong),0 0 72px var(--emerald-glow)}
+}
+@keyframes float-up { 0%{opacity:0;transform:translateY(10px)} 100%{opacity:1;transform:translateY(0)} }
+
+.animate-pulse-dot { animation: pulse-dot 1.5s ease-in-out infinite; }
+.animate-shimmer   { animation: shimmer 2.2s ease-in-out infinite; }
+.animate-glow      { animation: glow-pulse 2s ease-in-out infinite; }
+
+/* ---- Hero Section ---- */
+.hero {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 48px 0 24px;
+  animation: float-up .7s ease-out;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  filter: drop-shadow(0 0 16px rgba(1, 214, 118, 0.4));
+}
+
+.brand-logo svg {
+  display: block;
+}
+
+.hero .badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(1, 214, 118, 0.12);
+  border: 1px solid rgba(1, 214, 118, 0.3);
+  border-radius: 999px;
+  padding: 6px 16px;
+  margin-bottom: 20px;
+}
+.hero .badge .bdot { 
+  width: 6px; height: 6px; border-radius: 50%; 
+  background: var(--emerald); 
+}
+.hero .badge span { 
+  font-size: 10.5px; font-weight: 700; 
+  color: var(--emerald); text-transform: uppercase; 
+  letter-spacing: 0.13em; 
+}
+
+.hero h1 { 
+  font-size: clamp(34px, 10vw, 44px); 
+  font-weight: 900; line-height: 1.1; 
+  letter-spacing: -0.025em; margin-bottom: 12px; 
+}
+.hero h1 .white { color: #fff; }
+.hero h1 .green { 
+  color: var(--emerald);
+  text-shadow: 0 0 40px rgba(1, 214, 118, 0.6), 0 0 80px rgba(1, 214, 118, 0.25);
+}
+.hero .sub { 
+  font-size: 14px; color: rgba(200, 230, 205, 0.65); 
+  line-height: 1.65; max-width: 320px; 
+}
+.hero .sub strong { color: #fff; font-weight: 700; }
+
+.stats-row { display: flex; justify-content: center; gap: 0; padding: 0 0 24px; }
+.stats-row .sr-item { 
+  flex: 1; text-align: center; padding: 12px 6px; 
+  border: 1px solid var(--surface-border); background: var(--card); 
+  backdrop-filter: blur(8px);
+}
+.stats-row .sr-item:first-child { border-radius: 12px 0 0 12px; }
+.stats-row .sr-item:last-child  { border-radius: 0 12px 12px 0; }
+.stats-row .sr-item .val { 
+  display: block; color: var(--emerald); font-weight: 800; 
+  font-size: 15px; font-variant-numeric: tabular-nums; 
+}
+.stats-row .sr-item .label { 
+  display: block; font-size: 9.5px; color: var(--text-muted); 
+  text-transform: uppercase; letter-spacing: .5px; margin-top: 3px; 
+}
+
+/* ---- CTA Button ---- */
+.cta-btn {
+  display: block; width: 100%;
+  background: var(--emerald);
+  color: #000; font-weight: 800; font-size: 15px; letter-spacing: -0.01em;
+  border: 0; border-radius: 14px; padding: 18px 20px;
+  text-decoration: none; text-align: center;
+  position: relative; overflow: hidden; cursor: pointer;
+  transition: transform .1s, background .15s, box-shadow .15s;
+  touch-action: manipulation;
+  z-index: 10;
+}
+.cta-btn:hover {
+  background: #28c864;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(1, 214, 118, 0.35);
+}
+.cta-btn:active { transform: scale(.98) translateY(0); box-shadow: none; }
+.cta-btn .shimmer {
+  position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  pointer-events: none;
+}
+
+.steps { 
+  background: var(--card); border: 1px solid var(--surface-border); 
+  border-radius: 18px; overflow: hidden; margin: 24px 0; 
+  backdrop-filter: blur(8px);
+}
+.stp { display: flex; gap: 14px; padding: 18px 20px; border-bottom: 1px solid var(--surface-border); align-items: flex-start; }
+.stp:last-child { border-bottom: 0; }
+.stp-n { 
+  width: 26px; height: 26px; border-radius: 50%; 
+  background: var(--emerald); display: flex; align-items: center; 
+  justify-content: center; font-size: 13px; font-weight: 900; 
+  color: #000; flex-shrink: 0; margin-top: 1px;
+  box-shadow: 0 0 20px rgba(1, 214, 118, 0.6);
+}
+.stp b { display: block; font-size: 14px; color: #fff; margin-bottom: 3px; font-weight: 700; }
+.stp .d { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+
+/* ---- Proofs Section ---- */
+.proofs { 
+  background: var(--card); border: 1px solid var(--surface-border); 
+  border-radius: 18px; padding: 22px 16px; margin: 24px 0; 
+  backdrop-filter: blur(8px);
+}
+.proofs h2 { font-size: 16px; font-weight: 800; color: #fff; text-align: center; margin-bottom: 16px; }
+.proof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.payout-card { background: var(--card-inner); border: 1px solid var(--card-inner-border); border-radius: 12px; padding: 13px; }
+.pc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.pc-method { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.05em; }
+.pc-verified { display: flex; align-items: center; gap: 3px; }
+.pc-verified svg { width: 11px; height: 11px; color: var(--emerald); }
+.pc-verified span { font-size: 8.5px; font-weight: 800; color: var(--emerald); text-transform: uppercase; }
+.pc-amount { font-size: 22px; font-weight: 900; color: var(--emerald); line-height: 1; margin-bottom: 6px; }
+.pc-info { font-size: 9.5px; color: var(--text-muted); opacity: .8; line-height: 1.35; }
+
+.testimonials { margin: 24px 0; }
+.testimonials h2 { font-size: 16px; font-weight: 800; color: #fff; text-align: center; margin-bottom: 14px; }
+.testimonial-scroll {
+  display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
+  margin: 0 -20px; padding: 0 20px 10px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+}
+.testimonial-scroll::-webkit-scrollbar { display: none; }
+.testimonial-card { 
+  background: var(--card); border: 1px solid var(--surface-border); 
+  border-radius: 16px; padding: 16px; min-width: 250px; max-width: 270px; 
+  flex-shrink: 0; scroll-snap-align: start; backdrop-filter: blur(8px);
+}
+.tc-header { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+.tc-avatar { 
+  width: 36px; height: 36px; border-radius: 50%; 
+  background: linear-gradient(135deg, var(--emerald), #34d399); 
+  display: flex; align-items: center; justify-content: center; 
+  color: #000; font-weight: 900; font-size: 15px; flex-shrink: 0; 
+}
+.tc-name { font-size: 13px; font-weight: 700; color: #fff; }
+.tc-loc   { font-size: 10.5px; color: var(--text-muted); }
+.tc-quote { font-size: 12.5px; color: rgba(232, 240, 233, 0.75); line-height: 1.5; }
+
+/* ---- Live Activity Bar ---- */
+.live-activity { 
+  background: var(--card); border: 1px solid var(--surface-border); 
+  border-radius: 16px; padding: 16px 18px; margin: 24px 0; 
+  display: flex; justify-content: space-between; align-items: center;
+  backdrop-filter: blur(8px);
+}
+.la-left { display: flex; align-items: center; gap: 10px; }
+.la-left .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); }
+.la-left .la-text { font-size: 12.5px; color: var(--text-muted); }
+.la-left .la-text strong { color: var(--emerald); font-weight: 700; }
+.la-right { font-size: 11.5px; color: var(--text-muted); }
+.la-right .timer { color: var(--emerald); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.bottom-cta { padding: 12px 0 44px; }
+
+/* ---- Toast Notification Engine ---- */
+.notif-container { position: fixed; bottom: 20px; right: 12px; z-index: 100; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+.notif {
+  background: rgba(10, 22, 11, 0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(1, 214, 118, 0.3); border-radius: 14px; padding: 12px 14px; width: 220px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.6); display: flex; gap: 10px; align-items: flex-start;
+  opacity: 0; transform: translateX(80px); transition: all .35s cubic-bezier(.175,.885,.32,1.275);
+}
+.notif.show { opacity: 1; transform: translateX(0); }
+.notif .n-icon { 
+  width: 24px; height: 24px; border-radius: 50%; 
+  background: var(--emerald); color: #000; 
+  display: flex; align-items: center; justify-content: center; 
+  font-size: 11px; font-weight: 900; flex-shrink: 0; 
+  box-shadow: 0 0 14px rgba(1, 214, 118, 0.5);
+}
+.notif .n-text { font-size: 11px; line-height: 1.4; color: var(--text-muted); }
+.notif .n-text strong { color: #fff; }
+.notif .n-text .green { color: var(--emerald); font-weight: 800; }
+
+/* ---- QUIZ OVERLAY SYSTEM ---- */
+.quiz-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(5, 14, 6, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+.quiz-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.quiz-modal {
+  width: 100%;
+  max-width: 420px;
+  background: #060c07;
+  border-radius: 24px;
+  border: 1.5px solid var(--surface-border);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(1, 214, 118, 0.1);
+  max-height: 90dvh;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(20px) scale(.97);
+  transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
+  position: relative;
+}
+.quiz-overlay.open .quiz-modal {
+  transform: translateY(0) scale(1);
+}
+
+.quiz-header {
+  padding: 20px 20px 14px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(1, 214, 118, 0.08);
+}
+
+/* Perfect alignment and spacing for SVGs in Quiz Header */
+.quiz-header-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 16px rgba(1, 214, 118, 0.4));
+}
+.quiz-header-brand svg {
+  display: block;
+}
+
+.quiz-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.quiz-step-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.quiz-close {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+.quiz-close:hover {
+  background: rgba(1, 214, 118, 0.15);
+  color: var(--emerald);
+}
+.quiz-bar-track {
+  width: 100%;
+  height: 4px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+.quiz-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--emerald), #34d399);
+  transition: width .4s cubic-bezier(.4, 0, .2, 1);
+}
+
+.quiz-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 20px 28px;
+  -webkit-overflow-scrolling: touch;
+}
+.quiz-slide {
+  display: none;
+}
+.quiz-slide.active {
+  display: block;
+  animation: qSlideIn .28s ease both;
+}
+@keyframes qSlideIn {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.quiz-q-text {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.quiz-q-sub {
+  font-size: .85rem;
+  color: var(--text-muted);
+  margin-bottom: 22px;
+  line-height: 1.45;
+}
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: #060c07;
+  border: 1.5px solid rgba(1, 214, 118, 0.12);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, transform .1s;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+.quiz-option:hover {
+  border-color: rgba(1, 214, 118, 0.4);
+  background: rgba(1, 214, 118, 0.04);
+}
+.quiz-option:active {
+  transform: scale(.98);
+}
+.quiz-option.selected {
+  border-color: var(--emerald);
+  background: rgba(1, 214, 118, 0.08);
+}
+
+.qopt-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(1, 214, 118, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--emerald);
+}
+.quiz-option.selected .qopt-icon-box {
+  background: rgba(1, 214, 118, 0.16);
+}
+
+.qopt-texts {
+  flex: 1;
+  text-align: left;
+}
+.qopt-title {
+  font-size: .95rem;
+  font-weight: 700;
+  color: #fff;
+  display: block;
+}
+.qopt-sub {
+  font-size: .75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  display: block;
+}
+.qopt-radio {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(1, 214, 118, 0.25);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color .15s, background .15s;
+}
+.quiz-option.selected .qopt-radio {
+  border-color: var(--emerald);
+  background: var(--emerald);
+}
+.quiz-option.selected .qopt-radio::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #000;
+}
+
+.quiz-context-box {
+  background: rgba(1, 214, 118, 0.04);
+  border: 1px solid rgba(1, 214, 118, 0.15);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  font-size: .8rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.qopt-recommended {
+  position: absolute;
+  top: -1px;
+  right: 12px;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+  border-radius: 0 0 8px 8px;
+  font-size: .55rem;
+  font-weight: 900;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: #1a0a00;
+  padding: 3px 8px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.quiz-option.has-badge {
+  position: relative;
+  border-color: rgba(251, 191, 36, 0.4);
+}
+.quiz-option.has-badge.selected {
+  border-color: #fbbf24;
+}
+
+.quiz-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 18px 0 0;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+.quiz-back:hover {
+  color: var(--emerald);
+}
+
+/* ---- Quiz Results Screen ---- */
+.quiz-result {
+  display: none;
+  text-align: center;
+}
+.quiz-result.active {
+  display: block;
+  animation: qSlideIn .35s ease both;
+}
+.result-ready-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(1, 214, 118, 0.12);
+  border: 1px solid rgba(1, 214, 118, 0.3);
+  color: var(--emerald);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+.result-headline {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 18px;
+  letter-spacing: -0.02em;
+}
+.result-estimate-box {
+  width: 100%;
+  background: #060c07;
+  border: 1px solid rgba(1, 214, 118, 0.15);
+  border-radius: 16px;
+  padding: 18px 16px;
+  margin-bottom: 16px;
+}
+.result-sublabel {
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.result-amount {
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--emerald);
+  text-shadow: 0 0 30px rgba(1, 214, 118, 0.5);
+  letter-spacing: -0.02em;
+}
+
+.result-boost {
+  width: 100%;
+  position: relative;
+  background: linear-gradient(135deg, #111a0e 0%, #060d07 100%);
+  border: 1.5px solid rgba(251, 191, 36, 0.35);
+  border-radius: 16px;
+  padding: 18px 16px 16px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 28px rgba(251, 191, 36, 0.1), inset 0 0 36px rgba(251, 191, 36, 0.02);
+}
+.result-boost::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: 50%; transform: translateX(-50%);
+  width: 130%; height: 90%;
+  background: radial-gradient(ellipse at center, rgba(251, 191, 36, 0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+.result-boost-top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.result-boost-label {
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  color: #fbbf24;
+}
+.result-boost-limited {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  border-radius: 999px;
+  color: #fbbf24;
+  font-size: .6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  padding: 3px 10px;
+  margin-bottom: 12px;
+}
+.result-boost-amount {
+  position: relative;
+  font-size: 2.3rem;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b, #ffe59c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+.result-boost-expires {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: .8rem;
+  color: #fbbf24;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.result-boost-divider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.result-boost-divider::before, .result-boost-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(251, 191, 36, 0.25);
+}
+.result-boost-divider span {
+  font-size: .58rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(251, 191, 36, 0.7);
+}
+.result-boost-text {
+  position: relative;
+  font-size: .78rem;
+  color: rgba(200, 230, 205, 0.75);
+  line-height: 1.55;
+}
+.result-boost-text b {
+  color: #fbbf24;
+  font-weight: 800;
+}
+
+.result-urgency {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: .72rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.result-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--emerald);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(1, 214, 118, 0.2);
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+#resultViewers {
+  color: #fff;
+  font-weight: 700;
+}
+
+.result-claim {
+  width: 100%;
+  padding: 18px;
+  background: var(--emerald);
+  color: #000;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.05rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 6px 28px rgba(1, 214, 118, 0.35);
+  transition: transform .12s, background .15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  margin-bottom: 12px;
+  animation: claim-pulse 2.5s ease-in-out infinite;
+  font-family: inherit;
+}
+.result-claim:hover {
+  background: #28c864;
+}
+.result-claim:active {
+  transform: scale(.97);
+}
+@keyframes claim-pulse {
+  0%, 100% { box-shadow: 0 6px 28px rgba(1, 214, 118, 0.35); }
+  50% { box-shadow: 0 8px 40px rgba(1, 214, 118, 0.6); }
+}
+.result-foot {
+  font-size: .68rem;
+  color: var(--text-muted);
+}
+
+.result-confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 24px;
+}
+.conf-dot {
+  position: absolute;
+  border-radius: 50%;
+  animation: confFall 1s ease-out both;
+}
+@keyframes confFall {
+  0% { transform: translateY(-8px) scale(0); opacity: 1; }
+  80% { opacity: .8; }
+  100% { transform: translateY(120px) scale(1); opacity: 0; }
+}
+
+@supports (-webkit-touch-callout:none) { body { min-height: -webkit-fill-available; } }
+@media (max-width:375px) { .hero h1 { font-size: 30px; } .pc-amount { font-size: 19px; } .result-amount { font-size: 2.3rem; } }
+</style>
+</head>
+<body>
+
+<!-- Ambience Lighting Setup -->
+<div class="hero-glow"></div>
+<div class="side-glow-l"></div>
+<div class="side-glow-r"></div>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="page">
+
+  <section class="hero">
+    <!-- Centered Brand SVG Logo Header -->
+    <div class="brand-logo">
+      <!-- Icon/Emblem SVG -->
+      <svg viewBox="0 0 21 19" width="28px" height="25px" fill="#01D676">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5089 13.174V9.64425C17.5089 9.64425 17.5343 8.7864 16.3375 9.53703C15.8919 9.79873 15.2299 10.1587 15.2426 11.7659V13.1089C15.2426 13.1089 15.2682 16.0106 11.9834 16.0106H11.6651V16.7242C11.6656 16.8035 11.6498 16.8821 11.6189 16.9551C11.588 17.0281 11.5426 17.0941 11.4854 17.1488C11.4282 17.2036 11.3603 17.246 11.2861 17.2735C11.2119 17.3011 11.1328 17.3131 11.0538 17.3088H9.90798C9.90798 17.3088 9.34786 17.2961 9.34786 16.7676V16.0106H6.97968C6.97968 16.0106 5.85931 16.0055 5.85931 14.8195C5.85807 14.6715 5.88628 14.5248 5.94212 14.3878C5.99795 14.2508 6.08031 14.1263 6.18457 14.0215C6.28882 13.9167 6.41286 13.8338 6.54936 13.7775C6.68587 13.7212 6.83208 13.6927 6.97968 13.6936H11.8306C11.8306 13.6936 12.9382 13.737 12.9382 12.5242C12.9382 11.9115 12.6454 11.2898 11.7414 11.2898H1.42868C1.42868 11.2898 0.180946 11.2719 0.0663606 13.3476C0.0408971 14.0114 0.0791422 14.5667 0.435631 14.928C0.79212 15.2893 3.44028 17.9586 3.44028 17.9586C3.44028 17.9586 4.0005 18.4999 5.43919 18.4999H12.7599C12.7599 18.4999 17.5089 18.588 17.5089 13.8021V13.174ZM3.49125 5.826V9.35575C3.49125 9.35575 3.46581 10.2136 4.6626 9.46297C5.10821 9.20128 5.78294 8.84128 5.75748 7.23407V5.89111C5.75748 5.89111 5.73197 2.98944 9.01676 2.98944H9.34786V2.27584C9.3453 2.19705 9.35915 2.11859 9.38852 2.04547C9.41789 1.97235 9.46214 1.90618 9.51845 1.85116C9.57475 1.79615 9.64186 1.75352 9.71551 1.72597C9.78917 1.69842 9.86779 1.68655 9.94628 1.69115H11.0921C11.0921 1.69115 11.6523 1.70392 11.6523 2.23242V2.98944H14.0331C14.0331 2.98944 15.1535 2.99454 15.1535 4.18049C15.1547 4.32848 15.1266 4.47524 15.0708 4.61224C15.015 4.74923 14.9325 4.87374 14.8282 4.9785C14.724 5.08327 14.6001 5.16621 14.4636 5.22251C14.3271 5.2788 14.1807 5.30734 14.0331 5.30644H9.16957C9.16957 5.30644 8.07468 5.26304 8.07468 6.47579C8.07468 7.08855 8.35476 7.71023 9.25871 7.71023H19.5714C19.5714 7.71023 20.8192 7.72811 20.9338 5.65239C20.9592 4.98856 20.921 4.43325 20.5645 4.07198C20.2207 3.71198 17.5725 1.04138 17.5725 1.04138C17.5725 1.04138 16.9996 0.500111 15.5609 0.500111H8.24017C8.24017 0.500111 3.49125 0.412033 3.49125 5.19793V5.826Z"></path>
+      </svg>
+      <!-- Text/Brand SVG -->
+      <svg viewBox="0 0 137 16" width="100px" height="12px">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5002 0.329671H3.28374L0 15.6714H4.47618L5.64896 10.2146H12.6856L13.4478 6.59814H6.41114L6.99753 3.94617H14.7183L15.5002 0.329671ZM15.813 15.6714H20.289L21.3641 10.6747H23.2992L26.2703 15.6714H31.3132L27.834 10.1045C29.8473 9.42598 31.5283 8.04405 32.0756 5.50219C32.9356 1.44695 29.6713 0.329671 26.2312 0.329671H19.0968L15.813 15.6714ZM22.0678 7.38682L22.83 3.83604H25.6839C26.9544 3.83604 27.6972 4.42754 27.4431 5.61232C27.189 6.7971 26.192 7.38682 24.9215 7.38682H22.0678ZM49.6867 0.329671H37.5094L34.2257 15.6714H46.5593L47.302 12.165H39.4444L39.9722 9.66578H46.9697L47.7126 6.18072H40.7149L41.2232 3.83604H48.944L49.6867 0.329671ZM65.8124 0.329671H53.6351L50.3513 15.6714H62.685L63.4277 12.165H55.5701L56.0978 9.66578H63.0954L63.8383 6.18072H56.8602L57.3489 3.83604H65.0697L65.8124 0.329671Z" fill="#01D676"></path>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M67.0047 8.21989C65.8319 13.6997 69.9563 16 74.6083 16C76.3764 16.0009 78.1258 15.6726 79.7489 15.0355L80.5894 11.0904C79.4361 11.9448 77.7356 12.4279 75.996 12.4279C73.3573 12.4279 70.9726 11.2005 71.5981 8.21989C72.3213 4.88759 75.2728 3.55185 77.9506 3.55185C79.4948 3.55185 80.9414 4.01189 81.8209 4.80055L82.6417 0.965573C81.1778 0.309481 79.5633 -0.0211135 77.9312 0.00104475C73.3573 0.00104475 68.2557 2.43455 67.0047 8.21989ZM81.7035 15.6714H86.2969L87.7825 13.261H94.7995L95.2491 15.6714H99.8424L96.4806 0.329673H91.6527L81.7035 15.6714ZM89.8152 9.97307L92.5126 5.5466C92.8166 5.04933 93.0718 4.52863 93.275 3.99058C93.246 4.51165 93.2853 5.03399 93.3922 5.5466L94.174 9.97307H89.8152ZM104.045 4.51635C102.872 9.9944 111.844 9.25013 111.355 11.4634C111.199 12.2307 110.397 12.4936 108.619 12.4936C106.684 12.4936 104.573 12.0123 102.833 10.7618L102.012 14.5967C103.615 15.4955 105.765 16 108.208 16C111.922 16 115.206 14.9484 115.988 11.3106C117.161 5.87521 108.228 6.48802 108.638 4.49326C108.775 3.92485 109.362 3.52875 111.003 3.50744C112.978 3.48612 114.776 3.96748 116.027 4.95331L116.809 1.22846C115.499 0.461106 113.505 0.00104475 111.394 0.00104475C107.915 0.00104475 104.709 1.44694 104.045 4.51635ZM137 0.329673H132.543L131.273 6.20382H124.999L126.25 0.329673H121.773L118.49 15.6714H122.966L124.217 9.82032H130.511L129.24 15.6714H133.716L137 0.329673Z" fill="white"></path>
+      </svg>
+    </div>
+    <div class="badge">
+      <div class="bdot animate-pulse-dot"></div>
+      <span>$10 Sign-Up Bonus</span>
+    </div>
+    <h1><span class="white">Get Paid To</span><br><span class="green">Game &amp; Cash Out</span></h1>
+    <p class="sub">Create your account, grab your <strong>$10 instant bonus</strong>, play games and start cashing out today.</p>
+  </section>
+
+  <div class="stats-row">
+    <div class="sr-item"><span class="val">$200–$500+</span><span class="label">Weekly Earnings</span></div>
+    <div class="sr-item"><span class="val">500K+</span><span class="label">Members</span></div>
+    <div class="sr-item"><span class="val">4.7★</span><span class="label">App Store</span></div>
+  </div>
+
+  <!-- Main CTA Button opening the Quiz overlay -->
+  <button id="mainCtaBtn" class="cta-btn animate-glow">
+    <span class="shimmer animate-shimmer"></span>
+    <span style="position:relative;z-index:1">START EARNING NOW</span>
+  </button>
+
+  <div class="steps">
+    <div class="stp">
+      <div class="stp-n">1</div>
+      <div><b>Create your account &amp; select 21+</b><div class="d">Game rewards are only unlocked for 21+ members. Select it when signing up.</div></div>
+    </div>
+    <div class="stp">
+      <div class="stp-n">2</div>
+      <div><b>Complete 2 offers to activate gaming</b><div class="d">A quick game or survey. Activates game earnings and all high-paying offers.</div></div>
+    </div>
+    <div class="stp">
+      <div class="stp-n">3</div>
+      <div><b>Cash out instantly</b><div class="d">Play games anytime. Withdraw via CashApp, PayPal, Zelle, Revolut — no fees.</div></div>
+    </div>
+  </div>
+
+  <div class="proofs">
+    <h2>Real Payouts This Hour</h2>
+    <div class="proof-grid">
+      <div class="payout-card">
+        <div class="pc-header"><span class="pc-method">Cash App</span><div class="pc-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Paid</span></div></div>
+        <div class="pc-amount">$124</div><div class="pc-info">Sarah · Miami, FL · 11 min ago</div>
+      </div>
+      <div class="payout-card">
+        <div class="pc-header"><span class="pc-method">PayPal</span><div class="pc-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Paid</span></div></div>
+        <div class="pc-amount">$87</div><div class="pc-info">Mike · Austin, TX · 27 min ago</div>
+      </div>
+      <div class="payout-card">
+        <div class="pc-header"><span class="pc-method">Zelle</span><div class="pc-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Paid</span></div></div>
+        <div class="pc-amount">$203</div><div class="pc-info">Tyler · Denver, CO · 4 min ago</div>
+      </div>
+      <div class="payout-card">
+        <div class="pc-header"><span class="pc-method">Cash App</span><div class="pc-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Paid</span></div></div>
+        <div class="pc-amount">$109</div><div class="pc-info">Emma · Phoenix, AZ · 19 min ago</div>
+      </div>
+      <div class="payout-card">
+        <div class="pc-header"><span class="pc-method">ACH</span><div class="pc-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Paid</span></div></div>
+        <div class="pc-amount">$312</div><div class="pc-info">Alex · Charlotte, NC · 8 min ago</div>
+      </div>
+      <div class="payout-card">
+        <div class="pc-header"><span class="pc-method">Revolut</span><div class="pc-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Paid</span></div></div>
+        <div class="pc-amount">$142</div><div class="pc-info">Jordan · Seattle, WA · 33 min ago</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="testimonials">
+    <h2>Real people, real money</h2>
+    <div class="testimonial-scroll">
+      <div class="testimonial-card">
+        <div class="tc-header"><div class="tc-avatar">S</div><div><div class="tc-name">Sarah T.</div><div class="tc-loc">Miami, FL</div></div></div>
+        <p class="tc-quote">"Got my $10 bonus instantly and cashed out $124 same day just playing games. This actually works."</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="tc-header"><div class="tc-avatar">M</div><div><div class="tc-name">Mike R.</div><div class="tc-loc">Austin, TX</div></div></div>
+        <p class="tc-quote">"Already made $428 this week. Best gaming side hustle I've ever found."</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="tc-header"><div class="tc-avatar">T</div><div><div class="tc-name">Tyler K.</div><div class="tc-loc">Denver, CO</div></div></div>
+        <p class="tc-quote">"CashApp hit in under 2 minutes. Insane."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="live-activity">
+    <div class="la-left">
+      <span class="dot animate-pulse-dot"></span>
+      <span class="la-text"><strong id="live-count">36,236</strong> earning right now</span>
+    </div>
+    <div class="la-right">Bonus ends in <span class="timer" id="countdown">23:36</span></div>
+  </div>
+
+  <!-- Bottom CTA Button opening the Quiz overlay -->
+  <div class="bottom-cta">
+    <button id="bottomCtaBtn" class="cta-btn animate-glow">
+      <span class="shimmer animate-shimmer"></span>
+      <span style="position:relative;z-index:1">GET $10 FREE + CASH OUT TODAY</span>
+    </button>
+  </div>
+
+</div>
+
+<!-- ---- QUIZ MODAL CONTAINER ---- -->
+<div class="quiz-overlay" id="quizOverlay">
+  <div class="quiz-modal" id="quizModal">
+    <div class="result-confetti" id="confettiLayer"></div>
+    <div class="quiz-header">
+      <!-- Perfectly centered and resized SVG branding inside the quiz modal -->
+      <div class="quiz-header-brand">
+        <!-- Resized Icon/Emblem SVG -->
+        <svg viewBox="0 0 21 19" width="32px" height="29px" fill="#01D676">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5089 13.174V9.64425C17.5089 9.64425 17.5343 8.7864 16.3375 9.53703C15.8919 9.79873 15.2299 10.1587 15.2426 11.7659V13.1089C15.2426 13.1089 15.2682 16.0106 11.9834 16.0106H11.6651V16.7242C11.6656 16.8035 11.6498 16.8821 11.6189 16.9551C11.588 17.0281 11.5426 17.0941 11.4854 17.1488C11.4282 17.2036 11.3603 17.246 11.2861 17.2735C11.2119 17.3011 11.1328 17.3131 11.0538 17.3088H9.90798C9.90798 17.3088 9.34786 17.2961 9.34786 16.7676V16.0106H6.97968C6.97968 16.0106 5.85931 16.0055 5.85931 14.8195C5.85807 14.6715 5.88628 14.5248 5.94212 14.3878C5.99795 14.2508 6.08031 14.1263 6.18457 14.0215C6.28882 13.9167 6.41286 13.8338 6.54936 13.7775C6.68587 13.7212 6.83208 13.6927 6.97968 13.6936H11.8306C11.8306 13.6936 12.9382 13.737 12.9382 12.5242C12.9382 11.9115 12.6454 11.2898 11.7414 11.2898H1.42868C1.42868 11.2898 0.180946 11.2719 0.0663606 13.3476C0.0408971 14.0114 0.0791422 14.5667 0.435631 14.928C0.79212 15.2893 3.44028 17.9586 3.44028 17.9586C3.44028 17.9586 4.0005 18.4999 5.43919 18.4999H12.7599C12.7599 18.4999 17.5089 18.588 17.5089 13.8021V13.174ZM3.49125 5.826V9.35575C3.49125 9.35575 3.46581 10.2136 4.6626 9.46297C5.10821 9.20128 5.78294 8.84128 5.75748 7.23407V5.89111C5.75748 5.89111 5.73197 2.98944 9.01676 2.98944H9.34786V2.27584C9.3453 2.19705 9.35915 2.11859 9.38852 2.04547C9.41789 1.97235 9.46214 1.90618 9.51845 1.85116C9.57475 1.79615 9.64186 1.75352 9.71551 1.72597C9.78917 1.69842 9.86779 1.68655 9.94628 1.69115H11.0921C11.0921 1.69115 11.6523 1.70392 11.6523 2.23242V2.98944H14.0331C14.0331 2.98944 15.1535 2.99454 15.1535 4.18049C15.1547 4.32848 15.1266 4.47524 15.0708 4.61224C15.015 4.74923 14.9325 4.87374 14.8282 4.9785C14.724 5.08327 14.6001 5.16621 14.4636 5.22251C14.3271 5.2788 14.1807 5.30734 14.0331 5.30644H9.16957C9.16957 5.30644 8.07468 5.26304 8.07468 6.47579C8.07468 7.08855 8.35476 7.71023 9.25871 7.71023H19.5714C19.5714 7.71023 20.8192 7.72811 20.9338 5.65239C20.9592 4.98856 20.921 4.43325 20.5645 4.07198C20.2207 3.71198 17.5725 1.04138 17.5725 1.04138C17.5725 1.04138 16.9996 0.500111 15.5609 0.500111H8.24017C8.24017 0.500111 3.49125 0.412033 3.49125 5.19793V5.826Z"></path>
+        </svg>
+        <!-- Resized Text/Brand SVG -->
+        <svg viewBox="0 0 137 16" width="110px" height="13px">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5002 0.329671H3.28374L0 15.6714H4.47618L5.64896 10.2146H12.6856L13.4478 6.59814H6.41114L6.99753 3.94617H14.7183L15.5002 0.329671ZM15.813 15.6714H20.289L21.3641 10.6747H23.2992L26.2703 15.6714H31.3132L27.834 10.1045C29.8473 9.42598 31.5283 8.04405 32.0756 5.50219C32.9356 1.44695 29.6713 0.329671 26.2312 0.329671H19.0968L15.813 15.6714ZM22.0678 7.38682L22.83 3.83604H25.6839C26.9544 3.83604 27.6972 4.42754 27.4431 5.61232C27.189 6.7971 26.192 7.38682 24.9215 7.38682H22.0678ZM49.6867 0.329671H37.5094L34.2257 15.6714H46.5593L47.302 12.165H39.4444L39.9722 9.66578H46.9697L47.7126 6.18072H40.7149L41.2232 3.83604H48.944L49.6867 0.329671ZM65.8124 0.329671H53.6351L50.3513 15.6714H62.685L63.4277 12.165H55.5701L56.0978 9.66578H63.0954L63.8383 6.18072H56.8602L57.3489 3.83604H65.0697L65.8124 0.329671Z" fill="#01D676"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M67.0047 8.21989C65.8319 13.6997 69.9563 16 74.6083 16C76.3764 16.0009 78.1258 15.6726 79.7489 15.0355L80.5894 11.0904C79.4361 11.9448 77.7356 12.4279 75.996 12.4279C73.3573 12.4279 70.9726 11.2005 71.5981 8.21989C72.3213 4.88759 75.2728 3.55185 77.9506 3.55185C79.4948 3.55185 80.9414 4.01189 81.8209 4.80055L82.6417 0.965573C81.1778 0.309481 79.5633 -0.0211135 77.9312 0.00104475C73.3573 0.00104475 68.2557 2.43455 67.0047 8.21989ZM81.7035 15.6714H86.2969L87.7825 13.261H94.7995L95.2491 15.6714H99.8424L96.4806 0.329673H91.6527L81.7035 15.6714ZM89.8152 9.97307L92.5126 5.5466C92.8166 5.04933 93.0718 4.52863 93.275 3.99058C93.246 4.51165 93.2853 5.03399 93.3922 5.5466L94.174 9.97307H89.8152ZM104.045 4.51635C102.872 9.9944 111.844 9.25013 111.355 11.4634C111.199 12.2307 110.397 12.4936 108.619 12.4936C106.684 12.4936 104.573 12.0123 102.833 10.7618L102.012 14.5967C103.615 15.4955 105.765 16 108.208 16C111.922 16 115.206 14.9484 115.988 11.3106C117.161 5.87521 108.228 6.48802 108.638 4.49326C108.775 3.92485 109.362 3.52875 111.003 3.50744C112.978 3.48612 114.776 3.96748 116.027 4.95331L116.809 1.22846C115.499 0.461106 113.505 0.00104475 111.394 0.00104475C107.915 0.00104475 104.709 1.44694 104.045 4.51635ZM137 0.329673H132.543L131.273 6.20382H124.999L126.25 0.329673H121.773L118.49 15.6714H122.966L124.217 9.82032H130.511L129.24 15.6714H133.716L137 0.329673Z" fill="white"></path>
+        </svg>
+      </div>
+      <div class="quiz-header-row">
+        <span class="quiz-step-label" id="stepLabel">STEP 1 OF 4</span>
+        <button class="quiz-close" id="quizCloseBtn">✕</button>
+      </div>
+      <div class="quiz-bar-track"><div class="quiz-bar-fill" id="quizBarFill" style="width:25%"></div></div>
+    </div>
+    
+    <div class="quiz-body">
+      <!-- SLIDE 1 (Step 1 of 4) -->
+      <div class="quiz-slide active" id="slide-0">
+        <div class="quiz-q-text">How much time can you spend on your phone daily?</div>
+        <div class="quiz-q-sub">Be honest. It affects your estimate.</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-q="0" data-v="0">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">15–30 minutes</b><span class="qopt-sub">A quick session before work</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+          <div class="quiz-option" data-q="0" data-v="1">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">1–2 hours</b><span class="qopt-sub">Consistent daily side income</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+          <div class="quiz-option" data-q="0" data-v="2">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">2–4 hours</b><span class="qopt-sub">Serious about supplemental income</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+          <div class="quiz-option" data-q="0" data-v="3">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">4+ hours</b><span class="qopt-sub">Treating this like a real hustle</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2 (Step 2 of 4) -->
+      <div class="quiz-slide" id="slide-1">
+        <div class="quiz-q-text">What's your earning goal?</div>
+        <div class="quiz-q-sub">This determines which deals to prioritize.</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-q="1" data-v="0">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">Extra $20–$50 / day</b><span class="qopt-sub">Coffee money, subscriptions</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+          <div class="quiz-option" data-q="1" data-v="1">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">$50–$150 / day</b><span class="qopt-sub">Solid side income every month</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+          <div class="quiz-option" data-q="1" data-v="2">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">$150–$300 / day</b><span class="qopt-sub">Replace a part-time job</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+          <div class="quiz-option" data-q="1" data-v="3">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">Maximum possible</b><span class="qopt-sub">I want every dollar available</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+        </div>
+        <button class="quiz-back" data-target="0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg> Back to previous question</button>
+      </div>
+
+      <!-- SLIDE 3 (Step 3 of 4) -->
+      <div class="quiz-slide" id="slide-2">
+        <div class="quiz-q-text">Would you spend $5–$10 to <span style="color:#fbbf24;">unlock offers</span> that can <span style="color:#fbbf24;">earn</span> you <span style="color:#fbbf24;">10x</span> more?</div>
+        <div class="quiz-context-box">Higher-tier game rewards typically require small in-app purchases. If you're comfortable spending a little, you can unlock some of the best earning opportunities in the app.</div>
+        <div class="quiz-options">
+          <div class="quiz-option has-badge" data-q="2" data-v="0">
+            <div class="qopt-recommended"><svg width="9" height="9" viewBox="0 0 24 24" fill="#1a0a00" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>RECOMMENDED</div>
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">Yes — unlock faster earnings</b><span class="qopt-sub">Ready to maximize my earnings</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+          <div class="quiz-option" data-q="2" data-v="1">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">Maybe — if the reward is worth it</b><span class="qopt-sub">Show me the opportunity first</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+          <div class="quiz-option" data-q="2" data-v="2">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" x2="12" y1="12" y2="16"/><line x1="10" x2="14" y1="14" y2="14"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">No — stick to free offers</b><span class="qopt-sub">I prefer no upfront spending</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+        </div>
+        <button class="quiz-back" data-target="1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg> Back to previous question</button>
+      </div>
+
+      <!-- SLIDE 4 (Step 4 of 4) -->
+      <div class="quiz-slide" id="slide-3">
+        <div class="quiz-q-text">How do you want to get paid?</div>
+        <div class="quiz-q-sub">Select your preferred payment method. Cash out anytime.</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-q="3" data-v="0">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">PayPal</b><span class="qopt-sub">Fast, secure digital payments</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+          <div class="quiz-option" data-q="3" data-v="1">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">Bank Transfer</b><span class="qopt-sub">Direct to your bank account</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+          <div class="quiz-option" data-q="3" data-v="2">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">Prepaid Cards</b><span class="qopt-sub">Spend anywhere cards are accepted</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+          <div class="quiz-option" data-q="3" data-v="3">
+            <div class="qopt-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            </div>
+            <div class="qopt-texts"><b class="qopt-title">Gift Cards</b><span class="qopt-sub">Amazon, Walmart &amp; more</span></div>
+            <div class="qopt-radio"></div>
+          </div>
+        </div>
+        <button class="quiz-back" data-target="2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg> Back to previous question</button>
+      </div>
+
+      <!-- FINAL RESULT STATE -->
+      <div class="quiz-result" id="quiz-result">
+        <div class="result-ready-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/></svg>
+          You Are Qualified!
+        </div>
+        <div class="result-headline">You're In the Top Tier 🚀</div>
+        <div class="result-estimate-box">
+          <div class="result-sublabel">⚡ Your Estimated Daily Earnings</div>
+          <div class="result-amount" id="resultAmount">$70–$160</div>
+        </div>
+        <div class="result-boost">
+          <div class="result-boost-top">
+            <span class="result-boost-label">🎁 Exclusive New User Bonus</span>
+            <div class="result-boost-limited">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              Limited Time
+            </div>
+          </div>
+          <div class="result-boost-amount" id="resultBoostAmount">$155–$700</div>
+          <div class="result-boost-expires" id="resultExpires">Offer expires: June 30, 2026 — Don't miss out</div>
+          <div class="result-boost-divider"><span>How to Unlock It</span></div>
+          <div class="result-boost-text">Spend <b>$5 on in-app purchases</b> on any game and instantly unlock premium milestones that pay <b>$250+ each</b>.</div>
+        </div>
+        <div class="result-urgency">
+          <span class="result-dot"></span>
+          <span id="resultViewers">1037 people</span> claimed their bonus in the last hour
+        </div>
+        <a href="https://go.dailyappflow.com/click" class="result-claim" id="resultClaimBtn">Claim My Bonus Now ›</a>
+        <div class="result-foot">$10 welcome bonus included · No credit card · 60 seconds</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ---- Canvas background ----
+(function () {
+  var canvas = document.getElementById('bg-canvas');
+  var ctx = canvas.getContext('2d');
+  var W, H, dots = [];
+  var EM = '1,214,118';
+
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resize);
+  resize();
+
+  for (var i = 0; i < 18; i++) {
+    dots.push({ x: Math.random()*1000, y: Math.random()*2000, r: 1.5+Math.random()*2.5,
+      speed: .15+Math.random()*.25, opacity: .08+Math.random()*.14,
+      pulse: Math.random()*Math.PI*2, pulseSpeed: .008+Math.random()*.012 });
+  }
+
+  var blobs = [
+    { x:.15, y:.2, r:180, opacity:.04 },
+    { x:.85, y:.55, r:140, opacity:.03 },
+    { x:.5,  y:.8, r:160, opacity:.035 }
+  ];
+
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    blobs.forEach(function(b) {
+      var g = ctx.createRadialGradient(b.x*W,b.y*H,0,b.x*W,b.y*H,b.r);
+      g.addColorStop(0,'rgba('+EM+','+b.opacity+')');
+      g.addColorStop(1,'rgba('+EM+',0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(b.x*W,b.y*H,b.r,0,Math.PI*2); ctx.fill();
+    });
+    dots.forEach(function(d) {
+      d.pulse += d.pulseSpeed;
+      var a = d.opacity*(.6+.4*Math.sin(d.pulse));
+      ctx.beginPath(); ctx.arc(d.x%W,d.y%H,d.r,0,Math.PI*2);
+      ctx.fillStyle = 'rgba('+EM+','+a+')'; ctx.fill();
+      var g2 = ctx.createRadialGradient(d.x%W,d.y%H,0,d.x%W,d.y%H,d.r*5);
+      g2.addColorStop(0,'rgba('+EM+','+(a*.3)+')');
+      g2.addColorStop(1,'rgba('+EM+',0)');
+      ctx.fillStyle = g2; ctx.beginPath(); ctx.arc(d.x%W,d.y%H,d.r*5,0,Math.PI*2); ctx.fill();
+      d.y -= d.speed;
+      if (d.y < -20) d.y = H+20;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ---- Notifications ----
+var names   = ["Sarah","Mike","Tyler","Emma","Alex","Jordan","Chris","Mia","Jake","Olivia","Liam","Ava","Noah","Sophia","Ethan"];
+var cities  = ["Miami, FL","Austin, TX","Denver, CO","Phoenix, AZ","Charlotte, NC","Seattle, WA","Nashville, TN","Portland, OR","Atlanta, GA","San Diego, CA","Chicago, IL","Dallas, TX","Tampa, FL","Las Vegas, NV","Columbus, OH"];
+var methods = ["CashApp","PayPal","Zelle","ACH","Revolut"];
+var amounts = [47,59,72,87,94,112,124,138,142,167,189,203,247,278,312];
+
+function createNotification() {
+  var name   = names[Math.floor(Math.random()*names.length)];
+  var city   = cities[Math.floor(Math.random()*cities.length)];
+  var method = methods[Math.floor(Math.random()*methods.length)];
+  var amount = amounts[Math.floor(Math.random()*amounts.length)];
+  var c = document.getElementById('notif-container');
+  if(!c) return;
+  var d = document.createElement('div');
+  d.className = 'notif';
+  d.innerHTML = '<div class="n-icon">$</div><div class="n-text"><strong>'+name+'</strong> from '+city+'<br>cashed out <span class="green">$'+amount+'</span> via '+method+'</div>';
+  c.appendChild(d);
+  setTimeout(function(){ d.classList.add('show'); }, 50);
+  setTimeout(function(){ d.classList.remove('show'); setTimeout(function(){ d.remove(); }, 400); }, 3500);
+}
+
+// ---- Countdown ----
+function startCountdown() {
+  var time = 23*60+47, el = document.getElementById('countdown');
+  setInterval(function(){
+    time--; if (time<=0) time=23*60+47;
+    var m=Math.floor(time/60), s=time%60;
+    if(el) el.textContent = m+':'+(s<10?'0':'')+s;
+  }, 1000);
+}
+
+// ---- Live count fluctuation ----
+function startLiveCount() {
+  var base = 36236, el = document.getElementById('live-count');
+  setInterval(function(){
+    base += Math.floor(Math.random()*10) - 4;
+    if (base < 35000) base = 35800;
+    if (base > 38000) base = 37200;
+    if(el) el.textContent = base.toLocaleString();
+  }, 4000);
+}
+
+// ---- QUIZ SYSTEM FUNCTIONALITY (4 Steps) ----
+var answers = [null, null, null, null];
+var TOTAL   = 4;
+
+// Calculated dynamic estimates logic based on combinations of step 1 (hours spent) and step 2 (earning target)
+var RANGES  = [
+  [['$20–$45','$30–$60','$45–$90','$60–$130'],['$40–$80','$60–$140','$90–$180','$130–$260'],['$60–$130','$100–$200','$150–$300','$200–$400'],['$80–$180','$150–$300','$250–$450','$350–$700']],
+  [['$25–$50','$35–$70','$50–$100','$70–$150'],['$45–$90','$70–$160','$100–$200','$140–$280'],['$70–$150','$110–$220','$160–$320','$220–$440'],['$90–$200','$160–$320','$280–$500','$380–$760']]
+];
+
+var overlay = document.getElementById('quizOverlay');
+
+function openQuiz() {
+  if (overlay) {
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeQuiz() {
+  if (overlay) {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+function setProgress(step) {
+  var pct = Math.round((step / TOTAL) * 100); 
+  if (pct > 100) pct = 100;
+  var b = document.getElementById('quizBarFill');
+  var l = document.getElementById('stepLabel');
+  if (b) b.style.width = pct + '%';
+  if (l) l.textContent = step <= TOTAL ? 'STEP ' + step + ' OF ' + TOTAL : '';
+}
+
+function goToSlide(idx) {
+  document.querySelectorAll('.quiz-slide').forEach(function(s) { s.classList.remove('active'); });
+  var nxt = document.getElementById('slide-' + idx);
+  if (nxt) nxt.classList.add('active');
+  setProgress(idx + 1);
+}
+
+function showResult() {
+  var time = answers[0] !== null ? answers[0] : 1;
+  var goal = answers[1] !== null ? answers[1] : 1;
+  var est  = RANGES[1][time][goal];
+  var el;
+  el = document.getElementById('resultAmount');      
+  if (el) el.textContent = est;
+  var nums = est.replace(/\$/g, '').split('–');
+  var lo = parseInt(nums[0], 10), hi = parseInt(nums[1], 10);
+  el = document.getElementById('resultBoostAmount'); 
+  if (el) el.textContent = '$' + Math.round(lo * 2.2 / 5) * 5 + '–$' + Math.round(hi * 4.4 / 10) * 10;
+  el = document.getElementById('resultViewers');     
+  if (el) el.textContent = (200 + Math.floor(Math.random() * 900)) + ' people';
+  
+  var now = new Date(), months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  el = document.getElementById('resultExpires');
+  if (el) el.textContent = 'Offer expires: ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear() + ' — Don\'t miss out';
+  
+  document.querySelectorAll('.quiz-slide').forEach(function(s) { s.classList.remove('active'); });
+  var qr = document.getElementById('quiz-result'); 
+  if (qr) qr.classList.add('active');
+  setProgress(TOTAL + 1);
+
+  // Triggering green & gold responsive particle confetti drop inside modal
+  var layer = document.getElementById('confettiLayer');
+  if (layer) {
+    var cols = ['#01D676','#34d399','#fbbf24','#ffffff'];
+    layer.innerHTML = '';
+    for (var i = 0; i < 28; i++) {
+      var dd = document.createElement('div'); dd.className = 'conf-dot';
+      var sz = 3 + Math.random() * 5;
+      dd.style.cssText = 'left:' + (Math.random() * 100) + '%;top:' + (5 + Math.random() * 35) + '%;width:' + sz + 'px;height:' + sz + 'px;background:' + cols[Math.floor(Math.random() * cols.length)] + ';animation-delay:' + (Math.random() * .5) + 's;animation-duration:' + (0.7 + Math.random() * .7) + 's;';
+      layer.appendChild(dd);
+    }
+  }
+}
+
+// Touch and Click Event binding for Mobile
+var mainCtaBtn = document.getElementById('mainCtaBtn');
+var bottomCtaBtn = document.getElementById('bottomCtaBtn');
+var quizCloseBtn = document.getElementById('quizCloseBtn');
+
+if (mainCtaBtn) {
+  mainCtaBtn.addEventListener('click', openQuiz);
+  mainCtaBtn.addEventListener('touchstart', function(e) { e.preventDefault(); openQuiz(); }, { passive: false });
+}
+if (bottomCtaBtn) {
+  bottomCtaBtn.addEventListener('click', openQuiz);
+  bottomCtaBtn.addEventListener('touchstart', function(e) { e.preventDefault(); openQuiz(); }, { passive: false });
+}
+if (quizCloseBtn) {
+  quizCloseBtn.addEventListener('click', closeQuiz);
+}
+
+document.querySelectorAll('.quiz-option[data-q]').forEach(function(opt) {
+  var handler = function(e) {
+    e.preventDefault();
+    var q = parseInt(opt.getAttribute('data-q'));
+    var v = parseInt(opt.getAttribute('data-v'));
+    opt.parentNode.querySelectorAll('.quiz-option').forEach(function(o) { o.classList.remove('selected'); });
+    opt.classList.add('selected');
+    answers[q] = v;
+    setTimeout(function() {
+      if (q < TOTAL - 1) { goToSlide(q + 1); }
+      else { showResult(); }
+    }, 260);
+  };
+  opt.addEventListener('click', handler);
+  opt.addEventListener('touchstart', handler, { passive: false });
+});
+
+document.querySelectorAll('.quiz-back').forEach(function(btn) {
+  var backHandler = function(e) {
+    e.preventDefault();
+    goToSlide(parseInt(btn.getAttribute('data-target')));
+  };
+  btn.addEventListener('click', backHandler);
+  btn.addEventListener('touchstart', backHandler, { passive: false });
+});
+
+window.addEventListener('load', function(){
+  setTimeout(createNotification, 2000);
+  setInterval(function(){ createNotification(); }, 6000+Math.random()*2000);
+  startCountdown();
+  startLiveCount();
+});
+</script>
+</body>
+</html>
