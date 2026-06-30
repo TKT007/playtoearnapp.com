@@ -1,0 +1,694 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>FreeCash — Get Paid To Play Games</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#080c12; --bg-2:#0a0f17;
+    --card:#111a27; --card-2:#16202f; --card-3:#0e1622;
+    --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.14);
+    --ink:#f3f6f9; --ink-soft:#93a0b2; --ink-mute:#67738a;
+    --green:#4ade80; --green-2:#36c46d; --green-bright:#5fe390;
+    --green-deep:#0c2a18; --green-ink:#05140b;
+    --green-glow:rgba(74,222,128,.42);
+    --pink:#ff5fa0; --gold:#ffd24d; --amber:#f5b13c;
+    --display:'Sora','Nunito',-apple-system,system-ui,sans-serif;
+    --sans:'Nunito',-apple-system,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overscroll-behavior:none;}
+  body{overflow-x:hidden;font-weight:500;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;}
+  img{max-width:100%;display:block;}
+  .wrap{width:100%;max-width:460px;margin:0 auto;padding:0 20px;}
+  .g{color:var(--green);}
+  .nb{color:var(--ink);font-weight:800;}
+
+  /* atmosphere */
+  .glow-top{position:fixed;top:-30%;left:50%;transform:translateX(-50%);width:120%;height:60%;background:radial-gradient(50% 60% at 50% 0,rgba(74,222,128,.10),transparent 70%);pointer-events:none;z-index:0;}
+  .glow-bl{position:fixed;bottom:-10%;left:-10%;width:55%;height:45%;background:radial-gradient(60% 60% at 0 100%,rgba(74,222,128,.08),transparent 70%);pointer-events:none;z-index:0;}
+
+  /* TOP BAR */
+  .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+    padding:13px 22px;background:rgba(8,12,18,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .logo{display:flex;align-items:center;gap:9px;}
+  .live{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;color:var(--ink-soft);
+    border:1px solid var(--line-2);border-radius:999px;padding:6px 12px;white-space:nowrap;background:rgba(255,255,255,.02);}
+  .live .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 1.6s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+
+  /* TICKER */
+  .ticker{position:relative;z-index:30;border-bottom:1px solid var(--line);background:rgba(12,18,26,.55);overflow:hidden;}
+  .ticker-row{display:flex;gap:34px;white-space:nowrap;padding:11px 0;width:max-content;animation:marq 26s linear infinite;}
+  .ticker-row span{font-size:13px;font-weight:700;color:var(--ink-soft);}
+  @keyframes marq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* shared */
+  .sec{position:relative;z-index:1;padding:34px 0;}
+  .eyebrow{display:block;text-align:center;font-family:var(--display);font-weight:800;font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--green);margin:0 0 14px;}
+  .h2{font-family:var(--display);font-weight:800;font-size:clamp(30px,8.4vw,38px);line-height:1.0;letter-spacing:-.02em;margin:0 0 14px;text-align:center;}
+  .sub{text-align:center;color:var(--ink-soft);font-size:15.5px;line-height:1.5;max-width:380px;margin:0 auto 26px;text-wrap:balance;}
+  .sub b{color:var(--ink);font-weight:800;}
+
+  /* CTA */
+  .cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+    font-family:var(--display);font-weight:800;font-size:19px;color:#06210f;
+    background:linear-gradient(180deg,#62e394,#40cf77);border:none;border-radius:16px;padding:19px 22px;
+    box-shadow:0 0 38px var(--green-glow),0 12px 30px rgba(74,222,128,.22);transition:transform .12s,box-shadow .2s;}
+  .cta:hover{transform:translateY(-1px);box-shadow:0 0 50px var(--green-glow),0 14px 34px rgba(74,222,128,.3);}
+  .cta:active{transform:translateY(1px);}
+  .cta svg{width:20px;height:20px;}
+  .badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:12.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--green);border:1px solid rgba(74,222,128,.32);background:rgba(74,222,128,.08);border-radius:999px;padding:9px 16px;}
+  .badge-wrap{text-align:center;margin:0 0 18px;}
+
+  /* HERO */
+  .hero{padding:30px 0 8px;text-align:center;}
+  .hero h1{font-family:var(--display);font-weight:800;font-size:clamp(44px,12.5vw,58px);line-height:.92;letter-spacing:-.025em;margin:0 0 22px;}
+  .hcard{background:linear-gradient(180deg,#121d2b,#0d1622);border:1px solid var(--line-2);border-radius:22px;padding:24px;text-align:left;cursor:pointer;
+    box-shadow:0 0 60px rgba(74,222,128,.06),0 20px 50px rgba(0,0,0,.4);position:relative;overflow:hidden;}
+  .hcard.swapping #hcIcon,.hcard.swapping #hcGain,.hcard.swapping #nowplay{opacity:.18;}
+  .hcard-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+  .pill-s{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--green);border:1px solid rgba(74,222,128,.28);background:rgba(74,222,128,.06);border-radius:999px;padding:6px 11px;}
+  .pill-s .dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
+  .hcard-num{font-family:var(--display);font-weight:800;font-size:clamp(40px,11.5vw,52px);color:var(--green);letter-spacing:-.02em;line-height:1;text-align:center;margin:8px 0 4px;display:flex;align-items:center;justify-content:center;gap:8px;}
+  .hcard-num svg{width:26px;height:26px;}
+  .hcard-cap{text-align:center;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-mute);margin-bottom:16px;}
+  .gameicon{width:104px;height:104px;border-radius:26px;margin:0 auto;display:grid;place-items:center;font-size:54px;box-shadow:0 14px 32px rgba(0,0,0,.45);transition:opacity .2s;}
+  .ic-royal{background:linear-gradient(160deg,#f7cf52,#dd9f1d);}
+  .hcard-gain{text-align:center;font-family:var(--display);font-weight:800;font-size:31px;color:var(--green);margin:16px 0 4px;transition:opacity .2s;}
+  .hcard-div{height:1px;background:var(--line);margin:16px 0;}
+  .nowplay{display:flex;align-items:center;gap:12px;transition:opacity .2s;}
+  .nowplay .mini{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:22px;flex:none;}
+  .nowplay-txt{flex:1;min-width:0;}
+  .nowplay-lab{font-size:9.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-mute);}
+  .nowplay-name{font-weight:800;font-size:14px;}
+  .nowplay-sub{font-size:11.5px;color:var(--ink-soft);}
+  .segs{display:flex;gap:5px;margin-top:10px;}
+  .segs i{height:5px;flex:1;border-radius:3px;background:rgba(255,255,255,.10);}
+  .segs i.on{background:linear-gradient(90deg,var(--green-2),var(--green));}
+  .hero-sub{font-size:16px;line-height:1.5;color:var(--ink-soft);max-width:360px;margin:22px auto 22px;text-wrap:balance;}
+  .hero-sub b{color:var(--ink);font-weight:800;}
+  .cashvia{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:9px;margin-top:18px;}
+  .cashvia .lab{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink-mute);}
+  .rail{display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:13.5px;border:1px solid var(--line-2);background:var(--card);border-radius:999px;padding:8px 14px;}
+  .rail .ri{width:17px;height:17px;border-radius:5px;display:grid;place-items:center;font-size:11px;font-weight:900;color:#fff;}
+  .ri-ca{background:#00d54b;} .ri-ve{background:#3d95ce;} .ri-pp{background:#1c3a8f;} .ri-bk{background:#3a4658;}
+
+  /* TIERS */
+  .tiers{background:linear-gradient(180deg,#0f1d18,#0c1622);border:1px solid rgba(74,222,128,.22);border-radius:22px;padding:20px;
+    box-shadow:0 0 60px rgba(74,222,128,.08),0 20px 50px rgba(0,0,0,.35);}
+  .timepill{display:inline-flex;align-items:center;gap:7px;font-family:var(--display);font-weight:800;font-size:12.5px;letter-spacing:.6px;color:var(--amber);border:1px solid rgba(245,177,60,.4);background:rgba(245,177,60,.08);border-radius:999px;padding:7px 13px;margin-bottom:14px;}
+  .tier{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--card-3);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:11px;}
+  .tier.hot{background:linear-gradient(180deg,rgba(74,222,128,.12),rgba(74,222,128,.04));border-color:rgba(74,222,128,.45);box-shadow:0 0 22px rgba(74,222,128,.12);}
+  .tier-l{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:18px;}
+  .tier-arrow{width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.06);display:grid;place-items:center;}
+  .tier-arrow svg{width:16px;height:16px;color:var(--ink-soft);}
+  .tier-most{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.3px;color:var(--amber);background:rgba(245,177,60,.12);border:1px solid rgba(245,177,60,.32);border-radius:7px;padding:3px 8px;margin-top:6px;}
+  .tier-amt{font-family:var(--display);font-weight:800;font-size:24px;color:var(--green);}
+  .tier-foot{text-align:center;color:var(--ink-mute);font-size:12.5px;margin-top:14px;}
+  .tiers .cta{margin-top:4px;}
+  .tier-stack{display:flex;flex-direction:column;}
+
+  /* PAID OUT */
+  .paidcard{background:linear-gradient(180deg,#15202f,#101926);border:1px solid var(--line-2);border-radius:20px;padding:24px;text-align:center;box-shadow:0 16px 44px rgba(0,0,0,.35);}
+  .paid-lab{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--green);margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:7px;}
+  .paid-lab .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+  .paid-num{font-family:var(--display);font-weight:800;font-size:clamp(36px,10.5vw,48px);letter-spacing:-.02em;color:var(--green);line-height:1;margin-bottom:8px;}
+  .paid-sub{color:var(--ink-soft);font-size:14px;}
+  .paid-sub b{color:var(--ink);font-weight:800;}
+
+  /* TOP PAYOUTS GRID */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+  .gcard{display:flex;align-items:center;gap:11px;background:var(--card-3);border:1px solid var(--line);border-radius:15px;padding:13px;}
+  .gcard .gi{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:24px;flex:none;}
+  .gcard-tx{min-width:0;}
+  .gcard-name{font-weight:800;font-size:14.5px;line-height:1.1;}
+  .gcard-task{font-size:12px;color:var(--ink-soft);margin:1px 0 4px;}
+  .gcard-amt{font-family:var(--display);font-weight:800;font-size:16px;color:var(--green);}
+  .ic-pulse{background:linear-gradient(160deg,#ff7a52,#e8492a);}
+  .ic-arena{background:linear-gradient(160deg,#4f97ff,#2a64e0);}
+  .ic-block{background:linear-gradient(160deg,#54de86,#22b366);}
+  .ic-soli{background:linear-gradient(160deg,#b574ff,#8a3ce0);}
+  .ic-crossy{background:linear-gradient(160deg,#37dcc7,#1fb0a0);}
+
+  /* TESTIMONIALS */
+  .tcard{background:linear-gradient(180deg,#131d2c,#0f1825);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:14px;}
+  .tcard-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+  .tav{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:17px;color:#06210f;background:linear-gradient(160deg,#62e394,#34c46d);flex:none;}
+  .tname{font-weight:800;font-size:15px;display:flex;align-items:center;gap:5px;}
+  .tcheck{width:15px;height:15px;}
+  .tmeta{font-size:12.5px;color:var(--ink-soft);}
+  .stars{color:var(--gold);font-size:15px;letter-spacing:2px;margin-bottom:10px;}
+  .tquote{font-size:15px;line-height:1.5;color:var(--ink);margin:0 0 13px;}
+  .tpaid{display:inline-block;font-size:13px;font-weight:800;color:var(--green);background:rgba(74,222,128,.10);border:1px solid rgba(74,222,128,.24);border-radius:8px;padding:6px 11px;}
+
+  /* PHONE MOCKUP */
+  .phone{width:300px;max-width:100%;margin:0 auto 30px;background:#0d1420;border:1px solid #1c2735;border-radius:38px;padding:12px;box-shadow:0 0 50px rgba(74,222,128,.06),0 26px 60px rgba(0,0,0,.5);}
+  .phone-status{display:flex;align-items:center;justify-content:space-between;padding:6px 12px 12px;font-size:13px;font-weight:800;}
+  .phone-status .si{display:flex;gap:5px;font-size:13px;}
+  .wallet{background:linear-gradient(150deg,#5fe390,#36bd6b);border-radius:18px;padding:16px;color:#06210f;}
+  .wallet-lab{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.8;}
+  .wallet-bal{font-family:var(--display);font-weight:800;font-size:38px;line-height:1.05;margin:4px 0 10px;}
+  .wallet-foot{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;font-weight:800;}
+  .twrap{margin-top:14px;}
+  .twrap-head{display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-soft);padding:0 2px 8px;}
+  .twrap-head b{color:var(--green);}
+  .prow{display:flex;align-items:center;gap:11px;background:#0a0f18;border:1px solid var(--line);border-radius:13px;padding:10px 12px;margin-bottom:8px;}
+  .prow .pgi{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:20px;flex:none;}
+  .prow-tx{flex:1;min-width:0;}
+  .prow-name{font-weight:800;font-size:14px;}
+  .prow-task{font-size:11.5px;color:var(--ink-soft);}
+  .prow-amt{font-family:var(--display);font-weight:800;font-size:16px;color:var(--green);}
+  .feat{display:flex;gap:14px;align-items:flex-start;max-width:430px;margin:0 auto 18px;}
+  .feat-ic{width:46px;height:46px;border-radius:13px;background:rgba(74,222,128,.10);border:1px solid rgba(74,222,128,.18);display:grid;place-items:center;font-size:22px;flex:none;}
+  .feat-h{font-weight:800;font-size:17px;margin:2px 0 3px;}
+  .feat-p{color:var(--ink-soft);font-size:14.5px;line-height:1.45;margin:0;}
+
+  /* HOW IT WORKS */
+  .step{display:flex;gap:14px;align-items:flex-start;background:linear-gradient(180deg,#121d2c,#0e1824);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin-bottom:13px;max-width:430px;margin-left:auto;margin-right:auto;}
+  .step-n{width:34px;height:34px;border-radius:10px;background:linear-gradient(160deg,#62e394,#34c46d);color:#06210f;font-family:var(--display);font-weight:800;font-size:18px;display:grid;place-items:center;flex:none;}
+  .step-h{font-weight:800;font-size:17px;margin:3px 0 4px;}
+  .step-p{color:var(--ink-soft);font-size:14.5px;line-height:1.45;margin:0;}
+
+  /* FINAL CTA */
+  .final{position:relative;z-index:1;padding:40px 0 30px;text-align:center;background:radial-gradient(70% 90% at 50% 0,rgba(74,222,128,.10),transparent 70%);}
+  .final h2{font-family:var(--display);font-weight:800;font-size:clamp(42px,12vw,54px);line-height:.96;letter-spacing:-.025em;margin:18px 0 14px;}
+  .trust{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:18px;margin-top:16px;color:var(--ink-soft);font-size:13.5px;font-weight:700;}
+  .trust span{display:inline-flex;align-items:center;gap:6px;}
+
+  /* FOOTER */
+  .foot{position:relative;z-index:1;text-align:center;padding:30px 0 110px;border-top:1px solid var(--line);}
+  .foot .logo{justify-content:center;margin-bottom:14px;}
+  .foot-links{display:flex;align-items:center;justify-content:center;gap:22px;margin-bottom:14px;}
+  .foot-links a{color:var(--ink-soft);font-size:14px;font-weight:700;}
+  .foot-links a:hover{color:var(--ink);}
+  .foot-dis{color:var(--ink-mute);font-size:12px;line-height:1.5;max-width:420px;margin:0 auto;}
+
+  /* STICKY BOTTOM BAR */
+  .stickybar{position:fixed;left:0;right:0;bottom:0;z-index:45;padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+    background:rgba(8,12,18,.86);backdrop-filter:blur(12px);border-top:1px solid var(--line);transform:translateY(120%);transition:transform .3s;}
+  .stickybar.show{transform:translateY(0);}
+  .stickybar .cta{font-size:18px;padding:17px 22px;}
+
+  /* CASHOUT TOAST */
+  .toast{position:fixed;left:16px;bottom:84px;z-index:44;display:flex;align-items:center;gap:11px;
+    background:rgba(17,26,39,.96);border:1px solid var(--line-2);border-radius:14px;padding:11px 15px 11px 11px;
+    box-shadow:0 16px 40px rgba(0,0,0,.5);opacity:0;transform:translateY(14px);transition:opacity .35s,transform .35s;pointer-events:none;max-width:280px;}
+  .toast.show{opacity:1;transform:translateY(0);}
+  .toast .tt-av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:14px;color:#06210f;background:linear-gradient(160deg,#62e394,#34c46d);flex:none;}
+  .toast .tt-tx{font-size:13.5px;font-weight:700;color:var(--ink);}
+  .toast .tt-tx b{color:#fff;font-weight:800;}
+
+  /* QUIZ OVERLAY */
+  .quiz{position:fixed;inset:0;z-index:90;background:var(--bg);display:flex;flex-direction:column;
+    overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;transition:opacity .45s;}
+  .quiz.hide{opacity:0;pointer-events:none;}
+  .quiz-top{padding:20px 22px 0;max-width:600px;margin:0 auto;width:100%;}
+  .quiz-logo{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:18px;}
+  .quiz-prog{display:flex;align-items:center;gap:14px;}
+  .quiz-prog-lab{font-size:13px;font-weight:800;color:var(--ink-soft);white-space:nowrap;}
+  .quiz-prog-track{flex:1;height:9px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;}
+  .quiz-prog-fill{display:block;height:100%;width:25%;border-radius:99px;background:linear-gradient(90deg,var(--green-2),var(--green));transition:width .45s cubic-bezier(.3,1,.4,1);}
+  .quiz-prog-pct{font-size:13px;font-weight:800;color:var(--pink);white-space:nowrap;}
+  .quiz-body{flex:1 0 auto;display:flex;flex-direction:column;justify-content:center;max-width:600px;margin:0 auto;width:100%;padding:20px 22px 48px;}
+  .quiz-step{display:none;}
+  .quiz-step.active{display:block;animation:qin .4s ease;}
+  @keyframes qin{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .quiz-h1{font-family:var(--display);font-weight:800;font-size:clamp(33px,9.4vw,44px);line-height:1.02;letter-spacing:-.025em;margin:0 0 14px;}
+  .quiz-sub{color:var(--ink-soft);font-size:16px;line-height:1.5;margin:0 0 26px;max-width:400px;}
+  .quiz-choices{display:flex;flex-direction:column;gap:13px;}
+  .qc{display:flex;align-items:center;gap:15px;width:100%;text-align:left;background:linear-gradient(180deg,#131d2b,#0e1723);border:1px solid var(--line-2);border-radius:18px;padding:15px 17px;color:var(--ink);transition:border-color .15s,transform .12s,background .15s;}
+  .qc:hover{border-color:rgba(74,222,128,.55);background:linear-gradient(180deg,#16212f,#101a27);transform:translateY(-1px);}
+  .qc-ic{width:60px;height:60px;border-radius:16px;flex:none;display:grid;place-items:center;font-size:30px;background:rgba(255,255,255,.05);line-height:1;}
+  .qc-ic.ok{background:#27c93f;color:#fff;font-size:34px;font-weight:900;}
+  .qc-ic.brand-pp{background:#1c3a8f;color:#fff;font-family:var(--display);font-weight:800;font-size:27px;font-style:italic;}
+  .qc-ic.brand-ca{background:#00d54b;color:#fff;font-weight:900;font-size:30px;}
+  .qc-ic.brand-ve{background:#3d95ce;color:#fff;font-family:var(--display);font-weight:800;font-size:30px;font-style:italic;}
+  .qc-tx{display:flex;flex-direction:column;gap:2px;min-width:0;}
+  .qc-label{font-family:var(--display);font-weight:800;font-size:20px;line-height:1.15;}
+  .qc-sub{font-size:14px;color:var(--ink-soft);line-height:1.25;}
+  .quiz-loader{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;animation:qin .4s ease;}
+  .quiz-loader.active{display:flex;}
+  .qspin{width:78px;height:78px;border-radius:50%;border:6px solid rgba(74,222,128,.18);border-top-color:var(--green);animation:spin .85s linear infinite;margin-bottom:26px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .quiz-loader h1{font-family:var(--display);font-weight:800;font-size:clamp(33px,9.4vw,44px);line-height:1.02;letter-spacing:-.025em;margin:0 0 12px;}
+  .quiz-loader p{color:var(--ink-soft);font-size:15px;margin:0;}
+
+  /* REVEAL MODAL */
+  .reveal{position:fixed;inset:0;z-index:95;display:none;padding:22px;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+    background:rgba(5,8,12,.72);backdrop-filter:blur(7px);}
+  .reveal.on{display:flex;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;}to{opacity:1;}}
+  .reveal-card{position:relative;width:100%;max-width:430px;margin:auto;background:linear-gradient(180deg,#16243a,#101a2a);
+    border:1px solid rgba(74,222,128,.4);border-radius:24px;padding:26px 24px 24px;
+    box-shadow:0 0 70px rgba(74,222,128,.25),0 30px 70px rgba(0,0,0,.6);animation:pop .4s cubic-bezier(.2,1.1,.4,1);}
+  @keyframes pop{from{opacity:0;transform:scale(.92) translateY(14px);}to{opacity:1;transform:none;}}
+  .reveal-x{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line-2);background:rgba(255,255,255,.05);color:var(--ink-soft);display:grid;place-items:center;font-size:18px;line-height:1;}
+  .reveal-badge{display:inline-flex;align-items:center;gap:7px;font-family:var(--display);font-weight:800;font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:var(--green);border:1px solid rgba(74,222,128,.32);background:rgba(74,222,128,.10);border-radius:999px;padding:8px 14px;margin-bottom:16px;}
+  .reveal-h{font-family:var(--display);font-weight:800;font-size:clamp(27px,7.6vw,33px);line-height:1.04;letter-spacing:-.02em;margin:0 0 14px;}
+  .reveal-p{color:var(--ink-soft);font-size:15px;line-height:1.5;margin:0 0 18px;}
+  .reveal-p b{color:var(--ink);font-weight:800;}
+  .reveal-timer{display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(245,177,60,.5);background:rgba(245,177,60,.05);border-radius:14px;padding:14px 18px;margin-bottom:18px;}
+  .reveal-timer-lab{font-size:12px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:7px;}
+  .reveal-timer-clock{font-family:var(--display);font-weight:800;font-size:30px;color:#fff;letter-spacing:1px;}
+  .reveal-timer.urgent{border-color:rgba(255,80,80,.6);}
+  .reveal-timer.urgent .reveal-timer-clock{color:#ff6a6a;}
+  .reveal .cta{margin-bottom:14px;}
+  .reveal-pass{display:block;text-align:center;color:var(--ink-mute);font-size:13.5px;font-weight:700;text-decoration:underline;}
+  .reveal-pass:hover{color:var(--ink-soft);}
+  #confetti{position:fixed;inset:0;z-index:96;pointer-events:none;}
+
+  @media(max-width:480px){.sec{padding:30px 0;}.hcard{padding:20px;}.grid2{gap:10px;}.feat,.step{gap:12px;}.gcard{padding:11px;gap:9px;}.gcard .gi{width:42px;height:42px;font-size:22px;}}
+  @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important;}}
+</style>
+</head>
+<body>
+<div class="glow-top"></div>
+<div class="glow-bl"></div>
+
+<header class="topbar">
+  <a href="#" class="logo">
+    <svg viewBox="0 0 21 19" width="32px" height="28px" fill="#01D676">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5089 13.174V9.64425C17.5089 9.64425 17.5343 8.7864 16.3375 9.53703C15.8919 9.79873 15.2299 10.1587 15.2426 11.7659V13.1089C15.2426 13.1089 15.2682 16.0106 11.9834 16.0106H11.6651V16.7242C11.6656 16.8035 11.6498 16.8821 11.6189 16.9551C11.588 17.0281 11.5426 17.0941 11.4854 17.1488C11.4282 17.2036 11.3603 17.246 11.2861 17.2735C11.2119 17.3011 11.1328 17.3131 11.0538 17.3088H9.90798C9.90798 17.3088 9.34786 17.2961 9.34786 16.7676V16.0106H6.97968C6.97968 16.0106 5.85931 16.0055 5.85931 14.8195C5.85807 14.6715 5.88628 14.5248 5.94212 14.3878C5.99795 14.2508 6.08031 14.1263 6.18457 14.0215C6.28882 13.9167 6.41286 13.8338 6.54936 13.7775C6.68587 13.7212 6.83208 13.6927 6.97968 13.6936H11.8306C11.8306 13.6936 12.9382 13.737 12.9382 12.5242C12.9382 11.9115 12.6454 11.2898 11.7414 11.2898H1.42868C1.42868 11.2898 0.180946 11.2719 0.0663606 13.3476C0.0408971 14.0114 0.0791422 14.5667 0.435631 14.928C0.79212 15.2893 3.44028 17.9586 3.44028 17.9586C3.44028 17.9586 4.0005 18.4999 5.43919 18.4999H12.7599C12.7599 18.4999 17.5089 18.588 17.5089 13.8021V13.174ZM3.49125 5.826V9.35575C3.49125 9.35575 3.46581 10.2136 4.6626 9.46297C5.10821 9.20128 5.78294 8.84128 5.75748 7.23407V5.89111C5.75748 5.89111 5.73197 2.98944 9.01676 2.98944H9.34786V2.27584C9.3453 2.19705 9.35915 2.11859 9.38852 2.04547C9.41789 1.97235 9.46214 1.90618 9.51845 1.85116C9.57475 1.79615 9.64186 1.75352 9.71551 1.72597C9.78917 1.69842 9.86779 1.68655 9.94628 1.69115H11.0921C11.0921 1.69115 11.6523 1.70392 11.6523 2.23242V2.98944H14.0331C14.0331 2.98944 15.1535 2.99454 15.1535 4.18049C15.1547 4.32848 15.1266 4.47524 15.0708 4.61224C15.015 4.74923 14.9325 4.87374 14.8282 4.9785C14.724 5.08327 14.6001 5.16621 14.4636 5.22251C14.3271 5.2788 14.1807 5.30734 14.0331 5.30644H9.16957C9.16957 5.30644 8.07468 5.26304 8.07468 6.47579C8.07468 7.08855 8.35476 7.71023 9.25871 7.71023H19.5714C19.5714 7.71023 20.8192 7.72811 20.9338 5.65239C20.9592 4.98856 20.921 4.43325 20.5645 4.07198C20.2207 3.71198 17.5725 1.04138 17.5725 1.04138C17.5725 1.04138 16.9996 0.500111 15.5609 0.500111H8.24017C8.24017 0.500111 3.49125 0.412033 3.49125 5.19793V5.826Z"/>
+    </svg>
+    <svg viewBox="0 0 137 16" width="110px" height="13px">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5002 0.329671H3.28374L0 15.6714H4.47618L5.64896 10.2146H12.6856L13.4478 6.59814H6.41114L6.99753 3.94617H14.7183L15.5002 0.329671ZM15.813 15.6714H20.289L21.3641 10.6747H23.2992L26.2703 15.6714H31.3132L27.834 10.1045C29.8473 9.42598 31.5283 8.04405 32.0756 5.50219C32.9356 1.44695 29.6713 0.329671 26.2312 0.329671H19.0968L15.813 15.6714ZM22.0678 7.38682L22.83 3.83604H25.6839C26.9544 3.83604 27.6972 4.42754 27.4431 5.61232C27.189 6.7971 26.192 7.38682 24.9215 7.38682H22.0678ZM49.6867 0.329671H37.5094L34.2257 15.6714H46.5593L47.302 12.165H39.4444L39.9722 9.66578H46.9697L47.7126 6.18072H40.7149L41.2232 3.83604H48.944L49.6867 0.329671ZM65.8124 0.329671H53.6351L50.3513 15.6714H62.685L63.4277 12.165H55.5701L56.0978 9.66578H63.0954L63.8383 6.18072H56.8602L57.3489 3.83604H65.0697L65.8124 0.329671Z" fill="#01D676"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M67.0047 8.21989C65.8319 13.6997 69.9563 16 74.6083 16C76.3764 16.0009 78.1258 15.6726 79.7489 15.0355L80.5894 11.0904C79.4361 11.9448 77.7356 12.4279 75.996 12.4279C73.3573 12.4279 70.9726 11.2005 71.5981 8.21989C72.3213 4.88759 75.2728 3.55185 77.9506 3.55185C79.4948 3.55185 80.9414 4.01189 81.8209 4.80055L82.6417 0.965573C81.1778 0.309481 79.5633 -0.0211135 77.9312 0.00104475C73.3573 0.00104475 68.2557 2.43455 67.0047 8.21989ZM81.7035 15.6714H86.2969L87.7825 13.261H94.7995L95.2491 15.6714H99.8424L96.4806 0.329673H91.6527L81.7035 15.6714ZM89.8152 9.97307L92.5126 5.5466C92.8166 5.04933 93.0718 4.52863 93.275 3.99058C93.246 4.51165 93.2853 5.03399 93.3922 5.5466L94.174 9.97307H89.8152ZM104.045 4.51635C102.872 9.9944 111.844 9.25013 111.355 11.4634C111.199 12.2307 110.397 12.4936 108.619 12.4936C106.684 12.4936 104.573 12.0123 102.833 10.7618L102.012 14.5967C103.615 15.4955 105.765 16 108.208 16C111.922 16 115.206 14.9484 115.988 11.3106C117.161 5.87521 108.228 6.48802 108.638 4.49326C108.775 3.92485 109.362 3.52875 111.003 3.50744C112.978 3.48612 114.776 3.96748 116.027 4.95331L116.809 1.22846C115.499 0.461106 113.505 0.00104475 111.394 0.00104475C107.915 0.00104475 104.709 1.44694 104.045 4.51635ZM137 0.329673H132.543L131.273 6.20382H124.999L126.25 0.329673H121.773L118.49 15.6714H122.966L124.217 9.82032H130.511L129.24 15.6714H133.716L137 0.329673Z" fill="white"/>
+    </svg>
+  </a>
+  <span class="live"><span class="dot"></span>Live · <span id="livePlaying">12,847</span> playing</span>
+</header>
+
+<div class="ticker">
+  <div class="ticker-row" id="tickerRow">
+    <span>💸 Tay R. cashed out $84.20</span><span>🔥 Jay D. just hit $250</span><span>💜 Kee B. cashed out $58.50</span><span>⚡ Marcus stacked $112 this week</span><span>💸 Dre S. cashed out $73.10</span><span>🔥 Aaliyah hit $190</span>
+    <span>💸 Tay R. cashed out $84.20</span><span>🔥 Jay D. just hit $250</span><span>💜 Kee B. cashed out $58.50</span><span>⚡ Marcus stacked $112 this week</span><span>💸 Dre S. cashed out $73.10</span><span>🔥 Aaliyah hit $190</span>
+  </div>
+</div>
+
+<section class="hero wrap">
+  <div class="badge-wrap"><span class="badge">🔥 Urgent · $125 Unlocked</span></div>
+  <h1>Get paid to<br><span class="g">play games.</span></h1>
+  <div class="hcard" id="hcard" onclick="rotateNow(true)">
+    <div class="hcard-top">
+      <span class="pill-s"><span class="dot"></span>Paid out today</span>
+      <span class="pill-s">$50 on install</span>
+    </div>
+    <div class="hcard-num"><span id="heroCounter">$8,261</span>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="hcard-cap">Across FreeCash players · 24h</div>
+    <div class="gameicon ic-royal" id="hcIcon">👑</div>
+    <div class="hcard-gain" id="hcGain">+$54.20</div>
+    <div class="hcard-div"></div>
+    <div class="nowplay" id="nowplay">
+      <div class="mini ic-royal" id="npIcon">👑</div>
+      <div class="nowplay-txt">
+        <div class="nowplay-lab">Now playing for cash</div>
+        <div class="nowplay-name" id="npName">Royal Match</div>
+        <div class="nowplay-sub" id="npTask">Reach Level 5</div>
+      </div>
+    </div>
+    <div class="segs" id="hcSegs"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+  </div>
+  <p class="hero-sub" id="heroSub"><b>Knock out those bills.</b> Download FreeCash, install + play 3 games <b>through the app</b>, cash out to <b>CashApp, Venmo or PayPal</b>.</p>
+  <a href="https://tk.unlockbonusapp.com/click" class="cta">Claim My $125 Now <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="cashvia">
+    <span class="lab">Cash out via</span>
+    <span class="rail"><span class="ri ri-ca">$</span>CashApp</span>
+    <span class="rail"><span class="ri ri-ve">V</span>Venmo</span>
+    <span class="rail"><span class="ri ri-pp">P</span>PayPal</span>
+    <span class="rail"><span class="ri ri-bk">🏦</span>Bank</span>
+  </div>
+</section>
+
+<section class="sec wrap">
+  <span class="eyebrow">🔥 Boost Mode · Today Only</span>
+  <h2 class="h2">Play games, get <span class="g">paid.</span></h2>
+  <p class="sub">Download the games inside FreeCash &amp; play each a couple mins to unlock. 3 games ≈ 10 mins.</p>
+  <div class="tiers">
+    <span class="timepill">⚡ Expires in <span class="tcd">04:50</span></span>
+    <div class="tier"><div class="tier-l"><span>Play 1 game</span><span class="tier-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><span class="tier-amt">$50</span></div>
+    <div class="tier hot"><div class="tier-l"><div class="tier-stack"><span>Play 3 games</span><span class="tier-most">🔥 Most picked · ~10 min</span></div><span class="tier-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><span class="tier-amt">$125</span></div>
+    <div class="tier"><div class="tier-l"><span>Play 5 games</span><span class="tier-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><span class="tier-amt">$400</span></div>
+    <a href="https://tk.unlockbonusapp.com/click" class="cta">Unlock My Reward <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="tier-foot">Withdraw anytime to CashApp, Venmo or PayPal.</div>
+  </div>
+</section>
+
+<section class="sec wrap">
+  <div class="paidcard">
+    <div class="paid-lab"><span class="dot"></span>Total paid out · Live</div>
+    <div class="paid-num" id="totalPaid">$38,403,144</div>
+    <div class="paid-sub">…and counting. <b id="paidToday">$8,285</b> paid today.</div>
+  </div>
+</section>
+
+<section class="sec wrap">
+  <span class="eyebrow">📲 Inside the FreeCash App</span>
+  <h2 class="h2">Today's top <span class="g">payouts.</span></h2>
+  <p class="sub">Install FreeCash → tap a game to download it → play a couple mins → reward hits your wallet.</p>
+  <div class="grid2">
+    <div class="gcard"><div class="gi ic-royal">👑</div><div class="gcard-tx"><div class="gcard-name">Royal Match</div><div class="gcard-task">Reach Level 5</div><div class="gcard-amt">+$54.20</div></div></div>
+    <div class="gcard"><div class="gi ic-pulse">🏎️</div><div class="gcard-tx"><div class="gcard-name">Pulse Racer</div><div class="gcard-task">Win 3 races</div><div class="gcard-amt">+$48.75</div></div></div>
+    <div class="gcard"><div class="gi ic-arena">⚔️</div><div class="gcard-tx"><div class="gcard-name">Arena Clash</div><div class="gcard-task">Survive round 5</div><div class="gcard-amt">+$39.40</div></div></div>
+    <div class="gcard"><div class="gi ic-block">🏰</div><div class="gcard-tx"><div class="gcard-name">Block Empire</div><div class="gcard-task">Build city lvl 4</div><div class="gcard-amt">+$46.85</div></div></div>
+    <div class="gcard"><div class="gi ic-soli">🃏</div><div class="gcard-tx"><div class="gcard-name">Solitaire Cash</div><div class="gcard-task">Win 5 hands</div><div class="gcard-amt">+$31.10</div></div></div>
+    <div class="gcard"><div class="gi ic-crossy">🐔</div><div class="gcard-tx"><div class="gcard-name">Crossy Road</div><div class="gcard-task">Hop &amp; dodge</div><div class="gcard-amt">+$28.40</div></div></div>
+  </div>
+  <a href="https://tk.unlockbonusapp.com/click" class="cta">Download FreeCash <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</section>
+
+<section class="sec wrap">
+  <span class="eyebrow">Real Users · Real Bag</span>
+  <h2 class="h2">They got the<br>bag. <span class="g">You're next.</span></h2>
+  <div style="margin-top:24px">
+    <div class="tcard">
+      <div class="tcard-top"><div class="tav">M</div><div><div class="tname">Marcus J. <svg class="tcheck" viewBox="0 0 24 24" fill="#4ea8ff"><path d="M12 2l2.4 1.8 3 .2.9 2.8 2.4 1.8-1 2.8 1 2.8-2.4 1.8-.9 2.8-3 .2L12 22l-2.4-1.8-3-.2-.9-2.8L3.3 15.4l1-2.8-1-2.8 2.4-1.8.9-2.8 3-.2z"/><path d="M8.5 12.2l2.4 2.3 4.4-4.6" fill="none" stroke="#06210f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="tmeta">Verified · Atlanta, GA</div></div></div>
+      <div class="stars">★★★★★</div>
+      <p class="tquote">"Needed $200 for my cousin's bond. Played 3 games, got $125 same day. Wild."</p>
+      <span class="tpaid">$214 paid out</span>
+    </div>
+    <div class="tcard">
+      <div class="tcard-top"><div class="tav">D</div><div><div class="tname">Devon T. <svg class="tcheck" viewBox="0 0 24 24" fill="#4ea8ff"><path d="M12 2l2.4 1.8 3 .2.9 2.8 2.4 1.8-1 2.8 1 2.8-2.4 1.8-.9 2.8-3 .2L12 22l-2.4-1.8-3-.2-.9-2.8L3.3 15.4l1-2.8-1-2.8 2.4-1.8.9-2.8 3-.2z"/><path d="M8.5 12.2l2.4 2.3 4.4-4.6" fill="none" stroke="#06210f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="tmeta">Verified · Brooklyn, NY</div></div></div>
+      <div class="stars">★★★★★</div>
+      <p class="tquote">"Was skeptical. Played the games, cashed out to CashApp in 4 minutes. Sold."</p>
+      <span class="tpaid">$248 paid out</span>
+    </div>
+    <div class="tcard">
+      <div class="tcard-top"><div class="tav">J</div><div><div class="tname">Jess L. <svg class="tcheck" viewBox="0 0 24 24" fill="#4ea8ff"><path d="M12 2l2.4 1.8 3 .2.9 2.8 2.4 1.8-1 2.8 1 2.8-2.4 1.8-.9 2.8-3 .2L12 22l-2.4-1.8-3-.2-.9-2.8L3.3 15.4l1-2.8-1-2.8 2.4-1.8.9-2.8 3-.2z"/><path d="M8.5 12.2l2.4 2.3 4.4-4.6" fill="none" stroke="#06210f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="tmeta">Verified · Houston, TX</div></div></div>
+      <div class="stars">★★★★★</div>
+      <p class="tquote">"Played 5 games on a Sunday, $400 hit. Rent week ain't hittin the same."</p>
+      <span class="tpaid">$320 paid out</span>
+    </div>
+  </div>
+  <a href="https://tk.unlockbonusapp.com/click" class="cta">Get Paid to Play <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</section>
+
+<section class="sec wrap">
+  <span class="eyebrow">Inside the App</span>
+  <h2 class="h2">Real games. <span class="g">Real bag.</span></h2>
+  <p class="sub">Pick a game, play a few mins, get paid.</p>
+  <div class="phone">
+    <div class="phone-status"><span>9:41</span><span class="si">📶 🔋</span></div>
+    <div class="wallet">
+      <div class="wallet-lab">Wallet Balance</div>
+      <div class="wallet-bal">$127.42</div>
+      <div class="wallet-foot"><span>+$8.20 today</span><span>✓ Verified</span></div>
+    </div>
+    <div class="twrap">
+      <div class="twrap-head"><span>Today's games</span><b>12 Live</b></div>
+      <div class="prow"><div class="pgi ic-royal">👑</div><div class="prow-tx"><div class="prow-name">Royal Match</div><div class="prow-task">Reach level 8 · 3 min</div></div><div class="prow-amt">+$50</div></div>
+      <div class="prow"><div class="pgi ic-pulse">🏎️</div><div class="prow-tx"><div class="prow-name">Pulse Racer</div><div class="prow-task">Win 3 races · 3 min</div></div><div class="prow-amt">+$40</div></div>
+      <div class="prow"><div class="pgi ic-arena">⚔️</div><div class="prow-tx"><div class="prow-name">Arena Clash</div><div class="prow-task">Survive round 5 · 4 min</div></div><div class="prow-amt">+$35</div></div>
+      <div class="prow"><div class="pgi ic-block">🏰</div><div class="prow-tx"><div class="prow-name">Block Empire</div><div class="prow-task">Build city lvl 4 · 4 min</div></div><div class="prow-amt">+$55</div></div>
+      <div class="prow"><div class="pgi ic-soli">🃏</div><div class="prow-tx"><div class="prow-name">Solitaire Cash</div><div class="prow-task">Win 5 hands · 3 min</div></div><div class="prow-amt">+$30</div></div>
+    </div>
+  </div>
+  <div class="feat"><div class="feat-ic">⚡</div><div><div class="feat-h">Cash out in minutes</div><p class="feat-p">First payout under 48hrs. After that, instant to CashApp / Venmo / PayPal.</p></div></div>
+  <div class="feat"><div class="feat-ic">🎮</div><div><div class="feat-h">Real games, no surveys</div><p class="feat-p">Match-3, racing, tower-defense — actually fun.</p></div></div>
+  <div class="feat"><div class="feat-ic">🔒</div><div><div class="feat-h">100% free</div><p class="feat-p">No deposit required. Pull out everything you earn.</p></div></div>
+</section>
+
+<section class="sec wrap">
+  <span class="eyebrow">How It Works</span>
+  <h2 class="h2">3 steps. <span class="g">Real cash.</span></h2>
+  <div style="margin-top:22px">
+    <div class="step"><div class="step-n">1</div><div><div class="step-h">Download FreeCash, free</div><p class="step-p">iOS &amp; Android. 30 seconds.</p></div></div>
+    <div class="step"><div class="step-n">2</div><div><div class="step-h">Tap a game · install + play in-app</div><p class="step-p">Download the games through FreeCash, then play each ~3 mins to unlock.</p></div></div>
+    <div class="step"><div class="step-n">3</div><div><div class="step-h">Cash out, anytime</div><p class="step-p">CashApp, Venmo or PayPal. First payout under 48 hours.</p></div></div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <span class="badge">⏰ Expires in <span class="tcd">04:50</span></span>
+    <h2>Get paid to <span class="g">play.</span></h2>
+    <p class="sub">Download, play 3 games, cash out to CashApp, Venmo or PayPal.</p>
+    <a href="https://tk.unlockbonusapp.com/click" class="cta">Claim My $125 Now <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="trust"><span>🔒 SSL secured</span><span>✓ No card required</span><span>⊘ Cancel anytime</span></div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <a href="#" class="logo" style="justify-content:center;margin-bottom:14px;">
+      <svg viewBox="0 0 21 19" width="28px" height="25px" fill="#01D676">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5089 13.174V9.64425C17.5089 9.64425 17.5343 8.7864 16.3375 9.53703C15.8919 9.79873 15.2299 10.1587 15.2426 11.7659V13.1089C15.2426 13.1089 15.2682 16.0106 11.9834 16.0106H11.6651V16.7242C11.6656 16.8035 11.6498 16.8821 11.6189 16.9551C11.588 17.0281 11.5426 17.0941 11.4854 17.1488C11.4282 17.2036 11.3603 17.246 11.2861 17.2735C11.2119 17.3011 11.1328 17.3131 11.0538 17.3088H9.90798C9.90798 17.3088 9.34786 17.2961 9.34786 16.7676V16.0106H6.97968C6.97968 16.0106 5.85931 16.0055 5.85931 14.8195C5.85807 14.6715 5.88628 14.5248 5.94212 14.3878C5.99795 14.2508 6.08031 14.1263 6.18457 14.0215C6.28882 13.9167 6.41286 13.8338 6.54936 13.7775C6.68587 13.7212 6.83208 13.6927 6.97968 13.6936H11.8306C11.8306 13.6936 12.9382 13.737 12.9382 12.5242C12.9382 11.9115 12.6454 11.2898 11.7414 11.2898H1.42868C1.42868 11.2898 0.180946 11.2719 0.0663606 13.3476C0.0408971 14.0114 0.0791422 14.5667 0.435631 14.928C0.79212 15.2893 3.44028 17.9586 3.44028 17.9586C3.44028 17.9586 4.0005 18.4999 5.43919 18.4999H12.7599C12.7599 18.4999 17.5089 18.588 17.5089 13.8021V13.174ZM3.49125 5.826V9.35575C3.49125 9.35575 3.46581 10.2136 4.6626 9.46297C5.10821 9.20128 5.78294 8.84128 5.75748 7.23407V5.89111C5.75748 5.89111 5.73197 2.98944 9.01676 2.98944H9.34786V2.27584C9.3453 2.19705 9.35915 2.11859 9.38852 2.04547C9.41789 1.97235 9.46214 1.90618 9.51845 1.85116C9.57475 1.79615 9.64186 1.75352 9.71551 1.72597C9.78917 1.69842 9.86779 1.68655 9.94628 1.69115H11.0921C11.0921 1.69115 11.6523 1.70392 11.6523 2.23242V2.98944H14.0331C14.0331 2.98944 15.1535 2.99454 15.1535 4.18049C15.1547 4.32848 15.1266 4.47524 15.0708 4.61224C15.015 4.74923 14.9325 4.87374 14.8282 4.9785C14.724 5.08327 14.6001 5.16621 14.4636 5.22251C14.3271 5.2788 14.1807 5.30734 14.0331 5.30644H9.16957C9.16957 5.30644 8.07468 5.26304 8.07468 6.47579C8.07468 7.08855 8.35476 7.71023 9.25871 7.71023H19.5714C19.5714 7.71023 20.8192 7.72811 20.9338 5.65239C20.9592 4.98856 20.921 4.43325 20.5645 4.07198C20.2207 3.71198 17.5725 1.04138 17.5725 1.04138C17.5725 1.04138 16.9996 0.500111 15.5609 0.500111H8.24017C8.24017 0.500111 3.49125 0.412033 3.49125 5.19793V5.826Z"/>
+      </svg>
+      <svg viewBox="0 0 137 16" width="90px" height="10px">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5002 0.329671H3.28374L0 15.6714H4.47618L5.64896 10.2146H12.6856L13.4478 6.59814H6.41114L6.99753 3.94617H14.7183L15.5002 0.329671ZM15.813 15.6714H20.289L21.3641 10.6747H23.2992L26.2703 15.6714H31.3132L27.834 10.1045C29.8473 9.42598 31.5283 8.04405 32.0756 5.50219C32.9356 1.44695 29.6713 0.329671 26.2312 0.329671H19.0968L15.813 15.6714ZM22.0678 7.38682L22.83 3.83604H25.6839C26.9544 3.83604 27.6972 4.42754 27.4431 5.61232C27.189 6.7971 26.192 7.38682 24.9215 7.38682H22.0678ZM49.6867 0.329671H37.5094L34.2257 15.6714H46.5593L47.302 12.165H39.4444L39.9722 9.66578H46.9697L47.7126 6.18072H40.7149L41.2232 3.83604H48.944L49.6867 0.329671ZM65.8124 0.329671H53.6351L50.3513 15.6714H62.685L63.4277 12.165H55.5701L56.0978 9.66578H63.0954L63.8383 6.18072H56.8602L57.3489 3.83604H65.0697L65.8124 0.329671Z" fill="#01D676"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M67.0047 8.21989C65.8319 13.6997 69.9563 16 74.6083 16C76.3764 16.0009 78.1258 15.6726 79.7489 15.0355L80.5894 11.0904C79.4361 11.9448 77.7356 12.4279 75.996 12.4279C73.3573 12.4279 70.9726 11.2005 71.5981 8.21989C72.3213 4.88759 75.2728 3.55185 77.9506 3.55185C79.4948 3.55185 80.9414 4.01189 81.8209 4.80055L82.6417 0.965573C81.1778 0.309481 79.5633 -0.0211135 77.9312 0.00104475C73.3573 0.00104475 68.2557 2.43455 67.0047 8.21989ZM81.7035 15.6714H86.2969L87.7825 13.261H94.7995L95.2491 15.6714H99.8424L96.4806 0.329673H91.6527L81.7035 15.6714ZM89.8152 9.97307L92.5126 5.5466C92.8166 5.04933 93.0718 4.52863 93.275 3.99058C93.246 4.51165 93.2853 5.03399 93.3922 5.5466L94.174 9.97307H89.8152ZM104.045 4.51635C102.872 9.9944 111.844 9.25013 111.355 11.4634C111.199 12.2307 110.397 12.4936 108.619 12.4936C106.684 12.4936 104.573 12.0123 102.833 10.7618L102.012 14.5967C103.615 15.4955 105.765 16 108.208 16C111.922 16 115.206 14.9484 115.988 11.3106C117.161 5.87521 108.228 6.48802 108.638 4.49326C108.775 3.92485 109.362 3.52875 111.003 3.50744C112.978 3.48612 114.776 3.96748 116.027 4.95331L116.809 1.22846C115.499 0.461106 113.505 0.00104475 111.394 0.00104475C107.915 0.00104475 104.709 1.44694 104.045 4.51635ZM137 0.329673H132.543L131.273 6.20382H124.999L126.25 0.329673H121.773L118.49 15.6714H122.966L124.217 9.82032H130.511L129.24 15.6714H133.716L137 0.329673Z" fill="white"/>
+      </svg>
+    </a>
+    <div class="foot-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a><a href="#">Affiliates</a></div>
+    <p class="foot-dis">© FreeCash 2026. Earnings shown are typical for active members and not guaranteed. Rewards require completing in-app game milestones.</p>
+  </div>
+</footer>
+
+<div class="stickybar" id="stickybar">
+  <a href="https://tk.unlockbonusapp.com/click" class="cta">Claim $125 · <span class="tcd">04:50</span> <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</div>
+
+<div class="toast" id="toast"><div class="tt-av" id="toastAv">K</div><div class="tt-tx"><b id="toastName">Kee B.</b> <span id="toastMsg">just cashed out $122.01</span></div></div>
+
+<div class="quiz" id="quiz">
+  <div class="quiz-top">
+    <div class="quiz-logo">
+      <svg viewBox="0 0 21 19" width="28px" height="25px" fill="#01D676">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5089 13.174V9.64425C17.5089 9.64425 17.5343 8.7864 16.3375 9.53703C15.8919 9.79873 15.2299 10.1587 15.2426 11.7659V13.1089C15.2426 13.1089 15.2682 16.0106 11.9834 16.0106H11.6651V16.7242C11.6656 16.8035 11.6498 16.8821 11.6189 16.9551C11.588 17.0281 11.5426 17.0941 11.4854 17.1488C11.4282 17.2036 11.3603 17.246 11.2861 17.2735C11.2119 17.3011 11.1328 17.3131 11.0538 17.3088H9.90798C9.90798 17.3088 9.34786 17.2961 9.34786 16.7676V16.0106H6.97968C6.97968 16.0106 5.85931 16.0055 5.85931 14.8195C5.85807 14.6715 5.88628 14.5248 5.94212 14.3878C5.99795 14.2508 6.08031 14.1263 6.18457 14.0215C6.28882 13.9167 6.41286 13.8338 6.54936 13.7775C6.68587 13.7212 6.83208 13.6927 6.97968 13.6936H11.8306C11.8306 13.6936 12.9382 13.737 12.9382 12.5242C12.9382 11.9115 12.6454 11.2898 11.7414 11.2898H1.42868C1.42868 11.2898 0.180946 11.2719 0.0663606 13.3476C0.0408971 14.0114 0.0791422 14.5667 0.435631 14.928C0.79212 15.2893 3.44028 17.9586 3.44028 17.9586C3.44028 17.9586 4.0005 18.4999 5.43919 18.4999H12.7599C12.7599 18.4999 17.5089 18.588 17.5089 13.8021V13.174ZM3.49125 5.826V9.35575C3.49125 9.35575 3.46581 10.2136 4.6626 9.46297C5.10821 9.20128 5.78294 8.84128 5.75748 7.23407V5.89111C5.75748 5.89111 5.73197 2.98944 9.01676 2.98944H9.34786V2.27584C9.3453 2.19705 9.35915 2.11859 9.38852 2.04547C9.41789 1.97235 9.46214 1.90618 9.51845 1.85116C9.57475 1.79615 9.64186 1.75352 9.71551 1.72597C9.78917 1.69842 9.86779 1.68655 9.94628 1.69115H11.0921C11.0921 1.69115 11.6523 1.70392 11.6523 2.23242V2.98944H14.0331C14.0331 2.98944 15.1535 2.99454 15.1535 4.18049C15.1547 4.32848 15.1266 4.47524 15.0708 4.61224C15.015 4.74923 14.9325 4.87374 14.8282 4.9785C14.724 5.08327 14.6001 5.16621 14.4636 5.22251C14.3271 5.2788 14.1807 5.30734 14.0331 5.30644H9.16957C9.16957 5.30644 8.07468 5.26304 8.07468 6.47579C8.07468 7.08855 8.35476 7.71023 9.25871 7.71023H19.5714C19.5714 7.71023 20.8192 7.72811 20.9338 5.65239C20.9592 4.98856 20.921 4.43325 20.5645 4.07198C20.2207 3.71198 17.5725 1.04138 17.5725 1.04138C17.5725 1.04138 16.9996 0.500111 15.5609 0.500111H8.24017C8.24017 0.500111 3.49125 0.412033 3.49125 5.19793V5.826Z"/>
+      </svg>
+      <svg viewBox="0 0 137 16" width="100px" height="12px">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5002 0.329671H3.28374L0 15.6714H4.47618L5.64896 10.2146H12.6856L13.4478 6.59814H6.41114L6.99753 3.94617H14.7183L15.5002 0.329671ZM15.813 15.6714H20.289L21.3641 10.6747H23.2992L26.2703 15.6714H31.3132L27.834 10.1045C29.8473 9.42598 31.5283 8.04405 32.0756 5.50219C32.9356 1.44695 29.6713 0.329671 26.2312 0.329671H19.0968L15.813 15.6714ZM22.0678 7.38682L22.83 3.83604H25.6839C26.9544 3.83604 27.6972 4.42754 27.4431 5.61232C27.189 6.7971 26.192 7.38682 24.9215 7.38682H22.0678ZM49.6867 0.329671H37.5094L34.2257 15.6714H46.5593L47.302 12.165H39.4444L39.9722 9.66578H46.9697L47.7126 6.18072H40.7149L41.2232 3.83604H48.944L49.6867 0.329671ZM65.8124 0.329671H53.6351L50.3513 15.6714H62.685L63.4277 12.165H55.5701L56.0978 9.66578H63.0954L63.8383 6.18072H56.8602L57.3489 3.83604H65.0697L65.8124 0.329671Z" fill="#01D676"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M67.0047 8.21989C65.8319 13.6997 69.9563 16 74.6083 16C76.3764 16.0009 78.1258 15.6726 79.7489 15.0355L80.5894 11.0904C79.4361 11.9448 77.7356 12.4279 75.996 12.4279C73.3573 12.4279 70.9726 11.2005 71.5981 8.21989C72.3213 4.88759 75.2728 3.55185 77.9506 3.55185C79.4948 3.55185 80.9414 4.01189 81.8209 4.80055L82.6417 0.965573C81.1778 0.309481 79.5633 -0.0211135 77.9312 0.00104475C73.3573 0.00104475 68.2557 2.43455 67.0047 8.21989ZM81.7035 15.6714H86.2969L87.7825 13.261H94.7995L95.2491 15.6714H99.8424L96.4806 0.329673H91.6527L81.7035 15.6714ZM89.8152 9.97307L92.5126 5.5466C92.8166 5.04933 93.0718 4.52863 93.275 3.99058C93.246 4.51165 93.2853 5.03399 93.3922 5.5466L94.174 9.97307H89.8152ZM104.045 4.51635C102.872 9.9944 111.844 9.25013 111.355 11.4634C111.199 12.2307 110.397 12.4936 108.619 12.4936C106.684 12.4936 104.573 12.0123 102.833 10.7618L102.012 14.5967C103.615 15.4955 105.765 16 108.208 16C111.922 16 115.206 14.9484 115.988 11.3106C117.161 5.87521 108.228 6.48802 108.638 4.49326C108.775 3.92485 109.362 3.52875 111.003 3.50744C112.978 3.48612 114.776 3.96748 116.027 4.95331L116.809 1.22846C115.499 0.461106 113.505 0.00104475 111.394 0.00104475C107.915 0.00104475 104.709 1.44694 104.045 4.51635ZM137 0.329673H132.543L131.273 6.20382H124.999L126.25 0.329673H121.773L118.49 15.6714H122.966L124.217 9.82032H130.511L129.24 15.6714H133.716L137 0.329673Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="quiz-prog">
+      <span class="quiz-prog-lab" id="qLabel">Step 1/4</span>
+      <span class="quiz-prog-track"><span class="quiz-prog-fill" id="qFill"></span></span>
+      <span class="quiz-prog-pct" id="qPct">25%</span>
+    </div>
+  </div>
+  <div class="quiz-body">
+    <div class="quiz-step active" data-step="1">
+      <h1 class="quiz-h1">First — you on <span class="g">iPhone or Android?</span></h1>
+      <p class="quiz-sub">We'll match you with the right version.</p>
+      <div class="quiz-choices">
+        <button class="qc" onclick="answerQuiz('device','iphone')"><span class="qc-ic">📱</span><span class="qc-tx"><span class="qc-label">iPhone</span></span></button>
+        <button class="qc" onclick="answerQuiz('device','android')"><span class="qc-ic">🤖</span><span class="qc-tx"><span class="qc-label">Android</span></span></button>
+      </div>
+    </div>
+    <div class="quiz-step" data-step="2">
+      <h1 class="quiz-h1">What would <span class="g">$500 help with</span> right now?</h1>
+      <p class="quiz-sub">No wrong answer.</p>
+      <div class="quiz-choices">
+        <button class="qc" onclick="answerQuiz('goal','bills')"><span class="qc-ic">🧾</span><span class="qc-tx"><span class="qc-label">Legal/Bills</span></span></button>
+        <button class="qc" onclick="answerQuiz('goal','groceries')"><span class="qc-ic">🛒</span><span class="qc-tx"><span class="qc-label">Groceries</span></span></button>
+        <button class="qc" onclick="answerQuiz('goal','family')"><span class="qc-ic">👨‍👩‍👧</span><span class="qc-tx"><span class="qc-label">Family</span></span></button>
+        <button class="qc" onclick="answerQuiz('goal','fun')"><span class="qc-ic">🎮</span><span class="qc-tx"><span class="qc-label">Fun</span></span></button>
+        <button class="qc" onclick="answerQuiz('goal','vacations')"><span class="qc-ic">🏝️</span><span class="qc-tx"><span class="qc-label">Vacations</span></span></button>
+      </div>
+    </div>
+    <div class="quiz-step" data-step="3">
+      <h1 class="quiz-h1">Where do you <span class="g">want it paid?</span></h1>
+      <p class="quiz-sub">Pick one. You can change it later.</p>
+      <div class="quiz-choices">
+        <button class="qc" onclick="answerQuiz('payout','paypal')"><span class="qc-ic brand-pp">P</span><span class="qc-tx"><span class="qc-label">PayPal</span></span></button>
+        <button class="qc" onclick="answerQuiz('payout','cashapp')"><span class="qc-ic brand-ca">$</span><span class="qc-tx"><span class="qc-label">CashApp</span></span></button>
+        <button class="qc" onclick="answerQuiz('payout','venmo')"><span class="qc-ic brand-ve">V</span><span class="qc-tx"><span class="qc-label">Venmo</span></span></button>
+        <button class="qc" onclick="answerQuiz('payout','bank')"><span class="qc-ic">🏦</span><span class="qc-tx"><span class="qc-label">Bank</span><span class="qc-sub">Set up later — no details needed now</span></span></button>
+      </div>
+    </div>
+    <div class="quiz-step" data-step="4">
+      <h1 class="quiz-h1">Download a couple different games through the app to get your <span class="g">signup reward</span> — you in?</h1>
+      <p class="quiz-sub">Last one.</p>
+      <div class="quiz-choices">
+        <button class="qc" onclick="answerQuiz('commit','yes')"><span class="qc-ic ok">✓</span><span class="qc-tx"><span class="qc-label">Yes, I'd do it</span><span class="qc-sub">Show me the games</span></span></button>
+        <button class="qc" onclick="answerQuiz('commit','maybe')"><span class="qc-ic">🤔</span><span class="qc-tx"><span class="qc-label">Not sure yet</span><span class="qc-sub">Walk me through it first</span></span></button>
+      </div>
+    </div>
+    <div class="quiz-loader" id="quizLoader">
+      <div class="qspin"></div>
+      <h1>Unlocking your<br><span class="g">3x match offer…</span></h1>
+      <p>Pulling games that match your goal.</p>
+    </div>
+  </div>
+</div>
+
+<div class="reveal" id="reveal">
+  <div class="reveal-card" id="revealCard">
+    <button class="reveal-x" id="revealX" aria-label="Close">×</button>
+    <span class="reveal-badge">🎉 You're in</span>
+    <h2 class="reveal-h">Spot reserved — <span class="g">$125 unlocked</span></h2>
+    <p class="reveal-p">Download FreeCash, play 3 games (~10 mins). <b>Only 1 spot left in your area.</b></p>
+    <div class="reveal-timer" id="revealTimer">
+      <span class="reveal-timer-lab">⏰ Expires in</span>
+      <span class="reveal-timer-clock tcd">04:54</span>
+    </div>
+    <a href="https://tk.unlockbonusapp.com/click" class="cta">Claim My $125 <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="#" class="reveal-pass" id="revealPass">No thanks, I'll pass on the bag</a>
+  </div>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<script>
+let _scrollY=0;
+function lockScroll(){_scrollY=window.scrollY||0;const b=document.body.style;b.position='fixed';b.top=(-_scrollY)+'px';b.left='0';b.right='0';b.width='100%';}
+function unlockScroll(){const b=document.body.style;b.position='';b.top='';b.left='';b.right='';b.width='';window.scrollTo(0,_scrollY);}
+
+const QUIZ_STEPS=['device','goal','payout','commit'];
+const OFFER_HOST='getpaidtoscroll.win';
+let quizState={};
+try{quizState=JSON.parse(localStorage.getItem('fc_quiz')||'{}');}catch(e){quizState={};}
+
+const HERO_SUB_BY_GOAL={
+  bills:'<b>Knock out those bills.</b> Download FreeCash, install + play 3 games <b>through the app</b>, cash out to <b>CashApp, Venmo or PayPal</b>.',
+  groceries:'<b>Keep the fridge full.</b> Download FreeCash, install + play 3 games <b>through the app</b>, cash out to <b>CashApp, Venmo or PayPal</b>.',
+  family:'<b>Take care of the family.</b> Download FreeCash, install + play 3 games <b>through the app</b>, cash out to <b>CashApp, Venmo or PayPal</b>.',
+  fun:'<b>Stack some fun money.</b> Download FreeCash, install + play 3 games <b>through the app</b>, cash out to <b>CashApp, Venmo or PayPal</b>.',
+  vacations:'<b>Fund the getaway.</b> Download FreeCash, install + play 3 games <b>through the app</b>, cash out to <b>CashApp, Venmo or PayPal</b>.'
+};
+
+function setQuizStep(stepNum){
+  const total=QUIZ_STEPS.length,isLoader=stepNum>total;
+  document.querySelectorAll('.quiz-step').forEach(el=>el.classList.toggle('active',parseInt(el.dataset.step,10)===stepNum));
+  document.getElementById('quizLoader').classList.toggle('active',isLoader);
+  const qn=isLoader?total:stepNum,pct=Math.round((qn/total)*100);
+  document.getElementById('qLabel').textContent='Step '+qn+'/'+total;
+  document.getElementById('qFill').style.width=pct+'%';
+  document.getElementById('qPct').textContent=pct+'%';
+}
+
+function answerQuiz(key,value){
+  quizState[key]=value;
+  try{localStorage.setItem('fc_quiz',JSON.stringify(quizState));}catch(e){}
+  const idx=QUIZ_STEPS.indexOf(key);
+  if(idx<QUIZ_STEPS.length-1){setQuizStep(idx+2);}
+  else{setQuizStep(QUIZ_STEPS.length+1);appendQuizParamsToCTAs();personalizeHero();setTimeout(finishQuiz,1900);}
+}
+
+function finishQuiz(){
+  try{localStorage.setItem('fc_quiz_done','1');}catch(e){}
+  const q=document.getElementById('quiz');
+  q.classList.add('hide');
+  document.getElementById('reveal').classList.add('on');
+  startConfetti();startTimers();
+  setTimeout(()=>{q.style.display='none';},480);
+}
+
+function appendQuizParamsToCTAs(){
+  document.querySelectorAll('a[href*="'+OFFER_HOST+'"]').forEach(a=>{
+    try{const url=new URL(a.href);['device','goal','payout','commit'].forEach(k=>{if(quizState[k])url.searchParams.set(k,quizState[k]);});a.href=url.toString();}catch(e){}
+  });
+}
+
+function personalizeHero(){
+  const el=document.getElementById('heroSub');
+  if(el&&quizState.goal&&HERO_SUB_BY_GOAL[quizState.goal])el.innerHTML=HERO_SUB_BY_GOAL[quizState.goal];
+}
+
+function closeReveal(){document.getElementById('reveal').classList.remove('on');unlockScroll();}
+document.getElementById('revealX').addEventListener('click',closeReveal);
+document.getElementById('revealPass').addEventListener('click',e=>{e.preventDefault();closeReveal();});
+document.getElementById('reveal').addEventListener('click',e=>{if(e.target.id==='reveal')closeReveal();});
+
+let tmr=null;
+function startTimers(){
+  if(tmr)return;
+  let deadline=parseInt(localStorage.getItem('fc_reveal_deadline')||'0',10);
+  if(!deadline||deadline<Date.now()){deadline=Date.now()+5*60*1000;try{localStorage.setItem('fc_reveal_deadline',String(deadline));}catch(e){}}
+  function tick(){
+    const rem=Math.max(0,deadline-Date.now());
+    const m=Math.floor(rem/60000),s=Math.floor((rem%60000)/1000);
+    const txt=m+':'+String(s).padStart(2,'0');
+    document.querySelectorAll('.tcd').forEach(el=>el.textContent=txt);
+    const rt=document.getElementById('revealTimer');
+    if(rem<60000&&rt)rt.classList.add('urgent');
+    if(rem<=0)clearInterval(tmr);
+  }
+  tick();tmr=setInterval(tick,1000);
+}
+
+window.addEventListener('scroll',()=>{
+  const on=window.scrollY>520&&!document.getElementById('reveal').classList.contains('on');
+  document.getElementById('stickybar').classList.toggle('show',on);
+},{passive:true});
+
+(function(){
+  const GAMES=[
+    {c:'ic-royal',e:'👑',g:'+$54.20',n:'Royal Match',t:'Reach Level 5'},
+    {c:'ic-pulse',e:'🏎️',g:'+$48.75',n:'Pulse Racer',t:'Win 3 races'},
+    {c:'ic-arena',e:'⚔️',g:'+$39.40',n:'Arena Clash',t:'Survive round 5'},
+    {c:'ic-block',e:'🏰',g:'+$46.85',n:'Block Empire',t:'Build city lvl 4'},
+    {c:'ic-soli',e:'🃏',g:'+$31.10',n:'Solitaire Cash',t:'Win 5 hands'},
+    {c:'ic-crossy',e:'🐔',g:'+$28.40',n:'Crossy Road',t:'Hop & dodge'}
+  ];
+  const card=document.getElementById('hcard');
+  const segs=Array.prototype.slice.call(document.querySelectorAll('#hcSegs i'));
+  let i=0,timer=null;
+  function paint(){
+    const x=GAMES[i];
+    const ic=document.getElementById('hcIcon');ic.className='gameicon '+x.c;ic.textContent=x.e;
+    document.getElementById('hcGain').textContent=x.g;
+    const mi=document.getElementById('npIcon');mi.className='mini '+x.c;mi.textContent=x.e;
+    document.getElementById('npName').textContent=x.n;
+    document.getElementById('npTask').textContent=x.t;
+    const fill=(i%5)+1;
+    segs.forEach((s,k)=>s.classList.toggle('on',k<fill));
+  }
+  window.rotateNow=function(manual){
+    i=(i+1)%GAMES.length;
+    card.classList.add('swapping');
+    setTimeout(()=>{paint();card.classList.remove('swapping');},200);
+    if(manual&&timer){clearInterval(timer);timer=setInterval(step,2800);}
+  };
+  function step(){window.rotateNow(false);}
+  paint();timer=setInterval(step,2800);
+})();
+
+(function(){
+  let total=38403144,today=8285,hero=8261;
+  function fmt(n){return '$'+Math.floor(n).toLocaleString('en-US');}
+  setInterval(()=>{total+=Math.floor(Math.random()*9)+2;today+=Math.floor(Math.random()*4);document.getElementById('totalPaid').textContent=fmt(total);document.getElementById('paidToday').textContent=fmt(today);},2600);
+  setInterval(()=>{hero+=Math.floor(Math.random()*5);document.getElementById('heroCounter').textContent=fmt(hero);},3400);
+})();
+
+(function(){
+  const list=[['K','Kee B.','just cashed out $122.01'],['T','Tay R.','just cashed out $50.37'],['M','Marcus J.','just cashed out $84.20'],['D','Devon T.','just cashed out $96.50'],['A','Aaliyah','just cashed out $61.40'],['J','Jay D.','just hit $250']];
+  const t=document.getElementById('toast');let i=0;
+  function show(){
+    if(document.getElementById('reveal').classList.contains('on')){setTimeout(show,4000);return;}
+    const[a,n,m]=list[i%list.length];i++;
+    document.getElementById('toastAv').textContent=a;
+    document.getElementById('toastName').textContent=n;
+    document.getElementById('toastMsg').textContent=m;
+    t.classList.add('show');setTimeout(()=>t.classList.remove('show'),4200);setTimeout(show,9000);
+  }
+  setTimeout(show,6000);
+})();
+
+function startConfetti(){
+  const c=document.getElementById('confetti');if(!c)return;
+  const ctx=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+  const cols=['#4ade80','#62e394','#ffd24d','#ff5fa0','#ffffff'];
+  let parts=Array.from({length:90},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height,r:4+Math.random()*5,c:cols[Math.floor(Math.random()*cols.length)],vy:2+Math.random()*3.5,vx:-1.5+Math.random()*3,rot:Math.random()*6,vr:-.2+Math.random()*.4}));
+  let frames=0;
+  (function loop(){frames++;ctx.clearRect(0,0,c.width,c.height);parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.c;ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*1.6);ctx.restore();});if(frames<150)requestAnimationFrame(loop);else ctx.clearRect(0,0,c.width,c.height);})();
+}
+
+setQuizStep(1);
+lockScroll();
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
