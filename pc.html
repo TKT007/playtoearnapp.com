@@ -1130,6 +1130,24 @@
       gap: 12px;
     }
 
+    /* Estilos para stack vertical (ex: 3 opções) */
+    .pc-quiz-options.vertical-stack {
+      grid-template-columns: 1fr;
+    }
+    .pc-quiz-options.vertical-stack .pc-quiz-option {
+      flex-direction: row;
+      align-items: center;
+      min-height: 80px;
+    }
+    .pc-quiz-options.vertical-stack .pc-quiz-option .pc-qopt-radio {
+      top: 50% !important;
+      right: 16px;
+      transform: translateY(-50%) !important;
+    }
+    .pc-quiz-options.vertical-stack .pc-qopt-badge {
+      right: 48px;
+    }
+
     /* Configuração de cartões quadrados */
     .pc-quiz-option {
       position: relative;
@@ -1160,7 +1178,7 @@
     .pc-quiz-option.dimmed { opacity: .45; pointer-events: none; }
 
     /* Se houver um número ímpar de opções (como 3), a última se expande na largura total */
-    .pc-quiz-options .pc-quiz-option:last-child:nth-child(odd) {
+    .pc-quiz-options:not(.vertical-stack) .pc-quiz-option:last-child:nth-child(odd) {
       grid-column: span 2;
       flex-direction: row;
       align-items: center;
@@ -1203,7 +1221,7 @@
     }
 
     /* Caso especial: item ímpar expandido (centralizado verticalmente) */
-    .pc-quiz-options .pc-quiz-option:last-child:nth-child(odd) .pc-qopt-radio {
+    .pc-quiz-options:not(.vertical-stack) .pc-quiz-option:last-child:nth-child(odd) .pc-qopt-radio {
       top: 50% !important;
       right: 16px;
       transform: translateY(-50%) !important;
@@ -1891,7 +1909,7 @@
         <div class="pc-quiz-result-headline">Your Earnings Estimate Is Ready</div>
         <div class="pc-quiz-result-box">
           <div class="pc-quiz-result-label">Estimated Weekly Earnings</div>
-          <div class="pc-quiz-result-amount" id="pcQuizResultAmount">$80–$180</div>
+          <div class="pc-quiz-result-amount" id="pcQuizResultAmount">$320–$640</div>
         </div>
         <div class="pc-quiz-unlock">
           <div class="pc-quiz-unlock-flag">Exclusive offer · Limited time</div>
@@ -1961,8 +1979,9 @@
         reward: 0.35
       },
       {
-        text: "Would you spend $5–$10 to unlock offers that can earn you 10x more?",
-        context: "Higher-tier game rewards typically require small in-app purchases. If you're comfortable spending a little, you can unlock some of the best earning opportunities in the app.",
+        text: "Would you spend <span style=\"color:#b99cff;font-weight:900;\">$5–$10</span> to unlock offers that can earn you <span style=\"color:#b99cff;font-weight:900;\">10x more?</span>",
+        context: "Premium games often require small purchases to unlock much larger payouts.",
+        isVerticalStack: true,
         opts: [
           { title: "Yes — unlock faster earnings", sub: "Ready to maximize my earnings", icon: ICON_ZAP, badge: "RECOMMENDED" },
           { title: "Maybe — if the reward is worth it", sub: "Show me the opportunity first", icon: ICON_HELP },
@@ -2029,12 +2048,12 @@
     var resultEl      = document.getElementById('pcQuizResult');
     var confetti       = document.getElementById('pcQuizConfetti');
 
-    // Estimated weekly range, keyed by [time-available][earn-goal]
+    // Estimated weekly range in hundreds of dollars, keyed by [time-available][earn-goal]
     var RANGES = [
-      ['$20–$45',  '$30–$60',  '$40–$80',  '$55–$110'],
-      ['$35–$70',  '$55–$110', '$70–$140', '$95–$190'],
-      ['$55–$110', '$85–$170', '$110–$220','$150–$300'],
-      ['$80–$160', '$120–$240','$160–$320','$220–$440']
+      ['$150–$320', '$180–$380', '$220–$440', '$280–$560'],
+      ['$240–$480', '$290–$580', '$350–$700', '$420–$840'],
+      ['$320–$640', '$380–$760', '$460–$920', '$550–$1100'],
+      ['$450–$900', '$550–$1100','$650–$1300','$800–$1600']
     ];
 
     function openQuiz() {
@@ -2060,7 +2079,7 @@
 
     function renderQuestion() {
       var q = questions[current];
-      if (qTextEl) qTextEl.textContent = q.text;
+      if (qTextEl) qTextEl.innerHTML = q.text;
       if (qSubEl) qSubEl.textContent = q.sub || '';
       if (contextEl) {
         if (q.context) {
@@ -2073,10 +2092,11 @@
 
       if (optionsWrap) {
         optionsWrap.innerHTML = '';
+        optionsWrap.className = 'pc-quiz-options';
         if (q.isPaymentQuestion) {
           optionsWrap.classList.add('payment-grid');
-        } else {
-          optionsWrap.classList.remove('payment-grid');
+        } else if (q.isVerticalStack) {
+          optionsWrap.classList.add('vertical-stack');
         }
       }
 
@@ -2730,6 +2750,7 @@
     return null;
   }
 
+  // Input Formatting helpers
   function maskPhone(v){
     var raw = String(v || '').trim();
     var keepPlus = raw.charAt(0) === '+';
