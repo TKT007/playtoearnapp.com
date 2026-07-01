@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#0b0810">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --pc-bg-root: #0b0810;
@@ -202,7 +202,7 @@
       line-height: .98;
       font-weight: 900;
       letter-spacing: -.04em;
-      color: var(--text);
+      color: var(--pc-text);
     }
 
     .hero-title .line-plain {
@@ -1123,36 +1123,56 @@
       line-height: 1.5;
     }
 
-    .pc-quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .pc-quiz-options { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+    /* QUIZ PAYMENT GRID (2 Columns style) */
+    .pc-quiz-options.payment-grid {
+      grid-template-columns: 1fr 1fr;
+    }
 
     .pc-quiz-option {
       position: relative;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      min-height: 84px;
-      padding: 16px 14px;
+      gap: 14px;
+      width: 100%;
+      padding: 16px 18px;
       background: rgba(255,255,255,.03);
       border: 1px solid rgba(255,255,255,.08);
-      border-radius: 14px;
+      border-radius: 16px;
       color: var(--pc-text);
       text-align: left;
       cursor: pointer;
-      transition: transform .12s ease, border-color .14s ease, background .14s ease, opacity .2s ease;
+      transition: transform .12s ease, border-color .14s ease, background .14s ease, opacity .2s ease, box-shadow .14s ease;
     }
     .pc-quiz-option:hover {
       border-color: rgba(255,255,255,.16);
       background: rgba(255,255,255,.05);
     }
-    .pc-quiz-option:active { transform: scale(.97); }
+    .pc-quiz-option:active { transform: scale(.98); }
     .pc-quiz-option.selected {
       border-color: rgba(196,181,253,.5);
       background: linear-gradient(180deg, rgba(139,92,246,.22), rgba(255,255,255,.04));
     }
     .pc-quiz-option.dimmed { opacity: .45; pointer-events: none; }
 
-    .pc-qopt-label { font-size: .92rem; font-weight: 800; color: var(--pc-text); line-height: 1.3; }
+    .pc-qopt-icon {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: rgba(139,92,246,.14);
+      display: flex; align-items: center; justify-content: center;
+      color: #b99cff;
+      flex-shrink: 0;
+    }
+    .pc-qopt-icon svg { width: 20px; height: 20px; }
+    .pc-quiz-option.selected .pc-qopt-icon {
+      background: rgba(139,92,246,.32);
+      color: #fff;
+    }
+
+    .pc-qopt-texts { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .pc-qopt-title { font-size: .95rem; font-weight: 800; color: var(--pc-text); line-height: 1.25; }
+    .pc-qopt-sub { font-size: .78rem; font-weight: 600; color: var(--pc-text-3); line-height: 1.4; }
 
     .pc-qopt-radio {
       width: 20px; height: 20px;
@@ -1161,6 +1181,7 @@
       flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
       transition: border-color .14s ease, background .14s ease;
+      margin-left: auto;
     }
     .pc-quiz-option.selected .pc-qopt-radio {
       border-color: var(--pc-purple);
@@ -1171,6 +1192,93 @@
       width: 7px; height: 7px;
       border-radius: 50%;
       background: #fff;
+    }
+
+    /* ── BRAND SPECIFIC STYLES FOR PAYMENT BUTTONS ── */
+    .pc-quiz-option.pay-paypal {
+      background: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      height: 80px;
+      border-radius: 16px;
+      padding: 0 16px;
+    }
+    .pc-quiz-option.pay-paypal .pc-qopt-radio {
+      border-color: #8fa0ba !important;
+    }
+    .pc-quiz-option.pay-paypal.selected {
+      box-shadow: 0 0 0 3px #0079C1 !important;
+      border-color: #0079C1 !important;
+    }
+    .pc-quiz-option.pay-paypal.selected .pc-qopt-radio {
+      border-color: #0079C1 !important;
+      background: #0079C1 !important;
+    }
+    .pc-quiz-option.pay-paypal.selected .pc-qopt-radio::after {
+      background: #ffffff !important;
+    }
+
+    .pc-quiz-option.pay-bank {
+      background: #1b8344 !important;
+      border: none !important;
+      height: 80px;
+      border-radius: 16px;
+      padding: 0 16px;
+    }
+    .pc-quiz-option.pay-bank .pc-qopt-radio {
+      border-color: rgba(255,255,255,0.4) !important;
+    }
+    .pc-quiz-option.pay-bank.selected {
+      box-shadow: 0 0 0 3px #ffffff !important;
+    }
+    .pc-quiz-option.pay-bank.selected .pc-qopt-radio {
+      border-color: #ffffff !important;
+      background: #ffffff !important;
+    }
+    .pc-quiz-option.pay-bank.selected .pc-qopt-radio::after {
+      background: #1b8344 !important;
+    }
+
+    .pc-quiz-option.pay-visa {
+      background: #0e4bcc !important;
+      border: none !important;
+      height: 80px;
+      border-radius: 16px;
+      padding: 0 16px;
+    }
+    .pc-quiz-option.pay-visa .pc-qopt-radio {
+      border-color: rgba(255,255,255,0.4) !important;
+    }
+    .pc-quiz-option.pay-visa.selected {
+      box-shadow: 0 0 0 3px #ffffff !important;
+    }
+    .pc-quiz-option.pay-visa.selected .pc-qopt-radio {
+      border-color: #ffffff !important;
+      background: #ffffff !important;
+    }
+    .pc-quiz-option.pay-visa.selected .pc-qopt-radio::after {
+      background: #0e4bcc !important;
+    }
+
+    .pc-quiz-option.pay-amazon {
+      background: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      height: 80px;
+      border-radius: 16px;
+      padding: 0 16px;
+    }
+    .pc-quiz-option.pay-amazon .pc-qopt-radio {
+      border-color: #8fa0ba !important;
+    }
+    .pc-quiz-option.pay-amazon.selected {
+      box-shadow: 0 0 0 3px #ff9900 !important;
+      border-color: #ff9900 !important;
+    }
+    .pc-quiz-option.pay-amazon.selected .pc-qopt-radio {
+      border-color: #ff9900 !important;
+      background: #ff9900 !important;
+    }
+    .pc-quiz-option.pay-amazon.selected .pc-qopt-radio::after {
+      background: #ffffff !important;
     }
 
     /* ── ENCOURAGEMENT (shown after answering) ── */
@@ -1293,17 +1401,108 @@
       margin-bottom: 16px;
       text-align: left;
     }
+    .pc-quiz-unlock-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      color: #1a0a00;
+      font-size: .74rem;
+      font-weight: 900;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
     .pc-quiz-unlock-top {
       display: flex; align-items: center; gap: 8px;
-      font-size: .68rem; font-weight: 800; letter-spacing: .4px;
-      text-transform: uppercase; color: #c4b5fd; margin-bottom: 8px;
+      font-size: .82rem; font-weight: 800; letter-spacing: .3px;
+      text-transform: uppercase; color: #c4b5fd; margin-bottom: 10px;
     }
     .pc-quiz-unlock-text {
+      font-size: .95rem;
+      color: var(--pc-text-2);
+      line-height: 1.6;
+    }
+    .pc-quiz-unlock-text strong { color: var(--pc-text); }
+
+    .pc-quiz-context {
+      background: linear-gradient(180deg, rgba(139,92,246,.14), rgba(255,255,255,.02));
+      border: 1px solid rgba(196,181,253,.28);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin: 4px 0 18px;
+      text-align: left;
       font-size: .8rem;
       color: var(--pc-text-2);
       line-height: 1.55;
     }
-    .pc-quiz-unlock-text strong { color: var(--pc-text); }
+
+    .pc-qopt-badge {
+      position: absolute;
+      top: -1px; right: 14px;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      border-radius: 0 0 8px 8px;
+      font-size: .58rem;
+      font-weight: 900;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      color: #1a0a00;
+      padding: 4px 10px 3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pc-quiz-option.has-badge { border-color: rgba(251,191,36,.4); }
+    .pc-quiz-option.has-badge.selected { border-color: #fbbf24; }
+
+    /* ── FILLED PAYMENT OPTIONS ── */
+    .pc-quiz-option.fill-white  { background: linear-gradient(135deg, #ffffff, #eef0f6); border-color: transparent; }
+    .pc-quiz-option.fill-blue   { background: linear-gradient(135deg, #1d4ed8, #3b82f6); border-color: transparent; }
+    .pc-quiz-option.fill-green  { background: linear-gradient(135deg, #15803d, #22c55e); border-color: transparent; }
+    .pc-quiz-option.fill-purple { background: linear-gradient(135deg, #5b21b6, #8b5cf6); border-color: transparent; }
+    .pc-quiz-option.fill-amber  { background: linear-gradient(135deg, #b45309, #f59e0b); border-color: transparent; }
+
+    .pc-quiz-option[class*="fill-"] .pc-qopt-title { color: #fff; }
+    .pc-quiz-option[class*="fill-"] .pc-qopt-sub { color: rgba(255,255,255,.78); }
+    .pc-quiz-option[class*="fill-"] .pc-qopt-icon {
+      background: rgba(255,255,255,.2);
+      color: #fff;
+    }
+    .pc-quiz-option[class*="fill-"] .pc-qopt-radio { border-color: rgba(255,255,255,.6); }
+    .pc-quiz-option.fill-white .pc-qopt-title { color: #16121f; }
+    .pc-quiz-option.fill-white .pc-qopt-sub { color: rgba(22,18,31,.6); }
+    .pc-quiz-option.fill-white .pc-qopt-icon { background: rgba(29,78,216,.12); color: #1d4ed8; }
+    .pc-quiz-option.fill-white .pc-qopt-radio { border-color: rgba(22,18,31,.22); }
+    .pc-quiz-option[class*="fill-"]:hover {
+      filter: brightness(1.08);
+      border-color: transparent;
+    }
+    .pc-quiz-option[class*="fill-"].selected {
+      border-color: transparent;
+      background-image: none;
+      box-shadow: 0 10px 26px rgba(0,0,0,.4), 0 0 0 2px rgba(255,255,255,.7) inset;
+    }
+    .pc-quiz-option.fill-white.selected  { background: linear-gradient(135deg, #ffffff, #eef0f6); box-shadow: 0 10px 26px rgba(0,0,0,.25), 0 0 0 2px rgba(29,78,216,.5) inset; }
+    .pc-quiz-option.fill-blue.selected   { background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
+    .pc-quiz-option.fill-green.selected  { background: linear-gradient(135deg, #15803d, #22c55e); }
+    .pc-quiz-option.fill-purple.selected { background: linear-gradient(135deg, #5b21b6, #8b5cf6); }
+    .pc-quiz-option.fill-amber.selected  { background: linear-gradient(135deg, #b45309, #f59e0b); }
+    .pc-quiz-option[class*="fill-"].selected .pc-qopt-radio {
+      border-color: #fff;
+      background: #fff;
+    }
+    .pc-quiz-option.fill-white.selected .pc-qopt-radio {
+      border-color: #1d4ed8;
+      background: #1d4ed8;
+    }
+    .pc-quiz-option[class*="fill-"].selected .pc-qopt-radio::after {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #16121f;
+    }
 
     .pc-quiz-result-urgency {
       display: flex; align-items: center; justify-content: center; gap: 7px;
@@ -1594,13 +1793,13 @@
         <img src="https://playcash.co/assets/img/playcash-white.svg" alt="PlayCash">
       </div>
       <div class="pc-quiz-head-row">
-        <span class="pc-quiz-step-label" id="pcQuizStepLabel">STEP 1 OF 5</span>
+        <span class="pc-quiz-step-label" id="pcQuizStepLabel">STEP 1 OF 4</span>
         <button class="pc-quiz-close" type="button" id="pcQuizClose" aria-label="Close">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 1 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.42 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"/></svg>
         </button>
       </div>
       <div class="pc-quiz-progress-wrap">
-        <div class="pc-quiz-bar-track"><div class="pc-quiz-bar-fill" id="pcQuizBarFill" style="width:20%"></div></div>
+        <div class="pc-quiz-bar-track"><div class="pc-quiz-bar-fill" id="pcQuizBarFill" style="width:25%"></div></div>
         <div class="pc-quiz-earned-float" id="pcQuizEarnedFloat">+$0.00</div>
       </div>
     </div>
@@ -1609,6 +1808,8 @@
       <!-- QUESTION (rendered dynamically by JS) -->
       <div class="pc-quiz-slide active" id="pcQuizQuestionSlide">
         <div class="pc-quiz-q" id="pcQuizQText"></div>
+        <div class="pc-quiz-q-sub" id="pcQuizQSub"></div>
+        <div class="pc-quiz-context" id="pcQuizContext" style="display:none;"></div>
         <div class="pc-quiz-options" id="pcQuizOptionsWrap"></div>
 
         <div class="pc-quiz-encourage" id="pcQuizEncourage">
@@ -1637,17 +1838,18 @@
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/></svg>
           You're Pre-Qualified
         </div>
-        <div class="pc-quiz-result-headline">Your PlayCash Match Is Ready</div>
+        <div class="pc-quiz-result-headline">Your Earnings Estimate Is Ready</div>
         <div class="pc-quiz-result-box">
           <div class="pc-quiz-result-label">Estimated Weekly Earnings</div>
           <div class="pc-quiz-result-amount" id="pcQuizResultAmount">$80–$180</div>
         </div>
         <div class="pc-quiz-unlock">
+          <div class="pc-quiz-unlock-flag">Exclusive offer · Limited time</div>
           <div class="pc-quiz-unlock-top">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            HOW TO UNLOCK IT
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            How to Unlock It
           </div>
-          <div class="pc-quiz-unlock-text">Download PlayCash free and complete <strong>2 qualifying tasks</strong> to unlock full game &amp; app earning access — no credit card needed.</div>
+          <div class="pc-quiz-unlock-text">Spend <strong>$5</strong> on in-app purchases on any game and instantly unlock premium milestones that pay <strong>$250+</strong> each. Start one offer within <strong>10 minutes</strong> to claim your bonus.</div>
         </div>
         <div class="pc-quiz-result-urgency">
           <span class="pc-quiz-dot"></span>
@@ -1672,19 +1874,86 @@
 <!-- QUIZ LOGIC -->
 <script>
   (function () {
+    function icon(paths) {
+      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + paths + '</svg>';
+    }
+
+    var ICON_COFFEE   = icon('<path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/>');
+    var ICON_CLOCK    = icon('<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>');
+    var ICON_TREND    = icon('<path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/>');
+    var ICON_ZAP      = icon('<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>');
+    var ICON_DOLLAR   = icon('<line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>');
+    var ICON_STAR     = icon('<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>');
+    var ICON_HELP     = icon('<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>');
+    var ICON_BAG       = icon('<path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/>');
+
     var questions = [
-      { text: "What kind of games do you like most?", opts: ["Puzzle", "Word", "Casino", "Strategy"], reward: 0.40 },
-      { text: "What device will you play on?", opts: ["iPhone", "Android", "iPad", "Not sure"], reward: 0.55 },
-      { text: "How much do you want to earn today?", opts: ["$10", "$30", "$40", "$70+"], reward: 0.70 },
-      { text: "How much time do you want to play right now?", opts: ["5–15 minutes", "15–30 minutes", "45–60 minutes", "60+ minutes"], reward: 0.85 },
-      { text: "How did you hear about PlayCash?", opts: ["Friend", "Social media", "App Store", "Ad"], reward: 0.50 }
+      {
+        text: "How much time can you spend on your phone daily?",
+        sub: "Be honest. It affects your estimate.",
+        opts: [
+          { title: "15–30 minutes", sub: "A quick session before work", icon: ICON_COFFEE },
+          { title: "1–2 hours", sub: "Consistent daily side income", icon: ICON_CLOCK },
+          { title: "2–4 hours", sub: "Serious about supplemental income", icon: ICON_TREND },
+          { title: "4+ hours", sub: "Treating this like a real hustle", icon: ICON_ZAP }
+        ],
+        reward: 0.40
+      },
+      {
+        text: "What's your earning goal?",
+        sub: "This determines which deals to prioritize.",
+        opts: [
+          { title: "Extra $20–$50 / day", sub: "Coffee money, subscriptions", icon: ICON_DOLLAR },
+          { title: "$50–$150 / day", sub: "Solid side income every month", icon: ICON_TREND },
+          { title: "$150–$300 / day", sub: "Replace a part-time job", icon: ICON_STAR },
+          { title: "Maximum possible", sub: "I want every dollar available", icon: ICON_ZAP }
+        ],
+        reward: 0.35
+      },
+      {
+        text: "Would you spend $5–$10 to unlock offers that can earn you 10x more?",
+        context: "Higher-tier game rewards typically require small in-app purchases. If you're comfortable spending a little, you can unlock some of the best earning opportunities in the app.",
+        opts: [
+          { title: "Yes — unlock faster earnings", sub: "Ready to maximize my earnings", icon: ICON_ZAP, badge: "RECOMMENDED" },
+          { title: "Maybe — if the reward is worth it", sub: "Show me the opportunity first", icon: ICON_HELP },
+          { title: "No — stick to free offers", sub: "I prefer no upfront spending", icon: ICON_BAG }
+        ],
+        reward: 0.70
+      },
+      {
+        text: "How do you want to get paid?",
+        sub: "Select your preferred payment method. Cash out anytime.",
+        isPaymentQuestion: true,
+        opts: [
+          { 
+            brand: "paypal", 
+            customClass: "pay-paypal", 
+            svg: '<svg viewBox="0 0 110 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 28px; width: auto;"><g transform="translate(0, 2)"><path d="M12.5 1.5H5C3.6 1.5 2.5 2.6 2.5 4L0.5 17C0.4 17.6 0.9 18.1 1.5 18.1H6L7.2 10.3C7.3 9.6 7.9 9.1 8.6 9.1H11.5C15 9.1 17.5 7.3 18.1 3.8C18.4 2.1 17.1 1.5 12.5 1.5Z" fill="#0079C1"/><path d="M10.2 4.5H4C2.6 4.5 1.5 5.6 1.5 7L3 16.5C3.1 17.1 3.6 17.5 4.2 17.5H8.7L9.9 9.7C10 9 10.6 8.5 11.3 8.5H13.5C17 8.5 19.5 6.7 20.1 3.2C20.4 1.5 19.1 0.9 14.5 0.9C14.5 0.9 11.3 2.7 10.2 4.5Z" fill="#00457C"/></g><text x="26" y="21" font-family="Inter, sans-serif" font-weight="900" font-style="italic" font-size="17" fill="#003087">Pay</text><text x="57" y="21" font-family="Inter, sans-serif" font-weight="900" font-style="italic" font-size="17" fill="#0079C1">Pal</text></svg>'
+          },
+          { 
+            brand: "bank", 
+            customClass: "pay-bank", 
+            svg: '<svg viewBox="0 0 150 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 24px; width: auto;"><path d="M2 11H22V13H2V11ZM2 20H22V22H2V20ZM4 13H6V20H4V13ZM9 13H11V20H9V13ZM14 13H16V20H14V13ZM18 13H20V20H18V13ZM12 0L2 6V9H22V6L12 0Z" fill="#ffffff"/><text x="28" y="18" font-family="Inter, sans-serif" font-weight="700" font-size="14" fill="#ffffff">Bank Transfer</text></svg>'
+          },
+          { 
+            brand: "visa", 
+            customClass: "pay-visa", 
+            svg: '<svg viewBox="0 0 80 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 22px; width: auto;"><path d="M37.2 6.5L29.3 26.5H24.3L19.5 10.3C18.6 9.1 17.2 8.3 15.5 8L15 7.8V6.5H23.5C24.8 6.5 25.8 7.3 26.1 8.5L28.2 20.3L32.2 6.5H37.2ZM53.4 16.5C53.4 11.5 47.2 11.2 47.2 9.2C47.2 8.6 47.9 8 49.3 8C52 8 54.4 9.1 55.6 9.7L56.5 6.2C54.5 5.4 51.6 5 48.7 5C43 5 39 8.2 39 13.2C39 18.7 45.4 19 45.4 21.3C45.4 22 44.5 22.7 42.8 22.7C40 22.7 37.4 21.5 36.1 20.8L35.2 24.3C37.4 25.3 43.5 25.8 43.5 25.8C49.5 25.8 53.4 22.5 53.4 16.5ZM65.2 6.5L61.1 26.5H56.5L60.6 6.5H65.2ZM12.3 6.5L7.3 19.8L5.3 8.3C4.8 7.1 3.8 6.6 2.6 6.5H0V7.8L4.6 17.5L0.3 26.5H5.2L14.8 6.5H12.3Z" fill="#ffffff"/></svg>'
+          },
+          { 
+            brand: "amazon", 
+            customClass: "pay-amazon", 
+            svg: '<svg viewBox="0 0 90 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 24px; width: auto;"><text x="0" y="18" font-family="Inter, sans-serif" font-weight="900" font-size="17" fill="#000000" letter-spacing="-0.5">amazon</text><path d="M8 21C22 25.5 44 25.5 56 21" stroke="#FF9900" stroke-width="2.5" stroke-linecap="round"/><path d="M52.5 22.5C54.2 22.1 56.1 21.2 56.1 21.2C56.1 21.2 54.8 19.5 54.2 17.8" stroke="#FF9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+          }
+        ],
+        reward: 0.85
+      }
     ];
 
     var encouragements = [
       "Nice start! Every answer gets you closer to your match.",
       "You're on a roll — keep going.",
       "Got it. We'll prioritize the best-paying offers for you.",
-      "Almost there! One more step.",
       "Perfect. Let's reveal your PlayCash match!"
     ];
 
@@ -1701,6 +1970,8 @@
     var earnedFloat   = document.getElementById('pcQuizEarnedFloat');
     var questionSlide = document.getElementById('pcQuizQuestionSlide');
     var qTextEl       = document.getElementById('pcQuizQText');
+    var qSubEl        = document.getElementById('pcQuizQSub');
+    var contextEl     = document.getElementById('pcQuizContext');
     var optionsWrap   = document.getElementById('pcQuizOptionsWrap');
     var encourageEl   = document.getElementById('pcQuizEncourage');
     var encourageTxt  = document.getElementById('pcQuizEncourageText');
@@ -1740,7 +2011,25 @@
     function renderQuestion() {
       var q = questions[current];
       if (qTextEl) qTextEl.textContent = q.text;
-      if (optionsWrap) optionsWrap.innerHTML = '';
+      if (qSubEl) qSubEl.textContent = q.sub || '';
+      if (contextEl) {
+        if (q.context) {
+          contextEl.textContent = q.context;
+          contextEl.style.display = 'block';
+        } else {
+          contextEl.style.display = 'none';
+        }
+      }
+
+      if (optionsWrap) {
+        optionsWrap.innerHTML = '';
+        if (q.isPaymentQuestion) {
+          optionsWrap.classList.add('payment-grid');
+        } else {
+          optionsWrap.classList.remove('payment-grid');
+        }
+      }
+
       selectedIndex = null;
       if (encourageEl) encourageEl.classList.remove('show');
       if (advanceBtn) {
@@ -1749,10 +2038,20 @@
       }
       setProgress(current + 1);
 
-      q.opts.forEach(function (label, i) {
+      q.opts.forEach(function (opt, i) {
         var el = document.createElement('div');
-        el.className = 'pc-quiz-option';
-        el.innerHTML = '<span class="pc-qopt-label">' + label + '</span><span class="pc-qopt-radio"></span>';
+        if (q.isPaymentQuestion) {
+          el.className = 'pc-quiz-option ' + opt.customClass;
+          el.innerHTML = opt.svg + '<span class="pc-qopt-radio"></span>';
+        } else {
+          el.className = 'pc-quiz-option' + (opt.badge ? ' has-badge' : '') + (opt.variant ? ' fill-' + opt.variant : '');
+          el.innerHTML =
+            (opt.badge ? '<span class="pc-qopt-badge">★ ' + opt.badge + '</span>' : '') +
+            '<div class="pc-qopt-icon">' + opt.icon + '</div>' +
+            '<div class="pc-qopt-texts"><span class="pc-qopt-title">' + opt.title + '</span><span class="pc-qopt-sub">' + opt.sub + '</span></div>' +
+            '<span class="pc-qopt-radio"></span>';
+        }
+
         el.addEventListener('click', function () {
           if (selectedIndex !== null) return;
           selectedIndex = i;
@@ -1780,8 +2079,8 @@
     }
 
     function showResult() {
-      var goal = answers[2] !== undefined ? answers[2] : 1; // "How much do you want to earn today?"
-      var time = answers[3] !== undefined ? answers[3] : 1; // "How much time do you want to play right now?"
+      var time = answers[0] !== undefined ? answers[0] : 1; 
+      var goal = answers[1] !== undefined ? answers[1] : 1; 
       var est  = RANGES[time][goal];
 
       var amountEl = document.getElementById('pcQuizResultAmount');
@@ -1817,7 +2116,6 @@
     if (card) card.addEventListener('click', function (e) { e.stopPropagation(); });
     if (overlay) overlay.addEventListener('click', function (e) { if (e.target === overlay) closeQuiz(); });
 
-    // Reset to question 1 whenever the quiz is (re)opened
     window.__PC_OPEN_QUIZ = function () {
       current = 0;
       answers = [];
@@ -1996,7 +2294,7 @@
   <div class="pc-harden-card" id="pcHardenCard" role="dialog" aria-modal="true" aria-labelledby="pcHardenTitle">
     <div class="pc-auth-glow"></div>
     <button class="pc-auth-close" type="button" id="pcHardenClose" aria-label="Close" hidden>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 1 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.42 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3(5.71)a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 1 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.42 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"/></svg>
     </button>
     <div class="pc-harden-inner">
       <div class="pc-auth-error" id="pcHardenErr"></div>
@@ -2294,6 +2592,7 @@
     return message;
   }
 
+  // Visual/Alert helper: avoid alerts, show error message inside container
   function postJson(url, body){
     return fetch(url, {
       method: 'POST',
@@ -2635,7 +2934,6 @@
   window.openAuthModal = window.PlayCashAuthOpen;
 
   document.addEventListener('click', function(e){
-    // js-download-cta / js-quiz-cta handle their own click — never intercept them here
     if (e.target && e.target.closest('.js-download-cta, .js-quiz-cta')) return;
     var trigger = e.target && e.target.closest('[data-auth-open="1"], .nav-cta, .drawer-cta, .btn-pink, .store-badge, .win-pill');
     if (!trigger || isLoggedIn) return;
@@ -3016,7 +3314,6 @@
   }
 
   function applyCtaState(cta, source) {
-    // Download CTAs and the quiz-opening CTA manage their own state — skip them here
     if (cta.classList.contains('js-download-cta') || cta.classList.contains('js-quiz-cta')) return;
     var label = ctaLabelFor(cta);
     var href = ctaHrefFor(source);
