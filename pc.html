@@ -1,0 +1,2437 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <title>PlayCash | Get Paid to Play Games &amp; Test Apps</title>
+  <meta name="description" content="Pick the reward style you want most, then discover PlayCash games and payouts that fit how you like to earn.">
+  <link rel="canonical" href="https://try.playcash.co/scroll">
+  <meta name="theme-color" content="#0b0810">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pc-bg-root: #0b0810;
+      --pc-surface: #110f1c;
+      --pc-surface-2: #16132a;
+      --pc-surface-3: #1c1934;
+      --pc-border: rgba(255, 255, 255, 0.12);
+      --pc-border-strong: rgba(255, 255, 255, 0.2);
+      --pc-text: #ffffff;
+      --pc-text-2: #a8a2c0;
+      --pc-text-3: #6b6680;
+      --pc-pink: #e874c2;
+      --pc-purple: #6b2dd9;
+      --pc-cyan: #7dd3f5;
+      --pc-success: #4ade80;
+      --pc-shadow: 0 26px 90px rgba(0, 0, 0, 0.42);
+      --pc-gradient: linear-gradient(90deg, #e874c2 0%, #6b2dd9 55%, #7dd3f5 100%);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      background: var(--pc-bg-root);
+      color-scheme: dark;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(232, 116, 194, 0.24), transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(125, 211, 245, 0.14), transparent 28%),
+        radial-gradient(circle at 20% 80%, rgba(107, 45, 217, 0.2), transparent 34%),
+        var(--pc-bg-root);
+      color: var(--pc-text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img, video { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+
+    .pc-visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ── PAGE SHELL ── */
+    .page-shell {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .page-shell::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.02), transparent 22%),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255,255,255,.012) 2px,
+          rgba(255,255,255,.012) 4px
+        );
+      opacity: .45;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 28px 16px 28px;
+    }
+
+    /* ── BRAND ROW ── */
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .brand-logo-wrap {
+      position: relative;
+      width: auto; height: 64px;
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      isolation: isolate;
+    }
+
+    .brand-logo-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -6px 6px;
+      z-index: 0;
+      border-radius: 24px;
+      background: radial-gradient(circle at 30% 30%, rgba(232,116,194,.28) 0%, rgba(107,45,217,.22) 42%, rgba(125,211,245,.16) 70%, transparent 100%);
+      filter: blur(18px);
+      opacity: .95;
+      transform: scale(1.12);
+      pointer-events: none;
+    }
+
+    .brand-logo {
+      position: relative;
+      z-index: 1;
+      width: 180px; height: auto;
+      max-width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 24px rgba(0,0,0,.34));
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .48s cubic-bezier(.4,0,.2,1), transform .48s cubic-bezier(.4,0,.2,1);
+    }
+
+    .section.is-exiting {
+      opacity: 0;
+      transform: translateY(-20px);
+      pointer-events: none;
+    }
+
+    .section.is-hidden { display: none; }
+
+    .section.is-entering {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding-top: 6px;
+    }
+
+    /* floating badge above title */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0 auto 14px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(125, 211, 245, 0.28);
+      background: rgba(125, 211, 245, 0.08);
+      color: var(--pc-cyan);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 999px;
+      background: var(--pc-cyan);
+      animation: pulse-dot 2s ease infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(.75); }
+    }
+
+    .hero-title {
+      margin: 0 0 12px;
+      font-size: 42px;
+      line-height: .98;
+      font-weight: 900;
+      letter-spacing: -.04em;
+      color: var(--text);
+    }
+
+    .hero-title .line-plain {
+      display: block;
+      color: #fff;
+    }
+
+    .hero-title .grad {
+      display: block;
+      background: var(--pc-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-copy {
+      max-width: 360px;
+      margin: 0 auto 20px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--pc-text-2);
+    }
+
+    /* ── PROOF STRIP ── */
+    .proof-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin: 0 auto 14px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.07);
+      background: rgba(255,255,255,.03);
+    }
+
+    .proof-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .proof-item strong {
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -.03em;
+      color: #fff;
+    }
+
+    .proof-item span {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--pc-text-2);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .proof-divider {
+      width: 1px;
+      height: 28px;
+      background: rgba(255,255,255,.1);
+    }
+
+    /* ── CHOICE STACK ── */
+    .choice-stack {
+      display: grid;
+      gap: 12px;
+      margin: 0 auto;
+    }
+
+    .btn-choice {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 4px;
+      width: 100%;
+      min-height: 88px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 6px;
+      color: var(--pc-text);
+      text-align: left;
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease;
+      cursor: pointer;
+    }
+
+    .btn-choice:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+    }
+
+    .btn-choice.is-primary {
+      background: linear-gradient(180deg, rgba(139,92,246,.22), rgba(255,255,255,.04));
+      border-color: rgba(196,181,253,.24);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.03), 0 18px 40px rgba(0,0,0,.28), 0 0 38px rgba(139,92,246,.12);
+    }
+
+    .btn-choice-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px; height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .btn-choice-title {
+      font-size: 17px;
+      line-height: 1.15;
+      font-weight: 800;
+      color: var(--pc-text);
+    }
+
+    .btn-choice-sub {
+      font-size: 12px;
+      line-height: 1.5;
+      font-weight: 600;
+      color: var(--pc-text-2);
+    }
+
+    /* ── STEP 2 RESULT ── */
+    .result-wrap {
+      text-align: center;
+      padding-top: 2px;
+    }
+
+    .result-head {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .result-badge {
+      width: 52px; height: 52px;
+      flex: 0 0 52px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(107,45,217,.14);
+      border: 1px solid rgba(185,156,255,.30);
+      box-shadow: 0 0 24px rgba(107,45,217,.18);
+    }
+
+    .result-badge svg {
+      width: 26px; height: 26px;
+      color: #b99cff;
+    }
+
+    .result-title {
+      margin: 0;
+      font-size: 42px;
+      line-height: 1;
+      letter-spacing: -.04em;
+      font-weight: 900;
+      color: var(--pc-text);
+    }
+
+    .result-copy {
+      text-align: center;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--pc-text-2);
+      margin: 0 0 18px;
+    }
+
+    @keyframes sweep {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background: linear-gradient(270deg, #f0449a, #8b5cf6, #3da9fc, #f0449a);
+      background-size: 400% 400%;
+      animation: sweep 4s ease infinite;
+      color: #fff;
+      border: none;
+      min-height: 58px;
+      padding: 13px 26px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 1.05rem;
+      line-height: 1;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(240,68,154,0.3);
+      transition: transform 0.18s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(240,68,154,0.5);
+    }
+
+    /* ── HOW IT WORKS ── */
+    .journey {
+      margin-top: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,.02);
+      text-align: left;
+    }
+
+    .journey-head {
+      padding: 14px 16px;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--pc-text-2);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      text-align: center;
+    }
+
+    .journey-item {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 16px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .journey-item:last-child { border-bottom: 0; }
+
+    .journey-num {
+      width: 30px; height: 30px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(139,92,246,.14);
+      border: 1px solid rgba(196,181,253,.22);
+      color: #c4b5fd;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .journey-title {
+      font-size: 15px;
+      line-height: 1.3;
+      font-weight: 800;
+      color: var(--pc-text);
+      margin: 0 0 4px;
+    }
+
+    .journey-copy {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--pc-text-2);
+      margin: 0;
+    }
+
+    /* ── NOTICE ── */
+    .notice {
+      margin-top: 16px;
+      border: 1px solid rgba(255,77,77,.26);
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,77,77,.08), rgba(255,255,255,.02));
+      box-shadow: 0 0 0 1px rgba(255,77,77,.04), 0 14px 32px rgba(0,0,0,.22);
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .notice-flag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 0 10px;
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: #ff4d4d;
+      color: #fff;
+      border-bottom-right-radius: 10px;
+    }
+
+    .notice-body { padding: 14px 16px 16px; }
+
+    .notice-title {
+      margin: 0 0 6px;
+      font-size: 15px;
+      line-height: 1.3;
+      font-weight: 800;
+      color: var(--pc-text);
+    }
+
+    .notice-copy {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--pc-text-2);
+    }
+
+    .notice-copy strong {
+      color: var(--pc-text);
+      font-weight: 800;
+    }
+
+    /* ── FOOTER NOTE ── */
+    .foot {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--pc-text-3);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 420px) {
+      .wrap { padding: 24px 14px 24px; }
+      .brand-logo-wrap { width: auto; height: 52px; padding: 0 16px; }
+      .brand-logo { width: 150px; height: auto; }
+      .hero-title { font-size: 36px; }
+      .result-title { font-size: 36px; }
+      .btn-choice-title { font-size: 16px; }
+      .proof-strip { gap: 12px; }
+      .proof-item strong { font-size: 15px; }
+    }
+
+    /* ── AUTH MODAL STYLES (unchanged from original) ── */
+    :root {
+      --bg-root:#0b0810;
+      --text:#ffffff;
+      --text-muted:#A8A2C0;
+      --text-dim:#6B6680;
+      --border:rgba(255,255,255,.08);
+      --border-strong:rgba(255,255,255,.12);
+      --brand-grad:linear-gradient(90deg,#E874C2 0%,#6B2DD9 55%,#7DD3F5 100%);
+      --danger:#ff4d4d;
+      --radius-struct:6px;
+      --radius-cta:10px;
+      --purple-check:#b99cff;
+      --purple-check-border:rgba(185,156,255,.30);
+      --purple-check-bg:rgba(107,45,217,.14);
+    }
+
+    .pc-auth-modal,
+    .pc-harden-modal,
+    .pc-terms-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .pc-auth-modal.open,
+    .pc-harden-modal.open,
+    .pc-terms-modal.show { display: flex; }
+
+    .pc-auth-card,
+    .pc-harden-card,
+    .pc-terms-card {
+      width: min(520px, 100%);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(11,8,16,.94);
+      box-shadow: 0 26px 90px rgba(0,0,0,.72);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .pc-auth-glow {
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, #E874C2 0%, #6B2DD9 55%, #7DD3F5 100%);
+    }
+
+    .pc-auth-inner,
+    .pc-harden-inner { padding: 22px 22px 18px; }
+
+    .pc-auth-close {
+      position: absolute;
+      top: 12px; right: 12px;
+      z-index: 3;
+      width: 40px; height: 40px;
+      border-radius: 14px;
+      border: 0;
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      pointer-events: auto;
+    }
+
+    .pc-auth-close[hidden] { display: none; }
+    .pc-auth-close svg { width: 20px; height: 20px; fill: currentColor; }
+
+    .pc-auth-panel,
+    .pc-harden-screen { display: none; }
+
+    .pc-auth-panel.active,
+    .pc-harden-screen.active { display: block; }
+
+    .pc-auth-title { margin: 0 0 8px; }
+    .pc-auth-title-logo { display: block; width: 138px; max-width: 100%; height: auto; }
+
+    .pc-auth-sub {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: rgba(232,230,240,.72);
+      margin: 0 0 18px;
+    }
+
+    .pc-auth-note {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: rgba(232,230,240,.70);
+    }
+
+    .pc-auth-form { display: grid; gap: 12px; }
+
+    .pc-auth-label {
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .02em;
+      color: rgba(232,230,240,.72);
+      margin-bottom: 6px;
+    }
+
+    .pc-auth-input,
+    .pc-auth-static,
+    .pc-auth-code {
+      width: 100%;
+      height: 48px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.11);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.96);
+      padding: 0 14px;
+      font-weight: 800;
+      font-size: 15px;
+      outline: none;
+      box-sizing: border-box;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .pc-auth-input-wrap { position: relative; }
+    .pc-auth-input-wrap .pc-auth-input { padding-right: 48px; }
+
+    .pc-auth-password-toggle {
+      position: absolute;
+      top: 50%; right: 10px;
+      transform: translateY(-50%);
+      width: 28px; height: 28px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: rgba(232,230,240,.64);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .pc-auth-password-toggle:hover { color: rgba(255,255,255,.9); }
+    .pc-auth-password-toggle svg { width: 18px; height: 18px; display: block; }
+
+    .pc-auth-sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .pc-auth-static {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .pc-auth-input[readonly] {
+      background: rgba(255,255,255,.04);
+      color: rgba(232,230,240,.92);
+    }
+
+    .pc-auth-input::placeholder,
+    .pc-auth-code::placeholder { color: rgba(232,230,240,.46); }
+
+    .pc-auth-input:-webkit-autofill,
+    .pc-auth-input:-webkit-autofill:hover,
+    .pc-auth-input:-webkit-autofill:focus,
+    .pc-auth-code:-webkit-autofill,
+    .pc-auth-code:-webkit-autofill:hover,
+    .pc-auth-code:-webkit-autofill:focus {
+      -webkit-text-fill-color: rgba(255,255,255,.96);
+      caret-color: rgba(255,255,255,.96);
+      -webkit-box-shadow: 0 0 0 1000px rgba(255,255,255,.06) inset !important;
+      box-shadow: 0 0 0 1000px rgba(255,255,255,.06) inset !important;
+      border: 1px solid rgba(255,255,255,.11);
+      transition: background-color 99999s ease-in-out 0s;
+    }
+
+    .pc-auth-field-note {
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: rgba(232,230,240,.58);
+    }
+
+    .pc-auth-error,
+    .pc-auth-success {
+      display: none;
+      border-radius: 14px;
+      padding: 11px 12px;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.4;
+      margin-bottom: 14px;
+    }
+
+    .pc-auth-error {
+      border: 1px solid rgba(255,77,77,.25);
+      background: rgba(255,77,77,.10);
+      color: rgba(255,255,255,.95);
+    }
+
+    .pc-auth-success {
+      border: 1px solid rgba(74,222,128,.20);
+      background: rgba(22,163,74,.12);
+      color: rgba(255,255,255,.95);
+    }
+
+    .pc-auth-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 48px;
+      background: linear-gradient(90deg, #f0449a, #8b5cf6);
+      color: #fff;
+      border: none;
+      padding: 11px 28px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #7a1f6e, 0 8px 0 rgba(120,30,100,0.4), 0 12px 20px rgba(0,0,0,0.35);
+      transition: box-shadow .12s, transform .12s;
+      text-align: center;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+
+    .pc-auth-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 0 #7a1f6e, 0 12px 0 rgba(120,30,100,0.3), 0 18px 28px rgba(0,0,0,0.4);
+    }
+
+    .pc-auth-submit:active {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 #7a1f6e, 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .pc-auth-submit[disabled] {
+      opacity: .55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .pc-auth-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .pc-auth-row > * { flex: 0 0 auto; }
+
+    .pc-auth-mini-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 0; min-width: 0;
+      padding: 7px 14px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #f0449a, #8b5cf6);
+      color: #fff;
+      font-size: .78rem;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 6px 0 #6c1f7a, 0 8px 16px rgba(0,0,0,.4);
+      transition: box-shadow .1s, transform .1s, opacity .1s;
+      text-decoration: none;
+      white-space: normal;
+    }
+
+    .pc-auth-mini-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 0 #6c1f7a, 0 10px 22px rgba(0,0,0,.45);
+    }
+
+    .pc-auth-mini-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #6c1f7a, 0 2px 6px rgba(0,0,0,.3);
+    }
+
+    .pc-auth-mini-btn[disabled] {
+      opacity: .4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .pc-auth-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1;
+      text-align: center;
+      cursor: pointer;
+      transition: background .12s, border-color .12s, transform .12s, opacity .12s;
+      text-decoration: none;
+      box-sizing: border-box;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .pc-auth-secondary:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.24);
+    }
+
+    .pc-auth-secondary:active { transform: translateY(1px); }
+    .pc-auth-secondary[disabled] { opacity: .45; cursor: not-allowed; transform: none; }
+
+    .pc-auth-policy {
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: rgba(232,230,240,.55);
+    }
+
+    .pc-auth-policy a { color: rgba(255,255,255,.95); }
+
+    .pc-auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0 8px;
+      color: rgba(232,230,240,.52);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .pc-auth-divider::before,
+    .pc-auth-divider::after {
+      content: '';
+      flex: 1 1 auto;
+      height: 1px;
+      background: rgba(255,255,255,.10);
+    }
+
+    .pc-auth-apple-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 48px;
+      margin-top: 2px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      font-size: 15px;
+      font-weight: 900;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+
+    .pc-auth-google-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 48px;
+      margin-top: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.24);
+      background: #f4f1f8;
+      color: #17141f;
+      font-size: 15px;
+      font-weight: 900;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+
+    .pc-auth-apple-btn svg { width: 26px; height: 26px; fill: currentColor; flex: 0 0 auto; }
+    .pc-auth-google-btn svg { width: 20px; height: 20px; flex: 0 0 auto; }
+
+    .pc-harden-meta { display: grid; gap: 10px; margin-bottom: 14px; }
+
+    .pc-harden-skip {
+      background: none;
+      border: 0;
+      color: rgba(232,230,240,.74);
+      font-weight: 900;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .pc-harden-small {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(232,230,240,.56);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 560px) {
+      .pc-auth-card,
+      .pc-harden-card { border-radius: 16px; }
+      .pc-auth-inner,
+      .pc-harden-inner { padding: 20px 16px 16px; }
+      .pc-auth-title { font-size: 22px; }
+      .pc-auth-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TikTok Pixel Code Start -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;
+  var ttq=w[t]=w[t]||[];
+  ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
+  ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
+  for(var i=0;i<ttq.methods.length;i++) ttq.setAndDefer(ttq,ttq.methods[i]);
+  ttq.instance=function(t){
+    for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++) ttq.setAndDefer(e,ttq.methods[n]);
+    return e;
+  };
+  ttq.load=function(e,n){
+    var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;
+    ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};
+    n=document.createElement("script");
+    n.type="text/javascript";
+    n.async=!0;
+    n.src=r+"?sdkid="+e+"&lib="+t;
+    e=document.getElementsByTagName("script")[0];
+    e.parentNode.insertBefore(n,e);
+  };
+  ttq.load('D4DO8HRC77UCI3HO4RHG');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+<!-- TikTok Pixel Code End -->
+
+<script>
+  window.PC_AUTH_NEXT = "\/earn";
+  window.PC_AUTH_REDIRECT_BASE_URL = "https:\/\/playcash.co";
+  window.__PC_LANDER = {"landerKey":"scroll","pagePath":"/scroll","hostBucket":"try","webGuid":"b6d9cf520dc4501738081476f8218162","platform":"web","isLoggedIn":false,"next":"/earn","authHref":"/scroll?r=1&affid=1005&auth=1&next=%2Fearn","ctaHref":"/scroll?r=1&affid=1005&auth=1&next=%2Fearn","ctaLabel":"Download Free","ctaAuthOpen":false,"finalAction":"download","scrollAppsflyerUrl":"https://playcash.onelink.me/abc123/scroll","androidScrollAppsflyerUrl":"https://playcash.onelink.me/abc123/scroll","requestUri":"/scroll?r=1&affid=1005","inParams":{"r":"1","affid":"1005"}};
+</script>
+
+<div class="page-shell">
+  <div class="wrap">
+
+    <!-- BRAND -->
+    <div class="brand-row">
+      <div class="brand-logo-wrap">
+        <img
+          class="brand-logo"
+          src="https://playcash.co/assets/img/playcash-white.svg"
+          alt="PlayCash"
+        >
+      </div>
+    </div>
+
+    <!-- STEP 1 -->
+    <section class="section hero" id="stepOne">
+
+
+      <h1 class="hero-title">
+        <span class="line-plain">Get Paid to Play</span>
+        <span class="grad">Games &amp; Test Apps.</span>
+      </h1>
+
+      <p class="hero-copy">
+        Play mobile games, test new apps, and complete quick tasks — then cash out real rewards directly to your account.
+      </p>
+
+      <!-- proof strip -->
+      <div class="proof-strip">
+        <div class="proof-item">
+          <strong>$500K+</strong>
+          <span>paid out</span>
+        </div>
+        <div class="proof-divider"></div>
+        <div class="proof-item">
+          <strong>2M+</strong>
+          <span>players</span>
+        </div>
+        <div class="proof-divider"></div>
+        <div class="proof-item">
+          <strong>Fast</strong>
+          <span>cashout</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="section" id="stepTwo">
+      <div class="result-wrap">
+
+        <a
+          id="finalCta"
+          class="btn js-download-cta nav-cta"
+          href="#download"
+          data-cta-source="scroll_lander_final"
+          data-label-ios="Download Now"
+          data-label-android="Download Now"
+          data-label-web="Download Now"
+          data-label-logged-in="Open PlayCash"
+        ><span data-cta-label>Download Now</span></a>
+
+        <!-- JOURNEY -->
+        <div class="journey" aria-label="How it works">
+          <div class="journey-head">How it works</div>
+
+          <div class="journey-item">
+            <div class="journey-num">1</div>
+            <div>
+              <p class="journey-title">Download the free PlayCash app</p>
+              <p class="journey-copy">Available on iOS and Android — install in seconds and open your dashboard.</p>
+            </div>
+          </div>
+
+          <div class="journey-item">
+            <div class="journey-num">2</div>
+            <div>
+              <p class="journey-title">Play games &amp; test apps</p>
+              <p class="journey-copy">Download featured games, reach milestones, or test new apps for instant credit.</p>
+            </div>
+          </div>
+
+          <div class="journey-item">
+            <div class="journey-num">3</div>
+            <div>
+              <p class="journey-title">Cash out your rewards</p>
+              <p class="journey-copy">Redeem for gift cards, PayPal, crypto, or other payout options — fast.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTICE -->
+        <div class="notice">
+          <div class="notice-flag">Activation required</div>
+          <div class="notice-body">
+            <p class="notice-title">One quick step to unlock full rewards</p>
+            <p class="notice-copy">
+              Complete <strong>2 qualifying tasks</strong> after installing to unlock the full game &amp; app earning experience.
+            </p>
+          </div>
+        </div>
+
+        <div class="foot">
+          Trusted by players earning rewards every day.
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- DOWNLOAD CTA LOGIC -->
+<script>
+  (function () {
+    var boot = window.__PC_LANDER || {};
+
+    /* ── PLATFORM DETECT ── */
+    function clientPlatform() {
+      var platform = String(boot.platform || '').toLowerCase();
+      if (platform === 'android' || platform === 'ios') return platform;
+      try {
+        var uaData = navigator.userAgentData || null;
+        if (uaData) {
+          var uaPlatform = String(uaData.platform || '').toLowerCase();
+          if (uaPlatform.indexOf('android') !== -1) return 'android';
+          if (uaPlatform.indexOf('ios') !== -1) return 'ios';
+        }
+      } catch (err) {}
+      var ua = String((navigator.userAgent || navigator.vendor || window.opera || '')).toLowerCase();
+      if (ua.indexOf('android') !== -1) return 'android';
+      if (ua.indexOf('iphone') !== -1 || ua.indexOf('ipad') !== -1 || ua.indexOf('ipod') !== -1) return 'ios';
+      return platform || 'web';
+    }
+
+    /* ── TIKTOK EVENTS ── */
+    function fireTikTokEvents() {
+      if (typeof window.ttq === 'undefined' || !window.ttq || typeof window.ttq.track !== 'function') return;
+      try {
+        var payload = { content_type: 'product', content_id: 'playcash-scroll-lander', value: 1.00, currency: 'USD' };
+        window.ttq.track('AddToCart', payload);
+        window.ttq.track('CompleteRegistration', payload);
+        window.ttq.track('Purchase', payload);
+      } catch (err) {
+        console.warn('TikTok event dispatch failed:', err);
+      }
+    }
+
+    /* ── DOWNLOAD HREF ──
+       Priority: platform-specific AppsFlyer URL → generic URL → auth fallback
+    */
+    function getDownloadHref() {
+      var platform = clientPlatform();
+      var androidUrl = String(boot.androidScrollAppsflyerUrl || '').trim();
+      var genericUrl  = String(boot.scrollAppsflyerUrl || '').trim();
+      if (platform === 'android' && androidUrl) return androidUrl;
+      if (genericUrl) return genericUrl;
+      return null; // triggers auth fallback
+    }
+
+    /* ── DOWNLOAD ACTION ── */
+    function handleDownloadClick(source) {
+      fireTikTokEvents();
+      var href = getDownloadHref();
+      if (href) { window.location.href = href; return; }
+      // Fallback: no store URL configured → open web auth/signup so no lead is lost
+      if (typeof window.__PC_LANDER_OPEN_AUTH === 'function') {
+        if (window.__PC_LANDER_OPEN_AUTH(source || 'scroll_lander_download_fallback')) return;
+      }
+      window.location.href = boot.authHref || '/earn';
+    }
+
+    /* ── CTA LABEL (platform-aware) ── */
+    function ctaDownloadLabel(el) {
+      var platform = clientPlatform();
+      if (boot.isLoggedIn) return el.getAttribute('data-label-logged-in') || 'Open PlayCash';
+      if (platform === 'ios')     return el.getAttribute('data-label-ios')     || 'Download Now';
+      if (platform === 'android') return el.getAttribute('data-label-android') || 'Download Now';
+      return el.getAttribute('data-label-web') || 'Download Now';
+    }
+
+    /* ── BIND: download CTA ── */
+    document.querySelectorAll('.js-download-cta').forEach(function (el) {
+      var labelNode = el.querySelector('[data-cta-label]');
+      if (labelNode) labelNode.textContent = ctaDownloadLabel(el);
+      // This is a download link — do NOT set data-auth-open
+      el.removeAttribute('data-auth-open');
+      el.addEventListener('click', function (e) {
+        e.preventDefault();
+        var source = el.getAttribute('data-cta-source') || 'scroll_lander_download';
+        if (boot.isLoggedIn) { window.location.href = boot.ctaHref || '/earn'; return; }
+        handleDownloadClick(source);
+      });
+    });
+  })();
+</script>
+
+<!-- AUTH TRIGGER ANCHOR -->
+<a class="pc-visually-hidden" href="/scroll?r=1&amp;affid=1005&amp;auth=1&amp;next=%2Fearn" data-auth-open="1" id="pcTryAuthTrigger">Open shared auth</a>
+
+<!-- ════════════════════════════════════════════
+     AUTH MODAL (unchanged from original)
+════════════════════════════════════════════ -->
+<div class="pc-auth-modal" id="pcAuthModal" aria-hidden="true">
+  <div class="pc-auth-card" id="pcAuthCard" role="dialog" aria-modal="true" aria-labelledby="pcAuthTitle">
+    <div class="pc-auth-glow"></div>
+    <button class="pc-auth-close" type="button" id="pcAuthClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 1 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.42 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"/></svg>
+    </button>
+    <div class="pc-auth-inner">
+      <div class="pc-auth-error" id="pcAuthErr"></div>
+      <div class="pc-auth-success" id="pcAuthOk"></div>
+
+      <!-- Email panel -->
+      <section class="pc-auth-panel active" id="pcAuthPanelEmail">
+        <h2 class="pc-auth-title" id="pcAuthTitle"><img class="pc-auth-title-logo" src="https://playcash.co/assets/img/playcash-white.svg" alt="PlayCash"></h2>
+        <p class="pc-auth-sub">Enter your email to continue.</p>
+        <form class="pc-auth-form" id="pcAuthEmailForm" novalidate>
+          <label>
+            <div class="pc-auth-label">Email</div>
+            <input class="pc-auth-input" id="pcAuthEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
+          </label>
+          <button class="pc-auth-submit" type="submit" id="pcAuthEmailBtn">Continue</button>
+        </form>
+        <div class="pc-auth-divider">or</div>
+        <a class="pc-auth-apple-btn" href="/auth/apple/start?next=%2Fearn" id="pcAuthAppleBtn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.72c.02 2.06 1.81 2.75 1.83 2.76-.02.05-.28.96-.93 1.9-.56.81-1.14 1.61-2.06 1.63-.9.02-1.19-.53-2.22-.53-1.03 0-1.35.51-2.2.55-.88.03-1.55-.88-2.11-1.69-1.14-1.65-2.01-4.67-.84-6.7.58-1.01 1.62-1.65 2.75-1.66.86-.02 1.67.58 2.21.58.54 0 1.56-.72 2.63-.62.45.02 1.7.18 2.5 1.35-.06.04-1.49.87-1.46 2.43zM14.78 5.9c.47-.57.79-1.36.7-2.15-.68.03-1.5.45-1.99 1.01-.43.5-.81 1.31-.71 2.08.76.06 1.54-.39 2-.94z"/></svg>
+          <span>Continue with Apple</span>
+        </a>
+        <a class="pc-auth-google-btn" href="/auth/google/start?next=%2Fearn" id="pcAuthGoogleBtn">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#EA4335" d="M12 10.2v3.93h5.46c-.24 1.27-.96 2.34-2.05 3.06l3.31 2.57c1.93-1.78 3.04-4.39 3.04-7.49 0-.71-.06-1.39-.18-2.05H12z"/>
+            <path fill="#34A853" d="M12 22c2.76 0 5.08-.91 6.77-2.47l-3.31-2.57c-.92.62-2.1.99-3.46.99-2.66 0-4.92-1.8-5.72-4.21H2.86v2.65A10 10 0 0 0 12 22z"/>
+            <path fill="#FBBC05" d="M6.28 13.74a5.98 5.98 0 0 1 0-3.48V7.61H2.86a10 10 0 0 0 0 8.78l3.42-2.65z"/>
+            <path fill="#4285F4" d="M12 6.05c1.5 0 2.84.52 3.89 1.54l2.92-2.92C17.07 3.05 14.75 2 12 2A10 10 0 0 0 2.86 7.61l3.42 2.65c.8-2.41 3.06-4.21 5.72-4.21z"/>
+          </svg>
+          <span>Continue with Google</span>
+        </a>
+        <div class="pc-auth-policy">
+          By continuing, you agree to the PlayCash
+          <a href="/terms" target="_blank" rel="noopener">Terms</a>,
+          <a href="/terms#community-chat-safety" target="_blank" rel="noopener">Community Rules</a>,
+          and <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.
+        </div>
+      </section>
+
+      <!-- Password panel -->
+      <section class="pc-auth-panel" id="pcAuthPanelPassword">
+        <h2 class="pc-auth-title">Welcome back</h2>
+        <p class="pc-auth-sub">Enter your password to sign in.</p>
+        <form class="pc-auth-form" id="pcAuthPasswordForm" novalidate>
+          <label>
+            <div class="pc-auth-label">Email</div>
+            <input class="pc-auth-input" id="pcAuthPasswordEmail" type="email" autocomplete="username" readonly>
+          </label>
+          <label>
+            <div class="pc-auth-label">Password</div>
+            <div class="pc-auth-input-wrap">
+              <input class="pc-auth-input" id="pcAuthPassword" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+              <button class="pc-auth-password-toggle" type="button" data-password-toggle="1" data-target="pcAuthPassword" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+                <span class="pc-auth-sr-only" data-password-toggle-label="1">Show password</span>
+              </button>
+            </div>
+          </label>
+          <button class="pc-auth-submit" type="submit" id="pcAuthPasswordBtn">Log In</button>
+          <div class="pc-auth-field-note" id="pcAuthPasswordRecoveryNote" style="display:none;">Incorrect password? You can recover this sign-in with email or text.</div>
+          <div class="pc-auth-row" id="pcAuthPasswordRecoveryRow" style="display:none;">
+            <button class="pc-auth-mini-btn" type="button" id="pcAuthPasswordMagicBtn">Email me a sign-in link</button>
+            <button class="pc-auth-mini-btn" type="button" id="pcAuthPasswordSmsBtn">Text me a code</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Signup panel -->
+      <section class="pc-auth-panel" id="pcAuthPanelSignup">
+        <h2 class="pc-auth-title">Create your password</h2>
+        <p class="pc-auth-sub">Finish creating your account and we'll sign you in right away.</p>
+        <form class="pc-auth-form" id="pcAuthSignupForm" novalidate>
+          <label>
+            <div class="pc-auth-label">Email</div>
+            <input class="pc-auth-input" id="pcAuthSignupEmail" type="email" autocomplete="username" readonly>
+          </label>
+          <label>
+            <div class="pc-auth-label">Password</div>
+            <div class="pc-auth-input-wrap">
+              <input class="pc-auth-input" id="pcAuthSignupPassword" type="password" autocomplete="new-password" placeholder="Create a password" required>
+              <button class="pc-auth-password-toggle" type="button" data-password-toggle="1" data-target="pcAuthSignupPassword" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+                <span class="pc-auth-sr-only" data-password-toggle-label="1">Show password</span>
+              </button>
+            </div>
+          </label>
+          <button class="pc-auth-submit" type="submit" id="pcAuthSignupBtn" disabled>Create Account</button>
+        </form>
+      </section>
+
+      <!-- Check email panel -->
+      <section class="pc-auth-panel" id="pcAuthPanelCheckEmail">
+        <h2 class="pc-auth-title">Check your email</h2>
+        <p class="pc-auth-sub">Check your email to finish signing in. If email is slow, you can verify by text instead.</p>
+        <div class="pc-auth-form">
+          <div>
+            <div class="pc-auth-label">Email</div>
+            <div class="pc-auth-static" id="pcAuthSentEmail">you@example.com</div>
+          </div>
+          <div class="pc-auth-note">We sent a secure sign-in link. Open it on this device to continue.</div>
+          <div class="pc-auth-row">
+            <button class="pc-auth-mini-btn" type="button" id="pcAuthBackBtn">Use a different email</button>
+            <button class="pc-auth-mini-btn" type="button" id="pcAuthSmsBtn">Text me a code instead</button>
+            <button class="pc-auth-mini-btn" type="button" id="pcAuthResendBtn">Resend email</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SMS panel -->
+      <section class="pc-auth-panel" id="pcAuthPanelSms">
+        <h2 class="pc-auth-title">Text me a code</h2>
+        <p class="pc-auth-sub" id="pcAuthSmsSub">Verify this sign-in by text instead of waiting on email. For account recovery, use the phone linked to your account.</p>
+        <form class="pc-auth-form" id="pcAuthSmsForm" novalidate>
+          <div>
+            <div class="pc-auth-label">Email</div>
+            <div class="pc-auth-static" id="pcAuthSmsEmail">you@example.com</div>
+          </div>
+          <div id="pcAuthSmsPhoneStep">
+            <div class="pc-auth-note" id="pcAuthSmsLinkedMeta" style="display:none;"></div>
+            <label id="pcAuthSmsPhoneField">
+              <div class="pc-auth-label">Phone Number</div>
+              <input class="pc-auth-input" id="pcAuthSmsPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(555) 555-5555">
+            </label>
+            <button class="pc-auth-submit" type="submit" id="pcAuthSmsStartBtn">Send text code</button>
+          </div>
+          <div id="pcAuthSmsCodeStep" style="display:none;">
+            <label>
+              <div class="pc-auth-label">6-digit code</div>
+              <input class="pc-auth-code" id="pcAuthSmsCode" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" placeholder="123456">
+            </label>
+            <div class="pc-auth-row">
+              <button class="pc-auth-mini-btn" type="button" id="pcAuthSmsResendBtn">Resend</button>
+              <button class="pc-auth-mini-btn" type="button" id="pcAuthSmsVerifyBtn">Verify</button>
+            </div>
+          </div>
+          <div class="pc-auth-row" style="justify-content:flex-end;">
+            <button class="pc-auth-mini-btn" type="button" id="pcAuthSmsBackBtn">Back to email</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- HARDEN MODAL -->
+<div class="pc-harden-modal" id="pcHardenModal" aria-hidden="true">
+  <div class="pc-harden-card" id="pcHardenCard" role="dialog" aria-modal="true" aria-labelledby="pcHardenTitle">
+    <div class="pc-auth-glow"></div>
+    <button class="pc-auth-close" type="button" id="pcHardenClose" aria-label="Close" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 1 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.42 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"/></svg>
+    </button>
+    <div class="pc-harden-inner">
+      <div class="pc-auth-error" id="pcHardenErr"></div>
+      <div class="pc-auth-success" id="pcHardenOk"></div>
+
+      <section class="pc-harden-screen active" id="pcHardenScreenPassword" aria-labelledby="pcHardenTitle">
+        <h2 class="pc-auth-title" id="pcHardenTitle">Create New Password</h2>
+        <p class="pc-auth-sub">Set a password for faster sign-ins next time.</p>
+        <form class="pc-auth-form" id="pcHardenPasswordForm" novalidate>
+          <div class="pc-harden-meta">
+            <label>
+              <div class="pc-auth-label">Account</div>
+              <input class="pc-auth-input" id="pcHardenIdentity" type="text" readonly autocomplete="username">
+            </label>
+          </div>
+          <label>
+            <div class="pc-auth-label">Create New Password</div>
+            <div class="pc-auth-input-wrap">
+              <input class="pc-auth-input" id="pcHardenPassword1" type="password" autocomplete="new-password" placeholder="Create a strong password" required>
+              <button class="pc-auth-password-toggle" type="button" data-password-toggle="1" data-target="pcHardenPassword1" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+                <span class="pc-auth-sr-only" data-password-toggle-label="1">Show password</span>
+              </button>
+            </div>
+          </label>
+          <label>
+            <div class="pc-auth-label">Confirm Password</div>
+            <div class="pc-auth-input-wrap">
+              <input class="pc-auth-input" id="pcHardenPassword2" type="password" autocomplete="new-password" placeholder="Confirm your password" required>
+              <button class="pc-auth-password-toggle" type="button" data-password-toggle="1" data-target="pcHardenPassword2" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+                <span class="pc-auth-sr-only" data-password-toggle-label="1">Show password</span>
+              </button>
+            </div>
+          </label>
+          <button class="pc-auth-submit" type="submit" id="pcHardenPasswordBtn" disabled>Continue</button>
+        </form>
+      </section>
+
+      <section class="pc-harden-screen" id="pcHardenScreenPhone">
+        <h2 class="pc-auth-title" id="pcPhoneTitle">Confirm Phone Number</h2>
+        <p class="pc-auth-sub" id="pcPhoneSub">To secure your account, we need you to enter your phone number.</p>
+        <form class="pc-auth-form" id="pcPhoneForm" novalidate>
+          <div id="pcPhoneEntryStep">
+            <label>
+              <div class="pc-auth-label">Phone Number</div>
+              <input class="pc-auth-input" id="pcPhoneNumber" type="tel" autocomplete="tel" inputmode="tel" placeholder="(555) 555-5555">
+            </label>
+            <button class="pc-auth-submit" type="submit" id="pcPhoneStartBtn">Send Code</button>
+          </div>
+          <div id="pcPhoneCodeStep" style="display:none;">
+            <label>
+              <div class="pc-auth-label">6-digit code</div>
+              <input class="pc-auth-code" id="pcPhoneCode" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" placeholder="123456">
+            </label>
+            <div class="pc-auth-row">
+              <button class="pc-auth-secondary" type="button" id="pcPhoneResendBtn">Resend</button>
+              <button class="pc-auth-submit" type="button" id="pcPhoneVerifyBtn">Verify</button>
+            </div>
+          </div>
+          <div class="pc-auth-row" style="justify-content:flex-end;">
+            <button class="pc-harden-skip" type="button" id="pcPhoneSkipBtn">Skip</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- TERMS MODAL -->
+<div class="pc-terms-modal" id="pcTermsModal" aria-hidden="true">
+  <div class="pc-terms-card" role="dialog" aria-modal="true" aria-labelledby="pcTermsTitle">
+    <div class="pc-auth-glow"></div>
+    <div class="pc-auth-inner">
+      <div class="pc-auth-error" id="pcTermsErr"></div>
+      <h2 class="pc-auth-title" id="pcTermsTitle">Accept PlayCash Terms</h2>
+      <p class="pc-auth-sub">You must accept the PlayCash Terms, Community Rules, and Privacy Policy before using protected features like public chat.</p>
+      <div class="pc-auth-form">
+        <div class="pc-auth-note">Version 2026-05-20</div>
+        <div class="pc-auth-note">PlayCash has zero tolerance for objectionable content or abusive users. Public chat is moderated and may be reviewed by PlayCash moderation staff.</div>
+        <div class="pc-auth-row">
+          <a class="pc-auth-mini-btn" href="/terms" target="_blank" rel="noopener">View Terms</a>
+          <a class="pc-auth-mini-btn" href="/support" target="_blank" rel="noopener">Support</a>
+        </div>
+        <button class="pc-auth-submit" type="button" id="pcTermsAcceptBtn">Accept and Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL LOGIC (unchanged from original) -->
+<script>
+(function(){
+  var authModal = document.getElementById('pcAuthModal');
+  var authCard = document.getElementById('pcAuthCard');
+  var authClose = document.getElementById('pcAuthClose');
+  var authErr = document.getElementById('pcAuthErr');
+  var authOk = document.getElementById('pcAuthOk');
+  var emailPanel = document.getElementById('pcAuthPanelEmail');
+  var passwordPanel = document.getElementById('pcAuthPanelPassword');
+  var signupPanel = document.getElementById('pcAuthPanelSignup');
+  var checkPanel = document.getElementById('pcAuthPanelCheckEmail');
+  var smsPanel = document.getElementById('pcAuthPanelSms');
+  var emailForm = document.getElementById('pcAuthEmailForm');
+  var emailInput = document.getElementById('pcAuthEmail');
+  var emailBtn = document.getElementById('pcAuthEmailBtn');
+  var pwForm = document.getElementById('pcAuthPasswordForm');
+  var pwEmail = document.getElementById('pcAuthPasswordEmail');
+  var pwInput = document.getElementById('pcAuthPassword');
+  var pwBtn = document.getElementById('pcAuthPasswordBtn');
+  var pwRecoveryNote = document.getElementById('pcAuthPasswordRecoveryNote');
+  var pwRecoveryRow = document.getElementById('pcAuthPasswordRecoveryRow');
+  var pwMagicBtn = document.getElementById('pcAuthPasswordMagicBtn');
+  var pwSmsBtn = document.getElementById('pcAuthPasswordSmsBtn');
+  var signupForm = document.getElementById('pcAuthSignupForm');
+  var signupEmail = document.getElementById('pcAuthSignupEmail');
+  var signupInput = document.getElementById('pcAuthSignupPassword');
+  var signupBtn = document.getElementById('pcAuthSignupBtn');
+  var sentEmail = document.getElementById('pcAuthSentEmail');
+  var resendBtn = document.getElementById('pcAuthResendBtn');
+  var backBtn = document.getElementById('pcAuthBackBtn');
+  var smsBtn = document.getElementById('pcAuthSmsBtn');
+  var smsForm = document.getElementById('pcAuthSmsForm');
+  var smsSub = document.getElementById('pcAuthSmsSub');
+  var smsEmail = document.getElementById('pcAuthSmsEmail');
+  var smsPhoneStep = document.getElementById('pcAuthSmsPhoneStep');
+  var smsLinkedMeta = document.getElementById('pcAuthSmsLinkedMeta');
+  var smsPhoneField = document.getElementById('pcAuthSmsPhoneField');
+  var smsCodeStep = document.getElementById('pcAuthSmsCodeStep');
+  var smsPhoneInput = document.getElementById('pcAuthSmsPhone');
+  var smsCodeInput = document.getElementById('pcAuthSmsCode');
+  var smsStartBtn = document.getElementById('pcAuthSmsStartBtn');
+  var smsResendBtn = document.getElementById('pcAuthSmsResendBtn');
+  var smsVerifyBtn = document.getElementById('pcAuthSmsVerifyBtn');
+  var smsBackBtn = document.getElementById('pcAuthSmsBackBtn');
+  var appleBtn = document.getElementById('pcAuthAppleBtn');
+  var googleBtn = document.getElementById('pcAuthGoogleBtn');
+  var hardenModal = document.getElementById('pcHardenModal');
+  var hardenCard = document.getElementById('pcHardenCard');
+  var hardenClose = document.getElementById('pcHardenClose');
+  var hardenErr = document.getElementById('pcHardenErr');
+  var hardenOk = document.getElementById('pcHardenOk');
+  var hardenScreenPassword = document.getElementById('pcHardenScreenPassword');
+  var hardenScreenPhone = document.getElementById('pcHardenScreenPhone');
+  var hardenIdentity = document.getElementById('pcHardenIdentity');
+  var hardenForm = document.getElementById('pcHardenPasswordForm');
+  var hardenPw1 = document.getElementById('pcHardenPassword1');
+  var hardenPw2 = document.getElementById('pcHardenPassword2');
+  var hardenBtn = document.getElementById('pcHardenPasswordBtn');
+  var phoneForm = document.getElementById('pcPhoneForm');
+  var phoneEntryStep = document.getElementById('pcPhoneEntryStep');
+  var phoneCodeStep = document.getElementById('pcPhoneCodeStep');
+  var phoneInput = document.getElementById('pcPhoneNumber');
+  var phoneCode = document.getElementById('pcPhoneCode');
+  var phoneStartBtn = document.getElementById('pcPhoneStartBtn');
+  var phoneVerifyBtn = document.getElementById('pcPhoneVerifyBtn');
+  var phoneResendBtn = document.getElementById('pcPhoneResendBtn');
+  var phoneSkipBtn = document.getElementById('pcPhoneSkipBtn');
+  var phoneTitle = document.getElementById('pcPhoneTitle');
+  var phoneSub = document.getElementById('pcPhoneSub');
+  var termsModal = document.getElementById('pcTermsModal');
+  var termsErr = document.getElementById('pcTermsErr');
+  var termsAcceptBtn = document.getElementById('pcTermsAcceptBtn');
+
+  var state = {
+    email: '',
+    next: (
+      (typeof window !== 'undefined' && typeof window.PC_AUTH_NEXT === 'string' && window.PC_AUTH_NEXT)
+        ? window.PC_AUTH_NEXT
+        : ((new URLSearchParams(window.location.search)).get('next') || '/earn')
+    ),
+    phone: '',
+    smsPhone: '',
+    smsLinkedPhone: '',
+    smsLinkedPhoneLast4: '',
+    smsLinkedPhoneAvailable: false,
+    termsAccepted: true
+  };
+
+  var forceAuthOpen = false;
+  var showHardening = false;
+  var showHardeningStep = "";
+  var isLoggedIn = false;
+  var accountEmail = "";
+  var accountUsername = "";
+  var accountHasVerifiedPhone = false;
+  var termsRequired = false;
+  var termsAcceptedServer = true;
+  var termsVersion = "2026-05-20";
+  var termsModalAutoOpen = false;
+  var requirePasswordAfterPhone = false;
+  var authRedirectBaseUrl = (
+    typeof window !== 'undefined' && typeof window.PC_AUTH_REDIRECT_BASE_URL === 'string'
+  ) ? String(window.PC_AUTH_REDIRECT_BASE_URL || '').trim() : '';
+
+  function safeInternalNext(next){
+    next = String(next || '/earn');
+    if (!next || next.charAt(0) !== '/' || next.indexOf('//') === 0) return '/earn';
+    return next;
+  }
+
+  function addQueryFlag(path, key, value){
+    var safePath = safeInternalNext(path);
+    var url = new URL(safePath, window.location.origin);
+    url.searchParams.set(String(key || ''), String(value || ''));
+    return url.pathname + (url.search || '') + (url.hash || '');
+  }
+
+  function resolveRedirectHref(path){
+    var safePath = safeInternalNext(path);
+    if (!authRedirectBaseUrl) return safePath;
+    try { return new URL(safePath, authRedirectBaseUrl).toString(); } catch (e) { return safePath; }
+  }
+
+  function hasAcceptedTermsLocally(){ return true; }
+
+  function syncTermsGate(){
+    state.termsAccepted = hasAcceptedTermsLocally();
+    if (emailBtn) emailBtn.disabled = !state.termsAccepted;
+  }
+
+  function requireTermsBeforeAuth(){ return true; }
+
+  function openTermsModal(){
+    if (!termsModal) return;
+    termsModal.classList.add('show');
+    termsModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  }
+
+  function closeTermsModal(){
+    if (!termsModal) return;
+    termsModal.classList.remove('show');
+    termsModal.setAttribute('aria-hidden', 'true');
+    if (!authModal || authModal.getAttribute('aria-hidden') === 'true') {
+      document.body.classList.remove('modal-open');
+    }
+  }
+
+  function redirectAfterAuthSuccess(out, fallbackPath){
+    var redirectUrl = (out && out.json && typeof out.json.redirect_url === 'string') ? String(out.json.redirect_url || '').trim() : '';
+    var nextPath = (out && out.json && typeof out.json.next === 'string') ? String(out.json.next || '').trim() : '';
+    if (redirectUrl) { window.location.href = redirectUrl; return true; }
+    window.location.href = resolveRedirectHref(nextPath || fallbackPath || state.next || '/earn');
+    return true;
+  }
+  state.next = safeInternalNext(state.next);
+
+  function authQueryMessage(code){
+    switch (String(code || '').trim()) {
+      case 'magic_expired': return "We're sorry, that sign-in link expired or was already used. Try again.";
+      case 'magic_missing': return "We're sorry, that sign-in link is incomplete. Try again.";
+      case 'magic_invalid': return "We're sorry, we could not verify that sign-in link. Try again.";
+      case 'apple_not_configured': return "Apple sign-in is not available right now.";
+      case 'apple_email_required': return "Apple did not provide an email for this account.";
+      case 'apple_bad_state': case 'apple_bad_nonce': case 'apple_bad_signature':
+      case 'apple_bad_identity_token': case 'apple_exchange_failed':
+      case 'apple_auth_failed': case 'apple_callback_failed':
+        return "We could not finish Apple sign-in. Try again.";
+      case 'apple_canceled': return "Apple sign-in was canceled.";
+      case 'google_not_configured': return "Google sign-in is not available right now.";
+      case 'google_email_required': return "Google did not provide an email for this account.";
+      case 'google_bad_state': case 'google_bad_nonce': case 'google_bad_signature':
+      case 'google_bad_identity_token': case 'google_exchange_failed':
+      case 'google_auth_failed': case 'google_callback_failed':
+        return "We could not finish Google sign-in. Try again.";
+      case 'google_canceled': return "Google sign-in was canceled.";
+      case 'account_disabled': return "This account is disabled.";
+      default: return '';
+    }
+  }
+
+  function clearAuthQueryMessage(){
+    try {
+      var url = new URL(window.location.href);
+      if (!url.searchParams.has('auth_error') && !url.searchParams.has('auth_message') && !url.searchParams.has('auth_incident')) return;
+      url.searchParams.delete('auth_error');
+      url.searchParams.delete('auth_message');
+      url.searchParams.delete('auth_incident');
+      window.history.replaceState({}, '', url.pathname + (url.search || '') + url.hash);
+    } catch (e) {}
+  }
+
+  function authDisabledMessage(json){
+    json = json && typeof json === 'object' ? json : {};
+    var message = String(json.message || '').trim();
+    var incidentId = String(json.incident_id || '').trim();
+    if (!message && incidentId) return 'This account is disabled. Incident ID: ' + incidentId + '.';
+    return message;
+  }
+
+  function postJson(url, body){
+    return fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'same-origin',
+      body: JSON.stringify(body || {})
+    }).then(function(res){
+      return res.text().then(function(txt){
+        var json = {};
+        try { json = JSON.parse(txt || '{}'); } catch (e) { json = {}; }
+        return { ok: res.ok, status: res.status, json: json };
+      });
+    });
+  }
+
+  function setBusy(btn, busy, idleText, busyText){
+    if (!btn) return;
+    btn.dataset.busy = busy ? '1' : '0';
+    btn.disabled = !!busy;
+    btn.textContent = busy ? busyText : idleText;
+  }
+
+  function setPasswordVisibility(input, toggle, visible) {
+    if (!input || !toggle) return;
+    input.type = visible ? 'text' : 'password';
+    toggle.setAttribute('aria-label', visible ? 'Hide password' : 'Show password');
+    toggle.setAttribute('aria-pressed', visible ? 'true' : 'false');
+    var srLabel = toggle.querySelector('[data-password-toggle-label="1"]');
+    if (srLabel) srLabel.textContent = visible ? 'Hide password' : 'Show password';
+  }
+
+  function showMsg(el, msg){
+    if (!el) return;
+    el.textContent = msg || '';
+    el.style.display = msg ? 'block' : 'none';
+  }
+
+  function clearAuthMsg(){ showMsg(authErr, ''); showMsg(authOk, ''); }
+
+  function passwordLengthOk(value){ return String(value || '').length >= 4; }
+
+  function syncPasswordActionButtons(){
+    if (signupBtn) signupBtn.disabled = (signupBtn.dataset.busy === '1') || !passwordLengthOk(signupInput && signupInput.value);
+    if (hardenBtn) hardenBtn.disabled = (hardenBtn.dataset.busy === '1') || !passwordLengthOk(hardenPw1 && hardenPw1.value);
+  }
+
+  function setPasswordRecoveryVisible(visible){
+    if (pwRecoveryNote) pwRecoveryNote.style.display = visible ? 'block' : 'none';
+    if (pwRecoveryRow) pwRecoveryRow.style.display = visible ? 'flex' : 'none';
+  }
+
+  function clearHardMsg(){ showMsg(hardenErr, ''); showMsg(hardenOk, ''); }
+
+  function showAuthPanel(panel){
+    [emailPanel, passwordPanel, signupPanel, checkPanel, smsPanel].forEach(function(p){ if (p) p.classList.remove('active'); });
+    if (panel) panel.classList.add('active');
+    clearAuthMsg();
+  }
+
+  function showHardenScreen(name){
+    if (hardenScreenPassword) hardenScreenPassword.classList.remove('active');
+    if (hardenScreenPhone) hardenScreenPhone.classList.remove('active');
+    if (name === 'phone' && hardenScreenPhone) hardenScreenPhone.classList.add('active');
+    else if (hardenScreenPassword) hardenScreenPassword.classList.add('active');
+  }
+
+  function setPhoneHeader(mode){
+    if (!phoneTitle || !phoneSub) return;
+    if (mode === 'code') { phoneTitle.textContent = 'Code Sent'; phoneSub.textContent = 'Enter the 6-digit code sent to your device.'; return; }
+    phoneTitle.textContent = 'Confirm Phone Number';
+    phoneSub.textContent = 'To secure your account, we need you to enter your phone number.';
+  }
+
+  function digitsOnly(v){ return String(v || '').replace(/\D+/g, ''); }
+
+  function emailLooksValid(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || '').trim()); }
+
+  function normalizeDomesticDigits(raw){
+    var text = String(raw || '').trim();
+    if (text.charAt(0) === '+') return null;
+    var d = digitsOnly(text);
+    if (d.length === 11 && d.charAt(0) === '1') return d.slice(1);
+    if (d.length <= 10) return d;
+    return null;
+  }
+
+  function maskPhone(v){
+    var raw = String(v || '').trim();
+    var keepPlus = raw.charAt(0) === '+';
+    var domestic = normalizeDomesticDigits(raw);
+    var d = (domestic !== null ? domestic : digitsOnly(raw)).slice(0, 15);
+    if (d.length === 0) return keepPlus ? '+' : '';
+    if (!keepPlus && d.length <= 10) {
+      if (d.length < 4) return '(' + d;
+      if (d.length < 7) return '(' + d.slice(0,3) + ') ' + d.slice(3);
+      return '(' + d.slice(0,3) + ') ' + d.slice(3,6) + '-' + d.slice(6,10);
+    }
+    return (keepPlus || d.length > 10 ? '+' : '') + d;
+  }
+
+  function normalizePhoneForApi(v){
+    var raw = String(v || '').trim();
+    var domestic = normalizeDomesticDigits(raw);
+    if (domestic !== null) {
+      if (domestic.length === 10) return '+1' + domestic;
+      return domestic;
+    }
+    var d = digitsOnly(raw);
+    if (d.length === 10) return '+1' + d;
+    if (raw.charAt(0) === '+') return '+' + d;
+    return raw;
+  }
+
+  function resetAuthStateForDifferentEmail(){
+    state.email = ''; state.smsPhone = ''; state.smsLinkedPhone = '';
+    state.smsLinkedPhoneLast4 = ''; state.smsLinkedPhoneAvailable = false;
+    clearAuthMsg();
+    if (sentEmail) sentEmail.textContent = 'you@example.com';
+    if (smsEmail) smsEmail.textContent = 'you@example.com';
+    if (pwInput) pwInput.value = '';
+    if (pwEmail) pwEmail.value = '';
+    setPasswordRecoveryVisible(false);
+    if (signupInput) signupInput.value = '';
+    if (signupEmail) signupEmail.value = '';
+    if (smsPhoneStep) smsPhoneStep.style.display = 'block';
+    if (smsCodeStep) smsCodeStep.style.display = 'none';
+    if (smsPhoneInput) smsPhoneInput.value = '';
+    if (smsCodeInput) smsCodeInput.value = '';
+    setBusy(emailBtn, false, 'Continue', 'Working...');
+    setBusy(signupBtn, false, 'Create Account', 'Creating...');
+    setBusy(resendBtn, false, 'Resend email', 'Sending...');
+    setBusy(pwBtn, false, 'Log In', 'Signing in...');
+    setBusy(pwMagicBtn, false, 'Email me a sign-in link', 'Sending...');
+    setBusy(pwSmsBtn, false, 'Text me a code', 'Sending...');
+    setBusy(smsStartBtn, false, 'Send text code', 'Sending...');
+    setBusy(smsResendBtn, false, 'Resend', 'Sending...');
+    setBusy(smsVerifyBtn, false, 'Verify', 'Verifying...');
+    setBusy(hardenBtn, false, 'Continue', 'Saving...');
+    syncPasswordActionButtons();
+  }
+
+  function openAuth(){
+    if (!authModal) return false;
+    authModal.classList.add('open');
+    authModal.setAttribute('aria-hidden','false');
+    document.documentElement.style.overflow='hidden';
+    document.body.style.overflow='hidden';
+    showAuthPanel(emailPanel);
+    var params = new URLSearchParams(window.location.search);
+    var queryMsg = String(params.get('auth_message') || '').trim();
+    if (!queryMsg) queryMsg = authQueryMessage(params.get('auth_error'));
+    if (!queryMsg && String(params.get('auth_incident') || '').trim() !== '') {
+      queryMsg = 'This account is disabled. Incident ID: ' + String(params.get('auth_incident') || '').trim() + '.';
+    }
+    if (queryMsg) { showMsg(authErr, queryMsg); clearAuthQueryMessage(); }
+    setTimeout(function(){ if (emailInput) emailInput.focus(); }, 40);
+    return true;
+  }
+
+  function closeAuth(){
+    if (!authModal) return;
+    authModal.classList.remove('open');
+    authModal.setAttribute('aria-hidden','true');
+    if (!hardenModal || !hardenModal.classList.contains('open')) {
+      document.documentElement.style.overflow='';
+      document.body.style.overflow='';
+    }
+  }
+
+  function openCheckEmail(email){
+    state.email = email;
+    if (sentEmail) sentEmail.textContent = email;
+    if (smsEmail) smsEmail.textContent = email;
+    showAuthPanel(checkPanel);
+  }
+
+  function openSignupPassword(email){
+    state.email = email;
+    if (signupEmail) signupEmail.value = email;
+    if (signupInput) signupInput.value = '';
+    syncPasswordActionButtons();
+    showAuthPanel(signupPanel);
+    setTimeout(function(){ if (signupInput) signupInput.focus(); }, 40);
+  }
+
+  function resetSmsFallback(){
+    state.smsPhone = '';
+    if (smsPhoneStep) smsPhoneStep.style.display = 'block';
+    if (smsCodeStep) smsCodeStep.style.display = 'none';
+    if (smsLinkedMeta) { smsLinkedMeta.style.display = 'none'; smsLinkedMeta.textContent = ''; }
+    if (smsPhoneField) smsPhoneField.style.display = 'block';
+    if (smsSub) smsSub.textContent = 'Verify this sign-in by text instead of waiting on email. For account recovery, use the phone linked to your account.';
+    if (smsPhoneInput) smsPhoneInput.value = '';
+    if (smsCodeInput) smsCodeInput.value = '';
+    setBusy(smsStartBtn, false, 'Send text code', 'Sending...');
+    setBusy(smsResendBtn, false, 'Resend', 'Sending...');
+    setBusy(smsVerifyBtn, false, 'Verify', 'Verifying...');
+  }
+
+  function applyIdentityMeta(meta){
+    meta = meta && typeof meta === 'object' ? meta : {};
+    state.smsLinkedPhoneAvailable = !!meta.has_verified_phone;
+    state.smsLinkedPhoneLast4 = String(meta.verified_phone_last4 || '');
+    state.smsLinkedPhone = '';
+  }
+
+  function prepareLinkedSmsStartUi(){
+    if (smsLinkedMeta) {
+      smsLinkedMeta.style.display = 'block';
+      smsLinkedMeta.textContent = state.smsLinkedPhoneLast4
+        ? 'We will text the verified number already linked to this account ending in ' + state.smsLinkedPhoneLast4 + '.'
+        : 'We will text the verified number already linked to this account.';
+    }
+    if (smsPhoneField) smsPhoneField.style.display = 'none';
+    if (smsSub) smsSub.textContent = 'We will send a 6-digit code to the verified phone already linked to this account.';
+  }
+
+  function consumeSmsStartSuccess(out, requestedPhone){
+    var json = out && out.json ? out.json : {};
+    var apiPhone = String((json && json.phone_e164) || requestedPhone || '');
+    var apiLast4 = String((json && json.phone_last4) || '');
+    if (apiPhone) state.smsPhone = apiPhone;
+    if (apiLast4) state.smsLinkedPhoneLast4 = apiLast4;
+    showSmsCodeStep(apiPhone || requestedPhone || '');
+    showMsg(authOk, state.smsLinkedPhoneLast4
+      ? 'A 6-digit code has been texted to your number ending in ' + state.smsLinkedPhoneLast4 + '.'
+      : 'A 6-digit code has been texted to your phone.');
+  }
+
+  function startSmsFallback(phoneOverride){
+    var requestPhone = String(phoneOverride || '').trim();
+    if (!requestPhone && !state.smsLinkedPhoneAvailable) { showMsg(authErr, 'Enter your phone number.'); return Promise.resolve(); }
+    setBusy(smsStartBtn, true, 'Send text code', 'Sending...');
+    return postJson('/auth/phone/login/start', { email: state.email, phone: requestPhone }).then(function(out){
+      setBusy(smsStartBtn, false, 'Send text code', 'Sending...');
+      if (out.ok && out.json && out.json.ok) { consumeSmsStartSuccess(out, requestPhone); return; }
+      var code = (out.json && out.json.error) ? String(out.json.error) : '';
+      if (code === 'bad_phone') return showMsg(authErr, 'Enter a valid phone number.');
+      if (code === 'twilio_not_configured') return showMsg(authErr, 'Text verification is not configured yet.');
+      if (code === 'phone_not_linked') return showMsg(authErr, 'Use the phone number already linked to this account.');
+      if (code === 'account_hardened' || code === 'fallback_not_allowed') return showMsg(authErr, 'Text verification is not available for this sign-in yet.');
+      if (code === 'account_not_found') return showMsg(authErr, 'We could not find that account.');
+      if (code === 'account_disabled') return showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.');
+      showMsg(authErr, 'Could not send text code. Try again.');
+    }).catch(function(){ setBusy(smsStartBtn, false, 'Send text code', 'Sending...'); showMsg(authErr, 'Network error. Try again.'); });
+  }
+
+  function openSmsFallback(){
+    if (smsEmail) smsEmail.textContent = state.email || 'you@example.com';
+    resetSmsFallback();
+    showAuthPanel(smsPanel);
+    if (state.smsLinkedPhoneAvailable) { prepareLinkedSmsStartUi(); startSmsFallback(''); return; }
+    setTimeout(function(){ if (smsPhoneInput) smsPhoneInput.focus(); }, 40);
+  }
+
+  function showSmsCodeStep(phone){
+    state.smsPhone = phone;
+    if (smsPhoneStep) smsPhoneStep.style.display = 'none';
+    if (smsCodeStep) smsCodeStep.style.display = 'block';
+    if (smsSub) smsSub.textContent = state.smsLinkedPhoneLast4
+      ? 'Enter the 6-digit code sent to your number ending in ' + state.smsLinkedPhoneLast4 + '.'
+      : 'Enter the 6-digit code we just texted to your phone.';
+    setTimeout(function(){ if (smsCodeInput) smsCodeInput.focus(); }, 40);
+  }
+
+  function resetPhoneStep(){
+    state.phone = '';
+    if (phoneEntryStep) phoneEntryStep.style.display = 'block';
+    if (phoneCodeStep) phoneCodeStep.style.display = 'none';
+    if (phoneInput) phoneInput.value = '';
+    if (phoneCode) phoneCode.value = '';
+    setPhoneHeader('entry');
+  }
+
+  function openHardening(initialStep){
+    if (!hardenModal) return;
+    requirePasswordAfterPhone = (String(initialStep || '').trim() === 'phone');
+    hardenModal.classList.add('open');
+    hardenModal.setAttribute('aria-hidden','false');
+    clearHardMsg(); resetPhoneStep(); showHardenScreen('password');
+    if (hardenPw1) hardenPw1.value = '';
+    if (hardenPw2) hardenPw2.value = '';
+    syncPasswordActionButtons();
+    if (hardenIdentity) hardenIdentity.value = accountEmail || accountUsername || 'PlayCash account';
+    if (hardenClose) hardenClose.hidden = true;
+    document.documentElement.style.overflow='hidden';
+    document.body.style.overflow='hidden';
+    if (requirePasswordAfterPhone) { goPhoneStep(); return; }
+    setTimeout(function(){ if (hardenPw1) hardenPw1.focus(); }, 40);
+  }
+
+  function clearHardenQuery(){
+    var url = new URL(window.location.href);
+    url.searchParams.delete('harden');
+    url.searchParams.delete('harden_step');
+    window.history.replaceState({}, '', url.pathname + (url.searchParams.toString() ? '?' + url.searchParams.toString() : '') + url.hash);
+  }
+
+  function closeHardening(){
+    if (!hardenModal) return;
+    requirePasswordAfterPhone = false;
+    resetPhoneStep(); showHardenScreen('password');
+    if (hardenPw1) hardenPw1.value = '';
+    if (hardenPw2) hardenPw2.value = '';
+    syncPasswordActionButtons();
+    hardenModal.classList.remove('open');
+    hardenModal.setAttribute('aria-hidden','true');
+    document.documentElement.style.overflow='';
+    document.body.style.overflow='';
+    clearHardenQuery();
+  }
+
+  function goPhoneStep(){
+    clearHardMsg(); showHardenScreen('phone'); setPhoneHeader('entry');
+    if (hardenClose) hardenClose.hidden = false;
+    setTimeout(function(){ if (phoneInput) phoneInput.focus(); }, 40);
+  }
+
+  if (phoneInput) phoneInput.addEventListener('input', function(){ phoneInput.value = maskPhone(phoneInput.value); });
+  if (smsPhoneInput) smsPhoneInput.addEventListener('input', function(){ smsPhoneInput.value = maskPhone(smsPhoneInput.value); });
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-password-toggle="1"]'), function(toggle){
+    toggle.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var targetId = toggle.getAttribute('data-target') || '';
+      var input = targetId ? document.getElementById(targetId) : null;
+      if (!input) return;
+      setPasswordVisibility(input, toggle, input.type === 'password');
+      input.focus();
+    });
+  });
+
+  if (authCard) authCard.addEventListener('click', function(e){ e.stopPropagation(); });
+  if (hardenCard) hardenCard.addEventListener('click', function(e){ e.stopPropagation(); });
+  if (authClose) authClose.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); closeAuth(); });
+  if (authModal) authModal.addEventListener('click', function(e){ if (e.target === authModal) closeAuth(); });
+
+  window.PlayCashAuthOpen = function(){ return openAuth(); };
+  window.openAuthModal = window.PlayCashAuthOpen;
+
+  document.addEventListener('click', function(e){
+    // js-download-cta handles its own click — never intercept it here
+    if (e.target && e.target.closest('.js-download-cta')) return;
+    var trigger = e.target && e.target.closest('[data-auth-open="1"], .nav-cta, .drawer-cta, .btn-pink, .store-badge, .win-pill');
+    if (!trigger || isLoggedIn) return;
+    e.preventDefault();
+    if (trigger.getAttribute('href')) {
+      try {
+        var u = new URL(trigger.getAttribute('href'), window.location.origin);
+        state.next = safeInternalNext(u.searchParams.get('next') || state.next || '/earn');
+      } catch (err) {}
+    }
+    if (openAuth() !== true) {
+      var fallbackHref = (trigger.getAttribute('href') || '').trim();
+      if (fallbackHref) window.location.href = fallbackHref;
+    }
+  }, true);
+
+  if (appleBtn) appleBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    if (!requireTermsBeforeAuth()) return;
+    window.location.href = '/auth/apple/start?next=' + encodeURIComponent(state.next || '/earn');
+  });
+
+  if (googleBtn) googleBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    if (!requireTermsBeforeAuth()) return;
+    window.location.href = '/auth/google/start?next=' + encodeURIComponent(state.next || '/earn');
+  });
+
+  if (emailForm) emailForm.addEventListener('submit', function(e){
+    e.preventDefault(); e.stopPropagation();
+    clearAuthMsg();
+    if (!requireTermsBeforeAuth()) return;
+    var email = (emailInput && emailInput.value || '').trim().toLowerCase();
+    if (!email) return showMsg(authErr, 'Enter your email.');
+    if (!emailLooksValid(email)) return showMsg(authErr, 'Enter a valid email.');
+    setBusy(emailBtn, true, 'Continue', 'Working...');
+    postJson('/auth/identity/check', { email: email }).then(function(out){
+      setBusy(emailBtn, false, 'Continue', 'Working...');
+      if (!out.ok || !out.json || out.json.ok !== true) return showMsg(authErr, 'Enter a valid email.');
+      state.email = String(out.json.email || email);
+      applyIdentityMeta(out.json || {});
+      if (out.json.exists && String(out.json.account_status || 'active') !== 'active') return showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.');
+      if (out.json.exists && out.json.has_password) {
+        if (pwEmail) pwEmail.value = state.email;
+        if (pwInput) pwInput.value = '';
+        setPasswordRecoveryVisible(false);
+        showAuthPanel(passwordPanel);
+        setTimeout(function(){ if (pwInput) pwInput.focus(); }, 40);
+        return;
+      }
+      if (!out.json.exists) { openSignupPassword(state.email); return; }
+      setBusy(emailBtn, true, 'Continue', 'Sending...');
+      return postJson('/auth/magic/start', { email: state.email, next: state.next }).then(function(sendOut){
+        setBusy(emailBtn, false, 'Continue', 'Sending...');
+        if (sendOut.ok && sendOut.json && sendOut.json.ok) { openCheckEmail(state.email); showMsg(authOk, 'Email sent. Check your inbox to keep going.'); return; }
+        if (sendOut.json && sendOut.json.error === 'account_disabled') return showMsg(authErr, authDisabledMessage(sendOut.json) || 'This account is disabled.');
+        return showMsg(authErr, 'Could not send email. Try again.');
+      });
+    }).catch(function(){ setBusy(emailBtn, false, 'Continue', 'Working...'); showMsg(authErr, 'Network error. Try again.'); });
+  });
+
+  if (pwForm) pwForm.addEventListener('submit', function(e){
+    e.preventDefault(); e.stopPropagation();
+    clearAuthMsg();
+    var password = (pwInput && pwInput.value || '');
+    if (!password) return showMsg(authErr, 'Enter your password.');
+    setBusy(pwBtn, true, 'Log In', 'Signing in...');
+    postJson('/auth/password/login', { email: state.email || (pwEmail && pwEmail.value || ''), password: password, next: state.next }).then(function(out){
+      setBusy(pwBtn, false, 'Log In', 'Signing in...');
+      if (out.ok && out.json && out.json.ok) { redirectAfterAuthSuccess(out, state.next || '/earn'); return; }
+      if (out.json && out.json.error === 'invalid_login') { setPasswordRecoveryVisible(true); showMsg(authErr, 'Incorrect email or password. Try again.'); return; }
+      if (out.json && out.json.error === 'account_disabled') { showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.'); return; }
+      showMsg(authErr, 'Could not sign you in right now. Try again.');
+    }).catch(function(){ setBusy(pwBtn, false, 'Log In', 'Signing in...'); showMsg(authErr, 'Network error. Try again.'); });
+  });
+
+  if (pwMagicBtn) pwMagicBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    if (!state.email) return;
+    clearAuthMsg();
+    setBusy(pwMagicBtn, true, 'Email me a sign-in link', 'Sending...');
+    postJson('/auth/magic/start', { email: state.email, next: state.next }).then(function(out){
+      setBusy(pwMagicBtn, false, 'Email me a sign-in link', 'Sending...');
+      if (out.ok && out.json && out.json.ok) { openCheckEmail(state.email); showMsg(authOk, 'Email sent. Check your inbox to keep going.'); return; }
+      if (out.json && out.json.error === 'account_disabled') { showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.'); return; }
+      showMsg(authErr, 'Could not send email. Try again.');
+    }).catch(function(){ setBusy(pwMagicBtn, false, 'Email me a sign-in link', 'Sending...'); showMsg(authErr, 'Network error. Try again.'); });
+  });
+
+  if (pwSmsBtn) pwSmsBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); if (!state.email) return; clearAuthMsg(); openSmsFallback(); });
+
+  if (signupInput) ['input','change'].forEach(function(evt){ signupInput.addEventListener(evt, syncPasswordActionButtons); });
+
+  if (signupForm) signupForm.addEventListener('submit', function(e){
+    e.preventDefault(); e.stopPropagation();
+    clearAuthMsg();
+    var password = (signupInput && signupInput.value || '');
+    if (!password) return showMsg(authErr, 'Create a password.');
+    setBusy(signupBtn, true, 'Create Account', 'Creating...');
+    postJson('/auth/password/signup', { email: state.email || (signupEmail && signupEmail.value || ''), password: password, next: state.next }).then(function(out){
+      setBusy(signupBtn, false, 'Create Account', 'Creating...');
+      if (out.ok && out.json && out.json.ok) { redirectAfterAuthSuccess(out, state.next || '/earn'); return; }
+      var code = (out.json && out.json.error) ? String(out.json.error) : '';
+      if (code === 'weak_password') { syncPasswordActionButtons(); showMsg(authErr, 'Enter a valid password.'); return; }
+      if (code === 'account_exists') {
+        postJson('/auth/identity/check', { email: state.email }).then(function(checkOut){
+          applyIdentityMeta(checkOut.json || {});
+          if (checkOut.ok && checkOut.json && checkOut.json.ok && checkOut.json.exists && String(checkOut.json.account_status || 'active') !== 'active') { showMsg(authErr, authDisabledMessage(checkOut.json) || 'This account is disabled.'); return; }
+          if (checkOut.ok && checkOut.json && checkOut.json.ok && checkOut.json.exists && checkOut.json.has_password) {
+            if (pwEmail) pwEmail.value = state.email;
+            if (pwInput) pwInput.value = '';
+            setPasswordRecoveryVisible(false);
+            showAuthPanel(passwordPanel);
+            showMsg(authErr, 'That email already has an account. Sign in instead.');
+            setTimeout(function(){ if (pwInput) pwInput.focus(); }, 40);
+            return;
+          }
+          if (checkOut.ok && checkOut.json && checkOut.json.ok && checkOut.json.exists) {
+            state.email = String(checkOut.json.email || state.email);
+            setBusy(signupBtn, true, 'Create Account', 'Sending...');
+            postJson('/auth/magic/start', { email: state.email, next: state.next }).then(function(sendOut){
+              setBusy(signupBtn, false, 'Create Account', 'Sending...');
+              if (sendOut.ok && sendOut.json && sendOut.json.ok) { openCheckEmail(state.email); showMsg(authOk, 'Email sent. Check your inbox to keep going.'); return; }
+              if (sendOut.json && sendOut.json.error === 'account_disabled') { showMsg(authErr, authDisabledMessage(sendOut.json) || 'This account is disabled.'); return; }
+              showMsg(authErr, 'Could not send email. Try again.');
+            }).catch(function(){ setBusy(signupBtn, false, 'Create Account', 'Sending...'); showMsg(authErr, 'Network error. Try again.'); });
+            return;
+          }
+          setBusy(signupBtn, false, 'Create Account', 'Creating...');
+          showMsg(authErr, 'That email was left mid-signup. Try creating your password again.');
+        }).catch(function(){ showMsg(authErr, 'That email already has an account. Try signing in.'); });
+        return;
+      }
+      if (code === 'account_disabled') { showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.'); return; }
+      showMsg(authErr, 'Could not create your account right now. Try again.');
+    }).catch(function(){ setBusy(signupBtn, false, 'Create Account', 'Creating...'); showMsg(authErr, 'Network error. Try again.'); });
+  });
+
+  if (backBtn) backBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    resetAuthStateForDifferentEmail();
+    showAuthPanel(emailPanel);
+    if (emailInput) { emailInput.value = ''; emailInput.blur(); window.requestAnimationFrame(function(){ emailInput.focus(); }); }
+  });
+
+  if (resendBtn) resendBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    if (!state.email) return;
+    clearAuthMsg();
+    setBusy(resendBtn, true, 'Resend email', 'Sending...');
+    postJson('/auth/magic/start', { email: state.email, next: state.next }).then(function(out){
+      setBusy(resendBtn, false, 'Resend email', 'Sending...');
+      if (out.ok && out.json && out.json.ok) { showMsg(authOk, 'Email sent. Check your inbox for the latest sign-in link.'); return; }
+      if (out.json && out.json.error === 'account_disabled') { showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.'); return; }
+      showMsg(authErr, 'Could not resend email. Try again.');
+    }).catch(function(){ setBusy(resendBtn, false, 'Resend email', 'Sending...'); showMsg(authErr, 'Network error. Try again.'); });
+  });
+
+  if (smsBtn) smsBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); if (!state.email) return; openSmsFallback(); });
+  if (smsBackBtn) smsBackBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); resetSmsFallback(); openCheckEmail(state.email || 'you@example.com'); });
+
+  if (smsForm) smsForm.addEventListener('submit', function(e){
+    e.preventDefault(); e.stopPropagation();
+    clearAuthMsg();
+    var phoneRaw = (smsPhoneInput && smsPhoneInput.value || '').trim();
+    var phoneApi = phoneRaw ? normalizePhoneForApi(phoneRaw) : '';
+    startSmsFallback(phoneApi);
+  });
+
+  if (smsResendBtn) smsResendBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    clearAuthMsg();
+    if (!state.email || !state.smsPhone) return;
+    setBusy(smsResendBtn, true, 'Resend', 'Sending...');
+    postJson('/auth/phone/login/start', { email: state.email, phone: state.smsPhone }).then(function(out){
+      setBusy(smsResendBtn, false, 'Resend', 'Sending...');
+      if (out.ok && out.json && out.json.ok) { consumeSmsStartSuccess(out, state.smsPhone); return; }
+      if (out.json && out.json.error === 'account_disabled') { showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.'); return; }
+      showMsg(authErr, 'Could not resend text code.');
+    }).catch(function(){ setBusy(smsResendBtn, false, 'Resend', 'Sending...'); showMsg(authErr, 'Network error. Try again.'); });
+  });
+
+  if (smsVerifyBtn) smsVerifyBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    clearAuthMsg();
+    var code = (smsCodeInput && smsCodeInput.value || '').trim();
+    if (!/^\d{6}$/.test(code)) return showMsg(authErr, 'Enter the 6-digit code.');
+    setBusy(smsVerifyBtn, true, 'Verify', 'Verifying...');
+    postJson('/auth/phone/login/verify', { email: state.email, phone: state.smsPhone, code: code, next: state.next }).then(function(out){
+      setBusy(smsVerifyBtn, false, 'Verify', 'Verifying...');
+      if (out.ok && out.json && out.json.ok) {
+        var target = (out.json && typeof out.json.next === 'string' && out.json.next) ? String(out.json.next) : (state.next || '/earn');
+        if (out.json.show_hardening) target = addQueryFlag(target, 'harden', '1');
+        redirectAfterAuthSuccess(out, target);
+        return;
+      }
+      var codeStr = (out.json && out.json.error) ? String(out.json.error) : '';
+      if (codeStr === 'bad_code') return showMsg(authErr, 'Enter the 6-digit code.');
+      if (codeStr === 'bad_phone') return showMsg(authErr, 'Enter a valid phone number.');
+      if (codeStr === 'phone_in_use') return showMsg(authErr, 'That phone number is already linked to another account.');
+      if (codeStr === 'phone_not_linked') return showMsg(authErr, 'Use the phone number already linked to this account.');
+      if (codeStr === 'account_hardened' || codeStr === 'fallback_not_allowed') return showMsg(authErr, 'Text verification is not available for this sign-in.');
+      if (codeStr === 'account_not_found') return showMsg(authErr, 'We could not find that account.');
+      if (codeStr === 'account_disabled') return showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.');
+      showMsg(authErr, 'Could not verify code. Try again.');
+    }).catch(function(){ setBusy(smsVerifyBtn, false, 'Verify', 'Verifying...'); showMsg(authErr, 'Network error. Try again.'); });
+  });
+
+  function validPassword(pw){ return passwordLengthOk(pw); }
+
+  if (hardenPw1) ['input','change'].forEach(function(evt){ hardenPw1.addEventListener(evt, syncPasswordActionButtons); });
+
+  if (hardenForm) hardenForm.addEventListener('submit', function(e){
+    e.preventDefault(); e.stopPropagation();
+    clearHardMsg();
+    var p1 = (hardenPw1 && hardenPw1.value || '');
+    var p2 = (hardenPw2 && hardenPw2.value || '');
+    if (!validPassword(p1)) { syncPasswordActionButtons(); return showMsg(hardenErr, 'Enter a valid password.'); }
+    if (p1 !== p2) return showMsg(hardenErr, 'Passwords do not match.');
+    setBusy(hardenBtn, true, 'Continue', 'Saving...');
+    postJson('/auth/password/set', { password: p1, confirm: p2 }).then(function(out){
+      setBusy(hardenBtn, false, 'Continue', 'Saving...');
+      if (out.ok && out.json && out.json.ok) {
+        showMsg(hardenOk, 'Password saved.');
+        setTimeout(function(){ showMsg(hardenOk, ''); if (accountHasVerifiedPhone) { closeHardening(); return; } goPhoneStep(); }, 120);
+        return;
+      }
+      var msg = (out.json && (out.json.message || out.json.error)) ? String(out.json.message || out.json.error) : 'Could not save password.';
+      if (msg === 'weak_password') msg = 'Enter a valid password.';
+      showMsg(hardenErr, msg);
+    }).catch(function(){ setBusy(hardenBtn, false, 'Continue', 'Saving...'); showMsg(hardenErr, 'Network error. Try again.'); });
+  });
+
+  function showPhoneCodeStep(phone){
+    state.phone = phone;
+    if (phoneEntryStep) phoneEntryStep.style.display = 'none';
+    if (phoneCodeStep) phoneCodeStep.style.display = 'block';
+    setPhoneHeader('code');
+    setTimeout(function(){ if (phoneCode) phoneCode.focus(); }, 40);
+  }
+
+  if (phoneForm) phoneForm.addEventListener('submit', function(e){
+    e.preventDefault(); e.stopPropagation();
+    clearHardMsg();
+    var phoneRaw = (phoneInput && phoneInput.value || '').trim();
+    if (!phoneRaw) return showMsg(hardenErr, 'Enter your phone number.');
+    var phoneApi = normalizePhoneForApi(phoneRaw);
+    setBusy(phoneStartBtn, true, 'Send Code', 'Sending...');
+    postJson('/auth/phone/start', { phone: phoneApi }).then(function(out){
+      setBusy(phoneStartBtn, false, 'Send Code', 'Sending...');
+      if (out.ok && out.json && out.json.ok) { showPhoneCodeStep(phoneApi); showMsg(hardenOk, 'Text code sent. Check your messages.'); return; }
+      var code = (out.json && out.json.error) ? String(out.json.error) : '';
+      if (code === 'bad_phone') return showMsg(hardenErr, 'Enter a valid phone number.');
+      if (code === 'twilio_not_configured') return showMsg(hardenErr, 'Phone verification is not configured yet.');
+      showMsg(hardenErr, 'Could not send code. Try again.');
+    }).catch(function(){ setBusy(phoneStartBtn, false, 'Send Code', 'Sending...'); showMsg(hardenErr, 'Network error. Try again.'); });
+  });
+
+  if (phoneResendBtn) phoneResendBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    clearHardMsg();
+    if (!state.phone) return;
+    setBusy(phoneResendBtn, true, 'Resend', 'Sending...');
+    postJson('/auth/phone/start', { phone: state.phone }).then(function(out){
+      setBusy(phoneResendBtn, false, 'Resend', 'Sending...');
+      if (out.ok && out.json && out.json.ok) { showMsg(hardenOk, 'Text code sent. Check your messages.'); return; }
+      showMsg(hardenErr, 'Could not resend code.');
+    }).catch(function(){ setBusy(phoneResendBtn, false, 'Resend', 'Sending...'); showMsg(hardenErr, 'Network error. Try again.'); });
+  });
+
+  if (phoneVerifyBtn) phoneVerifyBtn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    clearHardMsg();
+    var code = (phoneCode && phoneCode.value || '').trim();
+    if (!/^\d{6}$/.test(code)) return showMsg(hardenErr, 'Enter the 6-digit code.');
+    setBusy(phoneVerifyBtn, true, 'Verify', 'Verifying...');
+    postJson('/auth/phone/verify', { phone: state.phone, code: code }).then(function(out){
+      setBusy(phoneVerifyBtn, false, 'Verify', 'Verifying...');
+      if (out.ok && out.json && out.json.ok) {
+        accountHasVerifiedPhone = true;
+        if (requirePasswordAfterPhone) {
+          requirePasswordAfterPhone = false; clearHardMsg(); showHardenScreen('password');
+          if (hardenClose) hardenClose.hidden = true;
+          setTimeout(function(){ if (hardenPw1) hardenPw1.focus(); }, 40);
+          return;
+        }
+        closeHardening(); return;
+      }
+      var codeStr = (out.json && out.json.error) ? String(out.json.error) : '';
+      if (codeStr === 'bad_code') return showMsg(hardenErr, 'Enter the 6-digit code.');
+      if (codeStr === 'not_approved' || codeStr === 'verify_failed') return showMsg(hardenErr, 'That code did not match.');
+      showMsg(hardenErr, 'Could not verify code. Try again.');
+    }).catch(function(){ setBusy(phoneVerifyBtn, false, 'Verify', 'Verifying...'); showMsg(hardenErr, 'Network error. Try again.'); });
+  });
+
+  if (phoneSkipBtn) phoneSkipBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); closeHardening(); });
+  if (hardenClose) hardenClose.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); closeHardening(); });
+  if (hardenModal) hardenModal.addEventListener('click', function(e){ if (e.target === hardenModal && !hardenClose.hidden) closeHardening(); });
+
+  if (forceAuthOpen && !isLoggedIn) openAuth();
+  syncPasswordActionButtons();
+  syncTermsGate();
+
+  if (termsAcceptBtn) termsAcceptBtn.addEventListener('click', function(){
+    if (!termsVersion) return;
+    setBusy(termsAcceptBtn, true, 'Accept and Continue', 'Saving...');
+    termsErr.textContent = '';
+    postJson('/account/terms/accept', { terms_version: termsVersion, source: 'web' }).then(function(out){
+      setBusy(termsAcceptBtn, false, 'Accept and Continue', 'Saving...');
+      if (out.ok && out.json && out.json.ok) {
+        closeTermsModal();
+        window.dispatchEvent(new CustomEvent('pc:terms-accepted', { detail: out.json || {} }));
+        return;
+      }
+      termsErr.textContent = 'Could not save terms acceptance. Try again.';
+    }).catch(function(){ setBusy(termsAcceptBtn, false, 'Accept and Continue', 'Saving...'); termsErr.textContent = 'Network error. Try again.'; });
+  });
+
+  if (showHardening && isLoggedIn) openHardening(showHardeningStep);
+  if (termsModalAutoOpen) openTermsModal();
+})();
+</script>
+
+<!-- ATTRIBUTION + GLOBAL INIT -->
+<script>
+(function () {
+  "use strict";
+  var boot = window.__PC_LANDER || {};
+  var prefersReducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  function buildHref(baseHref, source) {
+    if (!baseHref) return '#';
+    try {
+      var url = new URL(baseHref, window.location.origin);
+      if (source) url.searchParams.set('cta_source', source);
+      if (url.origin === window.location.origin) return url.pathname + url.search + url.hash;
+      return url.toString();
+    } catch (err) { return baseHref; }
+  }
+
+  function parseVisibleCookies() {
+    var out = {}; var names = [];
+    var raw = String(document.cookie || '');
+    if (!raw) return { cookies: out, cookieNames: names };
+    raw.split(';').forEach(function (pair) {
+      var trimmed = String(pair || '').trim();
+      if (!trimmed) return;
+      var eq = trimmed.indexOf('=');
+      var name = eq === -1 ? trimmed : trimmed.slice(0, eq).trim();
+      if (!name) return;
+      var value = eq === -1 ? '' : trimmed.slice(eq + 1);
+      names.push(name);
+      out[name] = value;
+    });
+    names.sort();
+    return { cookies: out, cookieNames: names };
+  }
+
+  function syncAttributionCookies() {
+    var webGuid = String(boot.webGuid || '').trim();
+    if (!webGuid) return;
+    var cookieData = parseVisibleCookies();
+    var payload = { web_guid: webGuid, url: window.location.pathname + window.location.search + window.location.hash, referrer: String(document.referrer || ''), cookies: cookieData.cookies, cookie_names: cookieData.cookieNames };
+    var body = JSON.stringify(payload);
+    var sent = false;
+    try { if (navigator.sendBeacon) sent = navigator.sendBeacon('/attribution/sync', new Blob([body], { type: 'application/json' })); } catch (err) {}
+    if (sent) return;
+    try { fetch('/attribution/sync', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', keepalive: true, body: body }).catch(function () {}); } catch (err) {}
+  }
+
+  function ctaLabelFor(cta) {
+    if (boot.isLoggedIn) return cta.getAttribute('data-label-logged-in') || 'Open PlayCash';
+    return cta.getAttribute('data-label-logged-out') || boot.ctaLabel || 'Start Earning';
+  }
+
+  function ctaHrefFor(source) {
+    return boot.isLoggedIn ? (boot.ctaHref || '#') : buildHref(boot.authHref || '#', source);
+  }
+
+  function applyCtaState(cta, source) {
+    // Download CTAs manage their own state — skip them here
+    if (cta.classList.contains('js-download-cta')) return;
+    var label = ctaLabelFor(cta);
+    var href = ctaHrefFor(source);
+    var labelNode = cta.querySelector('[data-cta-label]');
+    if (labelNode) labelNode.textContent = label;
+    if (cta.tagName === 'A') cta.setAttribute('href', href);
+    if (!boot.isLoggedIn) cta.setAttribute('data-auth-open', '1');
+    else cta.setAttribute('data-auth-open', '0');
+  }
+
+  function decorateTemplateCtas() {
+    var ctas = document.querySelectorAll('.js-final-cta, .nav-cta[data-cta-source], .nav-cta:not(#pcTryAuthTrigger)');
+    ctas.forEach(function (cta) {
+      var source = cta.getAttribute('data-cta-source') || 'final_cta';
+      applyCtaState(cta, source);
+      cta.addEventListener('click', function () {
+        if (!window.__PC_LANDER || typeof window.__PC_LANDER !== 'object') window.__PC_LANDER = {};
+        window.__PC_LANDER.lastCtaSource = source;
+      }, true);
+    });
+  }
+
+  function openTrackedAuth(source) {
+    var ctaSource = source || 'template_cta';
+    var href = ctaHrefFor(ctaSource);
+    if (boot && boot.isLoggedIn) { window.location.href = href; return true; }
+    if (!window.__PC_LANDER || typeof window.__PC_LANDER !== 'object') window.__PC_LANDER = {};
+    window.__PC_LANDER.lastCtaSource = ctaSource;
+    if (typeof window.openAuthModal === 'function') {
+      try { if (window.openAuthModal() === true) return true; } catch (err) {}
+    }
+    if (href && href !== '#') window.location.href = href;
+    return false;
+  }
+
+  syncAttributionCookies();
+  window.__PC_LANDER_OPEN_AUTH = openTrackedAuth;
+  window.pcTryOpenAuth = openTrackedAuth;
+  decorateTemplateCtas();
+})();
+</script>
+
+</body>
+</html>
