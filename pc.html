@@ -1592,153 +1592,153 @@
       100% { transform: translateY(120px) scale(1); opacity: 0; }
     }
 
-    /* ── COORDENADAS ADAPTADAS MOBILE (QUIZ ULTRA COMPACTADO) ── */
+    /* ── COORDENADAS ADAPTADAS MOBILE (QUIZ EQUILIBRADO E CENTRALIZADO) ── */
     @media (max-width: 480px) {
       .pc-quiz-overlay {
-        align-items: flex-start; /* Eleva o quiz para o topo do celular */
-        padding: 8px; /* Elimina folgas externas laterais/verticais */
+        align-items: center; /* Centraliza o quiz verticalmente na tela */
+        padding: 12px; /* Margem de segurança elegante nas bordas */
       }
       .pc-quiz-card {
-        max-height: 98dvh; /* Usa toda altura disponível no limite */
-        border-radius: 12px;
+        max-height: 94dvh; /* Garante que cabe perfeitamente na janela do navegador */
+        border-radius: 16px;
       }
       .pc-quiz-brand {
-        margin-bottom: 8px; /* Aperta espaço abaixo do logo de PlayCash */
+        margin-bottom: 6px; /* Espaço mínimo entre a logo e a barra */
       }
       .pc-quiz-brand img {
-        width: 86px; /* Reduz tamanho do logo para economizar espaço vertical */
+        width: 96px; /* Tamanho elegante e contido do logotipo */
       }
       .pc-quiz-head-row {
-        margin-bottom: 4px;
+        margin-bottom: 6px;
       }
       .pc-quiz-head {
-        padding: 10px 14px 6px; /* Cabeçalho super encolhido */
+        padding: 14px 16px 8px; /* Redução de espaços em excesso no topo */
       }
       .pc-quiz-body {
-        padding: 12px 14px 14px; /* Menos margem interna para evitar scroll */
+        padding: 12px 16px 16px; /* Otimização das margens do corpo do quiz */
       }
       .pc-quiz-q {
-        font-size: 1.05rem;
-        margin-bottom: 4px;
+        font-size: 1.22rem; /* Fonte confortável e muito legível no mobile */
+        margin-bottom: 6px;
         line-height: 1.25;
       }
       .pc-quiz-q-sub {
-        font-size: 0.8rem;
-        margin-bottom: 10px; /* Reduz espaço sob o título no mobile */
+        font-size: 0.86rem; /* Subtítulo grande e nítido */
+        margin-bottom: 12px; /* Espaçamento equilibrado */
       }
       .pc-quiz-context {
-        padding: 8px 12px;
+        padding: 10px 14px;
         margin: 2px 0 10px;
-        font-size: 0.75rem;
+        font-size: 0.78rem;
       }
       .pc-quiz-options {
-        gap: 8px; /* Reduz intervalo entre os botões */
+        gap: 8px; /* Ajuste preciso do grid */
       }
       .pc-quiz-options.vertical-stack {
         gap: 8px;
       }
       .pc-quiz-option {
-        min-height: 90px; /* Reduz de 125px para 90px no mobile */
-        padding: 10px;
+        min-height: auto; /* Remove altura mínima artificial para evitar extrapolar a tela */
+        padding: 11px 14px; /* Espaço interno equilibrado para cliques fáceis */
         border-radius: 12px;
-        gap: 6px;
+        gap: 8px;
       }
       .pc-quiz-option .pc-qopt-icon {
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
         border-radius: 8px;
       }
       .pc-quiz-option .pc-qopt-icon svg {
-        width: 14px;
-        height: 14px;
+        width: 16px;
+        height: 16px;
       }
       .pc-qopt-title {
-        font-size: 0.82rem;
+        font-size: 0.92rem; /* Legibilidade perfeita para os títulos das alternativas */
       }
       .pc-qopt-sub {
-        font-size: 0.68rem;
-        line-height: 1.25;
+        font-size: 0.76rem; /* Texto secundário legível e polido */
+        line-height: 1.3;
       }
       .pc-quiz-options:not(.vertical-stack) .pc-quiz-option:last-child:nth-child(odd) {
-        min-height: 64px;
-        padding: 10px;
+        min-height: auto;
+        padding: 11px 14px;
       }
       
-      /* Redução vertical das marcas de pagamento */
+      /* Redução vertical das marcas de pagamento mantendo logos e botões no viewport */
       .pc-quiz-option.pay-paypal,
       .pc-quiz-option.pay-bank,
       .pc-quiz-option.pay-visa,
       .pc-quiz-option.pay-amazon {
-        height: 64px !important;
-        padding: 0 12px;
+        height: 68px !important;
+        padding: 0 14px;
       }
       .pc-quiz-option.pay-paypal img,
       .pc-quiz-option.pay-bank svg,
       .pc-quiz-option.pay-visa img,
       .pc-quiz-option.pay-amazon img {
-        height: 18px !important;
+        height: 20px !important;
       }
 
       .pc-quiz-encourage {
-        padding: 8px 12px;
-        margin: 10px 0 2px;
-        gap: 10px;
+        padding: 10px 14px;
+        margin: 12px 0 4px; /* Margem integrada com precisão */
+        gap: 12px;
         border-radius: 12px;
       }
       .pc-quiz-encourage .pc-quiz-spark {
-        width: 26px;
-        height: 26px;
+        width: 28px;
+        height: 28px;
       }
       .pc-quiz-encourage p {
-        font-size: 0.8rem;
+        font-size: 0.86rem;
       }
       .pc-quiz-encourage p b {
-        font-size: 0.95rem;
-        margin-top: 1px;
+        font-size: 1.05rem;
+        margin-top: 2px;
       }
 
       .btn.pc-quiz-advance {
-        min-height: 48px;
-        font-size: 1rem;
-        margin-top: 8px; /* Mantém o Next sempre visível e limpo */
-        padding: 10px 20px;
+        min-height: 52px; /* Botão ideal para área de toque confortável sem scroll */
+        font-size: 1.1rem;
+        margin-top: 12px;
+        padding: 12px 24px;
       }
 
-      /* Estilização da tela de resultado no mobile */
+      /* Estilização da tela de resultado no mobile com fontes nítidas e centralizadas */
       .pc-quiz-result-headline {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-      }
-      .pc-quiz-result-box {
-        padding: 10px;
-        margin-bottom: 10px;
-      }
-      .pc-quiz-result-amount {
-        font-size: 1.8rem;
-      }
-      .pc-quiz-unlock {
-        padding: 10px 12px;
-        margin-bottom: 10px;
-      }
-      .pc-quiz-unlock-flag {
-        padding: 3px 10px;
-        margin-bottom: 8px;
-        font-size: 0.68rem;
-      }
-      .pc-quiz-unlock-top {
-        font-size: 0.75rem;
-        margin-bottom: 4px;
-      }
-      .pc-quiz-unlock-text {
-        font-size: 0.78rem;
-        line-height: 1.45;
-      }
-      .pc-quiz-result-urgency {
+        font-size: 1.35rem;
         margin-bottom: 12px;
       }
+      .pc-quiz-result-box {
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+      .pc-quiz-result-amount {
+        font-size: 2rem;
+      }
+      .pc-quiz-unlock {
+        padding: 12px 14px;
+        margin-bottom: 12px;
+      }
+      .pc-quiz-unlock-flag {
+        padding: 4px 12px;
+        margin-bottom: 10px;
+        font-size: 0.72rem;
+      }
+      .pc-quiz-unlock-top {
+        font-size: 0.8rem;
+        margin-bottom: 6px;
+      }
+      .pc-quiz-unlock-text {
+        font-size: 0.84rem;
+        line-height: 1.5;
+      }
+      .pc-quiz-result-urgency {
+        margin-bottom: 14px;
+      }
       #pcQuizClaimBtn {
-        min-height: 48px;
-        font-size: 1rem;
+        min-height: 52px;
+        font-size: 1.1rem;
       }
     }
   </style>
