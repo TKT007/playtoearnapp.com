@@ -197,7 +197,7 @@
     }
 
     .hero-title {
-      margin: 0 0 12px;
+      margin: 0;
       font-size: 42px;
       line-height: .98;
       font-weight: 900;
@@ -974,7 +974,7 @@
       .pc-auth-row { flex-direction: column; }
     }
 
-    /* ── QUIZ MODAL (reuses existing --pc-* tokens, no new colors/fonts) ── */
+    /* ── QUIZ MODAL (Reajustado para Grid Quadrado de 2 colunas) ── */
     .pc-quiz-overlay {
       position: fixed;
       inset: 0;
@@ -1123,20 +1123,23 @@
       line-height: 1.5;
     }
 
-    .pc-quiz-options { display: grid; grid-template-columns: 1fr; gap: 12px; }
-
-    /* QUIZ PAYMENT GRID (2 Columns style) */
-    .pc-quiz-options.payment-grid {
+    /* Alteração para grade de 2 colunas lado a lado */
+    .pc-quiz-options {
+      display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
+    /* Configuração de cartões quadrados */
     .pc-quiz-option {
       position: relative;
       display: flex;
-      align-items: center;
-      gap: 14px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
       width: 100%;
-      padding: 16px 18px;
+      min-height: 125px;
+      padding: 14px;
       background: rgba(255,255,255,.03);
       border: 1px solid rgba(255,255,255,.08);
       border-radius: 16px;
@@ -1156,33 +1159,56 @@
     }
     .pc-quiz-option.dimmed { opacity: .45; pointer-events: none; }
 
+    /* Se houver um número ímpar de opções (como 3), a última se expande na largura total */
+    .pc-quiz-options .pc-quiz-option:last-child:nth-child(odd) {
+      grid-column: span 2;
+      flex-direction: row;
+      align-items: center;
+      min-height: 80px;
+    }
+
     .pc-qopt-icon {
-      width: 40px; height: 40px;
-      border-radius: 12px;
+      width: 36px; height: 36px;
+      border-radius: 10px;
       background: rgba(139,92,246,.14);
       display: flex; align-items: center; justify-content: center;
       color: #b99cff;
       flex-shrink: 0;
     }
-    .pc-qopt-icon svg { width: 20px; height: 20px; }
+    .pc-qopt-icon svg { width: 18px; height: 18px; }
     .pc-quiz-option.selected .pc-qopt-icon {
       background: rgba(139,92,246,.32);
       color: #fff;
     }
 
     .pc-qopt-texts { flex: 1; display: flex; flex-direction: column; gap: 2px; }
-    .pc-qopt-title { font-size: .95rem; font-weight: 800; color: var(--pc-text); line-height: 1.25; }
-    .pc-qopt-sub { font-size: .78rem; font-weight: 600; color: var(--pc-text-3); line-height: 1.4; }
+    .pc-qopt-title { font-size: .88rem; font-weight: 800; color: var(--pc-text); line-height: 1.2; }
+    .pc-qopt-sub { font-size: .72rem; font-weight: 600; color: var(--pc-text-3); line-height: 1.35; }
 
+    /* Posicionamento do marcador de seleção */
     .pc-qopt-radio {
+      position: absolute;
       width: 20px; height: 20px;
       border-radius: 50%;
       border: 2px solid rgba(255,255,255,.18);
       flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
       transition: border-color .14s ease, background .14s ease;
-      margin-left: auto;
     }
+    
+    /* Padrão para cartões normais do quiz (topo direito) */
+    .pc-quiz-option:not(.pay-paypal):not(.pay-bank):not(.pay-visa):not(.pay-amazon) .pc-qopt-radio {
+      top: 14px;
+      right: 14px;
+    }
+
+    /* Caso especial: item ímpar expandido (centralizado verticalmente) */
+    .pc-quiz-options .pc-quiz-option:last-child:nth-child(odd) .pc-qopt-radio {
+      top: 50% !important;
+      right: 16px;
+      transform: translateY(-50%) !important;
+    }
+
     .pc-quiz-option.selected .pc-qopt-radio {
       border-color: var(--pc-purple);
       background: var(--pc-purple);
@@ -1194,16 +1220,22 @@
       background: #fff;
     }
 
-    /* ── BRAND SPECIFIC STYLES FOR PAYMENT BUTTONS ── */
+    /* ── BRAND SPECIFIC STYLES FOR PAYMENT BUTTONS (Especiais para o grid) ── */
     .pc-quiz-option.pay-paypal {
       background: #ffffff !important;
       border: 1px solid rgba(255, 255, 255, 0.15) !important;
       height: 80px;
       border-radius: 16px;
       padding: 0 16px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
     }
     .pc-quiz-option.pay-paypal .pc-qopt-radio {
       border-color: #8fa0ba !important;
+      top: 50% !important;
+      right: 16px;
+      transform: translateY(-50%) !important;
     }
     .pc-quiz-option.pay-paypal.selected {
       box-shadow: 0 0 0 3px #0079C1 !important;
@@ -1223,9 +1255,15 @@
       height: 80px;
       border-radius: 16px;
       padding: 0 16px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
     }
     .pc-quiz-option.pay-bank .pc-qopt-radio {
       border-color: rgba(255,255,255,0.4) !important;
+      top: 50% !important;
+      right: 16px;
+      transform: translateY(-50%) !important;
     }
     .pc-quiz-option.pay-bank.selected {
       box-shadow: 0 0 0 3px #ffffff !important;
@@ -1244,9 +1282,15 @@
       height: 80px;
       border-radius: 16px;
       padding: 0 16px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
     }
     .pc-quiz-option.pay-visa .pc-qopt-radio {
       border-color: rgba(255,255,255,0.4) !important;
+      top: 50% !important;
+      right: 16px;
+      transform: translateY(-50%) !important;
     }
     .pc-quiz-option.pay-visa.selected {
       box-shadow: 0 0 0 3px #ffffff !important;
@@ -1265,9 +1309,15 @@
       height: 80px;
       border-radius: 16px;
       padding: 0 16px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
     }
     .pc-quiz-option.pay-amazon .pc-qopt-radio {
       border-color: #8fa0ba !important;
+      top: 50% !important;
+      right: 16px;
+      transform: translateY(-50%) !important;
     }
     .pc-quiz-option.pay-amazon.selected {
       box-shadow: 0 0 0 3px #ff9900 !important;
@@ -1928,22 +1978,22 @@
           { 
             brand: "paypal", 
             customClass: "pay-paypal", 
-            svg: '<svg viewBox="0 0 110 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 28px; width: auto;"><g transform="translate(0, 2)"><path d="M12.5 1.5H5C3.6 1.5 2.5 2.6 2.5 4L0.5 17C0.4 17.6 0.9 18.1 1.5 18.1H6L7.2 10.3C7.3 9.6 7.9 9.1 8.6 9.1H11.5C15 9.1 17.5 7.3 18.1 3.8C18.4 2.1 17.1 1.5 12.5 1.5Z" fill="#0079C1"/><path d="M10.2 4.5H4C2.6 4.5 1.5 5.6 1.5 7L3 16.5C3.1 17.1 3.6 17.5 4.2 17.5H8.7L9.9 9.7C10 9 10.6 8.5 11.3 8.5H13.5C17 8.5 19.5 6.7 20.1 3.2C20.4 1.5 19.1 0.9 14.5 0.9C14.5 0.9 11.3 2.7 10.2 4.5Z" fill="#00457C"/></g><text x="26" y="21" font-family="Inter" font-weight="900" font-style="italic" font-size="17" fill="#003087">Pay</text><text x="57" y="21" font-family="Inter" font-weight="900" font-style="italic" font-size="17" fill="#0079C1">Pal</text></svg>'
+            svg: '<img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" style="height: 25px; max-width: 100%; object-fit: contain;" onerror="this.onerror=null; this.src=\'https://placehold.co/110x32/ffffff/003087?text=PayPal\'">'
           },
           { 
             brand: "bank", 
             customClass: "pay-bank", 
-            svg: '<svg viewBox="0 0 150 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 24px; width: auto;"><path d="M2 11H22V13H2V11ZM2 20H22V22H2V20ZM4 13H6V20H4V13ZM9 13H11V20H9V13ZM14 13H16V20H14V13ZM18 13H20V20H18V13ZM12 0L2 6V9H22V6L12 0Z" fill="#ffffff"/><text x="28" y="18" font-family="Inter" font-weight="700" font-size="14" fill="#ffffff">Bank Transfer</text></svg>'
+            svg: '<svg viewBox="0 0 180 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 25px; width: auto;"><g fill="#ffffff"><path d="M16 2L3 9h26L16 2z"/><rect x="6" y="11" width="3" height="11" rx="0.5"/><rect x="11" y="11" width="3" height="11" rx="0.5"/><rect x="18" y="11" width="3" height="11" rx="0.5"/><rect x="23" y="11" width="3" height="11" rx="0.5"/><rect x="4" y="9" width="24" height="2" rx="0.5"/><rect x="3" y="22" width="26" height="2" rx="0.5"/><rect x="2" y="24" width="28" height="2" rx="0.5"/></g><text x="38" y="21" font-family="\'Inter\', system-ui, -apple-system, sans-serif" font-weight="800" font-size="16" fill="#ffffff" letter-spacing="0.01em">Bank Transfer</text></svg>'
           },
           { 
             brand: "visa", 
             customClass: "pay-visa", 
-            svg: '<svg viewBox="0 0 80 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 22px; width: auto;"><path d="M37.2 6.5L29.3 26.5H24.3L19.5 10.3C18.6 9.1 17.2 8.3 15.5 8L15 7.8V6.5H23.5C24.8 6.5 25.8 7.3 26.1 8.5L28.2 20.3L32.2 6.5H37.2ZM53.4 16.5C53.4 11.5 47.2 11.2 47.2 9.2C47.2 8.6 47.9 8 49.3 8C52 8 54.4 9.1 55.6 9.7L56.5 6.2C54.5 5.4 51.6 5 48.7 5C43 5 39 8.2 39 13.2C39 18.7 45.4 19 45.4 21.3C45.4 22 44.5 22.7 42.8 22.7C40 22.7 37.4 21.5 36.1 20.8L35.2 24.3C37.4 25.3 43.5 25.8 43.5 25.8C49.5 25.8 53.4 22.5 53.4 16.5ZM65.2 6.5L61.1 26.5H56.5L60.6 6.5H65.2ZM12.3 6.5L7.3 19.8L5.3 8.3C4.8 7.1 3.8 6.6 2.6 6.5H0V7.8L4.6 17.5L0.3 26.5H5.2L14.8 6.5H12.3Z" fill="#ffffff"/></svg>'
+            svg: '<img src="https://i0.wp.com/americassbdc.org/wp-content/uploads/2021/05/Visa-logo-white.png?ssl=1" alt="Visa" style="height: 18px; max-width: 100%; object-fit: contain;" onerror="this.onerror=null; this.src=\'https://placehold.co/80x32/0e4bcc/ffffff?text=Visa\'">'
           },
           { 
             brand: "amazon", 
             customClass: "pay-amazon", 
-            svg: '<svg viewBox="0 0 90 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 24px; width: auto;"><text x="0" y="18" font-family="Inter" font-weight="900" font-size="17" fill="#000000" letter-spacing="-0.5">amazon</text><path d="M8 21C22 25.5 44 25.5 56 21" stroke="#FF9900" stroke-width="2.5" stroke-linecap="round"/><path d="M52.5 22.5C54.2 22.1 56.1 21.2 56.1 21.2C56.1 21.2 54.8 19.5 54.2 17.8" stroke="#FF9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+            svg: '<img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" style="height: 24px; max-width: 100%; object-fit: contain;" onerror="this.onerror=null; this.src=\'https://placehold.co/90x32/ffffff/ff9900?text=Amazon\'">'
           }
         ],
         reward: 0.85
@@ -2222,7 +2272,7 @@
             <div class="pc-auth-label">Password</div>
             <div class="pc-auth-input-wrap">
               <input class="pc-auth-input" id="pcAuthSignupPassword" type="password" autocomplete="new-password" placeholder="Create a password" required>
-              <button class="pc-auth-password-toggle" type="button" data-password-toggle="1" data-target="pcAuthSignupPassword" aria-label="Show password" aria-pressed="false">
+              <button class="pc-auth-password-toggle" type="button" data-password-toggle="1" data-target="pcHardenPassword2" aria-label="Show password" aria-pressed="false">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
                   <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/>
@@ -2294,7 +2344,7 @@
   <div class="pc-harden-card" id="pcHardenCard" role="dialog" aria-modal="true" aria-labelledby="pcHardenTitle">
     <div class="pc-auth-glow"></div>
     <button class="pc-auth-close" type="button" id="pcHardenClose" aria-label="Close" hidden>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3(5.71)a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 1 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.42 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 1 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.42 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"/></svg>
     </button>
     <div class="pc-harden-inner">
       <div class="pc-auth-error" id="pcHardenErr"></div>
@@ -2652,6 +2702,7 @@
     clearAuthMsg();
   }
 
+  // Define telas extras de segurança
   function showHardenScreen(name){
     if (hardenScreenPassword) hardenScreenPassword.classList.remove('active');
     if (hardenScreenPhone) hardenScreenPhone.classList.remove('active');
