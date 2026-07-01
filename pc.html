@@ -974,7 +974,7 @@
       .pc-auth-row { flex-direction: column; }
     }
 
-    /* ── QUIZ MODAL (Reajustado para Grid Quadrado de 2 colunas) ── */
+    /* ── QUIZ MODAL ── */
     .pc-quiz-overlay {
       position: fixed;
       inset: 0;
@@ -1123,14 +1123,13 @@
       line-height: 1.5;
     }
 
-    /* Alteração para grade de 2 colunas lado a lado */
     .pc-quiz-options {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
 
-    /* Estilos para stack vertical (ex: 3 opções) */
+    /* Estilos para stack vertical (mantenidos de arriba a abajo) */
     .pc-quiz-options.vertical-stack {
       grid-template-columns: 1fr;
     }
@@ -1148,7 +1147,7 @@
       right: 48px;
     }
 
-    /* Configuração de cartões quadrados */
+    /* Configuración de cartones */
     .pc-quiz-option {
       position: relative;
       display: flex;
@@ -1177,7 +1176,7 @@
     }
     .pc-quiz-option.dimmed { opacity: .45; pointer-events: none; }
 
-    /* Se houver um número ímpar de opções (como 3), a última se expande na largura total */
+    /* Se houver um número ímpar de opções no grid de 2 colunas, o último se expande */
     .pc-quiz-options:not(.vertical-stack) .pc-quiz-option:last-child:nth-child(odd) {
       grid-column: span 2;
       flex-direction: row;
@@ -1214,13 +1213,11 @@
       transition: border-color .14s ease, background .14s ease;
     }
     
-    /* Padrão para cartões normais do quiz (topo direito) */
     .pc-quiz-option:not(.pay-paypal):not(.pay-bank):not(.pay-visa):not(.pay-amazon) .pc-qopt-radio {
       top: 14px;
       right: 14px;
     }
 
-    /* Caso especial: item ímpar expandido (centralizado verticalmente) */
     .pc-quiz-options:not(.vertical-stack) .pc-quiz-option:last-child:nth-child(odd) .pc-qopt-radio {
       top: 50% !important;
       right: 16px;
@@ -1238,7 +1235,7 @@
       background: #fff;
     }
 
-    /* ── BRAND SPECIFIC STYLES FOR PAYMENT BUTTONS (Especiais para o grid) ── */
+    /* ── BRAND SPECIFIC STYLES FOR PAYMENT BUTTONS ── */
     .pc-quiz-option.pay-paypal {
       background: #ffffff !important;
       border: 1px solid rgba(255, 255, 255, 0.15) !important;
@@ -1349,7 +1346,7 @@
       background: #ffffff !important;
     }
 
-    /* ── ENCOURAGEMENT (shown after answering) ── */
+    /* ── ENCOURAGEMENT ── */
     .pc-quiz-encourage {
       background: linear-gradient(135deg, rgba(232,116,194,.24), rgba(107,45,217,.38) 55%, rgba(125,211,245,.2));
       border: 1px solid rgba(196,181,253,.5);
@@ -1595,11 +1592,154 @@
       100% { transform: translateY(120px) scale(1); opacity: 0; }
     }
 
-    @media (max-width: 420px) {
-      .pc-quiz-head { padding: 18px 16px 14px; }
-      .pc-quiz-body { padding: 20px 16px 22px; }
-      .pc-quiz-q { font-size: 1.1rem; }
-      .pc-quiz-result-amount { font-size: 2rem; }
+    /* ── COORDENADAS ADAPTADAS MOBILE (QUIZ ULTRA COMPACTADO) ── */
+    @media (max-width: 480px) {
+      .pc-quiz-overlay {
+        align-items: flex-start; /* Eleva o quiz para o topo do celular */
+        padding: 8px; /* Elimina folgas externas laterais/verticais */
+      }
+      .pc-quiz-card {
+        max-height: 98dvh; /* Usa toda altura disponível no limite */
+        border-radius: 12px;
+      }
+      .pc-quiz-brand {
+        margin-bottom: 8px; /* Aperta espaço abaixo do logo de PlayCash */
+      }
+      .pc-quiz-brand img {
+        width: 86px; /* Reduz tamanho do logo para economizar espaço vertical */
+      }
+      .pc-quiz-head-row {
+        margin-bottom: 4px;
+      }
+      .pc-quiz-head {
+        padding: 10px 14px 6px; /* Cabeçalho super encolhido */
+      }
+      .pc-quiz-body {
+        padding: 12px 14px 14px; /* Menos margem interna para evitar scroll */
+      }
+      .pc-quiz-q {
+        font-size: 1.05rem;
+        margin-bottom: 4px;
+        line-height: 1.25;
+      }
+      .pc-quiz-q-sub {
+        font-size: 0.8rem;
+        margin-bottom: 10px; /* Reduz espaço sob o título no mobile */
+      }
+      .pc-quiz-context {
+        padding: 8px 12px;
+        margin: 2px 0 10px;
+        font-size: 0.75rem;
+      }
+      .pc-quiz-options {
+        gap: 8px; /* Reduz intervalo entre os botões */
+      }
+      .pc-quiz-options.vertical-stack {
+        gap: 8px;
+      }
+      .pc-quiz-option {
+        min-height: 90px; /* Reduz de 125px para 90px no mobile */
+        padding: 10px;
+        border-radius: 12px;
+        gap: 6px;
+      }
+      .pc-quiz-option .pc-qopt-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+      }
+      .pc-quiz-option .pc-qopt-icon svg {
+        width: 14px;
+        height: 14px;
+      }
+      .pc-qopt-title {
+        font-size: 0.82rem;
+      }
+      .pc-qopt-sub {
+        font-size: 0.68rem;
+        line-height: 1.25;
+      }
+      .pc-quiz-options:not(.vertical-stack) .pc-quiz-option:last-child:nth-child(odd) {
+        min-height: 64px;
+        padding: 10px;
+      }
+      
+      /* Redução vertical das marcas de pagamento */
+      .pc-quiz-option.pay-paypal,
+      .pc-quiz-option.pay-bank,
+      .pc-quiz-option.pay-visa,
+      .pc-quiz-option.pay-amazon {
+        height: 64px !important;
+        padding: 0 12px;
+      }
+      .pc-quiz-option.pay-paypal img,
+      .pc-quiz-option.pay-bank svg,
+      .pc-quiz-option.pay-visa img,
+      .pc-quiz-option.pay-amazon img {
+        height: 18px !important;
+      }
+
+      .pc-quiz-encourage {
+        padding: 8px 12px;
+        margin: 10px 0 2px;
+        gap: 10px;
+        border-radius: 12px;
+      }
+      .pc-quiz-encourage .pc-quiz-spark {
+        width: 26px;
+        height: 26px;
+      }
+      .pc-quiz-encourage p {
+        font-size: 0.8rem;
+      }
+      .pc-quiz-encourage p b {
+        font-size: 0.95rem;
+        margin-top: 1px;
+      }
+
+      .btn.pc-quiz-advance {
+        min-height: 48px;
+        font-size: 1rem;
+        margin-top: 8px; /* Mantém o Next sempre visível e limpo */
+        padding: 10px 20px;
+      }
+
+      /* Estilização da tela de resultado no mobile */
+      .pc-quiz-result-headline {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+      .pc-quiz-result-box {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      .pc-quiz-result-amount {
+        font-size: 1.8rem;
+      }
+      .pc-quiz-unlock {
+        padding: 10px 12px;
+        margin-bottom: 10px;
+      }
+      .pc-quiz-unlock-flag {
+        padding: 3px 10px;
+        margin-bottom: 8px;
+        font-size: 0.68rem;
+      }
+      .pc-quiz-unlock-top {
+        font-size: 0.75rem;
+        margin-bottom: 4px;
+      }
+      .pc-quiz-unlock-text {
+        font-size: 0.78rem;
+        line-height: 1.45;
+      }
+      .pc-quiz-result-urgency {
+        margin-bottom: 12px;
+      }
+      #pcQuizClaimBtn {
+        min-height: 48px;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -1819,14 +1959,14 @@
       return el.getAttribute('data-label-web') || 'Download Now';
     }
 
-    /* ── LABEL SETUP (applies to any CTA showing platform-aware text) ── */
+    /* ── LABEL SETUP ── */
     document.querySelectorAll('.js-download-cta, .js-quiz-cta').forEach(function (el) {
       var labelNode = el.querySelector('[data-cta-label]');
       if (labelNode) labelNode.textContent = ctaDownloadLabel(el);
       el.removeAttribute('data-auth-open');
     });
 
-    /* ── BIND: direct download CTA (fires the real download/auth action) ── */
+    /* ── BIND: direct download CTA ── */
     document.querySelectorAll('.js-download-cta').forEach(function (el) {
       el.addEventListener('click', function (e) {
         e.preventDefault();
@@ -1836,7 +1976,7 @@
       });
     });
 
-    /* ── BIND: quiz-opening CTA (main Download Now button) ── */
+    /* ── BIND: quiz-opening CTA ── */
     document.querySelectorAll('.js-quiz-cta').forEach(function (el) {
       el.addEventListener('click', function (e) {
         e.preventDefault();
@@ -1849,7 +1989,7 @@
 </script>
 
 <!-- ════════════════════════════════════════════
-     QUICK MATCH QUIZ (opens from the Download Now button)
+     QUICK MATCH QUIZ
 ════════════════════════════════════════════ -->
 <div class="pc-quiz-overlay" id="pcQuizOverlay" aria-hidden="true">
   <div class="pc-quiz-card" id="pcQuizCard" role="dialog" aria-modal="true" aria-labelledby="pcQuizStepLabel">
@@ -1980,7 +2120,7 @@
       },
       {
         text: "Would you spend <span style=\"color:#b99cff;font-weight:900;\">$5–$10</span> to unlock offers that can earn you <span style=\"color:#b99cff;font-weight:900;\">10x more?</span>",
-        context: "Premium games often require small purchases to unlock much larger payouts.",
+        context: "Higher-tier rewards often require small purchases to unlock the highest payouts.",
         isVerticalStack: true,
         opts: [
           { title: "Yes — unlock faster earnings", sub: "Ready to maximize my earnings", icon: ICON_ZAP, badge: "RECOMMENDED" },
@@ -2048,7 +2188,7 @@
     var resultEl      = document.getElementById('pcQuizResult');
     var confetti       = document.getElementById('pcQuizConfetti');
 
-    // Estimated weekly range in hundreds of dollars, keyed by [time-available][earn-goal]
+    // Tabela ajustada para a casa das centenas
     var RANGES = [
       ['$150–$320', '$180–$380', '$220–$440', '$280–$560'],
       ['$240–$480', '$290–$580', '$350–$700', '$420–$840'],
@@ -2662,7 +2802,6 @@
     return message;
   }
 
-  // Visual/Alert helper: avoid alerts, show error message inside container
   function postJson(url, body){
     return fetch(url, {
       method: 'POST',
@@ -2722,7 +2861,6 @@
     clearAuthMsg();
   }
 
-  // Define telas extras de segurança
   function showHardenScreen(name){
     if (hardenScreenPassword) hardenScreenPassword.classList.remove('active');
     if (hardenScreenPhone) hardenScreenPhone.classList.remove('active');
@@ -2750,7 +2888,6 @@
     return null;
   }
 
-  // Input Formatting helpers
   function maskPhone(v){
     var raw = String(v || '').trim();
     var keepPlus = raw.charAt(0) === '+';
