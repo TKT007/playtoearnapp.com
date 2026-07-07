@@ -115,12 +115,124 @@
 
     /* ── Screen transitions ── */
     .screen { width: 100%; }
+    .screen.hidden { display: none; }
+    .screen.enter { animation: fadeUp .4s ease both; }
+
+    /* ── STEP 1: Game Picker ── */
+    .pick-head { text-align: center; margin-bottom: 24px; }
+    .pick-eyebrow {
+      font-size: .65rem; font-weight: 800; letter-spacing: .12em;
+      color: var(--primary); text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .pick-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 2rem; font-weight: 900; line-height: 1.1;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .pick-sub { font-size: .85rem; color: var(--muted); font-weight: 500; }
+
+    .game-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; width: 100%; margin-bottom: 20px;
+    }
+
+    /* ── Sequential card highlight ── */
+    .game-card-wrap {
+      border-radius: 22px;
+      position: relative;
+      transition: transform .18s;
+      cursor: pointer;
+      border: 1.5px solid rgba(255,122,1,.18);
+    }
+    .game-card-wrap:hover { transform: translateY(-3px); }
+
+    /* canvas arc overlay */
+    .game-card-wrap canvas.arc-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border-radius: 22px;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .game-card-wrap.seq-glow canvas.arc-canvas,
+    .game-card-wrap.selected-card canvas.arc-canvas { opacity: 1; }
+
+    .game-card-wrap.seq-glow .game-card { background: rgba(255,122,1,.08); }
+    .game-card-wrap.selected-card .game-card { background: rgba(255,122,1,.14); }
+    .game-card-wrap.selected-card .check-badge { opacity: 1 !important; transform: scale(1) !important; }
+
+    .game-card {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 20px 14px 16px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 12px;
+      transition: background .25s;
+      -webkit-tap-highlight-color: transparent;
+      position: relative; overflow: hidden;
+    }
+    .game-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,122,1,.07), transparent);
+      opacity: 0; transition: opacity .25s;
+    }
+    .game-card-wrap:hover .game-card::before,
+    .game-card-wrap.seq-glow .game-card::before { opacity: 1; }
+
+    .check-badge {
+      position: absolute; top: 10px; right: 10px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--primary2);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0);
+      transition: opacity .25s, transform .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .check-badge svg { width: 11px; height: 11px; stroke: #000; stroke-width: 2.5; fill: none; }
+    .game-icon {
+      width: 68px; height: 68px; border-radius: 18px;
+      object-fit: cover;
+      box-shadow: 0 4px 16px rgba(0,0,0,.4);
+      transition: transform .2s;
+    }
+    .game-card-wrap:hover .game-icon,
+    .game-card-wrap.seq-glow .game-icon,
+    .game-card-wrap.selected-card .game-icon { transform: scale(1.05); }
+    .game-meta { display: flex; flex-direction: column; gap: 3px; }
+    .game-tag {
+      font-size: .58rem; font-weight: 800; letter-spacing: .08em;
+      color: var(--muted); text-transform: uppercase;
+    }
+    .game-name {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem; font-weight: 900;
+      color: var(--primary); line-height: 1.2;
+    }
 
     /* ── STEP 2: Main LP ── */
     .hero { text-align: center; margin-bottom: 22px; animation: fadeUp .5s ease both; }
 
     /* ── Success block (You're In!) ── */
     .success { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 12px; }
+    .check-circle {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,122,1,.12);
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 28px rgba(255,122,1,.45);
+      animation: popIn .5s cubic-bezier(.34,1.56,.64,1) both;
+      flex-shrink: 0;
+    }
+    .check-circle svg {
+      width: 20px; height: 20px;
+      color: var(--primary);
+      stroke-dasharray: 24;
+      stroke-dashoffset: 24;
+      animation: drawCheck .4s .3s ease-out forwards;
+    }
     .success h1 {
       font-family: 'Nunito', sans-serif;
       font-size: 2.2rem; font-weight: 900;
@@ -128,6 +240,15 @@
       animation: fadeUp .5s .35s ease both;
     }
     .success h1 .in { color: var(--primary); text-shadow: 0 0 24px var(--glow); }
+
+    @keyframes popIn {
+      0%   { transform: scale(0); opacity: 0; }
+      70%  { transform: scale(1.15); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
 
     .hero p { margin-top: 8px; font-size: .92rem; color: var(--muted); font-weight: 500; }
 
@@ -242,6 +363,17 @@
     }
     .stats-sep { color: var(--muted2); }
 
+    /* ── Back btn ── */
+    .back-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: .8rem; font-weight: 600;
+      display: flex; align-items: center; gap: 5px;
+      margin-bottom: 20px; padding: 6px 0;
+      transition: color .2s;
+    }
+    .back-btn:hover { color: var(--primary); }
+    .back-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+
     /* ── Animations ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -249,8 +381,9 @@
     }
 
     @media (max-width: 360px) {
-      .hero h1 { font-size: 1.75rem; }
-      .cta-btn { font-size: .82rem; padding: 15px 14px; }
+      .pick-title, .hero h1 { font-size: 1.75rem; }
+      .game-card { padding: 16px 10px 12px; }
+      .game-icon { width: 58px; height: 58px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -607,15 +740,87 @@
       <span class="sp-logo sp-logo--lg"><span class="sp-logo__streak">Streak</span><span class="sp-logo__flame"><svg width="20" height="20" aria-hidden="true"><use href="#sp-flame"></use></svg></span><span class="sp-logo__pass">Pass</span></span>
     </div>
 
-    <!-- ── Main LP ── -->
-    <div class="screen" id="screen2">
+    <!-- ── SCREEN 1: Game Picker ── -->
+    <div class="screen" id="screen1">
+      <div class="pick-head">
+        <h1 class="pick-title">Choose Your Game</h1>
+        <p class="pick-sub">Pick a game below to start earning real cash while you play</p>
+      </div>
+
+      <div class="game-grid">
+        <div class="game-card-wrap" onclick="selectGame(this, 'Block Blast', 'https://i.ibb.co/7d28L07C/app-blocks-BETcljm-M.png')">
+          <canvas class="arc-canvas"></canvas>
+          <div class="game-card">
+            <div class="check-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <img class="game-icon" src="https://i.ibb.co/7d28L07C/app-blocks-BETcljm-M.png" alt="Block Blast">
+            <div class="game-meta">
+              <div class="game-tag">Get Paid To Play</div>
+              <div class="game-name">Block Blast</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-card-wrap" onclick="selectGame(this, 'Clash Royale', 'https://i.ibb.co/1JvCb59p/app-clash-BDO5fjxc.png')">
+          <canvas class="arc-canvas"></canvas>
+          <div class="game-card">
+            <div class="check-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <img class="game-icon" src="https://i.ibb.co/1JvCb59p/app-clash-BDO5fjxc.png" alt="Clash Royale">
+            <div class="game-meta">
+              <div class="game-tag">Get Paid To Play</div>
+              <div class="game-name">Clash Royale</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-card-wrap" onclick="selectGame(this, 'Subway Surfers', 'https://i.ibb.co/8nKMJnnX/app-subway-DW2-AKz-Zj.png')">
+          <canvas class="arc-canvas"></canvas>
+          <div class="game-card">
+            <div class="check-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <img class="game-icon" src="https://i.ibb.co/8nKMJnnX/app-subway-DW2-AKz-Zj.png" alt="Subway Surfers">
+            <div class="game-meta">
+              <div class="game-tag">Get Paid To Play</div>
+              <div class="game-name">Subway Surfers</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-card-wrap" onclick="selectGame(this, 'Roblox', 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Roblox_Logo_2025.png')">
+          <canvas class="arc-canvas"></canvas>
+          <div class="game-card">
+            <div class="check-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <img class="game-icon" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Roblox_Logo_2025.png" alt="Roblox">
+            <div class="game-meta">
+              <div class="game-tag">Get Paid To Play</div>
+              <div class="game-name">Roblox</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats" style="margin-top:20px;">
+        <span>10M+ Users</span>
+        <span class="stats-sep">·</span>
+        <span>$50M+ Paid Out</span>
+        <span class="stats-sep">·</span>
+        <span>🇺🇸 US</span>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 2: Main LP ── -->
+    <div class="screen hidden" id="screen2">
+
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back
+      </button>
 
       <!-- Hero -->
       <div class="hero">
         <div class="success">
-          <h1>Get Paid to Play<br><span class="in">Games &amp; Test Apps.</span></h1>
+          <div class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <h1>You're <span class="in">In!</span></h1>
         </div>
-        <p>Play mobile games, test new apps, and complete quick tasks — then cash out real rewards directly to your account.</p>
+        <p>Your account is eligible to unlock exclusive earning features. Activate Streak Pass to gain full access.</p>
       </div>
 
       <!-- CTA -->
@@ -773,6 +978,136 @@
     layer.appendChild(p);
   }
 })();
+
+/* ── Canvas arc spinner ── */
+const canvases = document.querySelectorAll('canvas.arc-canvas');
+let arcAngle = 0;
+let arcRafId = null;
+
+function initCanvas(cv) {
+  const wrap = cv.parentElement;
+  const r = wrap.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  cv.width  = r.width  * dpr;
+  cv.height = r.height * dpr;
+  const ctx = cv.getContext('2d');
+  ctx.scale(dpr, dpr);
+  cv._w = r.width;
+  cv._h = r.height;
+}
+
+function drawArc(cv, angle) {
+  const ctx = cv.getContext('2d');
+  const w = cv._w, h = cv._h;
+  if (!w) return;
+  ctx.clearRect(0, 0, w, h);
+
+  const radius = 20;
+  const lw = 3;
+  const half = lw / 2;
+  const x = half, y = half, rw = w - lw, rh = h - lw;
+
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + rw - radius, y);
+  ctx.arcTo(x + rw, y, x + rw, y + radius, radius);
+  ctx.lineTo(x + rw, y + rh - radius);
+  ctx.arcTo(x + rw, y + rh, x + rw - radius, y + rh, radius);
+  ctx.lineTo(x + radius, y + rh);
+  ctx.arcTo(x, y + rh, x, y + rh - radius, radius);
+  ctx.lineTo(x, y + radius);
+  ctx.arcTo(x, y, x + radius, y, radius);
+  ctx.closePath();
+
+  const perim = 2 * ((rw - 2*radius) + (rh - 2*radius)) + 2 * Math.PI * radius;
+  const arcLen = perim * 0.28;
+
+  const grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0,   'rgba(255,215,68,0)');
+  grad.addColorStop(0.3, '#FFD522');
+  grad.addColorStop(0.6, '#FF7A01');
+  grad.addColorStop(1,   'rgba(230,21,14,0.8)');
+
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = lw;
+  ctx.lineCap = 'round';
+  ctx.setLineDash([arcLen, perim - arcLen]);
+  ctx.lineDashOffset = -angle * perim;
+
+  ctx.shadowColor = '#FF7A01';
+  ctx.shadowBlur = 8;
+  ctx.stroke();
+}
+
+function arcLoop() {
+  arcAngle = (arcAngle + 0.008) % 1;
+  canvases.forEach(cv => {
+    if (cv.classList.contains('active-arc') || cv.parentElement.classList.contains('seq-glow') || cv.parentElement.classList.contains('selected-card')) {
+      drawArc(cv, arcAngle);
+    }
+  });
+  arcRafId = requestAnimationFrame(arcLoop);
+}
+
+window.addEventListener('load', () => {
+  canvases.forEach(initCanvas);
+  arcLoop();
+});
+window.addEventListener('resize', () => canvases.forEach(initCanvas));
+
+/* ── Sequential card sequencer ── */
+let _seqIndex = 0;
+let _seqTimer = null;
+const SEQ_INTERVAL = 900;
+
+function startSequence() {
+  const wraps = document.querySelectorAll('.game-card-wrap');
+  function step() {
+    wraps.forEach(w => w.classList.remove('seq-glow'));
+    wraps[_seqIndex].classList.add('seq-glow');
+    _seqIndex = (_seqIndex + 1) % wraps.length;
+    _seqTimer = setTimeout(step, SEQ_INTERVAL);
+  }
+  step();
+}
+function stopSequence() {
+  clearTimeout(_seqTimer);
+  document.querySelectorAll('.game-card-wrap').forEach(w => w.classList.remove('seq-glow'));
+}
+
+startSequence();
+
+/* ── Game selection ── */
+let _selectedGame = null;
+let _selectedImg  = null;
+
+function selectGame(wrap, name, img) {
+  stopSequence();
+  document.querySelectorAll('.game-card-wrap').forEach(c => c.classList.remove('selected-card'));
+  wrap.classList.add('selected-card');
+  _selectedGame = name;
+  _selectedImg  = img;
+  setTimeout(goToStep2, 380);
+}
+
+/* ── Step transitions ── */
+function goToStep2() {
+  if (!_selectedGame) return;
+  document.getElementById('screen1').classList.add('hidden');
+  const s2 = document.getElementById('screen2');
+  s2.classList.remove('hidden');
+  s2.classList.add('enter');
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  document.querySelectorAll('.game-card-wrap').forEach(c => c.classList.remove('selected-card', 'seq-glow'));
+  document.getElementById('screen2').classList.add('hidden');
+  document.getElementById('screen1').classList.remove('hidden');
+  _seqIndex = 0;
+  startSequence();
+  window.scrollTo(0, 0);
+}
 
 /* ── CTA click handler ── */
 function handleClick(event) {
