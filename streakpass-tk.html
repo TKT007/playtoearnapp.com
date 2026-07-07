@@ -630,35 +630,19 @@
       line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.02em;
     }
     .pc-quiz-result-box {
-      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08);
-      border-radius: 14px; padding: 16px; margin-bottom: 14px;
+      background: #060804; border: 1px solid rgba(255,122,1,.15);
+      border-radius: 16px; padding: 18px 16px; margin-bottom: 16px;
     }
     .pc-quiz-result-label {
-      font-size: .63rem; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase;
+      font-size: .65rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
       color: var(--muted2); margin-bottom: 8px;
     }
     .pc-quiz-result-amount {
       font-family: 'Nunito', sans-serif;
-      font-size: 2.4rem; font-weight: 900; line-height: 1;
+      font-size: 2.8rem; font-weight: 900; line-height: 1;
       color: var(--primary); letter-spacing: -0.02em;
+      text-shadow: 0 0 30px rgba(255,122,1,.35);
     }
-    .pc-quiz-unlock {
-      background: linear-gradient(180deg, rgba(255,122,1,.14), rgba(255,255,255,.02));
-      border: 1px solid rgba(255,122,1,.28); border-radius: 14px; padding: 16px;
-      margin-bottom: 16px; text-align: left;
-    }
-    .pc-quiz-unlock-flag {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: linear-gradient(90deg, #FF7A01, #FF5D02);
-      color: #000; font-size: .74rem; font-weight: 900; letter-spacing: .4px;
-      text-transform: uppercase; padding: 5px 12px; border-radius: 999px; margin-bottom: 12px;
-    }
-    .pc-quiz-unlock-top {
-      display: flex; align-items: center; gap: 8px; font-size: .82rem; font-weight: 800;
-      letter-spacing: .3px; text-transform: uppercase; color: var(--primary); margin-bottom: 10px;
-    }
-    .pc-quiz-unlock-text { font-size: .95rem; color: var(--muted); line-height: 1.6; }
-    .pc-quiz-unlock-text strong { color: var(--text); }
     .pc-quiz-result-urgency {
       display: flex; align-items: center; justify-content: center; gap: 7px;
       font-size: .72rem; color: var(--muted2); margin-bottom: 18px;
@@ -669,6 +653,119 @@
     }
     @keyframes pcPulseDot { 0%,100%{opacity:1} 50%{opacity:.4} }
     .pc-quiz-result-foot { font-size: .68rem; color: var(--muted2); margin-top: 10px; }
+
+    /* ── EARNINGS BREAKDOWN (FreeCash-style, orange) ── */
+    .pc-earnings-breakdown {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255,122,1,.08) 0%, rgba(255,93,2,.04) 100%);
+      border: 1.5px solid rgba(255,122,1,.35);
+      border-radius: 16px;
+      padding: 18px 16px 16px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 28px rgba(255,122,1,.1), inset 0 0 36px rgba(255,122,1,.02);
+    }
+    .pc-earnings-breakdown::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: 50%; transform: translateX(-50%);
+      width: 130%; height: 90%;
+      background: radial-gradient(ellipse at center, rgba(255,122,1,.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .pc-earnings-breakdown-top {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .pc-earnings-breakdown-label {
+      position: relative;
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+    .pc-earnings-breakdown-limited {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid rgba(255,122,1,.4);
+      border-radius: 999px;
+      color: var(--primary);
+      font-size: .6rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      padding: 3px 10px;
+    }
+    .pc-earnings-breakdown-amount {
+      position: relative;
+      font-family: 'Nunito', sans-serif;
+      font-size: 2.3rem;
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(90deg, #FF7A01, #FF5D02, #FFB302);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+    .pc-earnings-expires {
+      position: relative;
+      background: rgba(0,0,0,.3);
+      border: 1px solid rgba(255,122,1,.25);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: .8rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .pc-earnings-divider {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .pc-earnings-divider::before,
+    .pc-earnings-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,122,1,.25);
+    }
+    .pc-earnings-divider span {
+      font-size: .56rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,122,1,.7);
+    }
+    .pc-earnings-unlock-text {
+      position: relative;
+      font-size: .78rem;
+      color: rgba(255,255,255,.65);
+      line-height: 1.55;
+    }
+    .pc-earnings-unlock-text b {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    @media (max-width: 480px) {
+      .pc-earnings-breakdown { padding: 14px 14px 12px; margin-bottom: 12px; }
+      .pc-earnings-breakdown-amount { font-size: 2rem; margin-bottom: 12px; }
+      .pc-earnings-expires { padding: 8px 12px; font-size: .76rem; margin-bottom: 12px; }
+    }
 
     .pc-qopt-badge {
       position: absolute; top: -1px; right: 14px;
@@ -707,12 +804,8 @@
       .pc-quiz-encourage p b { font-size: 1.05rem; margin-top: 2px; }
       .pc-quiz-advance { min-height: 52px; font-size: 1.1rem; margin-top: 12px; padding: 12px 24px; }
       .pc-quiz-result-headline { font-size: 1.35rem; margin-bottom: 12px; }
-      .pc-quiz-result-box { padding: 12px; margin-bottom: 12px; }
-      .pc-quiz-result-amount { font-size: 2rem; }
-      .pc-quiz-unlock { padding: 12px 14px; margin-bottom: 12px; }
-      .pc-quiz-unlock-flag { padding: 4px 12px; margin-bottom: 10px; font-size: 0.72rem; }
-      .pc-quiz-unlock-top { font-size: 0.8rem; margin-bottom: 6px; }
-      .pc-quiz-unlock-text { font-size: 0.84rem; line-height: 1.5; }
+      .pc-quiz-result-box { padding: 14px 12px; margin-bottom: 12px; }
+      .pc-quiz-result-amount { font-size: 2.3rem; }
       .pc-quiz-result-urgency { margin-bottom: 14px; }
     }
   </style>
@@ -940,26 +1033,34 @@
       <div class="pc-quiz-result" id="pcQuizResult">
         <div class="pc-quiz-result-pill">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/></svg>
-          You're Pre-Qualified
+          You Are Qualified!
         </div>
-        <div class="pc-quiz-result-headline">Your Earnings Estimate Is Ready</div>
+        <div class="pc-quiz-result-headline">You're In the Top Tier 🚀</div>
         <div class="pc-quiz-result-box">
-          <div class="pc-quiz-result-label">Estimated Weekly Earnings</div>
+          <div class="pc-quiz-result-label">⚡ Your Estimated Daily Earnings</div>
           <div class="pc-quiz-result-amount" id="pcQuizResultAmount">$320–$640</div>
         </div>
-        <div class="pc-quiz-unlock">
-          <div class="pc-quiz-unlock-flag">Exclusive offer · Limited time</div>
-          <div class="pc-quiz-unlock-top">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            How to Unlock It
+
+        <!-- Earnings breakdown (FreeCash-style, orange) -->
+        <div class="pc-earnings-breakdown">
+          <div class="pc-earnings-breakdown-top">
+            <span class="pc-earnings-breakdown-label">🎁 Exclusive New User Bonus</span>
+            <div class="pc-earnings-breakdown-limited">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              Limited Time
+            </div>
           </div>
-          <div class="pc-quiz-unlock-text">Spend <strong>$5</strong> on in-app purchases on any game and instantly unlock premium milestones that pay <strong>$250+</strong> each. Start one offer within <strong>10 minutes</strong> to claim your bonus.</div>
+          <div class="pc-earnings-breakdown-amount" id="pcEarningsBoostedAmount">$155–$700</div>
+          <div class="pc-earnings-expires" id="pcEarningsExpires">Offer expires: July 6, 2026 — Don't miss out</div>
+          <div class="pc-earnings-divider"><span>How to Unlock It</span></div>
+          <div class="pc-earnings-unlock-text">Spend <b>$5 on in-app purchases</b> on any game and instantly unlock premium milestones that pay <b>$250+ each</b>.</div>
         </div>
+
         <div class="pc-quiz-result-urgency">
           <span class="pc-quiz-dot"></span>
-          <span id="pcQuizViewers">1,240 people</span> started earning this week
+          <span id="pcQuizViewers">1,037 people</span> claimed their bonus in the last hour
         </div>
-        <a class="pc-quiz-advance" href="https://tk.unlockbonusapp.com/click" id="pcQuizClaimBtn" style="text-decoration:none;">Claim My Spot</a>
+        <a class="pc-quiz-advance" href="https://tk.unlockbonusapp.com/click" id="pcQuizClaimBtn" style="text-decoration:none;">Claim My Bonus Now ›</a>
         <div class="pc-quiz-result-foot">Free to join · No credit card · Takes 60 seconds</div>
       </div>
     </div>
@@ -1214,10 +1315,10 @@ function handleClick(event) {
   var confetti      = document.getElementById('pcQuizConfetti');
 
   var RANGES = [
-    ['$150–$320', '$180–$380', '$220–$440', '$280–$560'],
-    ['$240–$480', '$290–$580', '$350–$700', '$420–$840'],
-    ['$320–$640', '$380–$760', '$460–$920', '$550–$1100'],
-    ['$450–$900', '$550–$1100','$650–$1300','$800–$1600']
+    ['$20–$45',  '$25–$55',  '$30–$65',  '$40–$80'],
+    ['$35–$70',  '$40–$85',  '$50–$100', '$60–$120'],
+    ['$45–$95',  '$55–$110', '$65–$135', '$80–$160'],
+    ['$65–$130', '$80–$160', '$95–$190', '$115–$230']
   ];
 
   function openQuiz() {
@@ -1308,6 +1409,25 @@ function handleClick(event) {
 
     var amountEl = document.getElementById('pcQuizResultAmount');
     if (amountEl) amountEl.textContent = est;
+
+    /* ── Boosted earnings (larger than base, like FreeCash) ── */
+    var nums = est.replace(/\$/g, '').split('–');
+    var lo   = parseInt(nums[0], 10);
+    var hi   = parseInt(nums[1], 10);
+
+    var boostLo = Math.round(lo * 2.2 / 5) * 5;
+    var boostHi = Math.round(hi * 4.4 / 10) * 10;
+    if (boostLo < 50) boostLo = 50;
+    if (boostHi <= boostLo) boostHi = boostLo + 100;
+
+    var boostedEl = document.getElementById('pcEarningsBoostedAmount');
+    if (boostedEl) boostedEl.textContent = '$' + boostLo + '–$' + boostHi;
+
+    /* Expiry date */
+    var now = new Date();
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var expiresEl = document.getElementById('pcEarningsExpires');
+    if (expiresEl) expiresEl.textContent = 'Offer expires: ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear() + ' — Don\'t miss out';
 
     var viewersEl = document.getElementById('pcQuizViewers');
     if (viewersEl) viewersEl.textContent = (900 + Math.floor(Math.random() * 900)).toLocaleString() + ' people';
