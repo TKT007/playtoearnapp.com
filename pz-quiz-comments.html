@@ -1,0 +1,5742 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <title>PlayCash | Quick Match Quiz</title>
+  <meta name="description" content="Take the quick PlayCash match quiz, see your earnings estimate, and continue through the same shared auth plus app-download handoff used on PlayCash paid landers.">
+    <link rel="canonical" href="https://try.playcash.co/quiz">
+      <meta name="theme-color" content="#0b0810">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+    :root {
+      --pc-bg-root: #0b0810;
+      --pc-surface: #110f1c;
+      --pc-surface-2: #16132a;
+      --pc-surface-3: #1c1934;
+      --pc-border: rgba(255, 255, 255, 0.12);
+      --pc-border-strong: rgba(255, 255, 255, 0.2);
+      --pc-text: #ffffff;
+      --pc-text-2: #a8a2c0;
+      --pc-text-3: #6b6680;
+      --pc-pink: #e874c2;
+      --pc-purple: #6b2dd9;
+      --pc-cyan: #7dd3f5;
+      --pc-success: #4ade80;
+      --pc-shadow: 0 26px 90px rgba(0, 0, 0, 0.42);
+      --pc-gradient: linear-gradient(90deg, #e874c2 0%, #6b2dd9 55%, #7dd3f5 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--pc-bg-root);
+      color-scheme: dark;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(232, 116, 194, 0.24), transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(125, 211, 245, 0.14), transparent 28%),
+        radial-gradient(circle at 20% 80%, rgba(107, 45, 217, 0.2), transparent 34%),
+        var(--pc-bg-root);
+      color: var(--pc-text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img,
+    video {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    .pc-try-shell__bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95), transparent 86%);
+      opacity: 0.35;
+    }
+
+    .pc-visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .pc-shell-header {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(11, 8, 16, 0.78);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .pc-shell-header__inner,
+    .pc-shell-main,
+    .pc-shell-footer__inner {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .pc-shell-header__inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .pc-shell-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .pc-shell-brand__mark {
+      width: 156px;
+      max-width: 42vw;
+      height: auto;
+    }
+
+    .pc-shell-brand__meta {
+      display: grid;
+      gap: 2px;
+    }
+
+    .pc-shell-brand__eyebrow {
+      font-size: 11px;
+      line-height: 1.2;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--pc-text-2);
+    }
+
+    .pc-shell-brand__label {
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .pc-shell-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pc-shell-nav__link {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--pc-text-2);
+      font-size: 14px;
+      font-weight: 700;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .pc-shell-nav__link:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--pc-text);
+    }
+
+    .pc-shell-main {
+      position: relative;
+      z-index: 1;
+      padding: 42px 0 64px;
+    }
+
+    .pc-shell-footer {
+      position: relative;
+      z-index: 1;
+      padding: 0 0 calc(28px + env(safe-area-inset-bottom));
+    }
+
+    .pc-shell-footer__inner {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--pc-text-2);
+      font-size: 14px;
+    }
+
+    .pc-shell-footer__links {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .pc-shell-footer__links a {
+      color: rgba(255, 255, 255, 0.84);
+      font-weight: 600;
+    }
+
+    .pc-template {
+      display: grid;
+      gap: 28px;
+    }
+
+    .pc-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--pc-text-2);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+
+    .pc-display {
+      margin: 0;
+      font-size: clamp(2.8rem, 6vw, 5.4rem);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      font-weight: 900;
+      max-width: 11ch;
+    }
+
+    .pc-display span {
+      display: block;
+      background: var(--pc-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .pc-display--compact {
+      max-width: 13ch;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+    }
+
+    .pc-copy {
+      margin: 0;
+      color: var(--pc-text-2);
+      font-size: 16px;
+      line-height: 1.72;
+      max-width: 62ch;
+    }
+
+    .pc-copy--lead {
+      font-size: 18px;
+      max-width: 56ch;
+    }
+
+    .pc-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .pc-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 11px 26px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      font-size: .875rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      text-decoration: none;
+      transition: box-shadow .1s, transform .1s, background .18s ease, border-color .18s ease, color .18s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .pc-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .pc-btn--primary {
+      color: #fff;
+      background: linear-gradient(90deg, #f0449a, #8b5cf6);
+      box-shadow:
+        0 6px 0 #6c1f7a,
+        0 8px 16px rgba(0,0,0,.4);
+    }
+
+    .pc-btn--primary:hover {
+      box-shadow:
+        0 8px 0 #6c1f7a,
+        0 10px 22px rgba(0,0,0,.45);
+    }
+
+    .pc-btn--primary:active {
+      transform: translateY(4px);
+      box-shadow:
+        0 2px 0 #6c1f7a,
+        0 2px 6px rgba(0,0,0,.3);
+    }
+
+    .pc-btn--soft {
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.1);
+      color: var(--pc-text-2);
+      border-radius: 6px;
+      padding: 10px 22px;
+      font-size: .84rem;
+      transition: background .15s ease, color .15s ease, transform .1s ease;
+    }
+
+    .pc-btn--soft:hover {
+      background: rgba(255,255,255,.1);
+      color: var(--pc-text);
+    }
+
+    .pc-btn--ghost {
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .pc-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .pc-hero__content,
+    .pc-hero__media,
+    .pc-section,
+    .pc-stat-strip,
+    .pc-final-band,
+    .pc-status-card {
+      border: 1px solid var(--pc-border);
+      background: linear-gradient(180deg, rgba(22, 19, 42, 0.94), rgba(11, 8, 16, 0.98));
+      box-shadow: var(--pc-shadow);
+    }
+
+    .pc-hero__content,
+    .pc-hero__media {
+      border-radius: 34px;
+    }
+
+    .pc-hero__content {
+      padding: 34px;
+      display: grid;
+      gap: 22px;
+      align-content: start;
+    }
+
+    .pc-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pc-pill {
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .pc-hero__media {
+      position: relative;
+      overflow: hidden;
+      min-height: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      isolation: isolate;
+    }
+
+    .pc-hero-video {
+      position: relative;
+      min-height: 100%;
+      height: 100%;
+    }
+
+    .pc-hero-video video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      background: #09070f;
+    }
+
+    .pc-hero-video__scrim {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(11, 8, 16, 0.12), rgba(11, 8, 16, 0.54) 70%, rgba(11, 8, 16, 0.84)),
+        radial-gradient(circle at center, transparent, rgba(11, 8, 16, 0.2));
+      pointer-events: none;
+    }
+
+    .pc-video-toggle {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      min-height: 46px;
+      padding: 0 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(11, 8, 16, 0.72);
+      color: var(--pc-text);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .pc-stat-strip {
+      border-radius: 28px;
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .pc-stat {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .pc-stat strong {
+      display: block;
+      font-size: clamp(1.4rem, 2vw, 1.9rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .pc-stat span {
+      display: block;
+      color: var(--pc-text-2);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .pc-section,
+    .pc-final-band,
+    .pc-status-card {
+      border-radius: 30px;
+      padding: 30px;
+    }
+
+    .pc-section {
+      display: grid;
+      gap: 22px;
+    }
+
+    .pc-section--alt {
+      background: linear-gradient(180deg, rgba(28, 25, 52, 0.95), rgba(11, 8, 16, 0.98));
+    }
+
+    .pc-section__header {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pc-section__title {
+      margin: 0;
+      font-size: clamp(2rem, 4.2vw, 3.3rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      font-weight: 900;
+      max-width: 14ch;
+    }
+
+    .pc-section__title span {
+      color: var(--pc-cyan);
+    }
+
+    .pc-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .pc-grid--three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .pc-grid--two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pc-card {
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .pc-card__kicker {
+      color: var(--pc-text-2);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pc-card__title {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.1;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .pc-card__copy {
+      margin: 0;
+      color: var(--pc-text-2);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .pc-proof-card__value {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .pc-proof-card__meta {
+      color: var(--pc-success);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .pc-quote {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pc-quote__stars {
+      color: #ffda78;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+    }
+
+    .pc-quote__text {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.68;
+      color: rgba(255, 255, 255, 0.94);
+    }
+
+    .pc-quote__byline {
+      color: var(--pc-text-2);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .pc-faq {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pc-faq__item {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+    }
+
+    .pc-faq__button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 20px;
+      background: transparent;
+      border: 0;
+      color: var(--pc-text);
+      text-align: left;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .pc-faq__icon {
+      font-size: 26px;
+      line-height: 1;
+      color: var(--pc-text-2);
+    }
+
+    .pc-faq__body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.26s ease;
+    }
+
+    .pc-faq__body-inner {
+      padding: 0 20px 20px;
+      color: var(--pc-text-2);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .pc-faq__item.is-open .pc-faq__body {
+      max-height: 220px;
+    }
+
+    .pc-faq__item.is-open .pc-faq__icon {
+      color: var(--pc-text);
+    }
+
+    .pc-final-band {
+      display: grid;
+      gap: 16px;
+      justify-items: start;
+      background:
+        radial-gradient(circle at top right, rgba(125, 211, 245, 0.18), transparent 35%),
+        radial-gradient(circle at bottom left, rgba(232, 116, 194, 0.16), transparent 35%),
+        linear-gradient(180deg, rgba(22, 19, 42, 0.96), rgba(11, 8, 16, 1));
+    }
+
+    .pc-final-band__title {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      font-weight: 900;
+      max-width: 12ch;
+    }
+
+    .pc-flow {
+      display: grid;
+      gap: 18px;
+    }
+
+    .pc-flow__progress {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .pc-flow__dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .pc-flow__dot.is-active {
+      background: var(--pc-pink);
+      transform: scale(1.18);
+    }
+
+    .pc-choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .pc-choice {
+      padding: 22px 20px;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--pc-text);
+      font-weight: 800;
+      font-size: 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+    }
+
+    .pc-choice:hover {
+      border-color: rgba(125, 211, 245, 0.42);
+      background: rgba(125, 211, 245, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .pc-choice__eyebrow {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--pc-text-2);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pc-flow__step[hidden] {
+      display: none;
+    }
+
+    .pc-starter-note {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px dashed rgba(125, 211, 245, 0.42);
+      color: var(--pc-text-2);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .pc-status-card {
+      max-width: 720px;
+      justify-self: center;
+      width: 100%;
+      display: grid;
+      gap: 16px;
+      text-align: left;
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+
+    [data-reveal].is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      [data-reveal] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .pc-faq__body,
+      .pc-choice,
+      .pc-btn {
+        transition: none;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .pc-shell-header__inner {
+        min-height: 72px;
+      }
+
+      .pc-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .pc-stat-strip,
+      .pc-grid--three {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .pc-shell-header__inner,
+      .pc-shell-main,
+      .pc-shell-footer__inner {
+        width: min(100%, calc(100% - 24px));
+      }
+
+      .pc-shell-header__inner {
+        align-items: flex-start;
+        padding: 14px 0;
+        flex-direction: column;
+      }
+
+      .pc-shell-nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .pc-shell-nav__link {
+        padding: 10px 0;
+      }
+
+      .pc-shell-main {
+        padding-top: 24px;
+      }
+
+      .pc-hero__content,
+      .pc-hero__media,
+      .pc-section,
+      .pc-stat-strip,
+      .pc-final-band,
+      .pc-status-card {
+        border-radius: 24px;
+      }
+
+      .pc-hero__content,
+      .pc-section,
+      .pc-final-band,
+      .pc-status-card {
+        padding: 22px;
+      }
+
+      .pc-hero__media {
+        min-height: 420px;
+      }
+
+      .pc-stat-strip,
+      .pc-grid--three,
+      .pc-grid--two,
+      .pc-choice-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pc-shell-footer__inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .pc-shell-footer__links {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body class="pc-try-shell pc-try-shell--quiz">
+    <script>
+    window.PC_AUTH_NEXT = "\/earn";
+    window.PC_AUTH_REDIRECT_BASE_URL = "https:\/\/playcash.co";
+    window.__PC_LANDER = {"landerKey":"quiz","pagePath":"/quiz","hostBucket":"try","webGuid":"b6d9cf520dc4501738081476f8218162","platform":"web","isLoggedIn":false,"next":"/earn","authHref":"/quiz?auth=1&next=%2Fearn","ctaHref":"/quiz?auth=1&next=%2Fearn","ctaLabel":"Claim My Spot","ctaAuthOpen":true,"finalAction":"auth","scrollAppsflyerUrl":"","androidScrollAppsflyerUrl":"","requestUri":"/quiz","inParams":[]};
+  </script>
+
+    <style>
+    :root {
+      --pc-bg-root: #0b0810;
+      --pc-surface: #110f1c;
+      --pc-surface-2: #16132a;
+      --pc-surface-3: #1c1934;
+      --pc-border: rgba(255, 255, 255, 0.12);
+      --pc-border-strong: rgba(255, 255, 255, 0.2);
+      --pc-text: #ffffff;
+      --pc-text-2: #a8a2c0;
+      --pc-text-3: #6b6680;
+      --pc-pink: #e874c2;
+      --pc-purple: #6b2dd9;
+      --pc-cyan: #7dd3f5;
+      --pc-success: #4ade80;
+      --pc-shadow: 0 26px 90px rgba(0, 0, 0, 0.42);
+      --pc-gradient: linear-gradient(90deg, #e874c2 0%, #6b2dd9 55%, #7dd3f5 100%);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      background: var(--pc-bg-root);
+      color-scheme: dark;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(232, 116, 194, 0.24), transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(125, 211, 245, 0.14), transparent 28%),
+        radial-gradient(circle at 20% 80%, rgba(107, 45, 217, 0.2), transparent 34%),
+        var(--pc-bg-root);
+      color: var(--pc-text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img, video { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+
+    .pc-visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ── PAGE SHELL ── */
+    .page-shell {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .page-shell::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.02), transparent 22%),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255,255,255,.012) 2px,
+          rgba(255,255,255,.012) 4px
+        );
+      opacity: .45;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 28px 16px 28px;
+    }
+
+    /* ── BRAND ROW ── */
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .brand-logo-wrap {
+      position: relative;
+      width: 96px; height: 96px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      isolation: isolate;
+    }
+
+    .brand-logo-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      z-index: 0;
+      border-radius: 24px;
+      background: radial-gradient(circle at 30% 30%, rgba(232,116,194,.28) 0%, rgba(107,45,217,.22) 42%, rgba(125,211,245,.16) 70%, transparent 100%);
+      filter: blur(18px);
+      opacity: .95;
+      transform: scale(1.12);
+      pointer-events: none;
+    }
+
+    .brand-logo {
+      position: relative;
+      z-index: 1;
+      width: 92px; height: 92px;
+      object-fit: cover;
+      border-radius: 22px;
+      box-shadow:
+        0 14px 32px rgba(0,0,0,.34),
+        0 0 0 1px rgba(255,255,255,.05);
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .48s cubic-bezier(.4,0,.2,1), transform .48s cubic-bezier(.4,0,.2,1);
+    }
+
+    .section.is-exiting {
+      opacity: 0;
+      transform: translateY(-20px);
+      pointer-events: none;
+    }
+
+    .section.is-hidden { display: none; }
+
+    .section.is-entering {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding-top: 6px;
+    }
+
+    /* floating badge above title */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0 auto 14px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(125, 211, 245, 0.28);
+      background: rgba(125, 211, 245, 0.08);
+      color: var(--pc-cyan);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 999px;
+      background: var(--pc-cyan);
+      animation: pulse-dot 2s ease infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(.75); }
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: 42px;
+      line-height: .98;
+      font-weight: 900;
+      letter-spacing: -.04em;
+      color: var(--pc-text);
+    }
+
+    .hero-title .line-plain {
+      display: block;
+      color: #fff;
+    }
+
+    .hero-title .grad {
+      display: block;
+      background: var(--pc-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-copy {
+      max-width: 360px;
+      margin: 0 auto 20px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--pc-text-2);
+    }
+
+    /* ── PROOF STRIP ── */
+    .proof-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin: 0 auto 14px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.07);
+      background: rgba(255,255,255,.03);
+    }
+
+    .proof-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .proof-item strong {
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -.03em;
+      color: #fff;
+    }
+
+    .proof-item span {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--pc-text-2);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .proof-divider {
+      width: 1px;
+      height: 28px;
+      background: rgba(255,255,255,.1);
+    }
+
+    /* ── CHOICE STACK ── */
+    .choice-stack {
+      display: grid;
+      gap: 12px;
+      margin: 0 auto;
+    }
+
+    .btn-choice {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 4px;
+      width: 100%;
+      min-height: 88px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 6px;
+      color: var(--pc-text);
+      text-align: left;
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease;
+      cursor: pointer;
+    }
+
+    .btn-choice:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+    }
+
+    .btn-choice.is-primary {
+      background: linear-gradient(180deg, rgba(139,92,246,.22), rgba(255,255,255,.04));
+      border-color: rgba(196,181,253,.24);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.03), 0 18px 40px rgba(0,0,0,.28), 0 0 38px rgba(139,92,246,.12);
+    }
+
+    .btn-choice-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px; height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .btn-choice-title {
+      font-size: 17px;
+      line-height: 1.15;
+      font-weight: 800;
+      color: var(--pc-text);
+    }
+
+    .btn-choice-sub {
+      font-size: 12px;
+      line-height: 1.5;
+      font-weight: 600;
+      color: var(--pc-text-2);
+    }
+
+    /* ── STEP 2 RESULT ── */
+    .result-wrap {
+      text-align: center;
+      padding-top: 2px;
+    }
+
+    .result-head {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .result-badge {
+      width: 52px; height: 52px;
+      flex: 0 0 52px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(107,45,217,.14);
+      border: 1px solid rgba(185,156,255,.30);
+      box-shadow: 0 0 24px rgba(107,45,217,.18);
+    }
+
+    .result-badge svg {
+      width: 26px; height: 26px;
+      color: #b99cff;
+    }
+
+    .result-title {
+      margin: 0;
+      font-size: 42px;
+      line-height: 1;
+      letter-spacing: -.04em;
+      font-weight: 900;
+      color: var(--pc-text);
+    }
+
+    .result-copy {
+      text-align: center;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--pc-text-2);
+      margin: 0 0 18px;
+    }
+
+    @keyframes sweep {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background: linear-gradient(270deg, #f0449a, #8b5cf6, #3da9fc, #f0449a);
+      background-size: 400% 400%;
+      animation: sweep 4s ease infinite;
+      color: #fff;
+      border: none;
+      min-height: 58px;
+      padding: 13px 26px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 1.2rem;
+      line-height: 1;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(240,68,154,0.3);
+      transition: transform 0.18s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(240,68,154,0.5);
+    }
+
+    /* ── HOW IT WORKS ── */
+    .journey {
+      margin-top: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,.02);
+      text-align: left;
+    }
+
+    .journey-head {
+      padding: 14px 16px;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--pc-text-2);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      text-align: center;
+    }
+
+    .journey-item {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 16px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .journey-item:last-child { border-bottom: 0; }
+
+    .journey-num {
+      width: 30px; height: 30px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(139,92,246,.14);
+      border: 1px solid rgba(196,181,253,.22);
+      color: #c4b5fd;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .journey-title {
+      font-size: 15px;
+      line-height: 1.3;
+      font-weight: 800;
+      color: var(--pc-text);
+      margin: 0 0 4px;
+    }
+
+    .journey-copy {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--pc-text-2);
+      margin: 0;
+    }
+
+    /* ── NOTICE ── */
+    .notice {
+      margin-top: 16px;
+      border: 1px solid rgba(255,77,77,.26);
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,77,77,.08), rgba(255,255,255,.02));
+      box-shadow: 0 0 0 1px rgba(255,77,77,.04), 0 14px 32px rgba(0,0,0,.22);
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .notice-flag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 0 10px;
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: #ff4d4d;
+      color: #fff;
+      border-bottom-right-radius: 10px;
+    }
+
+    .notice-body { padding: 14px 16px 16px; }
+
+    .notice-title {
+      margin: 0 0 6px;
+      font-size: 15px;
+      line-height: 1.3;
+      font-weight: 800;
+      color: var(--pc-text);
+    }
+
+    .notice-copy {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--pc-text-2);
+    }
+
+    .notice-copy strong {
+      color: var(--pc-text);
+      font-weight: 800;
+    }
+
+    /* ── FOOTER NOTE ── */
+    .foot {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--pc-text-3);
+    }
+
+    /* ── SOCIAL PROOF (testimonials + cashout shots) ── */
+    .pc-social {
+      margin-top: 18px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 12px;
+      padding: 16px;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+      text-align: left;
+    }
+    .pc-social:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.16);
+      box-shadow: 0 12px 26px rgba(0,0,0,.4);
+    }
+    .pc-social__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .pc-social__label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--pc-text-3);
+    }
+    .pc-social__disclaimer {
+      font-size: 10px;
+      color: var(--pc-text-3);
+      white-space: nowrap;
+    }
+    .pc-review {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .pc-review__avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(139,92,246,.35) 0%, rgba(107,45,217,.15) 100%);
+      border: 1px solid rgba(139,92,246,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .pc-review__meta {
+      flex: 1; min-width: 0;
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .pc-review__name {
+      font-size: 14px; font-weight: 800; color: var(--pc-text);
+    }
+    .pc-tier {
+      display: inline-flex;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: rgba(139,92,246,.15);
+      border: 1px solid rgba(139,92,246,.35);
+      color: #8b5cf6;
+    }
+    .pc-tier--pro {
+      background: #8b5cf6;
+      color: #0b0810;
+      border-color: #8b5cf6;
+    }
+    .pc-review__text {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #c9c4dc;
+      margin: 0 0 10px;
+    }
+    .pc-stars {
+      color: #fbbf24;
+      font-size: 11px;
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .pc-cashout-block {
+      margin-top: 22px;
+      text-align: left;
+    }
+    .pc-cashout-title {
+      margin: 0 0 12px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--pc-text-3);
+    }
+    .pc-cashout-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .pc-cashout-shot {
+      aspect-ratio: 9/16;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      background: var(--pc-surface);
+    }
+    .pc-cashout-shot img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* ── STICKY BOTTOM CTA (mobile only, shows after hero button scrolls out) ── */
+    .pc-sticky-cta {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 400;
+      padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+      background: #0b0810;
+      border-top: 1px solid rgba(255,255,255,.08);
+      transform: translateY(140%);
+      opacity: 0;
+      transition: transform .36s cubic-bezier(.16,1,.3,1), opacity .36s ease;
+      pointer-events: none;
+      display: none;
+    }
+    .pc-sticky-cta.is-visible {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .pc-sticky-cta__btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      min-height: 56px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background: linear-gradient(270deg, #f0449a, #8b5cf6, #3da9fc, #f0449a);
+      background-size: 400% 400%;
+      animation: sweep 4s ease infinite;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.06rem;
+      letter-spacing: -0.01em;
+      box-shadow: 0 4px 18px rgba(240,68,154,0.35);
+      transition: transform .15s ease, box-shadow .15s ease;
+      text-decoration: none;
+    }
+    .pc-sticky-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(240,68,154,0.5); }
+    .pc-sticky-cta__btn:active { transform: translateY(1px) scale(.99); }
+
+    /* show only on mobile */
+    @media (max-width: 720px) {
+      .pc-sticky-cta { display: block; }
+      body { padding-bottom: 92px; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 420px) {
+      .wrap { padding: 24px 14px 24px; }
+      .brand-logo-wrap { width: 88px; height: 88px; }
+      .brand-logo { width: 84px; height: 84px; border-radius: 20px; }
+      .hero-title { font-size: 36px; }
+      .result-title { font-size: 36px; }
+      .btn-choice-title { font-size: 16px; }
+      .proof-strip { gap: 12px; }
+      .proof-item strong { font-size: 15px; }
+    }
+
+    /* ── SHARED MODAL STYLE PARITY ── */
+    :root {
+      --bg-root:#0b0810;
+      --text:#ffffff;
+      --text-muted:#A8A2C0;
+      --text-dim:#6B6680;
+      --border:rgba(255,255,255,.08);
+      --border-strong:rgba(255,255,255,.12);
+      --brand-grad:linear-gradient(90deg,#E874C2 0%,#6B2DD9 55%,#7DD3F5 100%);
+      --danger:#ff4d4d;
+      --radius-struct:6px;
+      --radius-cta:10px;
+      --purple-check:#b99cff;
+      --purple-check-border:rgba(185,156,255,.30);
+      --purple-check-bg:rgba(107,45,217,.14);
+    }
+
+    .pc-auth-modal,
+    .pc-harden-modal,
+    .pc-terms-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .pc-auth-modal.open,
+    .pc-harden-modal.open,
+    .pc-terms-modal.show { display: flex; }
+
+    .pc-auth-card,
+    .pc-harden-card,
+    .pc-terms-card {
+      width: min(520px, 100%);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(11,8,16,.94);
+      box-shadow: 0 26px 90px rgba(0,0,0,.72);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .pc-auth-glow {
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, #E874C2 0%, #6B2DD9 55%, #7DD3F5 100%);
+    }
+
+    .pc-auth-inner,
+    .pc-harden-inner { padding: 22px 22px 18px; }
+
+    .pc-auth-close {
+      position: absolute;
+      top: 12px; right: 12px;
+      z-index: 3;
+      width: 40px; height: 40px;
+      border-radius: 14px;
+      border: 0;
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      pointer-events: auto;
+    }
+
+    .pc-auth-close[hidden] { display: none; }
+    .pc-auth-close svg { width: 20px; height: 20px; fill: currentColor; }
+
+    .pc-auth-panel,
+    .pc-harden-screen { display: none; }
+
+    .pc-auth-panel.active,
+    .pc-harden-screen.active { display: block; }
+
+    .pc-auth-title { margin: 0 0 8px; }
+    .pc-auth-title-logo { display: block; width: 138px; max-width: 100%; height: auto; }
+
+    .pc-auth-sub {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: rgba(232,230,240,.72);
+      margin: 0 0 18px;
+    }
+
+    .pc-auth-note {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: rgba(232,230,240,.70);
+    }
+
+    .pc-auth-form { display: grid; gap: 12px; }
+
+    .pc-auth-label {
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .02em;
+      color: rgba(232,230,240,.72);
+      margin-bottom: 6px;
+    }
+
+    .pc-auth-input,
+    .pc-auth-static,
+    .pc-auth-code {
+      width: 100%;
+      height: 48px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.11);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.96);
+      padding: 0 14px;
+      font-weight: 800;
+      font-size: 15px;
+      outline: none;
+      box-sizing: border-box;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .pc-auth-input-wrap { position: relative; }
+    .pc-auth-input-wrap .pc-auth-input { padding-right: 48px; }
+
+    .pc-auth-password-toggle {
+      position: absolute;
+      top: 50%; right: 10px;
+      transform: translateY(-50%);
+      width: 28px; height: 28px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: rgba(232,230,240,.64);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .pc-auth-password-toggle:hover { color: rgba(255,255,255,.9); }
+    .pc-auth-password-toggle svg { width: 18px; height: 18px; display: block; }
+
+    .pc-auth-sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .pc-auth-static {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .pc-auth-input[readonly] {
+      background: rgba(255,255,255,.04);
+      color: rgba(232,230,240,.92);
+    }
+
+    .pc-auth-input::placeholder,
+    .pc-auth-code::placeholder { color: rgba(232,230,240,.46); }
+
+    .pc-auth-input:-webkit-autofill,
+    .pc-auth-input:-webkit-autofill:hover,
+    .pc-auth-input:-webkit-autofill:focus,
+    .pc-auth-code:-webkit-autofill,
+    .pc-auth-code:-webkit-autofill:hover,
+    .pc-auth-code:-webkit-autofill:focus {
+      -webkit-text-fill-color: rgba(255,255,255,.96);
+      caret-color: rgba(255,255,255,.96);
+      -webkit-box-shadow: 0 0 0 1000px rgba(255,255,255,.06) inset !important;
+      box-shadow: 0 0 0 1000px rgba(255,255,255,.06) inset !important;
+      border: 1px solid rgba(255,255,255,.11);
+      transition: background-color 99999s ease-in-out 0s;
+    }
+
+    .pc-auth-field-note {
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: rgba(232,230,240,.58);
+    }
+
+    .pc-auth-error,
+    .pc-auth-success {
+      display: none;
+      border-radius: 14px;
+      padding: 11px 12px;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.4;
+      margin-bottom: 14px;
+    }
+
+    .pc-auth-error {
+      border: 1px solid rgba(255,77,77,.25);
+      background: rgba(255,77,77,.10);
+      color: rgba(255,255,255,.95);
+    }
+
+    .pc-auth-success {
+      border: 1px solid rgba(74,222,128,.20);
+      background: rgba(22,163,74,.12);
+      color: rgba(255,255,255,.95);
+    }
+
+    .pc-auth-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 48px;
+      background: linear-gradient(90deg, #f0449a, #8b5cf6);
+      color: #fff;
+      border: none;
+      padding: 11px 28px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #7a1f6e, 0 8px 0 rgba(120,30,100,0.4), 0 12px 20px rgba(0,0,0,0.35);
+      transition: box-shadow .12s, transform .12s;
+      text-align: center;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+
+    .pc-auth-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 0 #7a1f6e, 0 12px 0 rgba(120,30,100,0.3), 0 18px 28px rgba(0,0,0,0.4);
+    }
+
+    .pc-auth-submit:active {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 #7a1f6e, 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .pc-auth-submit[disabled] {
+      opacity: .55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .pc-auth-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .pc-auth-row > * { flex: 0 0 auto; }
+
+    .pc-auth-mini-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 0; min-width: 0;
+      padding: 7px 14px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #f0449a, #8b5cf6);
+      color: #fff;
+      font-size: .78rem;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 6px 0 #6c1f7a, 0 8px 16px rgba(0,0,0,.4);
+      transition: box-shadow .1s, transform .1s, opacity .1s;
+      text-decoration: none;
+      white-space: normal;
+    }
+
+    .pc-auth-mini-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 0 #6c1f7a, 0 10px 22px rgba(0,0,0,.45);
+    }
+
+    .pc-auth-mini-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #6c1f7a, 0 2px 6px rgba(0,0,0,.3);
+    }
+
+    .pc-auth-mini-btn[disabled] {
+      opacity: .4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .pc-auth-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1;
+      text-align: center;
+      cursor: pointer;
+      transition: background .12s, border-color .12s, transform .12s, opacity .12s;
+      text-decoration: none;
+      box-sizing: border-box;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .pc-auth-secondary:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.24);
+    }
+
+    .pc-auth-secondary:active { transform: translateY(1px); }
+    .pc-auth-secondary[disabled] { opacity: .45; cursor: not-allowed; transform: none; }
+
+    .pc-auth-policy {
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: rgba(232,230,240,.55);
+    }
+
+    .pc-auth-policy a { color: rgba(255,255,255,.95); }
+
+    .pc-auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0 8px;
+      color: rgba(232,230,240,.52);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .pc-auth-divider::before,
+    .pc-auth-divider::after {
+      content: '';
+      flex: 1 1 auto;
+      height: 1px;
+      background: rgba(255,255,255,.10);
+    }
+
+    .pc-auth-apple-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 48px;
+      margin-top: 2px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      font-size: 15px;
+      font-weight: 900;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+
+    .pc-auth-google-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 48px;
+      margin-top: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.24);
+      background: #f4f1f8;
+      color: #17141f;
+      font-size: 15px;
+      font-weight: 900;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+
+    .pc-auth-apple-btn svg { width: 26px; height: 26px; fill: currentColor; flex: 0 0 auto; }
+    .pc-auth-google-btn svg { width: 20px; height: 20px; flex: 0 0 auto; }
+
+    .pc-harden-meta { display: grid; gap: 10px; margin-bottom: 14px; }
+
+    .pc-harden-skip {
+      background: none;
+      border: 0;
+      color: rgba(232,230,240,.74);
+      font-weight: 900;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .pc-harden-small {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(232,230,240,.56);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 560px) {
+      .pc-auth-card,
+      .pc-harden-card { border-radius: 16px; }
+      .pc-auth-inner,
+      .pc-harden-inner { padding: 20px 16px 16px; }
+      .pc-auth-title { font-size: 22px; }
+      .pc-auth-row { flex-direction: column; }
+    }
+
+    /* ── QUIZ MODAL ── */
+    .pc-quiz-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .pc-quiz-overlay.open { display: flex; }
+
+    .pc-quiz-card {
+      width: min(480px, 100%);
+      max-height: 90dvh;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(11,8,16,.94);
+      box-shadow: 0 26px 90px rgba(0,0,0,.72);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(16px) scale(.98);
+      opacity: 0;
+      transition: transform .32s cubic-bezier(.34,1.56,.64,1), opacity .25s ease;
+    }
+
+    .pc-quiz-overlay.open .pc-quiz-card {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .pc-quiz-glow {
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: var(--pc-gradient);
+      z-index: 2;
+    }
+
+    .pc-quiz-head {
+      padding: 22px 22px 16px;
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .pc-quiz-brand { display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .pc-quiz-brand img { width: 118px; height: auto; max-width: 100%; }
+
+    .pc-quiz-head-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .pc-quiz-step-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--pc-text-3);
+    }
+
+    .pc-quiz-close {
+      width: 36px; height: 36px;
+      border-radius: 12px;
+      border: 0;
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.92);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .pc-quiz-close svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .pc-quiz-progress-wrap {
+      position: relative;
+    }
+    .pc-quiz-bar-track {
+      width: 100%;
+      height: 4px;
+      border-radius: 3px;
+      background: rgba(255,255,255,.08);
+      overflow: hidden;
+    }
+    .pc-quiz-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--pc-gradient);
+      transition: width .4s cubic-bezier(.4,0,.2,1);
+    }
+    .pc-quiz-earned-float {
+      position: absolute;
+      top: -22px;
+      left: 0;
+      font-size: .78rem;
+      font-weight: 900;
+      color: #c4b5fd;
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .pc-quiz-earned-float.pop {
+      animation: pcFloatUp .9s ease-out forwards;
+    }
+    @keyframes pcFloatUp {
+      0% { opacity: 0; transform: translateY(6px) scale(.8); }
+      25% { opacity: 1; transform: translateY(0) scale(1.05); }
+      45% { transform: translateY(-2px) scale(1); }
+      100% { opacity: 0; transform: translateY(-18px) scale(1); }
+    }
+
+    .pc-quiz-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 22px 26px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .pc-quiz-slide { display: none; }
+    .pc-quiz-slide.active { display: block; animation: pcQuizIn .28s ease both; }
+
+    @keyframes pcQuizIn {
+      from { opacity: 0; transform: translateX(16px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .pc-quiz-q {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--pc-text);
+      line-height: 1.28;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .pc-quiz-q-sub {
+      font-size: .85rem;
+      color: var(--pc-text-2);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .pc-quiz-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Estilos para stack vertical (mantenidos de arriba a abajo) */
+    .pc-quiz-options.vertical-stack {
+      grid-template-columns: 1fr;
+    }
+    .pc-quiz-options.vertical-stack .pc-quiz-option {
+      flex-direction: row;
+      align-items: center;
+      min-height: 80px;
+    }
+    .pc-quiz-options.vertical-stack .pc-quiz-option .pc-qopt-radio {
+      top: 50% !important;
+      right: 16px;
+      transform: translateY(-50%) !important;
+    }
+    .pc-quiz-options.vertical-stack .pc-qopt-badge {
+      right: 48px;
+    }
+
+    /* Configuración de cartones */
+    .pc-quiz-option {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      width: 100%;
+      min-height: 125px;
+      padding: 14px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      color: var(--pc-text);
+      text-align: left;
+      cursor: pointer;
+      transition: transform .12s ease, border-color .14s ease, background .14s ease, opacity .2s ease, box-shadow .14s ease;
+    }
+    .pc-quiz-option:hover {
+      border-color: rgba(255,255,255,.16);
+      background: rgba(255,255,255,.05);
+    }
+    .pc-quiz-option:active { transform: scale(.98); }
+    .pc-quiz-option.selected {
+      border-color: rgba(196,181,253,.5);
+      background: linear-gradient(180deg, rgba(139,92,246,.22), rgba(255,255,255,.04));
+    }
+    .pc-quiz-option.dimmed { opacity: .45; pointer-events: none; }
+
+    /* Se houver um número ímpar de opções no grid de 2 colunas, o último se expande */
+    .pc-quiz-options:not(.vertical-stack) .pc-quiz-option:last-child:nth-child(odd) {
+      grid-column: span 2;
+      flex-direction: row;
+      align-items: center;
+      min-height: 80px;
+    }
+
+    .pc-qopt-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: rgba(139,92,246,.14);
+      display: flex; align-items: center; justify-content: center;
+      color: #b99cff;
+      flex-shrink: 0;
+    }
+    .pc-qopt-icon svg { width: 18px; height: 18px; }
+    .pc-quiz-option.selected .pc-qopt-icon {
+      background: rgba(139,92,246,.32);
+      color: #fff;
+    }
+
+    .pc-qopt-texts { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .pc-qopt-title { font-size: .88rem; font-weight: 800; color: var(--pc-text); line-height: 1.2; }
+    .pc-qopt-sub { font-size: .72rem; font-weight: 600; color: var(--pc-text-3); line-height: 1.35; }
+
+    /* Posicionamento do marcador de seleção */
+    .pc-qopt-radio {
+      position: absolute;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.18);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .14s ease, background .14s ease;
+    }
+    
+    .pc-quiz-option:not(.pay-paypal):not(.pay-bank):not(.pay-visa):not(.pay-amazon) .pc-qopt-radio {
+      top: 14px;
+      right: 14px;
+    }
+
+    .pc-quiz-options:not(.vertical-stack) .pc-quiz-option:last-child:nth-child(odd) .pc-qopt-radio {
+      top: 50% !important;
+      right: 16px;
+      transform: translateY(-50%) !important;
+    }
+
+    .pc-quiz-option.selected .pc-qopt-radio {
+      border-color: var(--pc-purple);
+      background: var(--pc-purple);
+    }
+    .pc-quiz-option.selected .pc-qopt-radio::after {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    /* ── BRAND SPECIFIC STYLES FOR PAYMENT BUTTONS ── */
+    .pc-quiz-option.pay-paypal {
+      background: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      height: 80px;
+      border-radius: 16px;
+      padding: 0 16px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .pc-quiz-option.pay-paypal .pc-qopt-radio {
+      border-color: #8fa0ba !important;
+      top: 50% !important;
+      right: 16px;
+      transform: translateY(-50%) !important;
+    }
+    .pc-quiz-option.pay-paypal.selected {
+      box-shadow: 0 0 0 3px #0079C1 !important;
+      border-color: #0079C1 !important;
+    }
+    .pc-quiz-option.pay-paypal.selected .pc-qopt-radio {
+      border-color: #0079C1 !important;
+      background: #0079C1 !important;
+    }
+    .pc-quiz-option.pay-paypal.selected .pc-qopt-radio::after {
+      background: #ffffff !important;
+    }
+
+    .pc-quiz-option.pay-bank {
+      background: #1b8344 !important;
+      border: none !important;
+      height: 80px;
+      border-radius: 16px;
+      padding: 0 16px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .pc-quiz-option.pay-bank .pc-qopt-radio {
+      border-color: rgba(255,255,255,0.4) !important;
+      top: 50% !important;
+      right: 16px;
+      transform: translateY(-50%) !important;
+    }
+    .pc-quiz-option.pay-bank.selected {
+      box-shadow: 0 0 0 3px #ffffff !important;
+    }
+    .pc-quiz-option.pay-bank.selected .pc-qopt-radio {
+      border-color: #ffffff !important;
+      background: #ffffff !important;
+    }
+    .pc-quiz-option.pay-bank.selected .pc-qopt-radio::after {
+      background: #1b8344 !important;
+    }
+
+    .pc-quiz-option.pay-visa {
+      background: #0e4bcc !important;
+      border: none !important;
+      height: 80px;
+      border-radius: 16px;
+      padding: 0 16px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .pc-quiz-option.pay-visa .pc-qopt-radio {
+      border-color: rgba(255,255,255,0.4) !important;
+      top: 50% !important;
+      right: 16px;
+      transform: translateY(-50%) !important;
+    }
+    .pc-quiz-option.pay-visa.selected {
+      box-shadow: 0 0 0 3px #ffffff !important;
+    }
+    .pc-quiz-option.pay-visa.selected .pc-qopt-radio {
+      border-color: #ffffff !important;
+      background: #ffffff !important;
+    }
+    .pc-quiz-option.pay-visa.selected .pc-qopt-radio::after {
+      background: #0e4bcc !important;
+    }
+
+    .pc-quiz-option.pay-amazon {
+      background: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      height: 80px;
+      border-radius: 16px;
+      padding: 0 16px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .pc-quiz-option.pay-amazon .pc-qopt-radio {
+      border-color: #8fa0ba !important;
+      top: 50% !important;
+      right: 16px;
+      transform: translateY(-50%) !important;
+    }
+    .pc-quiz-option.pay-amazon.selected {
+      box-shadow: 0 0 0 3px #ff9900 !important;
+      border-color: #ff9900 !important;
+    }
+    .pc-quiz-option.pay-amazon.selected .pc-qopt-radio {
+      border-color: #ff9900 !important;
+      background: #ff9900 !important;
+    }
+    .pc-quiz-option.pay-amazon.selected .pc-qopt-radio::after {
+      background: #ffffff !important;
+    }
+
+    /* ── ENCOURAGEMENT ── */
+    .pc-quiz-encourage {
+      background: linear-gradient(135deg, rgba(232,116,194,.24), rgba(107,45,217,.38) 55%, rgba(125,211,245,.2));
+      border: 1px solid rgba(196,181,253,.5);
+      border-radius: 18px;
+      padding: 18px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin: 18px 0 4px;
+      opacity: 0;
+      transform: translateY(10px) scale(.96);
+      transition: opacity .38s ease, transform .38s cubic-bezier(.34,1.56,.64,1);
+      box-shadow: 0 10px 32px rgba(139,92,246,.24), inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+    .pc-quiz-encourage.show { opacity: 1; transform: translateY(0) scale(1); }
+    .pc-quiz-encourage .pc-quiz-spark {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      animation: pcSparkPulse 1.6s ease-in-out infinite;
+    }
+    .pc-quiz-encourage .pc-quiz-spark svg { width: 100%; height: 100%; display: block; }
+    @keyframes pcSparkPulse {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.12) rotate(8deg); }
+    }
+    .pc-quiz-encourage p { font-size: 1rem; font-weight: 700; line-height: 1.4; color: var(--pc-text); margin: 0; }
+    .pc-quiz-encourage p b {
+      display: block;
+      margin-top: 5px;
+      font-size: 1.2rem;
+      font-weight: 900;
+      background: var(--pc-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .pc-quiz-advance {
+      width: 100%;
+      margin-top: 20px;
+    }
+    .btn.pc-quiz-advance:disabled,
+    .btn.pc-quiz-advance[disabled] {
+      background: rgba(255,255,255,.06);
+      color: var(--pc-text-3);
+      animation: none;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+    .btn.pc-quiz-advance:disabled:hover,
+    .btn.pc-quiz-advance[disabled]:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* ── RESULT ── */
+    .pc-quiz-result { display: none; text-align: center; }
+    .pc-quiz-result.active { display: block; animation: pcQuizIn .32s ease both; }
+
+    .pc-quiz-result-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(74,222,128,.12);
+      border: 1px solid rgba(74,222,128,.3);
+      color: var(--pc-success);
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .pc-quiz-result-headline {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--pc-text);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .pc-quiz-result-box {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .pc-quiz-result-label {
+      font-size: .63rem;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--pc-text-3);
+      margin-bottom: 8px;
+    }
+    .pc-quiz-result-amount {
+      font-size: 2.4rem;
+      font-weight: 900;
+      line-height: 1;
+      background: var(--pc-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+
+    .pc-quiz-unlock {
+      background: linear-gradient(180deg, rgba(139,92,246,.14), rgba(255,255,255,.02));
+      border: 1px solid rgba(196,181,253,.28);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .pc-quiz-unlock-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      color: #1a0a00;
+      font-size: .74rem;
+      font-weight: 900;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .pc-quiz-unlock-top {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .82rem; font-weight: 800; letter-spacing: .3px;
+      text-transform: uppercase; color: #c4b5fd; margin-bottom: 10px;
+    }
+    .pc-quiz-unlock-text {
+      font-size: .95rem;
+      color: var(--pc-text-2);
+      line-height: 1.6;
+    }
+    .pc-quiz-unlock-text strong { color: var(--pc-text); }
+
+    .pc-quiz-context {
+      background: linear-gradient(180deg, rgba(139,92,246,.14), rgba(255,255,255,.02));
+      border: 1px solid rgba(196,181,253,.28);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin: 4px 0 18px;
+      text-align: left;
+      font-size: .8rem;
+      color: var(--pc-text-2);
+      line-height: 1.55;
+    }
+
+    .pc-qopt-badge {
+      position: absolute;
+      top: -1px; right: 14px;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      border-radius: 0 0 8px 8px;
+      font-size: .58rem;
+      font-weight: 900;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      color: #1a0a00;
+      padding: 4px 10px 3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pc-quiz-option.has-badge { border-color: rgba(251,191,36,.4); }
+    .pc-quiz-option.has-badge.selected { border-color: #fbbf24; }
+
+    /* ── FILLED PAYMENT OPTIONS ── */
+    .pc-quiz-option.fill-white  { background: linear-gradient(135deg, #ffffff, #eef0f6); border-color: transparent; }
+    .pc-quiz-option.fill-blue   { background: linear-gradient(135deg, #1d4ed8, #3b82f6); border-color: transparent; }
+    .pc-quiz-option.fill-green  { background: linear-gradient(135deg, #15803d, #22c55e); border-color: transparent; }
+    .pc-quiz-option.fill-purple { background: linear-gradient(135deg, #5b21b6, #8b5cf6); border-color: transparent; }
+    .pc-quiz-option.fill-amber  { background: linear-gradient(135deg, #b45309, #f59e0b); border-color: transparent; }
+
+    .pc-quiz-option[class*="fill-"] .pc-qopt-title { color: #fff; }
+    .pc-quiz-option[class*="fill-"] .pc-qopt-sub { color: rgba(255,255,255,.78); }
+    .pc-quiz-option[class*="fill-"] .pc-qopt-icon {
+      background: rgba(255,255,255,.2);
+      color: #fff;
+    }
+    .pc-quiz-option[class*="fill-"] .pc-qopt-radio { border-color: rgba(255,255,255,.6); }
+    .pc-quiz-option.fill-white .pc-qopt-title { color: #16121f; }
+    .pc-quiz-option.fill-white .pc-qopt-sub { color: rgba(22,18,31,.6); }
+    .pc-quiz-option.fill-white .pc-qopt-icon { background: rgba(29,78,216,.12); color: #1d4ed8; }
+    .pc-quiz-option.fill-white .pc-qopt-radio { border-color: rgba(22,18,31,.22); }
+    .pc-quiz-option[class*="fill-"]:hover {
+      filter: brightness(1.08);
+      border-color: transparent;
+    }
+    .pc-quiz-option[class*="fill-"].selected {
+      border-color: transparent;
+      background-image: none;
+      box-shadow: 0 10px 26px rgba(0,0,0,.4), 0 0 0 2px rgba(255,255,255,.7) inset;
+    }
+    .pc-quiz-option.fill-white.selected  { background: linear-gradient(135deg, #ffffff, #eef0f6); box-shadow: 0 10px 26px rgba(0,0,0,.25), 0 0 0 2px rgba(29,78,216,.5) inset; }
+    .pc-quiz-option.fill-blue.selected   { background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
+    .pc-quiz-option.fill-green.selected  { background: linear-gradient(135deg, #15803d, #22c55e); }
+    .pc-quiz-option.fill-purple.selected { background: linear-gradient(135deg, #5b21b6, #8b5cf6); }
+    .pc-quiz-option.fill-amber.selected  { background: linear-gradient(135deg, #b45309, #f59e0b); }
+    .pc-quiz-option[class*="fill-"].selected .pc-qopt-radio {
+      border-color: #fff;
+      background: #fff;
+    }
+    .pc-quiz-option.fill-white.selected .pc-qopt-radio {
+      border-color: #1d4ed8;
+      background: #1d4ed8;
+    }
+    .pc-quiz-option[class*="fill-"].selected .pc-qopt-radio::after {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #16121f;
+    }
+
+    .pc-quiz-result-urgency {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      font-size: .72rem; color: var(--pc-text-3); margin-bottom: 18px;
+    }
+    .pc-quiz-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--pc-success);
+      box-shadow: 0 0 0 3px rgba(74,222,128,.2);
+      flex-shrink: 0;
+      animation: pcPulseDot 1.5s ease-in-out infinite;
+    }
+    @keyframes pcPulseDot { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    .pc-quiz-result-foot { font-size: .68rem; color: var(--pc-text-3); margin-top: 10px; }
+
+    .pc-quiz-confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: 18px; z-index: 3; }
+    .pc-conf-dot { position: absolute; border-radius: 50%; animation: pcConfFall 1s ease-out both; }
+    @keyframes pcConfFall {
+      0% { transform: translateY(-8px) scale(0); opacity: 1; }
+      80% { opacity: .8; }
+      100% { transform: translateY(120px) scale(1); opacity: 0; }
+    }
+
+    /* ── COORDENADAS ADAPTADAS MOBILE (QUIZ EQUILIBRADO E CENTRALIZADO) ── */
+    @media (max-width: 480px) {
+      .pc-quiz-overlay {
+        align-items: center; /* Centraliza o quiz verticalmente na tela */
+        padding: 12px; /* Margem de segurança elegante nas bordas */
+      }
+      .pc-quiz-card {
+        max-height: 94dvh; /* Garante que cabe perfeitamente na janela do navegador */
+        border-radius: 16px;
+      }
+      .pc-quiz-brand {
+        margin-bottom: 6px; /* Espaço mínimo entre a logo e a barra */
+      }
+      .pc-quiz-brand img {
+        width: 96px; /* Tamanho elegante e contido do logotipo */
+      }
+      .pc-quiz-head-row {
+        margin-bottom: 6px;
+      }
+      .pc-quiz-head {
+        padding: 14px 16px 8px; /* Redução de espaços em excesso no topo */
+      }
+      .pc-quiz-body {
+        padding: 12px 16px 16px; /* Otimização das margens do corpo do quiz */
+      }
+      .pc-quiz-q {
+        font-size: 1.22rem; /* Fonte confortável e muito legível no mobile */
+        margin-bottom: 6px;
+        line-height: 1.25;
+      }
+      .pc-quiz-q-sub {
+        font-size: 0.86rem; /* Subtítulo grande e nítido */
+        margin-bottom: 12px; /* Espaçamento equilibrado */
+      }
+      .pc-quiz-context {
+        padding: 10px 14px;
+        margin: 2px 0 10px;
+        font-size: 0.78rem;
+      }
+      .pc-quiz-options {
+        gap: 8px; /* Ajuste preciso do grid */
+      }
+      .pc-quiz-options.vertical-stack {
+        gap: 8px;
+      }
+      .pc-quiz-option {
+        min-height: auto; /* Remove altura mínima artificial para evitar extrapolar a tela */
+        padding: 11px 14px; /* Espaço interno equilibrado para cliques fáceis */
+        border-radius: 12px;
+        gap: 8px;
+      }
+      .pc-quiz-option .pc-qopt-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+      }
+      .pc-quiz-option .pc-qopt-icon svg {
+        width: 16px;
+        height: 16px;
+      }
+      .pc-qopt-title {
+        font-size: 0.92rem; /* Legibilidade perfeita para os títulos das alternativas */
+      }
+      .pc-qopt-sub {
+        font-size: 0.76rem; /* Texto secundário legível e polido */
+        line-height: 1.3;
+      }
+      .pc-quiz-options:not(.vertical-stack) .pc-quiz-option:last-child:nth-child(odd) {
+        min-height: auto;
+        padding: 11px 14px;
+      }
+      
+      /* Redução vertical das marcas de pagamento mantendo logos e botões no viewport */
+      .pc-quiz-option.pay-paypal,
+      .pc-quiz-option.pay-bank,
+      .pc-quiz-option.pay-visa,
+      .pc-quiz-option.pay-amazon {
+        height: 68px !important;
+        padding: 0 14px;
+      }
+      .pc-quiz-option.pay-paypal img,
+      .pc-quiz-option.pay-bank svg,
+      .pc-quiz-option.pay-visa img,
+      .pc-quiz-option.pay-amazon img {
+        height: 20px !important;
+      }
+
+      .pc-quiz-encourage {
+        padding: 10px 14px;
+        margin: 12px 0 4px; /* Margem integrada com precisão */
+        gap: 12px;
+        border-radius: 12px;
+      }
+      .pc-quiz-encourage .pc-quiz-spark {
+        width: 28px;
+        height: 28px;
+      }
+      .pc-quiz-encourage p {
+        font-size: 0.86rem;
+      }
+      .pc-quiz-encourage p b {
+        font-size: 1.05rem;
+        margin-top: 2px;
+      }
+
+      .btn.pc-quiz-advance {
+        min-height: 52px; /* Botão ideal para área de toque confortável sem scroll */
+        font-size: 1.1rem;
+        margin-top: 12px;
+        padding: 12px 24px;
+      }
+
+      /* Estilização da tela de resultado no mobile com fontes nítidas e centralizadas */
+      .pc-quiz-result-headline {
+        font-size: 1.35rem;
+        margin-bottom: 12px;
+      }
+      .pc-quiz-result-box {
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+      .pc-quiz-result-amount {
+        font-size: 2rem;
+      }
+      .pc-quiz-unlock {
+        padding: 12px 14px;
+        margin-bottom: 12px;
+      }
+      .pc-quiz-unlock-flag {
+        padding: 4px 12px;
+        margin-bottom: 10px;
+        font-size: 0.72rem;
+      }
+      .pc-quiz-unlock-top {
+        font-size: 0.8rem;
+        margin-bottom: 6px;
+      }
+      .pc-quiz-unlock-text {
+        font-size: 0.84rem;
+        line-height: 1.5;
+      }
+      .pc-quiz-result-urgency {
+        margin-bottom: 14px;
+      }
+      #pcQuizClaimBtn {
+        min-height: 52px;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+
+
+<div class="page-shell">
+  <div class="wrap">
+
+    <!-- BRAND -->
+    <div class="brand-row">
+      <div class="brand-logo-wrap">
+        <img
+          class="brand-logo"
+          src="https://playcash.co/assets/img/icon-256.png"
+          alt="PlayCash"
+        >
+      </div>
+    </div>
+
+    <!-- STEP 1 -->
+    <section class="section hero" id="stepOne">
+
+
+      <h1 class="hero-title">
+        <span class="line-plain">Get Paid to Play</span>
+        <span class="grad">Games &amp; Test Apps.</span>
+      </h1>
+
+      <p class="hero-copy">
+        Play mobile games, test new apps, and complete quick tasks — then cash out real rewards directly to your account.
+      </p>
+
+      <!-- proof strip -->
+      <div class="proof-strip">
+        <div class="proof-item">
+          <strong>$500K+</strong>
+          <span>paid out</span>
+        </div>
+        <div class="proof-divider"></div>
+        <div class="proof-item">
+          <strong>2M+</strong>
+          <span>players</span>
+        </div>
+        <div class="proof-divider"></div>
+        <div class="proof-item">
+          <strong>Fast</strong>
+          <span>cashout</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="section" id="stepTwo">
+      <div class="result-wrap">
+
+        <a
+          id="finalCta"
+          class="btn js-quiz-cta"
+          href="#quiz"
+          data-cta-source="quiz_open"
+        ><span data-cta-label>Get Started</span></a>
+
+        <!-- JOURNEY -->
+        <div class="journey" aria-label="How it works">
+          <div class="journey-head">How it works</div>
+
+          <div class="journey-item">
+            <div class="journey-num">1</div>
+            <div>
+              <p class="journey-title">Download the free PlayCash app</p>
+              <p class="journey-copy">Available on iOS and Android — install in seconds and open your dashboard.</p>
+            </div>
+          </div>
+
+          <div class="journey-item">
+            <div class="journey-num">2</div>
+            <div>
+              <p class="journey-title">Play games &amp; test apps</p>
+              <p class="journey-copy">Download featured games, reach milestones, or test new apps for instant credit.</p>
+            </div>
+          </div>
+
+          <div class="journey-item">
+            <div class="journey-num">3</div>
+            <div>
+              <p class="journey-title">Cash out your rewards</p>
+              <p class="journey-copy">Redeem for gift cards, PayPal, crypto, or other payout options — fast.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOCIAL PROOF: testimonials + cashout images (above Activation required) -->
+        <div class="pc-social">
+          <div class="pc-social__header">
+            <span class="pc-social__label">Real players</span>
+            <span class="pc-social__disclaimer">Results vary</span>
+          </div>
+
+          <!-- Review 1 -->
+          <div class="pc-review">
+            <div class="pc-review__avatar" aria-hidden="true">MR</div>
+            <div class="pc-review__meta">
+              <span class="pc-review__name">Maya R.</span>
+              <span class="pc-tier">Plus tier</span>
+            </div>
+          </div>
+          <p class="pc-review__text">“Cashed out $527 in my first week just playing games. Took 5 minutes to set everything up.”</p>
+          <div class="pc-stars" aria-label="5 out of 5 stars">★★★★★</div>
+
+          <div style="height:1px;background:rgba(255,255,255,.06);margin:16px 0;"></div>
+
+          <!-- Review 2 -->
+          <div class="pc-review">
+            <div class="pc-review__avatar" aria-hidden="true">JT</div>
+            <div class="pc-review__meta">
+              <span class="pc-review__name">Jordan T.</span>
+              <span class="pc-tier pc-tier--pro">Pro tier</span>
+            </div>
+          </div>
+          <p class="pc-review__text">“So happy I unlocked the pro tier. The money hits my PayPal account the same day, and I get better games with higher rewards too. In my first month, I cashed out $2,000. Remember to do a few small in-app purchases to big bonuses.”</p>
+          <div class="pc-stars" aria-label="5 out of 5 stars">★★★★★</div>
+
+          <div style="height:1px;background:rgba(255,255,255,.06);margin:16px 0;"></div>
+
+          <!-- Review 3 -->
+          <div class="pc-review">
+            <div class="pc-review__avatar" aria-hidden="true">SL</div>
+            <div class="pc-review__meta">
+              <span class="pc-review__name">Sophia L.</span>
+              <span class="pc-tier">Plus tier</span>
+            </div>
+          </div>
+          <p class="pc-review__text">“Way more legit than the other game apps I tried. They paid me out directly to cashapp and I didn’t have to jump through hoops to get it.”</p>
+          <div class="pc-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        </div>
+
+        <!-- Recent cashouts -->
+        <div class="pc-cashout-block">
+          <p class="pc-cashout-title">Recent cashouts</p>
+          <div class="pc-cashout-grid">
+            <div class="pc-cashout-shot">
+              <img src="https://i.ibb.co/Zp2vkW8J/PC-2.webp" alt="Player cashout proof screenshot 1" loading="lazy">
+            </div>
+            <div class="pc-cashout-shot">
+              <img src="https://i.ibb.co/KcMkJysj/PC-5.webp" alt="Player cashout proof screenshot 2" loading="lazy">
+            </div>
+            <div class="pc-cashout-shot">
+              <img src="https://i.ibb.co/ZRyTp3FH/PC-3.webp" alt="Player cashout proof screenshot 3" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTICE -->
+        <div class="notice">
+          <div class="notice-flag">Activation required</div>
+          <div class="notice-body">
+            <p class="notice-title">One quick step to unlock full rewards</p>
+            <p class="notice-copy">
+              Complete <strong>2 qualifying tasks</strong> after installing to unlock the full game &amp; app earning experience.
+            </p>
+          </div>
+        </div>
+
+        <div class="foot">
+          Trusted by players earning rewards every day.
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- QUIZ ENTRY -->
+<script>
+  (function () {
+    var boot = window.__PC_LANDER || {};
+
+    document.querySelectorAll('.js-quiz-cta').forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (!window.__PC_LANDER || typeof window.__PC_LANDER !== 'object') {
+          window.__PC_LANDER = {};
+        }
+        window.__PC_LANDER.lastCtaSource = el.getAttribute('data-cta-source') || 'quiz_open';
+        if (typeof window.__PC_OPEN_QUIZ === 'function') {
+          window.__PC_OPEN_QUIZ();
+          return;
+        }
+        if (boot && boot.isLoggedIn) {
+          window.location.href = boot.ctaHref || '/earn';
+          return;
+        }
+        if (typeof window.__PC_LANDER_OPEN_AUTH === 'function') {
+          if (window.__PC_LANDER_OPEN_AUTH('quiz_open_fallback')) return;
+        }
+        window.location.href = boot.authHref || '/earn';
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      var claimBtn = e.target && e.target.closest('#pcQuizClaimBtn');
+      if (!claimBtn) return;
+    }, true);
+  })();
+</script>
+
+<!-- ════════════════════════════════════════════
+     QUICK MATCH QUIZ
+════════════════════════════════════════════ -->
+<div class="pc-quiz-overlay" id="pcQuizOverlay" aria-hidden="true">
+  <div class="pc-quiz-card" id="pcQuizCard" role="dialog" aria-modal="true" aria-labelledby="pcQuizStepLabel">
+    <div class="pc-quiz-glow"></div>
+    <div class="pc-quiz-confetti" id="pcQuizConfetti"></div>
+
+      <div class="pc-quiz-head">
+      <div class="pc-quiz-brand">
+        <img src="https://playcash.co/assets/img/playcash-white.svg" alt="PlayCash">
+      </div>
+      <div class="pc-quiz-head-row">
+        <span class="pc-quiz-step-label" id="pcQuizStepLabel">STEP 1 OF 4</span>
+        <button class="pc-quiz-close" type="button" id="pcQuizClose" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 1 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.42 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"/></svg>
+        </button>
+      </div>
+      <div class="pc-quiz-progress-wrap">
+        <div class="pc-quiz-bar-track"><div class="pc-quiz-bar-fill" id="pcQuizBarFill" style="width:25%"></div></div>
+        <div class="pc-quiz-earned-float" id="pcQuizEarnedFloat">+$0.00</div>
+      </div>
+    </div>
+
+    <div class="pc-quiz-body">
+      <!-- QUESTION (rendered dynamically by JS) -->
+      <div class="pc-quiz-slide active" id="pcQuizQuestionSlide">
+        <div class="pc-quiz-q" id="pcQuizQText"></div>
+        <div class="pc-quiz-q-sub" id="pcQuizQSub"></div>
+        <div class="pc-quiz-context" id="pcQuizContext" style="display:none;"></div>
+        <div class="pc-quiz-options" id="pcQuizOptionsWrap"></div>
+
+        <div class="pc-quiz-encourage" id="pcQuizEncourage">
+          <div class="pc-quiz-spark">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="pcSparkGrad" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#F5A6E0"/>
+                  <stop offset="50%" stop-color="#B98CF2"/>
+                  <stop offset="100%" stop-color="#8FE3FA"/>
+                </linearGradient>
+              </defs>
+              <path d="M24,4 L29,19 L44,24 L29,29 L24,44 L19,29 L4,24 L19,19 Z" fill="url(#pcSparkGrad)"/>
+              <path d="M39,3 L40.6,7.4 L45,9 L40.6,10.6 L39,15 L37.4,10.6 L33,9 L37.4,7.4 Z" fill="url(#pcSparkGrad)"/>
+            </svg>
+          </div>
+          <p id="pcQuizEncourageText"></p>
+        </div>
+
+        <button class="btn pc-quiz-advance" type="button" id="pcQuizAdvanceBtn" disabled>Next</button>
+      </div>
+
+      <!-- RESULT -->
+      <div class="pc-quiz-result" id="pcQuizResult">
+        <div class="pc-quiz-result-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/></svg>
+          You're Pre-Qualified
+        </div>
+        <div class="pc-quiz-result-headline">Your Earnings Estimate Is Ready</div>
+        <div class="pc-quiz-result-box">
+          <div class="pc-quiz-result-label">Estimated Weekly Earnings</div>
+          <div class="pc-quiz-result-amount" id="pcQuizResultAmount">$320–$640</div>
+        </div>
+        <div class="pc-quiz-unlock">
+          <div class="pc-quiz-unlock-flag">Exclusive offer · Limited time</div>
+          <div class="pc-quiz-unlock-top">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            How to Unlock It
+          </div>
+          <div class="pc-quiz-unlock-text">Spend <strong>$5</strong> on in-app purchases on any game and instantly unlock premium milestones that pay <strong>$250+</strong> each. Start one offer within <strong>10 minutes</strong> to claim your bonus.</div>
+        </div>
+        <div class="pc-quiz-result-urgency">
+          <span class="pc-quiz-dot"></span>
+          <span id="pcQuizViewers">1,240 people</span> started earning this week
+        </div>
+        <a
+          href="/earn"
+          id="pcQuizClaimBtn"
+          class="btn js-final-cta"
+          data-final-action="auth"
+          data-cta-source="quiz_result_claim"
+          data-label-logged-out="Claim My Spot"
+          data-label-logged-in="Open PlayCash"
+        ><span data-cta-label>Claim My Spot</span></a>
+        <div class="pc-quiz-result-foot">Free to join · No credit card · Takes 60 seconds</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ LOGIC -->
+<script>
+  (function () {
+    function icon(paths) {
+      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + paths + '</svg>';
+    }
+
+    var ICON_COFFEE   = icon('<path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/>');
+    var ICON_CLOCK    = icon('<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>');
+    var ICON_TREND    = icon('<path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/>');
+    var ICON_ZAP      = icon('<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>');
+    var ICON_DOLLAR   = icon('<line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>');
+    var ICON_STAR     = icon('<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>');
+    var ICON_HELP     = icon('<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>');
+    var ICON_BAG       = icon('<path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/>');
+
+    var questions = [
+      {
+        text: "How much time can you spend on your phone daily?",
+        sub: "Be honest. It affects your estimate.",
+        opts: [
+          { title: "15–30 minutes", sub: "A quick session before work", icon: ICON_COFFEE },
+          { title: "1–2 hours", sub: "Consistent daily side income", icon: ICON_CLOCK },
+          { title: "2–4 hours", sub: "Serious about supplemental income", icon: ICON_TREND },
+          { title: "4+ hours", sub: "Treating this like a real hustle", icon: ICON_ZAP }
+        ],
+        reward: 0.40
+      },
+      {
+        text: "What's your earning goal?",
+        sub: "This determines which deals to prioritize.",
+        opts: [
+          { title: "Extra $20–$50 / day", sub: "Coffee money, subscriptions", icon: ICON_DOLLAR },
+          { title: "$50–$150 / day", sub: "Solid side income every month", icon: ICON_TREND },
+          { title: "$150–$300 / day", sub: "Replace a part-time job", icon: ICON_STAR },
+          { title: "Maximum possible", sub: "I want every dollar available", icon: ICON_ZAP }
+        ],
+        reward: 0.35
+      },
+      {
+        text: "Would you spend <span style=\"color:#b99cff;font-weight:900;\">$5–$10</span> to unlock offers that can earn you <span style=\"color:#b99cff;font-weight:900;\">10x more?</span>",
+        context: "Higher-tier game rewards typically require small in-app purchases. If you're comfortable spending a little, you can unlock some of the best earning opportunities in the app.",
+        isVerticalStack: true,
+        opts: [
+          { title: "Yes — unlock faster earnings", sub: "Ready to maximize my earnings", icon: ICON_ZAP, badge: "RECOMMENDED" },
+          { title: "Maybe — if the reward is worth it", sub: "Show me the opportunity first", icon: ICON_HELP },
+          { title: "No — stick to free offers", sub: "I prefer no upfront spending", icon: ICON_BAG }
+        ],
+        reward: 0.70
+      },
+      {
+        text: "How do you want to get paid?",
+        sub: "Select your preferred payment method. Cash out anytime.",
+        isPaymentQuestion: true,
+        opts: [
+          { 
+            brand: "paypal", 
+            customClass: "pay-paypal", 
+            svg: '<img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" style="height: 25px; max-width: 100%; object-fit: contain;" onerror="this.onerror=null; this.src=\'https://placehold.co/110x32/ffffff/003087?text=PayPal\'">'
+          },
+          { 
+            brand: "bank", 
+            customClass: "pay-bank", 
+            svg: '<svg viewBox="0 0 210 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 27px; width: auto;"><g fill="#ffffff"><path d="M16 2L3 9h26L16 2z"/><rect x="6" y="11" width="3" height="11" rx="0.5"/><rect x="11" y="11" width="3" height="11" rx="0.5"/><rect x="18" y="11" width="3" height="11" rx="0.5"/><rect x="23" y="11" width="3" height="11" rx="0.5"/><rect x="4" y="9" width="24" height="2" rx="0.5"/><rect x="3" y="22" width="26" height="2" rx="0.5"/><rect x="2" y="24" width="28" height="2" rx="0.5"/></g><text x="38" y="22" font-family="\'Inter\', system-ui, -apple-system, sans-serif" font-weight="900" font-size="20" fill="#ffffff" letter-spacing="0.01em">Bank Transfer</text></svg>'
+          },
+          { 
+            brand: "visa", 
+            customClass: "pay-visa", 
+            svg: '<img src="https://i0.wp.com/americassbdc.org/wp-content/uploads/2021/05/Visa-logo-white.png?ssl=1" alt="Visa" style="height: 18px; max-width: 100%; object-fit: contain;" onerror="this.onerror=null; this.src=\'https://placehold.co/80x32/0e4bcc/ffffff?text=Visa\'">'
+          },
+          { 
+            brand: "amazon", 
+            customClass: "pay-amazon", 
+            svg: '<img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" style="height: 24px; max-width: 100%; object-fit: contain;" onerror="this.onerror=null; this.src=\'https://placehold.co/90x32/ffffff/ff9900?text=Amazon\'">'
+          }
+        ],
+        reward: 0.85
+      }
+    ];
+
+    var encouragements = [
+      "Nice start! Every answer gets you closer to your match.",
+      "You're on a roll — keep going.",
+      "Got it. We'll prioritize the best-paying offers for you.",
+      "Perfect. Let's reveal your PlayCash match!"
+    ];
+
+    var TOTAL = questions.length;
+    var current = 0;
+    var answers = [];
+    var selectedIndex = null;
+
+    var overlay       = document.getElementById('pcQuizOverlay');
+    var card          = document.getElementById('pcQuizCard');
+    var closeBtn      = document.getElementById('pcQuizClose');
+    var barFill       = document.getElementById('pcQuizBarFill');
+    var stepLabel     = document.getElementById('pcQuizStepLabel');
+    var earnedFloat   = document.getElementById('pcQuizEarnedFloat');
+    var questionSlide = document.getElementById('pcQuizQuestionSlide');
+    var qTextEl       = document.getElementById('pcQuizQText');
+    var qSubEl        = document.getElementById('pcQuizQSub');
+    var contextEl     = document.getElementById('pcQuizContext');
+    var optionsWrap   = document.getElementById('pcQuizOptionsWrap');
+    var encourageEl   = document.getElementById('pcQuizEncourage');
+    var encourageTxt  = document.getElementById('pcQuizEncourageText');
+    var advanceBtn    = document.getElementById('pcQuizAdvanceBtn');
+    var resultEl      = document.getElementById('pcQuizResult');
+    var confetti       = document.getElementById('pcQuizConfetti');
+
+    // Tabela ajustada para a casa das centenas
+    var RANGES = [
+      ['$150–$320', '$180–$380', '$220–$440', '$280–$560'],
+      ['$240–$480', '$290–$580', '$350–$700', '$420–$840'],
+      ['$320–$640', '$380–$760', '$460–$920', '$550–$1100'],
+      ['$450–$900', '$550–$1100','$650–$1300','$800–$1600']
+    ];
+
+    function openQuiz() {
+      if (!overlay) return;
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeQuiz() {
+      if (!overlay) return;
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function setProgress(step) {
+      var pct = Math.round((step / TOTAL) * 100);
+      if (pct > 100) pct = 100;
+      if (barFill) barFill.style.width = pct + '%';
+      if (stepLabel) stepLabel.textContent = step <= TOTAL ? 'STEP ' + step + ' OF ' + TOTAL : '';
+    }
+
+    function renderQuestion() {
+      var q = questions[current];
+      if (qTextEl) qTextEl.innerHTML = q.text;
+      if (qSubEl) qSubEl.textContent = q.sub || '';
+      if (contextEl) {
+        if (q.context) {
+          contextEl.textContent = q.context;
+          contextEl.style.display = 'block';
+        } else {
+          contextEl.style.display = 'none';
+        }
+      }
+
+      if (optionsWrap) {
+        optionsWrap.innerHTML = '';
+        optionsWrap.className = 'pc-quiz-options';
+        if (q.isPaymentQuestion) {
+          optionsWrap.classList.add('payment-grid');
+        } else if (q.isVerticalStack) {
+          optionsWrap.classList.add('vertical-stack');
+        }
+      }
+
+      selectedIndex = null;
+      if (encourageEl) encourageEl.classList.remove('show');
+      if (advanceBtn) {
+        advanceBtn.disabled = true;
+        advanceBtn.textContent = (current === TOTAL - 1) ? 'Finish' : 'Next';
+      }
+      setProgress(current + 1);
+
+      q.opts.forEach(function (opt, i) {
+        var el = document.createElement('div');
+        if (q.isPaymentQuestion) {
+          el.className = 'pc-quiz-option ' + opt.customClass;
+          el.innerHTML = opt.svg + '<span class="pc-qopt-radio"></span>';
+        } else {
+          el.className = 'pc-quiz-option' + (opt.badge ? ' has-badge' : '') + (opt.variant ? ' fill-' + opt.variant : '');
+          el.innerHTML =
+            (opt.badge ? '<span class="pc-qopt-badge">★ ' + opt.badge + '</span>' : '') +
+            '<div class="pc-qopt-icon">' + opt.icon + '</div>' +
+            '<div class="pc-qopt-texts"><span class="pc-qopt-title">' + opt.title + '</span><span class="pc-qopt-sub">' + opt.sub + '</span></div>' +
+            '<span class="pc-qopt-radio"></span>';
+        }
+
+        el.addEventListener('click', function () {
+          if (selectedIndex !== null) return;
+          selectedIndex = i;
+          answers[current] = i;
+          el.classList.add('selected');
+          Array.prototype.forEach.call(optionsWrap.children, function (c) {
+            if (c !== el) c.classList.add('dimmed');
+          });
+          onSelect(q);
+        });
+        optionsWrap.appendChild(el);
+      });
+    }
+
+    function onSelect(q) {
+      if (earnedFloat) {
+        earnedFloat.textContent = '+$' + q.reward.toFixed(2);
+        earnedFloat.classList.remove('pop');
+        void earnedFloat.offsetWidth;
+        earnedFloat.classList.add('pop');
+      }
+      if (encourageTxt) encourageTxt.innerHTML = encouragements[current] + ' <b>+$' + q.reward.toFixed(2) + '</b>';
+      setTimeout(function () { if (encourageEl) encourageEl.classList.add('show'); }, 180);
+      if (advanceBtn) advanceBtn.disabled = false;
+    }
+
+    function showResult() {
+      var time = answers[0] !== undefined ? answers[0] : 1; 
+      var goal = answers[1] !== undefined ? answers[1] : 1; 
+      var est  = RANGES[time][goal];
+
+      var amountEl = document.getElementById('pcQuizResultAmount');
+      if (amountEl) amountEl.textContent = est;
+
+      var viewersEl = document.getElementById('pcQuizViewers');
+      if (viewersEl) viewersEl.textContent = (900 + Math.floor(Math.random() * 900)).toLocaleString() + ' people';
+
+      if (questionSlide) questionSlide.classList.remove('active');
+      if (resultEl) resultEl.classList.add('active');
+      setProgress(TOTAL + 1);
+
+      if (confetti) {
+        var cols = ['#e874c2', '#6b2dd9', '#7dd3f5', '#ffffff'];
+        confetti.innerHTML = '';
+        for (var i = 0; i < 26; i++) {
+          var dd = document.createElement('div');
+          dd.className = 'pc-conf-dot';
+          var sz = 3 + Math.random() * 5;
+          dd.style.cssText = 'left:' + (Math.random() * 100) + '%;top:' + (5 + Math.random() * 35) + '%;width:' + sz + 'px;height:' + sz + 'px;background:' + cols[Math.floor(Math.random() * cols.length)] + ';animation-delay:' + (Math.random() * .5) + 's;animation-duration:' + (0.7 + Math.random() * .7) + 's;';
+          confetti.appendChild(dd);
+        }
+      }
+    }
+
+    if (advanceBtn) advanceBtn.addEventListener('click', function () {
+      if (advanceBtn.disabled) return;
+      if (current < TOTAL - 1) { current++; renderQuestion(); }
+      else { showResult(); }
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeQuiz);
+    if (card) card.addEventListener('click', function (e) { e.stopPropagation(); });
+    if (overlay) overlay.addEventListener('click', function (e) { if (e.target === overlay) closeQuiz(); });
+
+    window.__PC_OPEN_QUIZ = function () {
+      current = 0;
+      answers = [];
+      selectedIndex = null;
+      if (resultEl) resultEl.classList.remove('active');
+      if (questionSlide) questionSlide.classList.add('active');
+      renderQuestion();
+      openQuiz();
+    };
+  })();
+</script>
+  
+  <a class="pc-visually-hidden" href="/quiz?auth=1&amp;next=%2Fearn" data-auth-open="1" id="pcTryAuthTrigger">Open shared auth</a>
+
+  <style>
+  .pc-auth-modal,
+  .pc-harden-modal,
+  .pc-terms-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, .55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .pc-auth-modal.open,
+  .pc-harden-modal.open,
+  .pc-terms-modal.show {
+    display: flex;
+  }
+
+  .pc-auth-card,
+  .pc-harden-card,
+  .pc-terms-card {
+    width: min(520px, 100%);
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(11, 8, 16, .94);
+    box-shadow: 0 26px 90px rgba(0, 0, 0, .72);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .pc-auth-glow {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, #E874C2 0%, #6B2DD9 55%, #7DD3F5 100%);
+  }
+
+  .pc-auth-inner,
+  .pc-harden-inner {
+    padding: 22px 22px 18px;
+  }
+
+  .pc-auth-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    border: 0;
+    background: rgba(255, 255, 255, .08);
+    color: rgba(255, 255, 255, .92);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    pointer-events: auto;
+  }
+
+  .pc-auth-close[hidden] {
+    display: none;
+  }
+
+  .pc-auth-close svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  .pc-auth-panel,
+  .pc-harden-screen {
+    display: none;
+  }
+
+  .pc-auth-panel.active,
+  .pc-harden-screen.active {
+    display: block;
+  }
+
+  .pc-auth-title {
+    margin: 0 0 8px;
+  }
+
+  .pc-auth-title-logo {
+    display: block;
+    width: 138px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .pc-auth-sub {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.45;
+    color: rgba(232, 230, 240, .72);
+    margin: 0 0 18px;
+  }
+
+  .pc-auth-note {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: rgba(232, 230, 240, .70);
+  }
+
+  .pc-auth-form {
+    display: grid;
+    gap: 12px;
+  }
+
+  .pc-auth-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: rgba(255, 255, 255, .82);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .pc-auth-consent input {
+    margin-top: 2px;
+    flex: 0 0 auto;
+  }
+
+  .pc-auth-consent a {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  .pc-auth-label {
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: .02em;
+    color: rgba(232, 230, 240, .72);
+    margin-bottom: 6px;
+  }
+
+  .pc-auth-input,
+  .pc-auth-static,
+  .pc-auth-code {
+    width: 100%;
+    height: 48px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, .11);
+    background: rgba(255, 255, 255, .06);
+    color: rgba(255, 255, 255, .96);
+    padding: 0 14px;
+    font-weight: 800;
+    font-size: 15px;
+    outline: none;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .pc-auth-input-wrap {
+    position: relative;
+  }
+
+  .pc-auth-input-wrap .pc-auth-input {
+    padding-right: 48px;
+  }
+
+  .pc-auth-password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: rgba(232, 230, 240, .64);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .pc-auth-password-toggle:hover {
+    color: rgba(255, 255, 255, .9);
+  }
+
+  .pc-auth-password-toggle svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+
+  .pc-auth-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .pc-auth-static {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .pc-auth-input[readonly] {
+    background: rgba(255, 255, 255, .04);
+    color: rgba(232, 230, 240, .92);
+  }
+
+  .pc-auth-input::placeholder,
+  .pc-auth-code::placeholder {
+    color: rgba(232, 230, 240, .46);
+  }
+
+  .pc-auth-input:-webkit-autofill,
+  .pc-auth-input:-webkit-autofill:hover,
+  .pc-auth-input:-webkit-autofill:focus,
+  .pc-auth-code:-webkit-autofill,
+  .pc-auth-code:-webkit-autofill:hover,
+  .pc-auth-code:-webkit-autofill:focus {
+    -webkit-text-fill-color: rgba(255, 255, 255, .96);
+    caret-color: rgba(255, 255, 255, .96);
+    -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, .06) inset !important;
+    box-shadow: 0 0 0 1000px rgba(255, 255, 255, .06) inset !important;
+    border: 1px solid rgba(255, 255, 255, .11);
+    transition: background-color 99999s ease-in-out 0s;
+  }
+
+  .pc-auth-input[readonly]:-webkit-autofill,
+  .pc-auth-input[readonly]:-webkit-autofill:hover,
+  .pc-auth-input[readonly]:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, .04) inset !important;
+    box-shadow: 0 0 0 1000px rgba(255, 255, 255, .04) inset !important;
+  }
+
+  .pc-auth-field-note {
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: rgba(232, 230, 240, .58);
+  }
+
+  .pc-auth-error,
+  .pc-auth-success {
+    display: none;
+    border-radius: 14px;
+    padding: 11px 12px;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.4;
+    margin-bottom: 14px;
+  }
+
+  .pc-auth-error {
+    border: 1px solid rgba(255, 77, 77, .25);
+    background: rgba(255, 77, 77, .10);
+    color: rgba(255, 255, 255, .95);
+  }
+
+  .pc-auth-success {
+    border: 1px solid rgba(74, 222, 128, .20);
+    background: rgba(22, 163, 74, .12);
+    color: rgba(255, 255, 255, .95);
+  }
+
+  .pc-auth-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 48px;
+    background: linear-gradient(90deg, #f0449a, #8b5cf6);
+    color: #fff;
+    border: none;
+    padding: 11px 28px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    cursor: pointer;
+    box-shadow:
+      0 4px 0 #7a1f6e,
+      0 8px 0 rgba(120, 30, 100, 0.4),
+      0 12px 20px rgba(0, 0, 0, 0.35);
+    transition: box-shadow 0.12s, transform 0.12s;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+
+  .pc-auth-submit:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 7px 0 #7a1f6e,
+      0 12px 0 rgba(120, 30, 100, 0.3),
+      0 18px 28px rgba(0, 0, 0, 0.4);
+  }
+
+  .pc-auth-submit:active {
+    transform: translateY(4px);
+    box-shadow:
+      0 1px 0 #7a1f6e,
+      0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .pc-auth-submit[disabled] {
+    opacity: .55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow:
+      0 4px 0 #7a1f6e,
+      0 8px 0 rgba(120, 30, 100, 0.4),
+      0 12px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  .pc-auth-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .pc-auth-row > * {
+    flex: 0 0 auto;
+  }
+
+  .pc-auth-mini-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    min-width: 0;
+    padding: 7px 14px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #f0449a, #8b5cf6);
+    color: #fff;
+    font-size: .78rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    cursor: pointer;
+    box-shadow:
+      0 6px 0 #6c1f7a,
+      0 8px 16px rgba(0, 0, 0, .4);
+    transition: box-shadow .1s, transform .1s, opacity .1s;
+    text-decoration: none;
+    white-space: normal;
+  }
+
+  .pc-auth-mini-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 0 #6c1f7a,
+      0 10px 22px rgba(0, 0, 0, .45);
+  }
+
+  .pc-auth-mini-btn:active {
+    transform: translateY(4px);
+    box-shadow:
+      0 2px 0 #6c1f7a,
+      0 2px 6px rgba(0, 0, 0, .3);
+  }
+
+  .pc-auth-mini-btn[disabled] {
+    opacity: .4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow:
+      0 6px 0 #6c1f7a,
+      0 8px 16px rgba(0, 0, 0, .4);
+  }
+
+  .pc-auth-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, .16);
+    background: rgba(255, 255, 255, .06);
+    color: rgba(255, 255, 255, .92);
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    transition: background .12s, border-color .12s, transform .12s, opacity .12s;
+    text-decoration: none;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .pc-auth-secondary:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, .10);
+    border-color: rgba(255, 255, 255, .24);
+  }
+
+  .pc-auth-secondary:active {
+    transform: translateY(1px);
+    background: rgba(255, 255, 255, .08);
+  }
+
+  .pc-auth-secondary[disabled] {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .pc-auth-policy {
+    margin-top: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: rgba(232, 230, 240, .55);
+  }
+
+  .pc-auth-policy a {
+    color: rgba(255, 255, 255, .95);
+  }
+
+  .pc-auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0 8px;
+    color: rgba(232, 230, 240, .52);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .pc-auth-divider::before,
+  .pc-auth-divider::after {
+    content: '';
+    flex: 1 1 auto;
+    height: 1px;
+    background: rgba(255, 255, 255, .10);
+  }
+
+  .pc-auth-apple-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 48px;
+    margin-top: 2px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, .16);
+    font-size: 15px;
+    font-weight: 900;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+
+  .pc-auth-google-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 48px;
+    margin-top: 2px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, .16);
+    background: #fff;
+    color: #121212;
+    font-size: 15px;
+    font-weight: 900;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+
+  .pc-auth-google-btn {
+    margin-top: 10px;
+    background: #f4f1f8;
+    color: #17141f;
+    border-color: rgba(255, 255, 255, .24);
+  }
+
+  .pc-auth-apple-btn svg {
+    width: 26px;
+    height: 26px;
+    fill: currentColor;
+    flex: 0 0 auto;
+  }
+
+  .pc-auth-google-btn svg {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+  }
+
+  .pc-harden-meta {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .pc-harden-skip {
+    background: none;
+    border: 0;
+    color: rgba(232, 230, 240, .74);
+    font-weight: 900;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0 4px;
+  }
+
+  .pc-harden-small {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(232, 230, 240, .56);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 560px) {
+    .pc-auth-card,
+    .pc-harden-card {
+      border-radius: 16px;
+    }
+
+    .pc-auth-inner,
+    .pc-harden-inner {
+      padding: 20px 16px 16px;
+    }
+
+    .pc-auth-title {
+      font-size: 22px;
+    }
+
+    .pc-auth-row {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<div class="pc-auth-modal" id="pcAuthModal" aria-hidden="true">
+  <div class="pc-auth-card" id="pcAuthCard" role="dialog" aria-modal="true" aria-labelledby="pcAuthTitle">
+    <div class="pc-auth-glow"></div>
+    <button class="pc-auth-close" type="button" id="pcAuthClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 1 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.42 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"/></svg>
+    </button>
+
+    <div class="pc-auth-inner">
+      <div class="pc-auth-error" id="pcAuthErr"></div>
+      <div class="pc-auth-success" id="pcAuthOk"></div>
+
+      <section class="pc-auth-panel active" id="pcAuthPanelEmail">
+        <h2 class="pc-auth-title" id="pcAuthTitle"><img class="pc-auth-title-logo" src="https://playcash.co/assets/img/playcash-white.svg" alt="PlayCash"></h2>
+        <p class="pc-auth-sub">Enter your email to continue.</p>
+        <form class="pc-auth-form" id="pcAuthEmailForm" novalidate>
+          <label>
+            <div class="pc-auth-label">Email</div>
+            <input class="pc-auth-input" id="pcAuthEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
+          </label>
+          <button class="pc-auth-submit" type="submit" id="pcAuthEmailBtn">Continue</button>
+        </form>
+        <div class="pc-auth-divider">or</div>
+        <a class="pc-auth-apple-btn" href="/auth/apple/start?next=%2Fearn" id="pcAuthAppleBtn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.72c.02 2.06 1.81 2.75 1.83 2.76-.02.05-.28.96-.93 1.9-.56.81-1.14 1.61-2.06 1.63-.9.02-1.19-.53-2.22-.53-1.03 0-1.35.51-2.2.55-.88.03-1.55-.88-2.11-1.69-1.14-1.65-2.01-4.67-.84-6.7.58-1.01 1.62-1.65 2.75-1.66.86-.02 1.67.58 2.21.58.54 0 1.56-.72 2.63-.62.45.02 1.7.18 2.5 1.35-.06.04-1.49.87-1.46 2.43zM14.78 5.9c.47-.57.79-1.36.7-2.15-.68.03-1.5.45-1.99 1.01-.43.5-.81 1.31-.71 2.08.76.06 1.54-.39 2-.94z"/></svg>
+          <span>Continue with Apple</span>
+        </a>
+        <a class="pc-auth-google-btn" href="/auth/google/start?next=%2Fearn" id="pcAuthGoogleBtn">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#EA4335" d="M12 10.2v3.93h5.46c-.24 1.27-.96 2.34-2.05 3.06l3.31 2.57c1.93-1.78 3.04-4.39 3.04-7.49 0-.71-.06-1.39-.18-2.05H12z"/>
+            <path fill="#34A853" d="M12 22c2.76 0 5.08-.91 6.77-2.47l-3.31-2.57c-.92.62-2.1.99-3.46.99-2.66 0-4.92-1.8-5.72-4.21H2.86v2.65A10 10 0 0 0 12 22z"/>
+            <path fill="#FBBC05" d="M6.28 13.74a5.98 5.98 0 0 1 0-3.48V7.61H2.86a10 10 0 0 0 0 8.78l3.42-2.65z"/>
+            <path fill="#4285F4" d="M12 6.05c1.5 0 2.84.52 3.89 1.54l2.92-2.92C17.07 3.05 14.75 2 12 2A10 10 0 0 0 2.86 7.61l3.42 2.65c.8-2.41 3.06-4.21 5.72-4.21z"/>
+          </svg>
+          <span>Continue with Google</span>
+        </a>
+        <div class="pc-auth-policy">
+          By continuing, you agree to the PlayCash
+          <a href="/terms" target="_blank" rel="noopener">Terms</a>,
+          <a href="/terms#community-chat-safety" target="_blank" rel="noopener">Community Rules</a>,
+          and
+          <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.
+        </div>
+      </section>
+
+      <section class="pc-auth-panel" id="pcAuthPanelPassword">
+        <h2 class="pc-auth-title">Welcome back</h2>
+        <p class="pc-auth-sub">Enter your password to sign in.</p>
+        <form class="pc-auth-form" id="pcAuthPasswordForm" novalidate>
+          <label>
+            <div class="pc-auth-label">Email</div>
+            <input class="pc-auth-input" id="pcAuthPasswordEmail" type="email" autocomplete="username" readonly>
+          </label>
+          <label>
+            <div class="pc-auth-label">Password</div>
+            <div class="pc-auth-input-wrap">
+              <input class="pc-auth-input" id="pcAuthPassword" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+              <button class="pc-auth-password-toggle" type="button" data-password-toggle="1" data-target="pcAuthPassword" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+                <span class="pc-auth-sr-only" data-password-toggle-label="1">Show password</span>
+              </button>
+            </div>
+          </label>
+          <button class="pc-auth-submit" type="submit" id="pcAuthPasswordBtn">Log In</button>
+          <div class="pc-auth-field-note" id="pcAuthPasswordRecoveryNote" style="display:none;">Incorrect password? You can recover this sign-in with email or text.</div>
+          <div class="pc-auth-row" id="pcAuthPasswordRecoveryRow" style="display:none;">
+            <button class="pc-auth-mini-btn" type="button" id="pcAuthPasswordMagicBtn">Email me a sign-in link</button>
+            <button class="pc-auth-mini-btn" type="button" id="pcAuthPasswordSmsBtn">Text me a code</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="pc-auth-panel" id="pcAuthPanelSignup">
+        <h2 class="pc-auth-title">Create your password</h2>
+        <p class="pc-auth-sub">Finish creating your account and we’ll sign you in right away.</p>
+        <form class="pc-auth-form" id="pcAuthSignupForm" novalidate>
+          <label>
+            <div class="pc-auth-label">Email</div>
+            <input class="pc-auth-input" id="pcAuthSignupEmail" type="email" autocomplete="username" readonly>
+          </label>
+          <label>
+            <div class="pc-auth-label">Password</div>
+            <div class="pc-auth-input-wrap">
+              <input class="pc-auth-input" id="pcAuthSignupPassword" type="password" autocomplete="new-password" placeholder="Create a password" required>
+              <button class="pc-auth-password-toggle" type="button" data-password-toggle="1" data-target="pcAuthSignupPassword" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+                <span class="pc-auth-sr-only" data-password-toggle-label="1">Show password</span>
+              </button>
+            </div>
+          </label>
+          <button class="pc-auth-submit" type="submit" id="pcAuthSignupBtn" disabled>Create Account</button>
+        </form>
+      </section>
+
+      <section class="pc-auth-panel" id="pcAuthPanelCheckEmail">
+        <h2 class="pc-auth-title">Check your email</h2>
+        <p class="pc-auth-sub">Check your email to finish signing in. If email is slow, you can verify by text instead.</p>
+        <div class="pc-auth-form">
+          <div>
+            <div class="pc-auth-label">Email</div>
+            <div class="pc-auth-static" id="pcAuthSentEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6cfd9c3f6d3ced7dbc6dad398d5d9db">[email&#160;protected]</a></div>
+          </div>
+          <div class="pc-auth-note">We sent a secure sign-in link. Open it on this device to continue.</div>
+          <div class="pc-auth-row">
+            <button class="pc-auth-mini-btn" type="button" id="pcAuthBackBtn">Use a different email</button>
+            <button class="pc-auth-mini-btn" type="button" id="pcAuthSmsBtn">Text me a code instead</button>
+            <button class="pc-auth-mini-btn" type="button" id="pcAuthResendBtn">Resend email</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="pc-auth-panel" id="pcAuthPanelSms">
+        <h2 class="pc-auth-title">Text me a code</h2>
+        <p class="pc-auth-sub" id="pcAuthSmsSub">Verify this sign-in by text instead of waiting on email. For account recovery, use the phone linked to your account.</p>
+        <form class="pc-auth-form" id="pcAuthSmsForm" novalidate>
+          <div>
+            <div class="pc-auth-label">Email</div>
+            <div class="pc-auth-static" id="pcAuthSmsEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="176e786257726f767a677b723974787a">[email&#160;protected]</a></div>
+          </div>
+
+          <div id="pcAuthSmsPhoneStep">
+            <div class="pc-auth-note" id="pcAuthSmsLinkedMeta" style="display:none;"></div>
+            <label id="pcAuthSmsPhoneField">
+              <div class="pc-auth-label">Phone Number</div>
+              <input class="pc-auth-input" id="pcAuthSmsPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(555) 555-5555">
+            </label>
+            <button class="pc-auth-submit" type="submit" id="pcAuthSmsStartBtn">Send text code</button>
+          </div>
+
+          <div id="pcAuthSmsCodeStep" style="display:none;">
+            <label>
+              <div class="pc-auth-label">6-digit code</div>
+              <input class="pc-auth-code" id="pcAuthSmsCode" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" placeholder="123456">
+            </label>
+            <div class="pc-auth-row">
+              <button class="pc-auth-mini-btn" type="button" id="pcAuthSmsResendBtn">Resend</button>
+              <button class="pc-auth-mini-btn" type="button" id="pcAuthSmsVerifyBtn">Verify</button>
+            </div>
+          </div>
+
+          <div class="pc-auth-row" style="justify-content:flex-end;">
+            <button class="pc-auth-mini-btn" type="button" id="pcAuthSmsBackBtn">Back to email</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="pc-harden-modal" id="pcHardenModal" aria-hidden="true">
+  <div class="pc-harden-card" id="pcHardenCard" role="dialog" aria-modal="true" aria-labelledby="pcHardenTitle">
+    <div class="pc-auth-glow"></div>
+    <button class="pc-auth-close" type="button" id="pcHardenClose" aria-label="Close" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 1 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.42 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.42L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"/></svg>
+    </button>
+
+    <div class="pc-harden-inner">
+      <div class="pc-auth-error" id="pcHardenErr"></div>
+      <div class="pc-auth-success" id="pcHardenOk"></div>
+
+      <section class="pc-harden-screen active" id="pcHardenScreenPassword" aria-labelledby="pcHardenTitle">
+        <h2 class="pc-auth-title" id="pcHardenTitle">Create New Password</h2>
+        <p class="pc-auth-sub">Set a password for faster sign-ins next time.</p>
+        <form class="pc-auth-form" id="pcHardenPasswordForm" novalidate>
+          <div class="pc-harden-meta">
+            <label>
+              <div class="pc-auth-label">Account</div>
+              <input class="pc-auth-input" id="pcHardenIdentity" type="text" readonly autocomplete="username">
+            </label>
+          </div>
+          <label>
+            <div class="pc-auth-label">Create New Password</div>
+            <div class="pc-auth-input-wrap">
+              <input class="pc-auth-input" id="pcHardenPassword1" type="password" autocomplete="new-password" placeholder="Create a strong password" required>
+              <button class="pc-auth-password-toggle" type="button" data-password-toggle="1" data-target="pcHardenPassword1" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+                <span class="pc-auth-sr-only" data-password-toggle-label="1">Show password</span>
+              </button>
+            </div>
+          </label>
+          <label>
+            <div class="pc-auth-label">Confirm Password</div>
+            <div class="pc-auth-input-wrap">
+              <input class="pc-auth-input" id="pcHardenPassword2" type="password" autocomplete="new-password" placeholder="Confirm your password" required>
+              <button class="pc-auth-password-toggle" type="button" data-password-toggle="1" data-target="pcHardenPassword2" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+                <span class="pc-auth-sr-only" data-password-toggle-label="1">Show password</span>
+              </button>
+            </div>
+          </label>
+          <button class="pc-auth-submit" type="submit" id="pcHardenPasswordBtn" disabled>Continue</button>
+        </form>
+      </section>
+
+      <section class="pc-harden-screen" id="pcHardenScreenPhone">
+        <h2 class="pc-auth-title" id="pcPhoneTitle">Confirm Phone Number</h2>
+        <p class="pc-auth-sub" id="pcPhoneSub">To secure your account, we need you to enter your phone number.</p>
+
+        <form class="pc-auth-form" id="pcPhoneForm" novalidate>
+          <div id="pcPhoneEntryStep">
+            <label>
+              <div class="pc-auth-label">Phone Number</div>
+              <input class="pc-auth-input" id="pcPhoneNumber" type="tel" autocomplete="tel" inputmode="tel" placeholder="(555) 555-5555">
+            </label>
+            <button class="pc-auth-submit" type="submit" id="pcPhoneStartBtn">Send Code</button>
+          </div>
+
+          <div id="pcPhoneCodeStep" style="display:none;">
+            <label>
+              <div class="pc-auth-label">6-digit code</div>
+              <input class="pc-auth-code" id="pcPhoneCode" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" placeholder="123456">
+            </label>
+            <div class="pc-auth-row">
+              <button class="pc-auth-secondary" type="button" id="pcPhoneResendBtn">Resend</button>
+              <button class="pc-auth-submit" type="button" id="pcPhoneVerifyBtn">Verify</button>
+            </div>
+          </div>
+
+          <div class="pc-auth-row" style="justify-content:flex-end;">
+            <button class="pc-harden-skip" type="button" id="pcPhoneSkipBtn">Skip</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="pc-terms-modal" id="pcTermsModal" aria-hidden="true">
+  <div class="pc-terms-card" role="dialog" aria-modal="true" aria-labelledby="pcTermsTitle">
+    <div class="pc-auth-glow"></div>
+    <div class="pc-auth-inner">
+      <div class="pc-auth-error" id="pcTermsErr"></div>
+      <h2 class="pc-auth-title" id="pcTermsTitle">Accept PlayCash Terms</h2>
+      <p class="pc-auth-sub">You must accept the PlayCash Terms, Community Rules, and Privacy Policy before using protected features like public chat.</p>
+      <div class="pc-auth-form">
+        <div class="pc-auth-note">Version 2026-05-20</div>
+        <div class="pc-auth-note">
+          PlayCash has zero tolerance for objectionable content or abusive users. Public chat is moderated and may be reviewed by PlayCash moderation staff.
+        </div>
+        <div class="pc-auth-row">
+          <a class="pc-auth-mini-btn" href="/terms" target="_blank" rel="noopener">View Terms</a>
+          <a class="pc-auth-mini-btn" href="/support" target="_blank" rel="noopener">Support</a>
+        </div>
+        <button class="pc-auth-submit" type="button" id="pcTermsAcceptBtn">Accept and Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+  var authModal = document.getElementById('pcAuthModal');
+  var authCard = document.getElementById('pcAuthCard');
+  var authClose = document.getElementById('pcAuthClose');
+  var authErr = document.getElementById('pcAuthErr');
+  var authOk = document.getElementById('pcAuthOk');
+  var emailPanel = document.getElementById('pcAuthPanelEmail');
+  var passwordPanel = document.getElementById('pcAuthPanelPassword');
+  var signupPanel = document.getElementById('pcAuthPanelSignup');
+  var checkPanel = document.getElementById('pcAuthPanelCheckEmail');
+  var smsPanel = document.getElementById('pcAuthPanelSms');
+  var emailForm = document.getElementById('pcAuthEmailForm');
+  var emailInput = document.getElementById('pcAuthEmail');
+  var emailBtn = document.getElementById('pcAuthEmailBtn');
+  var pwForm = document.getElementById('pcAuthPasswordForm');
+  var pwEmail = document.getElementById('pcAuthPasswordEmail');
+  var pwInput = document.getElementById('pcAuthPassword');
+  var pwBtn = document.getElementById('pcAuthPasswordBtn');
+  var pwRecoveryNote = document.getElementById('pcAuthPasswordRecoveryNote');
+  var pwRecoveryRow = document.getElementById('pcAuthPasswordRecoveryRow');
+  var pwMagicBtn = document.getElementById('pcAuthPasswordMagicBtn');
+  var pwSmsBtn = document.getElementById('pcAuthPasswordSmsBtn');
+  var signupForm = document.getElementById('pcAuthSignupForm');
+  var signupEmail = document.getElementById('pcAuthSignupEmail');
+  var signupInput = document.getElementById('pcAuthSignupPassword');
+  var signupBtn = document.getElementById('pcAuthSignupBtn');
+  var sentEmail = document.getElementById('pcAuthSentEmail');
+  var resendBtn = document.getElementById('pcAuthResendBtn');
+  var backBtn = document.getElementById('pcAuthBackBtn');
+  var smsBtn = document.getElementById('pcAuthSmsBtn');
+  var smsForm = document.getElementById('pcAuthSmsForm');
+  var smsSub = document.getElementById('pcAuthSmsSub');
+  var smsEmail = document.getElementById('pcAuthSmsEmail');
+  var smsPhoneStep = document.getElementById('pcAuthSmsPhoneStep');
+  var smsLinkedMeta = document.getElementById('pcAuthSmsLinkedMeta');
+  var smsPhoneField = document.getElementById('pcAuthSmsPhoneField');
+  var smsCodeStep = document.getElementById('pcAuthSmsCodeStep');
+  var smsPhoneInput = document.getElementById('pcAuthSmsPhone');
+  var smsCodeInput = document.getElementById('pcAuthSmsCode');
+  var smsStartBtn = document.getElementById('pcAuthSmsStartBtn');
+  var smsResendBtn = document.getElementById('pcAuthSmsResendBtn');
+  var smsVerifyBtn = document.getElementById('pcAuthSmsVerifyBtn');
+  var smsBackBtn = document.getElementById('pcAuthSmsBackBtn');
+  var appleBtn = document.getElementById('pcAuthAppleBtn');
+  var googleBtn = document.getElementById('pcAuthGoogleBtn');
+
+  var hardenModal = document.getElementById('pcHardenModal');
+  var hardenCard = document.getElementById('pcHardenCard');
+  var hardenClose = document.getElementById('pcHardenClose');
+  var hardenErr = document.getElementById('pcHardenErr');
+  var hardenOk = document.getElementById('pcHardenOk');
+  var hardenScreenPassword = document.getElementById('pcHardenScreenPassword');
+  var hardenScreenPhone = document.getElementById('pcHardenScreenPhone');
+  var hardenIdentity = document.getElementById('pcHardenIdentity');
+  var hardenForm = document.getElementById('pcHardenPasswordForm');
+  var hardenPw1 = document.getElementById('pcHardenPassword1');
+  var hardenPw2 = document.getElementById('pcHardenPassword2');
+  var hardenBtn = document.getElementById('pcHardenPasswordBtn');
+  var phoneForm = document.getElementById('pcPhoneForm');
+  var phoneEntryStep = document.getElementById('pcPhoneEntryStep');
+  var phoneCodeStep = document.getElementById('pcPhoneCodeStep');
+  var phoneInput = document.getElementById('pcPhoneNumber');
+  var phoneCode = document.getElementById('pcPhoneCode');
+  var phoneStartBtn = document.getElementById('pcPhoneStartBtn');
+  var phoneVerifyBtn = document.getElementById('pcPhoneVerifyBtn');
+  var phoneResendBtn = document.getElementById('pcPhoneResendBtn');
+  var phoneSkipBtn = document.getElementById('pcPhoneSkipBtn');
+  var phoneTitle = document.getElementById('pcPhoneTitle');
+  var phoneSub = document.getElementById('pcPhoneSub');
+  var termsModal = document.getElementById('pcTermsModal');
+  var termsErr = document.getElementById('pcTermsErr');
+  var termsAcceptBtn = document.getElementById('pcTermsAcceptBtn');
+
+  var state = {
+    email: '',
+    next: (
+      (typeof window !== 'undefined' && typeof window.PC_AUTH_NEXT === 'string' && window.PC_AUTH_NEXT)
+        ? window.PC_AUTH_NEXT
+        : ((new URLSearchParams(window.location.search)).get('next') || '/earn')
+    ),
+    phone: '',
+    smsPhone: '',
+    smsLinkedPhone: '',
+    smsLinkedPhoneLast4: '',
+    smsLinkedPhoneAvailable: false,
+    termsAccepted: true
+  };
+
+  var forceAuthOpen = false;
+  var showHardening = false;
+  var showHardeningStep = "";
+  var isLoggedIn = false;
+  var accountEmail = "";
+  var accountUsername = "";
+  var accountHasVerifiedPhone = false;
+  var termsRequired = false;
+  var termsAcceptedServer = true;
+  var termsVersion = "2026-05-20";
+  var termsModalAutoOpen = false;
+  var requirePasswordAfterPhone = false;
+  var authRedirectBaseUrl = (
+    typeof window !== 'undefined' && typeof window.PC_AUTH_REDIRECT_BASE_URL === 'string'
+  ) ? String(window.PC_AUTH_REDIRECT_BASE_URL || '').trim() : '';
+
+  function safeInternalNext(next){
+    next = String(next || '/earn');
+    if (!next || next.charAt(0) !== '/' || next.indexOf('//') === 0) return '/earn';
+    return next;
+  }
+
+  function addQueryFlag(path, key, value){
+    var safePath = safeInternalNext(path);
+    var url = new URL(safePath, window.location.origin);
+    url.searchParams.set(String(key || ''), String(value || ''));
+    return url.pathname + (url.search || '') + (url.hash || '');
+  }
+
+  function resolveRedirectHref(path){
+    var safePath = safeInternalNext(path);
+    if (!authRedirectBaseUrl) return safePath;
+    try {
+      return new URL(safePath, authRedirectBaseUrl).toString();
+    } catch (e) {
+      return safePath;
+    }
+  }
+
+  function hasAcceptedTermsLocally(){
+    return true;
+  }
+
+  function syncTermsGate(){
+    state.termsAccepted = hasAcceptedTermsLocally();
+    if (emailBtn) {
+      emailBtn.disabled = !state.termsAccepted;
+    }
+  }
+
+  function requireTermsBeforeAuth(){
+    return true;
+  }
+
+  function openTermsModal(){
+    if (!termsModal) return;
+    termsModal.classList.add('show');
+    termsModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  }
+
+  function closeTermsModal(){
+    if (!termsModal) return;
+    termsModal.classList.remove('show');
+    termsModal.setAttribute('aria-hidden', 'true');
+    if (!authModal || authModal.getAttribute('aria-hidden') === 'true') {
+      document.body.classList.remove('modal-open');
+    }
+  }
+
+  function redirectAfterAuthSuccess(out, fallbackPath){
+    var redirectUrl = (out && out.json && typeof out.json.redirect_url === 'string')
+      ? String(out.json.redirect_url || '').trim()
+      : '';
+    var nextPath = (out && out.json && typeof out.json.next === 'string')
+      ? String(out.json.next || '').trim()
+      : '';
+    if (redirectUrl) {
+      window.location.href = redirectUrl;
+      return true;
+    }
+
+    window.location.href = resolveRedirectHref(nextPath || fallbackPath || state.next || '/earn');
+    return true;
+  }
+  state.next = safeInternalNext(state.next);
+
+  function authQueryMessage(code){
+    switch (String(code || '').trim()) {
+      case 'magic_expired':
+        return "We're sorry, that sign-in link expired or was already used. Try again.";
+      case 'magic_missing':
+        return "We're sorry, that sign-in link is incomplete. Try again.";
+      case 'magic_invalid':
+        return "We're sorry, we could not verify that sign-in link. Try again.";
+      case 'apple_not_configured':
+        return "Apple sign-in is not available right now.";
+      case 'apple_email_required':
+        return "Apple did not provide an email for this account.";
+      case 'apple_bad_state':
+      case 'apple_bad_nonce':
+      case 'apple_bad_signature':
+      case 'apple_bad_identity_token':
+      case 'apple_exchange_failed':
+      case 'apple_auth_failed':
+      case 'apple_callback_failed':
+        return "We could not finish Apple sign-in. Try again.";
+      case 'apple_canceled':
+        return "Apple sign-in was canceled.";
+      case 'google_not_configured':
+        return "Google sign-in is not available right now.";
+      case 'google_email_required':
+        return "Google did not provide an email for this account.";
+      case 'google_bad_state':
+      case 'google_bad_nonce':
+      case 'google_bad_signature':
+      case 'google_bad_identity_token':
+      case 'google_exchange_failed':
+      case 'google_auth_failed':
+      case 'google_callback_failed':
+        return "We could not finish Google sign-in. Try again.";
+      case 'google_canceled':
+        return "Google sign-in was canceled.";
+      case 'account_disabled':
+        return "This account is disabled.";
+      default:
+        return '';
+    }
+  }
+
+  function clearAuthQueryMessage(){
+    try {
+      var url = new URL(window.location.href);
+      if (!url.searchParams.has('auth_error') && !url.searchParams.has('auth_message') && !url.searchParams.has('auth_incident')) return;
+      url.searchParams.delete('auth_error');
+      url.searchParams.delete('auth_message');
+      url.searchParams.delete('auth_incident');
+      window.history.replaceState({}, '', url.pathname + (url.search || '') + url.hash);
+    } catch (e) {}
+  }
+
+  function authDisabledMessage(json){
+    json = json && typeof json === 'object' ? json : {};
+    var message = String(json.message || '').trim();
+    var incidentId = String(json.incident_id || '').trim();
+    if (!message && incidentId) {
+      return 'This account is disabled. Incident ID: ' + incidentId + '.';
+    }
+    return message;
+  }
+
+  function postJson(url, body){
+    return fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'same-origin',
+      body: JSON.stringify(body || {})
+    }).then(function(res){
+      return res.text().then(function(txt){
+        var json = {};
+        try { json = JSON.parse(txt || '{}'); } catch (e) { json = {}; }
+        return { ok: res.ok, status: res.status, json: json };
+      });
+    });
+  }
+
+  function setBusy(btn, busy, idleText, busyText){
+    if (!btn) return;
+    btn.dataset.busy = busy ? '1' : '0';
+    btn.disabled = !!busy;
+    btn.textContent = busy ? busyText : idleText;
+  }
+
+  function setPasswordVisibility(input, toggle, visible) {
+    if (!input || !toggle) return;
+    input.type = visible ? 'text' : 'password';
+    toggle.setAttribute('aria-label', visible ? 'Hide password' : 'Show password');
+    toggle.setAttribute('aria-pressed', visible ? 'true' : 'false');
+    var srLabel = toggle.querySelector('[data-password-toggle-label="1"]');
+    if (srLabel) {
+      srLabel.textContent = visible ? 'Hide password' : 'Show password';
+    }
+  }
+
+  function showMsg(el, msg){
+    if (!el) return;
+    el.textContent = msg || '';
+    el.style.display = msg ? 'block' : 'block';
+    if (!msg) el.style.display = 'none';
+  }
+
+  function clearAuthMsg(){
+    showMsg(authErr, '');
+    showMsg(authOk, '');
+  }
+
+  function passwordLengthOk(value){
+    return String(value || '').length >= 4;
+  }
+
+  function syncPasswordActionButtons(){
+    if (signupBtn) {
+      signupBtn.disabled = (signupBtn.dataset.busy === '1') || !passwordLengthOk(signupInput && signupInput.value);
+    }
+    if (hardenBtn) {
+      hardenBtn.disabled = (hardenBtn.dataset.busy === '1') || !passwordLengthOk(hardenPw1 && hardenPw1.value);
+    }
+  }
+
+  function setPasswordRecoveryVisible(visible){
+    if (pwRecoveryNote) pwRecoveryNote.style.display = visible ? 'block' : 'none';
+    if (pwRecoveryRow) pwRecoveryRow.style.display = visible ? 'flex' : 'none';
+  }
+
+  function clearHardMsg(){
+    showMsg(hardenErr, '');
+    showMsg(hardenOk, '');
+  }
+
+  function showAuthPanel(panel){
+    [emailPanel, passwordPanel, signupPanel, checkPanel, smsPanel].forEach(function(p){
+      if (p) p.classList.remove('active');
+    });
+    if (panel) panel.classList.add('active');
+    clearAuthMsg();
+  }
+
+  function showHardenScreen(name){
+    if (hardenScreenPassword) hardenScreenPassword.classList.remove('active');
+    if (hardenScreenPhone) hardenScreenPhone.classList.remove('active');
+
+    if (name === 'phone' && hardenScreenPhone) {
+      hardenScreenPhone.classList.add('active');
+    } else if (hardenScreenPassword) {
+      hardenScreenPassword.classList.add('active');
+    }
+  }
+
+  function setPhoneHeader(mode){
+    if (!phoneTitle || !phoneSub) return;
+
+    if (mode === 'code') {
+      phoneTitle.textContent = 'Code Sent';
+      phoneSub.textContent = 'Enter the 6-digit code sent to your device.';
+      return;
+    }
+
+    phoneTitle.textContent = 'Confirm Phone Number';
+    phoneSub.textContent = 'To secure your account, we need you to enter your phone number.';
+  }
+
+  function digitsOnly(v){
+    return String(v || '').replace(/\D+/g, '');
+  }
+
+  function emailLooksValid(v){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || '').trim());
+  }
+
+  function normalizeDomesticDigits(raw){
+    var text = String(raw || '').trim();
+    if (text.charAt(0) === '+') return null;
+
+    var d = digitsOnly(text);
+    if (d.length === 11 && d.charAt(0) === '1') {
+      return d.slice(1);
+    }
+    if (d.length <= 10) {
+      return d;
+    }
+    return null;
+  }
+
+  function maskPhone(v){
+    var raw = String(v || '').trim();
+    var keepPlus = raw.charAt(0) === '+';
+    var domestic = normalizeDomesticDigits(raw);
+    var d = (domestic !== null ? domestic : digitsOnly(raw)).slice(0, 15);
+    if (d.length === 0) return keepPlus ? '+' : '';
+    if (!keepPlus && d.length <= 10) {
+      if (d.length < 4) return '(' + d;
+      if (d.length < 7) return '(' + d.slice(0, 3) + ') ' + d.slice(3);
+      return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6, 10);
+    }
+    return (keepPlus || d.length > 10 ? '+' : '') + d;
+  }
+
+  function normalizePhoneForApi(v){
+    var raw = String(v || '').trim();
+    var domestic = normalizeDomesticDigits(raw);
+    if (domestic !== null) {
+      if (domestic.length === 10) return '+1' + domestic;
+      return domestic;
+    }
+
+    var d = digitsOnly(raw);
+    if (d.length === 10) return '+1' + d;
+    if (raw.charAt(0) === '+') return '+' + d;
+    return raw;
+  }
+
+  function resetAuthStateForDifferentEmail(){
+    state.email = '';
+    state.smsPhone = '';
+    state.smsLinkedPhone = '';
+    state.smsLinkedPhoneLast4 = '';
+    state.smsLinkedPhoneAvailable = false;
+    clearAuthMsg();
+
+    if (sentEmail) sentEmail.textContent = 'you@example.com';
+    if (smsEmail) smsEmail.textContent = 'you@example.com';
+    if (pwInput) pwInput.value = '';
+    if (pwEmail) pwEmail.value = '';
+    setPasswordRecoveryVisible(false);
+    if (signupInput) signupInput.value = '';
+    if (signupEmail) signupEmail.value = '';
+    if (smsPhoneStep) smsPhoneStep.style.display = 'block';
+    if (smsCodeStep) smsCodeStep.style.display = 'none';
+    if (smsPhoneInput) smsPhoneInput.value = '';
+    if (smsCodeInput) smsCodeInput.value = '';
+
+    setBusy(emailBtn, false, 'Continue', 'Working...');
+    setBusy(signupBtn, false, 'Create Account', 'Creating...');
+    setBusy(resendBtn, false, 'Resend email', 'Sending...');
+    setBusy(pwBtn, false, 'Log In', 'Signing in...');
+    setBusy(pwMagicBtn, false, 'Email me a sign-in link', 'Sending...');
+    setBusy(pwSmsBtn, false, 'Text me a code', 'Sending...');
+    setBusy(smsStartBtn, false, 'Send text code', 'Sending...');
+    setBusy(smsResendBtn, false, 'Resend', 'Sending...');
+    setBusy(smsVerifyBtn, false, 'Verify', 'Verifying...');
+    setBusy(hardenBtn, false, 'Continue', 'Saving...');
+    syncPasswordActionButtons();
+  }
+
+  function openAuth(){
+    if (!authModal) return false;
+    authModal.classList.add('open');
+    authModal.setAttribute('aria-hidden','false');
+    document.documentElement.style.overflow='hidden';
+    document.body.style.overflow='hidden';
+    showAuthPanel(emailPanel);
+    var params = new URLSearchParams(window.location.search);
+    var queryMsg = String(params.get('auth_message') || '').trim();
+    if (!queryMsg) {
+      queryMsg = authQueryMessage(params.get('auth_error'));
+    }
+    if (!queryMsg && String(params.get('auth_incident') || '').trim() !== '') {
+      queryMsg = 'This account is disabled. Incident ID: ' + String(params.get('auth_incident') || '').trim() + '.';
+    }
+    if (queryMsg) {
+      showMsg(authErr, queryMsg);
+      clearAuthQueryMessage();
+    }
+    setTimeout(function(){
+      if (emailInput) emailInput.focus();
+    }, 40);
+    return true;
+  }
+
+  function closeAuth(){
+    if (!authModal) return;
+    authModal.classList.remove('open');
+    authModal.setAttribute('aria-hidden','true');
+    if (!hardenModal || !hardenModal.classList.contains('open')) {
+      document.documentElement.style.overflow='';
+      document.body.style.overflow='';
+    }
+  }
+
+  function openCheckEmail(email){
+    state.email = email;
+    if (sentEmail) sentEmail.textContent = email;
+    if (smsEmail) smsEmail.textContent = email;
+    showAuthPanel(checkPanel);
+  }
+
+  function openSignupPassword(email){
+    state.email = email;
+    if (signupEmail) signupEmail.value = email;
+    if (signupInput) signupInput.value = '';
+    syncPasswordActionButtons();
+    showAuthPanel(signupPanel);
+    setTimeout(function(){
+      if (signupInput) signupInput.focus();
+    }, 40);
+  }
+
+  function resetSmsFallback(){
+    state.smsPhone = '';
+    if (smsPhoneStep) smsPhoneStep.style.display = 'block';
+    if (smsCodeStep) smsCodeStep.style.display = 'none';
+    if (smsLinkedMeta) {
+      smsLinkedMeta.style.display = 'none';
+      smsLinkedMeta.textContent = '';
+    }
+    if (smsPhoneField) smsPhoneField.style.display = 'block';
+    if (smsSub) smsSub.textContent = 'Verify this sign-in by text instead of waiting on email. For account recovery, use the phone linked to your account.';
+    if (smsPhoneInput) smsPhoneInput.value = '';
+    if (smsCodeInput) smsCodeInput.value = '';
+    setBusy(smsStartBtn, false, 'Send text code', 'Sending...');
+    setBusy(smsResendBtn, false, 'Resend', 'Sending...');
+    setBusy(smsVerifyBtn, false, 'Verify', 'Verifying...');
+  }
+
+  function applyIdentityMeta(meta){
+    meta = meta && typeof meta === 'object' ? meta : {};
+    state.smsLinkedPhoneAvailable = !!meta.has_verified_phone;
+    state.smsLinkedPhoneLast4 = String(meta.verified_phone_last4 || '');
+    state.smsLinkedPhone = '';
+  }
+
+  function prepareLinkedSmsStartUi(){
+    if (smsLinkedMeta) {
+      smsLinkedMeta.style.display = 'block';
+      smsLinkedMeta.textContent = state.smsLinkedPhoneLast4
+        ? 'We will text the verified number already linked to this account ending in ' + state.smsLinkedPhoneLast4 + '.'
+        : 'We will text the verified number already linked to this account.';
+    }
+    if (smsPhoneField) smsPhoneField.style.display = 'none';
+    if (smsSub) smsSub.textContent = 'We will send a 6-digit code to the verified phone already linked to this account.';
+  }
+
+  function consumeSmsStartSuccess(out, requestedPhone){
+    var json = out && out.json ? out.json : {};
+    var apiPhone = String((json && json.phone_e164) || requestedPhone || '');
+    var apiLast4 = String((json && json.phone_last4) || '');
+    if (apiPhone) {
+      state.smsPhone = apiPhone;
+    }
+    if (apiLast4) {
+      state.smsLinkedPhoneLast4 = apiLast4;
+    }
+    showSmsCodeStep(apiPhone || requestedPhone || '');
+    showMsg(authOk, state.smsLinkedPhoneLast4
+      ? 'A 6-digit code has been texted to your number ending in ' + state.smsLinkedPhoneLast4 + '.'
+      : 'A 6-digit code has been texted to your phone.');
+  }
+
+  function startSmsFallback(phoneOverride){
+    var requestPhone = String(phoneOverride || '').trim();
+    if (!requestPhone && !state.smsLinkedPhoneAvailable) {
+      showMsg(authErr, 'Enter your phone number.');
+      return Promise.resolve();
+    }
+
+    setBusy(smsStartBtn, true, 'Send text code', 'Sending...');
+    return postJson('/auth/phone/login/start', { email: state.email, phone: requestPhone }).then(function(out){
+      setBusy(smsStartBtn, false, 'Send text code', 'Sending...');
+      if (out.ok && out.json && out.json.ok) {
+        consumeSmsStartSuccess(out, requestPhone);
+        return;
+      }
+      var code = (out.json && out.json.error) ? String(out.json.error) : '';
+      if (code === 'bad_phone') return showMsg(authErr, 'Enter a valid phone number.');
+      if (code === 'twilio_not_configured') return showMsg(authErr, 'Text verification is not configured yet.');
+      if (code === 'phone_not_linked') return showMsg(authErr, 'Use the phone number already linked to this account.');
+      if (code === 'account_hardened' || code === 'fallback_not_allowed') return showMsg(authErr, 'Text verification is not available for this sign-in yet.');
+      if (code === 'account_not_found') return showMsg(authErr, 'We could not find that account.');
+      if (code === 'account_disabled') return showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.');
+      showMsg(authErr, 'Could not send text code. Try again.');
+    }).catch(function(){
+      setBusy(smsStartBtn, false, 'Send text code', 'Sending...');
+      showMsg(authErr, 'Network error. Try again.');
+    });
+  }
+
+  function openSmsFallback(){
+    if (smsEmail) smsEmail.textContent = state.email || 'you@example.com';
+    resetSmsFallback();
+    showAuthPanel(smsPanel);
+    if (state.smsLinkedPhoneAvailable) {
+      prepareLinkedSmsStartUi();
+      startSmsFallback('');
+      return;
+    }
+    setTimeout(function(){
+      if (smsPhoneInput) smsPhoneInput.focus();
+    }, 40);
+  }
+
+  function showSmsCodeStep(phone){
+    state.smsPhone = phone;
+    if (smsPhoneStep) smsPhoneStep.style.display = 'none';
+    if (smsCodeStep) smsCodeStep.style.display = 'block';
+    if (smsSub) smsSub.textContent = state.smsLinkedPhoneLast4
+      ? 'Enter the 6-digit code sent to your number ending in ' + state.smsLinkedPhoneLast4 + '.'
+      : 'Enter the 6-digit code we just texted to your phone.';
+    setTimeout(function(){
+      if (smsCodeInput) smsCodeInput.focus();
+    }, 40);
+  }
+
+  function resetPhoneStep(){
+    state.phone = '';
+    if (phoneEntryStep) phoneEntryStep.style.display = 'block';
+    if (phoneCodeStep) phoneCodeStep.style.display = 'none';
+    if (phoneInput) phoneInput.value = '';
+    if (phoneCode) phoneCode.value = '';
+    setPhoneHeader('entry');
+  }
+
+  function openHardening(initialStep){
+    if (!hardenModal) return;
+    requirePasswordAfterPhone = (String(initialStep || '').trim() === 'phone');
+    hardenModal.classList.add('open');
+    hardenModal.setAttribute('aria-hidden','false');
+
+    clearHardMsg();
+    resetPhoneStep();
+    showHardenScreen('password');
+    if (hardenPw1) hardenPw1.value = '';
+    if (hardenPw2) hardenPw2.value = '';
+    syncPasswordActionButtons();
+
+    if (hardenIdentity) hardenIdentity.value = accountEmail || accountUsername || 'PlayCash account';
+    if (hardenClose) hardenClose.hidden = true;
+
+    document.documentElement.style.overflow='hidden';
+    document.body.style.overflow='hidden';
+
+    if (requirePasswordAfterPhone) {
+      goPhoneStep();
+      return;
+    }
+
+    setTimeout(function(){
+      if (hardenPw1) hardenPw1.focus();
+    }, 40);
+  }
+
+  function clearHardenQuery(){
+    var url = new URL(window.location.href);
+    url.searchParams.delete('harden');
+    url.searchParams.delete('harden_step');
+    window.history.replaceState({}, '', url.pathname + (url.searchParams.toString() ? '?' + url.searchParams.toString() : '') + url.hash);
+  }
+
+  function closeHardening(){
+    if (!hardenModal) return;
+    requirePasswordAfterPhone = false;
+
+    resetPhoneStep();
+    showHardenScreen('password');
+    if (hardenPw1) hardenPw1.value = '';
+    if (hardenPw2) hardenPw2.value = '';
+    syncPasswordActionButtons();
+
+    hardenModal.classList.remove('open');
+    hardenModal.setAttribute('aria-hidden','true');
+
+    document.documentElement.style.overflow='';
+    document.body.style.overflow='';
+
+    clearHardenQuery();
+  }
+
+  function goPhoneStep(){
+    clearHardMsg();
+    showHardenScreen('phone');
+    setPhoneHeader('entry');
+    if (hardenClose) hardenClose.hidden = false;
+    setTimeout(function(){
+      if (phoneInput) phoneInput.focus();
+    }, 40);
+  }
+
+  if (phoneInput) {
+    phoneInput.addEventListener('input', function(){
+      phoneInput.value = maskPhone(phoneInput.value);
+    });
+  }
+
+  if (smsPhoneInput) {
+    smsPhoneInput.addEventListener('input', function(){
+      smsPhoneInput.value = maskPhone(smsPhoneInput.value);
+    });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-password-toggle="1"]'), function(toggle){
+    toggle.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var targetId = toggle.getAttribute('data-target') || '';
+      var input = targetId ? document.getElementById(targetId) : null;
+      if (!input) return;
+      setPasswordVisibility(input, toggle, input.type === 'password');
+      input.focus();
+    });
+  });
+
+  if (authCard) {
+    authCard.addEventListener('click', function(e){
+      e.stopPropagation();
+    });
+  }
+
+  if (hardenCard) {
+    hardenCard.addEventListener('click', function(e){
+      e.stopPropagation();
+    });
+  }
+
+  if (authClose) authClose.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    closeAuth();
+  });
+
+  if (authModal) authModal.addEventListener('click', function(e){
+    if (e.target === authModal) closeAuth();
+  });
+
+  window.PlayCashAuthOpen = function(){
+    return openAuth();
+  };
+  window.openAuthModal = window.PlayCashAuthOpen;
+
+  document.addEventListener('click', function(e){
+    var trigger = e.target && e.target.closest('[data-auth-open="1"], .nav-cta, .drawer-cta, .btn-pink, .store-badge, .win-pill');
+    if (!trigger || isLoggedIn) return;
+    e.preventDefault();
+    if (trigger.getAttribute('href')) {
+      try {
+        var u = new URL(trigger.getAttribute('href'), window.location.origin);
+        state.next = safeInternalNext(u.searchParams.get('next') || state.next || '/earn');
+      } catch (err) {}
+    }
+    if (openAuth() !== true) {
+      var fallbackHref = (trigger.getAttribute('href') || '').trim();
+      if (fallbackHref) {
+        window.location.href = fallbackHref;
+      }
+    }
+  }, true);
+
+  if (appleBtn) appleBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if (!requireTermsBeforeAuth()) return;
+    window.location.href = '/auth/apple/start?next=' + encodeURIComponent(state.next || '/earn');
+  });
+
+  if (googleBtn) googleBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if (!requireTermsBeforeAuth()) return;
+    window.location.href = '/auth/google/start?next=' + encodeURIComponent(state.next || '/earn');
+  });
+
+  if (emailForm) emailForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    clearAuthMsg();
+    if (!requireTermsBeforeAuth()) return;
+    var email = (emailInput && emailInput.value || '').trim().toLowerCase();
+    if (!email) return showMsg(authErr, 'Enter your email.');
+    if (!emailLooksValid(email)) return showMsg(authErr, 'Enter a valid email.');
+
+    setBusy(emailBtn, true, 'Continue', 'Working...');
+    postJson('/auth/identity/check', { email: email }).then(function(out){
+      setBusy(emailBtn, false, 'Continue', 'Working...');
+
+      if (!out.ok || !out.json || out.json.ok !== true) {
+        return showMsg(authErr, 'Enter a valid email.');
+      }
+
+      state.email = String(out.json.email || email);
+      applyIdentityMeta(out.json || {});
+
+      if (out.json.exists && String(out.json.account_status || 'active') !== 'active') {
+        return showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.');
+      }
+
+      if (out.json.exists && out.json.has_password) {
+        if (pwEmail) pwEmail.value = state.email;
+        if (pwInput) pwInput.value = '';
+        setPasswordRecoveryVisible(false);
+        showAuthPanel(passwordPanel);
+        setTimeout(function(){
+          if (pwInput) pwInput.focus();
+        }, 40);
+        return;
+      }
+
+      if (!out.json.exists) {
+        openSignupPassword(state.email);
+        return;
+      }
+
+      setBusy(emailBtn, true, 'Continue', 'Sending...');
+      return postJson('/auth/magic/start', { email: state.email, next: state.next }).then(function(sendOut){
+        setBusy(emailBtn, false, 'Continue', 'Sending...');
+        if (sendOut.ok && sendOut.json && sendOut.json.ok) {
+          openCheckEmail(state.email);
+          showMsg(authOk, 'Email sent. Check your inbox to keep going.');
+          return;
+        }
+        if (sendOut.json && sendOut.json.error === 'account_disabled') {
+          return showMsg(authErr, authDisabledMessage(sendOut.json) || 'This account is disabled.');
+        }
+        return showMsg(authErr, 'Could not send email. Try again.');
+      });
+    }).catch(function(){
+      setBusy(emailBtn, false, 'Continue', 'Working...');
+      showMsg(authErr, 'Network error. Try again.');
+    });
+  });
+
+  if (pwForm) pwForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    clearAuthMsg();
+    var password = (pwInput && pwInput.value || '');
+    if (!password) return showMsg(authErr, 'Enter your password.');
+
+    setBusy(pwBtn, true, 'Log In', 'Signing in...');
+    postJson('/auth/password/login', {
+      email: state.email || (pwEmail && pwEmail.value || ''),
+      password: password,
+      next: state.next
+    }).then(function(out){
+      setBusy(pwBtn, false, 'Log In', 'Signing in...');
+      if (out.ok && out.json && out.json.ok) {
+        redirectAfterAuthSuccess(out, state.next || '/earn');
+        return;
+      }
+      if (out.json && out.json.error === 'invalid_login') {
+        setPasswordRecoveryVisible(true);
+        showMsg(authErr, 'Incorrect email or password. Try again.');
+        return;
+      }
+      if (out.json && out.json.error === 'account_disabled') {
+        showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.');
+        return;
+      }
+      showMsg(authErr, 'Could not sign you in right now. Try again.');
+    }).catch(function(){
+      setBusy(pwBtn, false, 'Log In', 'Signing in...');
+      showMsg(authErr, 'Network error. Try again.');
+    });
+  });
+
+  if (pwMagicBtn) pwMagicBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if (!state.email) return;
+
+    clearAuthMsg();
+    setBusy(pwMagicBtn, true, 'Email me a sign-in link', 'Sending...');
+    postJson('/auth/magic/start', { email: state.email, next: state.next }).then(function(out){
+      setBusy(pwMagicBtn, false, 'Email me a sign-in link', 'Sending...');
+      if (out.ok && out.json && out.json.ok) {
+        openCheckEmail(state.email);
+        showMsg(authOk, 'Email sent. Check your inbox to keep going.');
+        return;
+      }
+      if (out.json && out.json.error === 'account_disabled') {
+        showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.');
+        return;
+      }
+      showMsg(authErr, 'Could not send email. Try again.');
+    }).catch(function(){
+      setBusy(pwMagicBtn, false, 'Email me a sign-in link', 'Sending...');
+      showMsg(authErr, 'Network error. Try again.');
+    });
+  });
+
+  if (pwSmsBtn) pwSmsBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if (!state.email) return;
+    clearAuthMsg();
+    openSmsFallback();
+  });
+
+  if (signupInput) {
+    ['input', 'change'].forEach(function(evt){
+      signupInput.addEventListener(evt, syncPasswordActionButtons);
+    });
+  }
+
+  if (signupForm) signupForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    clearAuthMsg();
+    var password = (signupInput && signupInput.value || '');
+    if (!password) return showMsg(authErr, 'Create a password.');
+
+    setBusy(signupBtn, true, 'Create Account', 'Creating...');
+    postJson('/auth/password/signup', {
+      email: state.email || (signupEmail && signupEmail.value || ''),
+      password: password,
+      next: state.next
+    }).then(function(out){
+      setBusy(signupBtn, false, 'Create Account', 'Creating...');
+      if (out.ok && out.json && out.json.ok) {
+        redirectAfterAuthSuccess(out, state.next || '/earn');
+        return;
+      }
+      var code = (out.json && out.json.error) ? String(out.json.error) : '';
+      if (code === 'weak_password') {
+        syncPasswordActionButtons();
+        showMsg(authErr, 'Enter a valid password.');
+        return;
+      }
+      if (code === 'account_exists') {
+        postJson('/auth/identity/check', { email: state.email }).then(function(checkOut){
+          applyIdentityMeta(checkOut.json || {});
+          if (checkOut.ok && checkOut.json && checkOut.json.ok && checkOut.json.exists && String(checkOut.json.account_status || 'active') !== 'active') {
+            showMsg(authErr, authDisabledMessage(checkOut.json) || 'This account is disabled.');
+            return;
+          }
+          if (checkOut.ok && checkOut.json && checkOut.json.ok && checkOut.json.exists && checkOut.json.has_password) {
+            if (pwEmail) pwEmail.value = state.email;
+            if (pwInput) pwInput.value = '';
+            setPasswordRecoveryVisible(false);
+            showAuthPanel(passwordPanel);
+            showMsg(authErr, 'That email already has an account. Sign in instead.');
+            setTimeout(function(){
+              if (pwInput) pwInput.focus();
+            }, 40);
+            return;
+          }
+          if (checkOut.ok && checkOut.json && checkOut.json.ok && checkOut.json.exists) {
+            state.email = String(checkOut.json.email || state.email);
+            setBusy(signupBtn, true, 'Create Account', 'Sending...');
+            postJson('/auth/magic/start', { email: state.email, next: state.next }).then(function(sendOut){
+              setBusy(signupBtn, false, 'Create Account', 'Sending...');
+              if (sendOut.ok && sendOut.json && sendOut.json.ok) {
+                openCheckEmail(state.email);
+                showMsg(authOk, 'Email sent. Check your inbox to keep going.');
+                return;
+              }
+              if (sendOut.json && sendOut.json.error === 'account_disabled') {
+                showMsg(authErr, authDisabledMessage(sendOut.json) || 'This account is disabled.');
+                return;
+              }
+              showMsg(authErr, 'Could not send email. Try again.');
+            }).catch(function(){
+              setBusy(signupBtn, false, 'Create Account', 'Sending...');
+              showMsg(authErr, 'Network error. Try again.');
+            });
+            return;
+          }
+          setBusy(signupBtn, false, 'Create Account', 'Creating...');
+          showMsg(authErr, 'That email was left mid-signup. Try creating your password again.');
+        }).catch(function(){
+          showMsg(authErr, 'That email already has an account. Try signing in.');
+        });
+        return;
+      }
+      if (code === 'account_disabled') {
+        showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.');
+        return;
+      }
+      showMsg(authErr, 'Could not create your account right now. Try again.');
+    }).catch(function(){
+      setBusy(signupBtn, false, 'Create Account', 'Creating...');
+      showMsg(authErr, 'Network error. Try again.');
+    });
+  });
+
+  if (backBtn) backBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    resetAuthStateForDifferentEmail();
+    showAuthPanel(emailPanel);
+
+    if (emailInput) {
+      emailInput.value = '';
+      emailInput.blur();
+      window.requestAnimationFrame(function () {
+        emailInput.focus();
+      });
+    }
+  });
+
+  if (resendBtn) resendBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!state.email) return;
+    clearAuthMsg();
+    setBusy(resendBtn, true, 'Resend email', 'Sending...');
+    postJson('/auth/magic/start', { email: state.email, next: state.next }).then(function(out){
+      setBusy(resendBtn, false, 'Resend email', 'Sending...');
+      if (out.ok && out.json && out.json.ok) {
+        showMsg(authOk, 'Email sent. Check your inbox for the latest sign-in link.');
+        return;
+      }
+      if (out.json && out.json.error === 'account_disabled') {
+        showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.');
+        return;
+      }
+      showMsg(authErr, 'Could not resend email. Try again.');
+    }).catch(function(){
+      setBusy(resendBtn, false, 'Resend email', 'Sending...');
+      showMsg(authErr, 'Network error. Try again.');
+    });
+  });
+
+  if (smsBtn) smsBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if (!state.email) return;
+    openSmsFallback();
+  });
+
+  if (smsBackBtn) smsBackBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    resetSmsFallback();
+    openCheckEmail(state.email || 'you@example.com');
+  });
+
+  if (smsForm) smsForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    clearAuthMsg();
+
+    var phoneRaw = (smsPhoneInput && smsPhoneInput.value || '').trim();
+    var phoneApi = phoneRaw ? normalizePhoneForApi(phoneRaw) : '';
+    startSmsFallback(phoneApi);
+  });
+
+  if (smsResendBtn) smsResendBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    clearAuthMsg();
+    if (!state.email || !state.smsPhone) return;
+
+    setBusy(smsResendBtn, true, 'Resend', 'Sending...');
+    postJson('/auth/phone/login/start', { email: state.email, phone: state.smsPhone }).then(function(out){
+      setBusy(smsResendBtn, false, 'Resend', 'Sending...');
+      if (out.ok && out.json && out.json.ok) {
+        consumeSmsStartSuccess(out, state.smsPhone);
+        return;
+      }
+      if (out.json && out.json.error === 'account_disabled') {
+        showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.');
+        return;
+      }
+      showMsg(authErr, 'Could not resend text code.');
+    }).catch(function(){
+      setBusy(smsResendBtn, false, 'Resend', 'Sending...');
+      showMsg(authErr, 'Network error. Try again.');
+    });
+  });
+
+  if (smsVerifyBtn) smsVerifyBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    clearAuthMsg();
+
+    var code = (smsCodeInput && smsCodeInput.value || '').trim();
+    if (!/^\d{6}$/.test(code)) return showMsg(authErr, 'Enter the 6-digit code.');
+
+    setBusy(smsVerifyBtn, true, 'Verify', 'Verifying...');
+    postJson('/auth/phone/login/verify', { email: state.email, phone: state.smsPhone, code: code, next: state.next }).then(function(out){
+      setBusy(smsVerifyBtn, false, 'Verify', 'Verifying...');
+      if (out.ok && out.json && out.json.ok) {
+        var target = (out.json && typeof out.json.next === 'string' && out.json.next)
+          ? String(out.json.next)
+          : (state.next || '/earn');
+        if (out.json.show_hardening) {
+          target = addQueryFlag(target, 'harden', '1');
+        }
+        redirectAfterAuthSuccess(out, target);
+        return;
+      }
+      var codeStr = (out.json && out.json.error) ? String(out.json.error) : '';
+      if (codeStr === 'bad_code') return showMsg(authErr, 'Enter the 6-digit code.');
+      if (codeStr === 'bad_phone') return showMsg(authErr, 'Enter a valid phone number.');
+      if (codeStr === 'phone_in_use') return showMsg(authErr, 'That phone number is already linked to another account.');
+      if (codeStr === 'phone_not_linked') return showMsg(authErr, 'Use the phone number already linked to this account.');
+      if (codeStr === 'account_hardened' || codeStr === 'fallback_not_allowed') return showMsg(authErr, 'Text verification is not available for this sign-in.');
+      if (codeStr === 'account_not_found') return showMsg(authErr, 'We could not find that account.');
+      if (codeStr === 'account_disabled') return showMsg(authErr, authDisabledMessage(out.json) || 'This account is disabled.');
+      showMsg(authErr, 'Could not verify code. Try again.');
+    }).catch(function(){
+      setBusy(smsVerifyBtn, false, 'Verify', 'Verifying...');
+      showMsg(authErr, 'Network error. Try again.');
+    });
+  });
+
+  function validPassword(pw){
+    return passwordLengthOk(pw);
+  }
+
+  if (hardenPw1) {
+    ['input', 'change'].forEach(function(evt){
+      hardenPw1.addEventListener(evt, syncPasswordActionButtons);
+    });
+  }
+
+  if (hardenForm) hardenForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    clearHardMsg();
+
+    var p1 = (hardenPw1 && hardenPw1.value || '');
+    var p2 = (hardenPw2 && hardenPw2.value || '');
+
+    if (!validPassword(p1)) {
+      syncPasswordActionButtons();
+      return showMsg(hardenErr, 'Enter a valid password.');
+    }
+    if (p1 !== p2) return showMsg(hardenErr, 'Passwords do not match.');
+
+    setBusy(hardenBtn, true, 'Continue', 'Saving...');
+    postJson('/auth/password/set', { password: p1, confirm: p2 }).then(function(out){
+      setBusy(hardenBtn, false, 'Continue', 'Saving...');
+      if (out.ok && out.json && out.json.ok) {
+        showMsg(hardenOk, 'Password saved.');
+        setTimeout(function(){
+          showMsg(hardenOk, '');
+          if (accountHasVerifiedPhone) {
+            closeHardening();
+            return;
+          }
+          goPhoneStep();
+        }, 120);
+        return;
+      }
+
+      var msg = (out.json && (out.json.message || out.json.error)) ? String(out.json.message || out.json.error) : 'Could not save password.';
+      if (msg === 'weak_password') msg = 'Enter a valid password.';
+      showMsg(hardenErr, msg);
+    }).catch(function(){
+      setBusy(hardenBtn, false, 'Continue', 'Saving...');
+      showMsg(hardenErr, 'Network error. Try again.');
+    });
+  });
+
+  function showPhoneCodeStep(phone){
+    state.phone = phone;
+    if (phoneEntryStep) phoneEntryStep.style.display = 'none';
+    if (phoneCodeStep) phoneCodeStep.style.display = 'block';
+    setPhoneHeader('code');
+    setTimeout(function(){
+      if (phoneCode) phoneCode.focus();
+    }, 40);
+  }
+
+  if (phoneForm) phoneForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    clearHardMsg();
+
+    var phoneRaw = (phoneInput && phoneInput.value || '').trim();
+    if (!phoneRaw) return showMsg(hardenErr, 'Enter your phone number.');
+
+    var phoneApi = normalizePhoneForApi(phoneRaw);
+
+    setBusy(phoneStartBtn, true, 'Send Code', 'Sending...');
+    postJson('/auth/phone/start', { phone: phoneApi }).then(function(out){
+      setBusy(phoneStartBtn, false, 'Send Code', 'Sending...');
+      if (out.ok && out.json && out.json.ok) {
+        showPhoneCodeStep(phoneApi);
+        showMsg(hardenOk, 'Text code sent. Check your messages.');
+        return;
+      }
+      var code = (out.json && out.json.error) ? String(out.json.error) : '';
+      if (code === 'bad_phone') return showMsg(hardenErr, 'Enter a valid phone number.');
+      if (code === 'twilio_not_configured') return showMsg(hardenErr, 'Phone verification is not configured yet.');
+      showMsg(hardenErr, 'Could not send code. Try again.');
+    }).catch(function(){
+      setBusy(phoneStartBtn, false, 'Send Code', 'Sending...');
+      showMsg(hardenErr, 'Network error. Try again.');
+    });
+  });
+
+  if (phoneResendBtn) phoneResendBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    clearHardMsg();
+    if (!state.phone) return;
+
+    setBusy(phoneResendBtn, true, 'Resend', 'Sending...');
+    postJson('/auth/phone/start', { phone: state.phone }).then(function(out){
+      setBusy(phoneResendBtn, false, 'Resend', 'Sending...');
+      if (out.ok && out.json && out.json.ok) {
+        showMsg(hardenOk, 'Text code sent. Check your messages.');
+        return;
+      }
+      showMsg(hardenErr, 'Could not resend code.');
+    }).catch(function(){
+      setBusy(phoneResendBtn, false, 'Resend', 'Sending...');
+      showMsg(hardenErr, 'Network error. Try again.');
+    });
+  });
+
+  if (phoneVerifyBtn) phoneVerifyBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    clearHardMsg();
+
+    var code = (phoneCode && phoneCode.value || '').trim();
+    if (!/^\d{6}$/.test(code)) return showMsg(hardenErr, 'Enter the 6-digit code.');
+
+    setBusy(phoneVerifyBtn, true, 'Verify', 'Verifying...');
+    postJson('/auth/phone/verify', { phone: state.phone, code: code }).then(function(out){
+      setBusy(phoneVerifyBtn, false, 'Verify', 'Verifying...');
+      if (out.ok && out.json && out.json.ok) {
+        accountHasVerifiedPhone = true;
+        if (requirePasswordAfterPhone) {
+          requirePasswordAfterPhone = false;
+          clearHardMsg();
+          showHardenScreen('password');
+          if (hardenClose) hardenClose.hidden = true;
+          setTimeout(function(){
+            if (hardenPw1) hardenPw1.focus();
+          }, 40);
+          return;
+        }
+        closeHardening();
+        return;
+      }
+      var codeStr = (out.json && out.json.error) ? String(out.json.error) : '';
+      if (codeStr === 'bad_code') return showMsg(hardenErr, 'Enter the 6-digit code.');
+      if (codeStr === 'not_approved' || codeStr === 'verify_failed') return showMsg(hardenErr, 'That code did not match.');
+      showMsg(hardenErr, 'Could not verify code. Try again.');
+    }).catch(function(){
+      setBusy(phoneVerifyBtn, false, 'Verify', 'Verifying...');
+      showMsg(hardenErr, 'Network error. Try again.');
+    });
+  });
+
+  if (phoneSkipBtn) phoneSkipBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    closeHardening();
+  });
+
+  if (hardenClose) hardenClose.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    closeHardening();
+  });
+
+  if (hardenModal) hardenModal.addEventListener('click', function(e){
+    if (e.target === hardenModal && !hardenClose.hidden) closeHardening();
+  });
+
+  if (forceAuthOpen && !isLoggedIn) openAuth();
+  syncPasswordActionButtons();
+  syncTermsGate();
+  if (termsAcceptBtn) termsAcceptBtn.addEventListener('click', function(){
+    if (!termsVersion) return;
+    setBusy(termsAcceptBtn, true, 'Accept and Continue', 'Saving...');
+    termsErr.textContent = '';
+    postJson('/account/terms/accept', {
+      terms_version: termsVersion,
+      source: 'web'
+    }).then(function(out){
+      setBusy(termsAcceptBtn, false, 'Accept and Continue', 'Saving...');
+      if (out.ok && out.json && out.json.ok) {
+        closeTermsModal();
+        window.dispatchEvent(new CustomEvent('pc:terms-accepted', { detail: out.json || {} }));
+        return;
+      }
+      termsErr.textContent = 'Could not save terms acceptance. Try again.';
+    }).catch(function(){
+      setBusy(termsAcceptBtn, false, 'Accept and Continue', 'Saving...');
+      termsErr.textContent = 'Network error. Try again.';
+    });
+  });
+  if (showHardening && isLoggedIn) openHardening(showHardeningStep);
+  if (termsModalAutoOpen) openTermsModal();
+})();
+</script>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var boot = window.__PC_LANDER || {};
+      var prefersReducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+      function buildHref(baseHref, source) {
+        if (!baseHref) return '#';
+
+        try {
+          var url = new URL(baseHref, window.location.origin);
+          if (source) {
+            url.searchParams.set('cta_source', source);
+          }
+          if (url.origin === window.location.origin) {
+            return url.pathname + url.search + url.hash;
+          }
+          return url.toString();
+        } catch (err) {
+          return baseHref;
+        }
+      }
+
+      function parseVisibleCookies() {
+        var out = {};
+        var names = [];
+        var raw = String(document.cookie || '');
+        if (!raw) {
+          return { cookies: out, cookieNames: names };
+        }
+        raw.split(';').forEach(function (pair) {
+          var trimmed = String(pair || '').trim();
+          if (!trimmed) return;
+          var eq = trimmed.indexOf('=');
+          var name = eq === -1 ? trimmed : trimmed.slice(0, eq).trim();
+          if (!name) return;
+          var value = eq === -1 ? '' : trimmed.slice(eq + 1);
+          names.push(name);
+          out[name] = value;
+        });
+        names.sort();
+        return {
+          cookies: out,
+          cookieNames: names
+        };
+      }
+
+      function syncAttributionCookies() {
+        var webGuid = String(boot.webGuid || '').trim();
+        if (!webGuid) return;
+
+        var cookieData = parseVisibleCookies();
+        var payload = {
+          web_guid: webGuid,
+          url: window.location.pathname + window.location.search + window.location.hash,
+          referrer: String(document.referrer || ''),
+          cookies: cookieData.cookies,
+          cookie_names: cookieData.cookieNames
+        };
+        var body = JSON.stringify(payload);
+        var sent = false;
+
+        try {
+          if (navigator.sendBeacon) {
+            sent = navigator.sendBeacon('/attribution/sync', new Blob([body], { type: 'application/json' }));
+          }
+        } catch (err) {}
+
+        if (sent) return;
+
+        try {
+          fetch('/attribution/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            keepalive: true,
+            body: body
+          }).catch(function () {});
+        } catch (err) {}
+      }
+
+      function ctaLabelFor(cta) {
+        if (boot.isLoggedIn) {
+          return cta.getAttribute('data-label-logged-in') || 'Open PlayCash';
+        }
+        return cta.getAttribute('data-label-logged-out') || boot.ctaLabel || 'Start Earning';
+      }
+
+      function ctaHrefFor(source) {
+        return boot.isLoggedIn
+          ? (boot.ctaHref || '#')
+          : buildHref(boot.authHref || '#', source);
+      }
+
+      function applyCtaState(cta, source) {
+        var action = (cta.getAttribute('data-final-action') || boot.finalAction || 'auth').toLowerCase();
+        var label = ctaLabelFor(cta);
+        var href = ctaHrefFor(source);
+        var labelNode = cta.querySelector('[data-cta-label]');
+
+        if (labelNode) {
+          labelNode.textContent = label;
+        }
+
+        if (cta.tagName === 'A') {
+          cta.setAttribute('href', href);
+        }
+
+        if (!boot.isLoggedIn && action === 'auth') {
+          cta.setAttribute('data-auth-open', '1');
+        } else {
+          cta.setAttribute('data-auth-open', '0');
+        }
+      }
+
+      function decorateTemplateCtas() {
+        var ctas = document.querySelectorAll('.js-final-cta, .nav-cta[data-cta-source], .nav-cta:not(#pcTryAuthTrigger)');
+        ctas.forEach(function (cta) {
+          var source = cta.getAttribute('data-cta-source') || 'final_cta';
+          applyCtaState(cta, source);
+
+          cta.addEventListener('click', function () {
+            if (!window.__PC_LANDER || typeof window.__PC_LANDER !== 'object') {
+              window.__PC_LANDER = {};
+            }
+            window.__PC_LANDER.lastCtaSource = source;
+          }, true);
+        });
+      }
+
+      function openTrackedAuth(source) {
+        var ctaSource = source || 'template_cta';
+        var href = ctaHrefFor(ctaSource);
+
+        if (boot && boot.isLoggedIn) {
+          window.location.href = href;
+          return true;
+        }
+
+        if (!window.__PC_LANDER || typeof window.__PC_LANDER !== 'object') {
+          window.__PC_LANDER = {};
+        }
+        window.__PC_LANDER.lastCtaSource = ctaSource;
+
+        if (typeof window.openAuthModal === 'function') {
+          try {
+            if (window.openAuthModal() === true) {
+              return true;
+            }
+          } catch (err) {}
+        }
+
+        if (href && href !== '#') {
+          window.location.href = href;
+        }
+        return false;
+      }
+
+      function initReveal() {
+        var revealEls = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+        if (revealEls.length === 0) return;
+
+        if (!('IntersectionObserver' in window) || prefersReducedMotion) {
+          revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+          return;
+        }
+
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          });
+        }, {
+          threshold: 0.16
+        });
+
+        revealEls.forEach(function (el) { io.observe(el); });
+      }
+
+      syncAttributionCookies();
+
+      function initFaq() {
+        var items = document.querySelectorAll('[data-faq-item]');
+        items.forEach(function (item) {
+          var button = item.querySelector('[data-faq-button]');
+          if (!button) return;
+
+          button.addEventListener('click', function () {
+            var isOpen = item.classList.contains('is-open');
+            items.forEach(function (other) { other.classList.remove('is-open'); });
+            if (!isOpen) {
+              item.classList.add('is-open');
+            }
+          });
+        });
+      }
+
+      function initHeroVideo() {
+        var video = document.querySelector('.js-hero-video');
+        var button = document.querySelector('.js-hero-audio-toggle');
+        var label = button ? button.querySelector('.js-hero-audio-label') : null;
+        if (!video || !button || !label) return;
+
+        function updateLabel() {
+          if (video.paused) {
+            label.textContent = 'Play with sound';
+            button.setAttribute('aria-pressed', 'false');
+            return;
+          }
+          if (video.muted) {
+            label.textContent = 'Unmute demo';
+            button.setAttribute('aria-pressed', 'false');
+            return;
+          }
+          label.textContent = 'Mute demo';
+          button.setAttribute('aria-pressed', 'true');
+        }
+
+        video.muted = true;
+        video.playsInline = true;
+        video.loop = true;
+        var playAttempt = video.play();
+        if (playAttempt && typeof playAttempt.catch === 'function') {
+          playAttempt.catch(function () {
+            updateLabel();
+          });
+        }
+
+        button.addEventListener('click', function () {
+          if (video.paused) {
+            video.muted = false;
+            var play = video.play();
+            if (play && typeof play.catch === 'function') {
+              play.catch(function () {
+                video.muted = true;
+                updateLabel();
+              });
+            }
+            updateLabel();
+            return;
+          }
+
+          video.muted = !video.muted;
+          updateLabel();
+        });
+
+        updateLabel();
+      }
+
+      function initScrollFlow() {
+        var flow = document.querySelector('[data-scroll-flow]');
+        if (!flow) return;
+
+        var stepOne = flow.querySelector('[data-scroll-step="1"]');
+        var stepTwo = flow.querySelector('[data-scroll-step="2"]');
+        var selectedTargets = flow.querySelectorAll('[data-scroll-selected]');
+        var dots = flow.querySelectorAll('.pc-flow__dot');
+        var resetButton = flow.querySelector('.js-scroll-reset');
+
+        function showStep(step) {
+          if (stepOne) stepOne.hidden = step !== 1;
+          if (stepTwo) stepTwo.hidden = step !== 2;
+          dots.forEach(function (dot) {
+            var dotStep = Number(dot.getAttribute('data-dot-step') || '0');
+            dot.classList.toggle('is-active', dotStep <= step);
+          });
+        }
+
+        flow.querySelectorAll('.js-scroll-choice').forEach(function (choice) {
+          choice.addEventListener('click', function () {
+            var label = choice.getAttribute('data-choice-label') || 'reward';
+            selectedTargets.forEach(function (target) {
+              target.textContent = label;
+            });
+            showStep(2);
+
+            if (!prefersReducedMotion && stepTwo && typeof stepTwo.scrollIntoView === 'function') {
+              stepTwo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        });
+
+        if (resetButton) {
+          resetButton.addEventListener('click', function () {
+            showStep(1);
+            if (!prefersReducedMotion && stepOne && typeof stepOne.scrollIntoView === 'function') {
+              stepOne.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        }
+
+        showStep(1);
+      }
+
+      window.__PC_LANDER_OPEN_AUTH = openTrackedAuth;
+      window.pcTryOpenAuth = openTrackedAuth;
+      decorateTemplateCtas();
+      initReveal();
+      initFaq();
+      initHeroVideo();
+      initScrollFlow();
+    })();
+  </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"f5d9ce52096c42699440da0c558062ec","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+
+<!-- STICKY BOTTOM CTA (mobile only) -->
+<div class="pc-sticky-cta" id="pcStickyCta" aria-hidden="true">
+  <a class="pc-sticky-cta__btn js-quiz-cta" href="#quiz" data-cta-source="quiz_sticky">Get Started →</a>
+</div>
+
+<script>
+(function () {
+  var sticky = document.getElementById('pcStickyCta');
+  var heroBtn = document.getElementById('finalCta');
+  if (!sticky || !heroBtn) return;
+
+  var ticking = false;
+  function update() {
+    ticking = false;
+    // show the sticky CTA only once the original hero button has scrolled
+    // completely out of view (above the fold), so the two are never seen together.
+    var r = heroBtn.getBoundingClientRect();
+    var hiddenAbove = r.bottom < 0;
+    if (hiddenAbove) {
+      if (!sticky.classList.contains('is-visible')) {
+        sticky.classList.add('is-visible');
+        sticky.setAttribute('aria-hidden', 'false');
+      }
+    } else {
+      if (sticky.classList.contains('is-visible')) {
+        sticky.classList.remove('is-visible');
+        sticky.setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+</script>
+</body>
+</html>
