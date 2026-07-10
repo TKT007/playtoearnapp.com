@@ -720,13 +720,45 @@ body {
   text-transform: uppercase;
   color: rgba(251, 191, 36, 0.7);
 }
-.result-boost-text {
+
+/* ---- How to unlock your bonus: circular check steps ---- */
+.result-boost-steps {
   position: relative;
-  font-size: .78rem;
-  color: rgba(200, 230, 205, 0.75);
-  line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-.result-boost-text b {
+.result-boost-step {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+}
+.result-boost-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fbbf24;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.45);
+}
+.result-boost-check svg {
+  width: 12px;
+  height: 12px;
+  color: #1a0a00;
+}
+.result-boost-step p {
+  font-size: .8rem;
+  color: rgba(200, 230, 205, 0.82);
+  line-height: 1.5;
+  margin: 0;
+  text-align: left;
+}
+.result-boost-step p b {
   color: #fbbf24;
   font-weight: 800;
 }
@@ -1124,8 +1156,21 @@ body {
           </div>
           <div class="result-boost-amount" id="resultBoostAmount">$155–$700</div>
           <div class="result-boost-expires" id="resultExpires">Offer expires: June 30, 2026 — Don't miss out</div>
-          <div class="result-boost-divider"><span>How to Unlock It</span></div>
-          <div class="result-boost-text">Spend <b>$5 on in-app purchases</b> on any game and instantly unlock premium milestones that pay <b>$250+ each</b>.</div>
+          <div class="result-boost-divider"><span>How to unlock your bonus</span></div>
+          <div class="result-boost-steps">
+            <div class="result-boost-step">
+              <div class="result-boost-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <p>Pick your <b>first game</b> from the dashboard and play for <b>5–10 minutes</b>.</p>
+            </div>
+            <div class="result-boost-step">
+              <div class="result-boost-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <p>Then open a <b>second different game</b> and play for another <b>5–10 minutes</b> to unlock your full <b>boosted earnings</b>.</p>
+            </div>
+          </div>
         </div>
         <div class="result-urgency">
           <span class="result-dot"></span>
@@ -1360,5 +1405,6 @@ window.addEventListener('load', function(){
   startLiveCount();
 });
 </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
