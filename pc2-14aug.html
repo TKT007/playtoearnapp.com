@@ -3478,7 +3478,11 @@
       color:#fff;font-size:14px;font-weight:900;letter-spacing:.04em;
       text-transform:uppercase;
       box-shadow:0 6px 18px rgba(139,92,246,.35);
+      text-decoration:none;cursor:pointer;
+      transition:transform .15s ease,box-shadow .15s ease;
     }
+    .reward-start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(240,68,154,.5);}
+    .reward-start-btn:active{transform:translateY(1px) scale(.98);}
 
     /* === Typography rescaled to match the ORIGINAL quiz scale (Inter, rem-based) === */
     #pcQuizResult,#pcQuizCalc{font-family:'Inter',system-ui,-apple-system,sans-serif;}
@@ -3647,7 +3651,7 @@
             </div>
             <div class="reward-progress-row"><span>Install and play to unlock more games</span><span class="reward-progress-num">3/3</span></div>
             <div class="reward-bar"><div class="reward-fill" style="width:100%"></div></div>
-            <div class="reward-start-btn">Unlocked - Start Now</div>
+            <a class="reward-start-btn js-final-cta" href="/earn" data-final-action="auth" data-cta-source="quiz_reward_unlocked" data-label-logged-out="Unlocked - Start Now" data-label-logged-in="Start Now"><span data-cta-label>Unlocked - Start Now</span></a>
           </div>
 
           <div class="reward-lock-card">
