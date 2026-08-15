@@ -1,535 +1,999 @@
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-US">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>Freecash — Gana por Jugar</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #050e06;
-  --surface: #0a110b;
-  --surface-border: rgba(44, 199, 110, 0.15);
-  --card: rgba(13, 26, 14, 0.85);
-  --card-inner: #060c07;
-  --card-inner-border: rgba(44, 199, 110, 0.2);
-  --text: #e8f0e9;
-  --text-muted: #5a7a5e;
-  --emerald: #01D676;
-  --emerald-dark: #00b060;
-  --emerald-glow: rgba(1, 214, 118, 0.22);
-  --emerald-glow-soft: rgba(1, 214, 118, 0.07);
-  --emerald-glow-strong: rgba(1, 214, 118, 0.55);
-  --amber: #fbbf24;
-  --amber-dim: rgba(251, 191, 36, 0.08);
-}
- 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-tap-highlight-color: transparent;
-}
- 
-html { background: var(--bg); -webkit-text-size-adjust: 100%; }
- 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow-x: hidden;
-  min-height: 100dvh;
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.5;
-  overscroll-behavior: none;
-}
- 
-#bg-canvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: 0;
-  pointer-events: none;
-}
- 
-.hero-glow {
-  pointer-events: none;
-  position: fixed;
-  top: -120px; left: 50%;
-  transform: translateX(-50%);
-  width: 140%;
-  height: 520px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(44, 199, 110, 0.22) 0%, rgba(20, 80, 30, 0.12) 50%, transparent 100%);
-  filter: blur(10px);
-  z-index: 0;
-}
- 
-.side-glow-l {
-  pointer-events: none;
-  position: fixed;
-  top: 35%; left: -100px;
-  width: 300px; height: 300px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(44, 199, 110, 0.1) 0%, transparent 70%);
-  filter: blur(40px);
-  z-index: 0;
-}
- 
-.side-glow-r {
-  pointer-events: none;
-  position: fixed;
-  top: 60%; right: -100px;
-  width: 300px; height: 300px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(30, 120, 60, 0.12) 0%, transparent 70%);
-  filter: blur(40px);
-  z-index: 0;
-}
- 
-.page {
-  max-width: 420px;
-  margin: 0 auto;
-  padding: 0 20px;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  position: relative;
-  z-index: 1;
-}
- 
-@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.4} }
-@keyframes shimmer { 0%{left:-100%} 50%,100%{left:120%} }
-@keyframes glow-pulse {
-  0%,100%{box-shadow:0 4px 24px var(--emerald-glow),0 0 48px var(--emerald-glow-soft)}
-  50%{box-shadow:0 6px 36px var(--emerald-glow-strong),0 0 72px var(--emerald-glow)}
-}
-@keyframes float-up { 0%{opacity:0;transform:translateY(10px)} 100%{opacity:1;transform:translateY(0)} }
- 
-.animate-pulse-dot { animation: pulse-dot 1.5s ease-in-out infinite; }
-.animate-shimmer   { animation: shimmer 2.2s ease-in-out infinite; }
-.animate-glow      { animation: glow-pulse 2s ease-in-out infinite; }
- 
-/* ---- Hero Section ---- */
-.hero {
-  display: flex; flex-direction: column; align-items: center;
-  text-align: center; padding: 48px 0 24px;
-  animation: float-up .7s ease-out;
-}
- 
-.brand-logo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 28px;
-  filter: drop-shadow(0 0 16px rgba(1, 214, 118, 0.4));
-}
- 
-.brand-logo svg {
-  display: block;
-}
- 
-.hero .badge {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: rgba(1, 214, 118, 0.12);
-  border: 1px solid rgba(1, 214, 118, 0.3);
-  border-radius: 999px;
-  padding: 6px 16px;
-  margin-bottom: 20px;
-}
-.hero .badge .bdot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--emerald);
-}
-.hero .badge span {
-  font-size: 10.5px; font-weight: 700;
-  color: var(--emerald); text-transform: uppercase;
-  letter-spacing: 0.13em;
-}
- 
-.hero h1 {
-  font-size: clamp(34px, 10vw, 44px);
-  font-weight: 900; line-height: 1.1;
-  letter-spacing: -0.025em; margin-bottom: 12px;
-}
-.hero h1 .white { color: #fff; }
-.hero h1 .green {
-  color: var(--emerald);
-  text-shadow: 0 0 40px rgba(1, 214, 118, 0.6), 0 0 80px rgba(1, 214, 118, 0.25);
-}
-.hero .sub {
-  font-size: 14px; color: rgba(200, 230, 205, 0.65);
-  line-height: 1.65; max-width: 320px;
-}
-.hero .sub strong { color: #fff; font-weight: 700; }
- 
-.stats-row { display: flex; justify-content: center; gap: 0; padding: 0 0 24px; }
-.stats-row .sr-item {
-  flex: 1; text-align: center; padding: 12px 6px;
-  border: 1px solid var(--surface-border); background: var(--card);
-  backdrop-filter: blur(8px);
-}
-.stats-row .sr-item:first-child { border-radius: 12px 0 0 12px; }
-.stats-row .sr-item:last-child  { border-radius: 0 12px 12px 0; }
-.stats-row .sr-item .val {
-  display: block; color: var(--emerald); font-weight: 800;
-  font-size: 15px; font-variant-numeric: tabular-nums;
-}
-.stats-row .sr-item .label {
-  display: block; font-size: 9.5px; color: var(--text-muted);
-  text-transform: uppercase; letter-spacing: .5px; margin-top: 3px;
-}
- 
-/* ---- CTA Button ---- */
-.cta-btn {
-  display: block; width: 100%;
-  background: var(--emerald);
-  color: #000; font-weight: 800; font-size: 15px; letter-spacing: -0.01em;
-  border: 0; border-radius: 14px; padding: 18px 20px;
-  text-decoration: none; text-align: center;
-  position: relative; overflow: hidden; cursor: pointer;
-  transition: transform .1s, background .15s, box-shadow .15s;
-  touch-action: manipulation;
-  z-index: 10;
-}
-.cta-btn:hover {
-  background: #28c864;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 28px rgba(1, 214, 118, 0.35);
-}
-.cta-btn:active { transform: scale(.98) translateY(0); box-shadow: none; }
-.cta-btn .shimmer {
-  position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-  pointer-events: none;
-}
- 
-.steps {
-  background: var(--card); border: 1px solid var(--surface-border);
-  border-radius: 18px; overflow: hidden; margin: 24px 0;
-  backdrop-filter: blur(8px);
-}
-.stp { display: flex; gap: 14px; padding: 18px 20px; border-bottom: 1px solid var(--surface-border); align-items: flex-start; }
-.stp:last-child { border-bottom: 0; }
-.stp-n {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: var(--emerald); display: flex; align-items: center;
-  justify-content: center; font-size: 13px; font-weight: 900;
-  color: #000; flex-shrink: 0; margin-top: 1px;
-  box-shadow: 0 0 20px rgba(1, 214, 118, 0.6);
-}
-.stp b { display: block; font-size: 14px; color: #fff; margin-bottom: 3px; font-weight: 700; }
-.stp .d { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
- 
-/* ---- Proofs Section ---- */
-.proofs {
-  background: var(--card); border: 1px solid var(--surface-border);
-  border-radius: 18px; padding: 22px 16px; margin: 24px 0;
-  backdrop-filter: blur(8px);
-}
-.proofs h2 { font-size: 16px; font-weight: 800; color: #fff; text-align: center; margin-bottom: 16px; }
-.proof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.payout-card { background: var(--card-inner); border: 1px solid var(--card-inner-border); border-radius: 12px; padding: 13px; }
-.pc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.pc-method { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.05em; }
-.pc-verified { display: flex; align-items: center; gap: 3px; }
-.pc-verified svg { width: 11px; height: 11px; color: var(--emerald); }
-.pc-verified span { font-size: 8.5px; font-weight: 800; color: var(--emerald); text-transform: uppercase; }
-.pc-amount { font-size: 22px; font-weight: 900; color: var(--emerald); line-height: 1; margin-bottom: 6px; }
-.pc-info { font-size: 9.5px; color: var(--text-muted); opacity: .8; line-height: 1.35; }
- 
-.testimonials { margin: 24px 0; }
-.testimonials h2 { font-size: 16px; font-weight: 800; color: #fff; text-align: center; margin-bottom: 14px; }
-.testimonial-scroll {
-  display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
-  margin: 0 -20px; padding: 0 20px 10px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-}
-.testimonial-scroll::-webkit-scrollbar { display: none; }
-.testimonial-card {
-  background: var(--card); border: 1px solid var(--surface-border);
-  border-radius: 16px; padding: 16px; min-width: 250px; max-width: 270px;
-  flex-shrink: 0; scroll-snap-align: start; backdrop-filter: blur(8px);
-}
-.tc-header { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
-.tc-avatar {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--emerald), #34d399);
-  display: flex; align-items: center; justify-content: center;
-  color: #000; font-weight: 900; font-size: 15px; flex-shrink: 0;
-}
-.tc-name { font-size: 13px; font-weight: 700; color: #fff; }
-.tc-loc   { font-size: 10.5px; color: var(--text-muted); }
-.tc-quote { font-size: 12.5px; color: rgba(232, 240, 233, 0.75); line-height: 1.5; }
- 
-/* ---- Live Activity Bar ---- */
-.live-activity {
-  background: var(--card); border: 1px solid var(--surface-border);
-  border-radius: 16px; padding: 16px 18px; margin: 24px 0;
-  display: flex; justify-content: space-between; align-items: center;
-  backdrop-filter: blur(8px);
-}
-.la-left { display: flex; align-items: center; gap: 10px; }
-.la-left .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); }
-.la-left .la-text { font-size: 12.5px; color: var(--text-muted); }
-.la-left .la-text strong { color: var(--emerald); font-weight: 700; }
-.la-right { font-size: 11.5px; color: var(--text-muted); }
-.la-right .timer { color: var(--emerald); font-weight: 700; font-variant-numeric: tabular-nums; }
- 
-.bottom-cta { padding: 12px 0 44px; }
- 
-/* ---- Toast Notification Engine ---- */
-.notif-container { position: fixed; bottom: 20px; right: 12px; z-index: 100; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
-.notif {
-  background: rgba(10, 22, 11, 0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(1, 214, 118, 0.3); border-radius: 14px; padding: 12px 14px; width: 220px;
-  box-shadow: 0 6px 24px rgba(0,0,0,.6); display: flex; gap: 10px; align-items: flex-start;
-  opacity: 0; transform: translateX(80px); transition: all .35s cubic-bezier(.175,.885,.32,1.275);
-}
-.notif.show { opacity: 1; transform: translateX(0); }
-.notif .n-icon {
-  width: 24px; height: 24px; border-radius: 50%;
-  background: var(--emerald); color: #000;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 900; flex-shrink: 0;
-  box-shadow: 0 0 14px rgba(1, 214, 118, 0.5);
-}
-.notif .n-text { font-size: 11px; line-height: 1.4; color: var(--text-muted); }
-.notif .n-text strong { color: #fff; }
-.notif .n-text .green { color: var(--emerald); font-weight: 800; }
- 
-@supports (-webkit-touch-callout:none) { body { min-height: -webkit-fill-available; } }
-@media (max-width:375px) { .hero h1 { font-size: 30px; } .pc-amount { font-size: 19px; } }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gana Dinero Jugando — Convierte Tu Pantalla en Dinero Real</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- TikTok Pixel -->
+  <script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+    ttq.load('D4DO8HRC77UCI3HO4RHG');
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:      #2cc76e;
+      --green-glow: rgba(44,199,110,0.55);
+      --green-dim:  rgba(44,199,110,0.12);
+      --green-dim2: rgba(44,199,110,0.07);
+      --amber:      #f59e0b;
+      --amber-dim:  rgba(245,158,11,0.12);
+      --bg:         #050e06;
+      --card:       rgba(13,26,14,0.85);
+      --border:     rgba(44,199,110,0.15);
+      --border2:    rgba(44,199,110,0.25);
+      --text:       #e8f0e9;
+      --muted:      #5a7a5e;
+      --font:       'Inter', -apple-system, system-ui, sans-serif;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HERO GRADIENT (like reference) ── */
+    .hero-glow {
+      pointer-events: none;
+      position: fixed;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 140%;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(44,199,110,0.28) 0%, rgba(20,80,30,0.18) 50%, transparent 100%);
+      filter: blur(10px);
+      z-index: 0;
+    }
+    .side-glow-l {
+      pointer-events: none;
+      position: fixed;
+      top: 35%; left: -100px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(44,199,110,0.14) 0%, transparent 70%);
+      filter: blur(40px);
+      z-index: 0;
+    }
+    .side-glow-r {
+      pointer-events: none;
+      position: fixed;
+      top: 60%; right: -100px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(30,120,60,0.18) 0%, transparent 70%);
+      filter: blur(40px);
+      z-index: 0;
+    }
+
+    /* ── PARTICLES ── */
+    .particles {
+      pointer-events: none;
+      position: fixed; inset: 0;
+      overflow: hidden; z-index: 0;
+    }
+    .particle {
+      position: absolute; bottom: -20px;
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translate3d(0,0,0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translate3d(var(--drift), -110vh, 0); opacity: 0; }
+    }
+
+    /* ── SCREEN TRANSITIONS ── */
+    .screen { display: none; }
+    .screen.active {
+      display: flex;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      animation: screenIn .4s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes screenIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    #screen-c.active {
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 460px;
+      padding: 52px 22px 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── PILL BADGE ── */
+    .pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--green-dim);
+      border: 1px solid rgba(44,199,110,0.3);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 10.5px; font-weight: 700;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 26px;
+    }
+    .pill-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); flex-shrink: 0;
+    }
+    .pill-dot.pulse { animation: pulse 2s ease infinite; }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(44,199,110,0.5); }
+      50%      { box-shadow: 0 0 0 5px rgba(44,199,110,0); }
+    }
+
+    .subtext {
+      font-size: 14px; color: rgba(200,230,205,0.65);
+      line-height: 1.65; margin-bottom: 28px; max-width: 310px;
+    }
+
+    /* ── SCREEN C HEADER ── */
+    #screen-c { background: var(--bg); }
+
+    .sc-header {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 460px;
+      padding: 16px 22px 0;
+      position: relative; z-index: 2;
+    }
+    .sc-brand { display: flex; align-items: center; gap: 9px; }
+    .sc-logo {
+      width: 34px; height: 34px; border-radius: 9px; overflow: hidden;
+      border: 1px solid var(--border2);
+      box-shadow: 0 0 20px rgba(44,199,110,0.2);
+    }
+    .sc-logo img { width: 100%; height: 100%; object-fit: cover; }
+    .sc-brand-text {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--green);
+    }
+    .sc-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+    .sc-users { display: flex; align-items: center; gap: 5px; font-size: 11px; }
+    .sc-users strong { color: #fff; font-weight: 700; }
+    .sc-users span { color: var(--muted); }
+    .sc-flag {
+      display: flex; align-items: center; gap: 4px;
+      border: 1px solid rgba(44,199,110,0.2);
+      background: rgba(44,199,110,0.06);
+      border-radius: 999px; padding: 2px 10px;
+      font-size: 10px; font-weight: 600; color: rgba(200,230,205,0.7);
+    }
+
+    /* ── SCREEN C PAGE ── */
+    #screen-c .page {
+      max-width: 460px;
+      padding: 20px 22px 110px;
+    }
+
+    /* Big hero headline */
+    .hero-headline {
+      font-size: clamp(38px, 10vw, 62px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .hero-headline .line1 { display: block; color: #fff; drop-shadow: 0 0 24px rgba(255,255,255,0.15); }
+    .hero-headline .line2 {
+      display: block;
+      color: var(--green);
+      text-shadow: 0 0 40px rgba(44,199,110,0.7), 0 0 80px rgba(44,199,110,0.35);
+    }
+
+    /* ── GAME CAROUSEL ── */
+    .game-card {
+      width: 100%; background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px; overflow: hidden;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      position: relative;
+    }
+    .game-card-label {
+      position: absolute; top: 10px; right: 12px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--green);
+      z-index: 2;
+    }
+    .game-inner { position: relative; height: 84px; }
+    .game-slide {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; gap: 14px; padding: 16px;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .6s ease, transform .6s ease;
+      pointer-events: none;
+    }
+    .game-slide.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .game-thumb {
+      width: 52px; height: 52px; border-radius: 13px;
+      object-fit: cover; flex-shrink: 0;
+      box-shadow: 0 0 24px rgba(44,199,110,0.4);
+    }
+    .game-info { flex: 1; text-align: left; min-width: 0; }
+    .game-name { font-weight: 700; font-size: 14.5px; color: #fff; margin-bottom: 2px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+    .game-badge-pill {
+      font-size: 10px; font-weight: 800;
+      background: var(--green); color: #000;
+      border-radius: 5px; padding: 1px 7px;
+      box-shadow: 0 0 10px rgba(44,199,110,0.6);
+    }
+    .game-sub { font-size: 12px; color: var(--muted); }
+    .game-earn { text-align: right; flex-shrink: 0; }
+    .game-amount {
+      font-size: 24px; font-weight: 900; color: var(--green);
+      text-shadow: 0 0 20px rgba(44,199,110,0.6);
+      line-height: 1;
+    }
+    .game-stars { display: flex; align-items: center; justify-content: flex-end; gap: 3px; font-size: 11px; color: var(--green); margin-top: 4px; }
+    .game-dots { display: flex; justify-content: center; gap: 4px; padding: 0 16px 12px; }
+    .game-dot {
+      height: 4px; border-radius: 4px;
+      background: rgba(44,199,110,0.2);
+      transition: width .3s, background .3s; width: 4px;
+    }
+    .game-dot.active { width: 16px; background: var(--green); }
+
+    /* ── ELIGIBLE BADGE ── */
+    .eligible-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      border: 1px solid rgba(44,199,110,0.35);
+      border-radius: 999px; padding: 6px 16px;
+      font-size: 10.5px; font-weight: 700;
+      color: var(--green); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .eligible-badge svg { width: 12px; height: 12px; stroke: var(--green); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── STEPS ── */
+    .section-eyebrow {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 16px; align-self: center;
+    }
+    .steps { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 36px; position: relative; }
+    .steps-connector {
+      position: absolute; left: 27px; top: 44px; bottom: 44px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--green) 0%, rgba(44,199,110,0.1) 100%);
+      opacity: 0.35;
+    }
+    .step-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 16px 16px;
+      display: flex; gap: 14px; align-items: center; text-align: left;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .step-num {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 15px; font-weight: 900; color: #000;
+      box-shadow: 0 0 20px rgba(44,199,110,0.65);
+      position: relative; z-index: 1;
+    }
+    .step-body { flex: 1; }
+    .step-title { font-weight: 700; font-size: 13.5px; color: #fff; margin-bottom: 5px; line-height: 1.4; }
+    .step-desc { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+    .step-desc .hi { color: var(--green); font-weight: 600; }
+    .step-desc .warn { color: var(--amber); font-weight: 600; }
+    .step-tag {
+      display: inline-block;
+      border: 1px solid rgba(44,199,110,0.28); border-radius: 6px;
+      padding: 3px 9px; font-size: 10px; font-weight: 700;
+      color: rgba(44,199,110,0.55); letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .step-bonus {
+      display: inline-block;
+      background: var(--green-dim);
+      border: 1px solid rgba(44,199,110,0.4);
+      border-radius: 6px; padding: 3px 10px;
+      font-size: 10px; font-weight: 800; color: var(--green);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      box-shadow: 0 0 14px rgba(44,199,110,0.3);
+    }
+
+    /* ── TRUST ROW ── */
+    .trust-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; flex-wrap: wrap;
+      padding: 13px 16px; margin-bottom: 28px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; width: 100%;
+      font-size: 11.5px; color: var(--muted);
+      backdrop-filter: blur(6px);
+    }
+    .trust-item { display: flex; align-items: center; gap: 4px; }
+    .trust-item .hl { color: #fff; font-weight: 700; }
+    .trust-green { color: var(--green); font-weight: 700; }
+
+    /* ── IN-APP PURCHASE BONUS CARD ── */
+    .iap-card {
+      width: 100%;
+      background: linear-gradient(160deg, #1a1408 0%, #120e04 100%);
+      border: 1.5px solid rgba(245,158,11,0.3);
+      border-radius: 20px;
+      padding: 24px 20px 20px;
+      margin-bottom: 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(245,158,11,0.1), inset 0 1px 0 rgba(245,158,11,0.1);
+    }
+    .iap-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245,158,11,0.5), transparent);
+    }
+    .iap-top-label {
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 10px;
+    }
+    .iap-timer-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      border: 1.5px solid rgba(245,158,11,0.4);
+      border-radius: 999px; padding: 5px 14px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 18px;
+    }
+    .iap-timer-badge svg { width: 12px; height: 12px; stroke: var(--amber); }
+    .iap-range {
+      font-size: clamp(42px, 11vw, 58px);
+      font-weight: 900; line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--amber);
+      text-shadow: 0 0 40px rgba(245,158,11,0.4);
+      margin-bottom: 18px;
+    }
+    .iap-dash { color: rgba(245,158,11,0.5); }
+    .iap-hi {
+      background: linear-gradient(135deg, #f5c842, #e07a20);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .iap-divider {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 14px;
+    }
+    .iap-divider-line {
+      flex: 1; height: 1px;
+      background: rgba(245,158,11,0.2);
+    }
+    .iap-divider-text {
+      font-size: 9.5px; font-weight: 800;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amber); white-space: nowrap;
+    }
+    .iap-desc {
+      font-size: 13.5px; color: rgba(220,190,140,0.75);
+      line-height: 1.65; margin-bottom: 20px;
+    }
+    .iap-desc strong { color: #fff; font-weight: 700; }
+    .iap-hl { color: var(--amber); font-weight: 800; }
+
+    .iap-note {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      font-size: 11.5px; color: rgba(220,190,140,0.5);
+      font-weight: 500;
+    }
+    .iap-note svg { width: 13px; height: 13px; stroke: rgba(245,158,11,0.4); flex-shrink: 0; }
+
+    /* ── SUPPORT ── */
+    .support-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border2); background: var(--card);
+      border-radius: 999px; padding: 8px 18px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #fff; margin-bottom: 16px;
+      backdrop-filter: blur(6px);
+    }
+    .support-badge svg { width: 15px; height: 15px; stroke: var(--green); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .support-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: pulse 2s ease infinite; }
+
+    /* ── FOOTER ── */
+    footer { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color .15s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 11.5px; color: rgba(44,199,110,0.15); }
+
+    /* ── FIXED CTA BAR ── */
+    .fixed-cta {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 40;
+      padding: 12px 16px 16px;
+      background: linear-gradient(to top, var(--bg) 40%, transparent);
+    }
+    .fixed-cta-inner {
+      max-width: 460px;
+      margin: 0 auto;
+    }
+    .fixed-cta-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; background: var(--green); color: #000;
+      border: none; border-radius: 18px; padding: 16px 20px;
+      cursor: pointer; text-decoration: none;
+      transition: background .15s, transform .1s;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 10px 40px rgba(44,199,110,0.55);
+      position: relative; overflow: hidden;
+    }
+    .fixed-cta-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.22) 50%, transparent 70%);
+      pointer-events: none;
+    }
+    .fixed-cta-btn:hover { background: #28c864; transform: translateY(-1px); }
+    .fixed-cta-btn:active { transform: translateY(0); }
+    .fixed-cta-left { text-align: left; position: relative; }
+    .fixed-cta-title { font-size: 15.5px; font-weight: 800; display: flex; align-items: center; gap: 7px; line-height: 1; }
+    .fixed-cta-title svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .fixed-cta-sub { font-size: 11px; font-weight: 500; opacity: 0.85; margin-top: 4px; }
+    .fixed-cta-badge {
+      font-size: 11px; font-weight: 800; flex-shrink: 0;
+      background: rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.22);
+      border-radius: 7px; padding: 5px 9px; position: relative;
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; left: 12px; top: 12px; z-index: 50;
+      display: none;
+      align-items: center; gap: 10px;
+      background: rgba(10,22,11,0.95);
+      border: 1px solid rgba(44,199,110,0.3);
+      border-radius: 999px;
+      padding: 8px 14px 8px 8px;
+      max-width: 260px;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.5);
+    }
+    .toast.show {
+      display: flex;
+      animation: toastIn .4s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes toastIn {
+      from { transform: translateX(-110%); opacity: 0; }
+      to   { transform: translateX(0); opacity: 1; }
+    }
+    .toast-avatar {
+      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #2cc76e, #16a34a);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900; color: #fff;
+      box-shadow: 0 0 14px rgba(44,199,110,0.5);
+    }
+    .toast-text { font-size: 12px; line-height: 1.35; min-width: 0; }
+    .toast-text strong { color: #fff; }
+    .toast-earn { color: var(--green); font-weight: 700; }
+    .toast-meta { font-size: 10px; color: var(--muted); }
+
+    /* ── SCREEN-C ENTRANCE ANIMATIONS ── */
+    #screen-c.active .sc-header      { animation: fadeUp .4s ease .05s both; }
+    #screen-c.active .hero-headline  { animation: fadeUp .5s cubic-bezier(0.22,1,0.36,1) .1s both; }
+    #screen-c.active .subtext        { animation: fadeUp .4s ease .2s both; }
+    #screen-c.active .game-card      { animation: fadeUp .4s ease .25s both; }
+    #screen-c.active .eligible-badge { animation: fadeUp .4s ease .3s both; }
+    #screen-c.active .section-eyebrow{ animation: fadeUp .4s ease .4s both; }
+    #screen-c.active .step-card:nth-child(2) { animation: fadeUp .4s ease .45s both; }
+    #screen-c.active .step-card:nth-child(3) { animation: fadeUp .4s ease .52s both; }
+    #screen-c.active .step-card:nth-child(4) { animation: fadeUp .4s ease .59s both; }
+    #screen-c.active .trust-row      { animation: fadeUp .4s ease .65s both; }
+    #screen-c.active .fixed-cta      { animation: slideUp .4s cubic-bezier(0.22,1,0.36,1) .7s both; }
+    @keyframes slideUp {
+      from { transform: translateY(60px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .particle, .pill-dot.pulse, .support-dot { animation: none; }
+      .fixed-cta-btn { transition: none; }
+    }
+
+    /* ── CTA MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(6px);
+      justify-content: center; align-items: center;
+      padding: 22px;
+      animation: modalFade .25s ease both;
+    }
+    .modal-overlay.show { display: flex; }
+    @keyframes modalFade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .modal-card {
+      width: 100%; max-width: 400px;
+      background: linear-gradient(160deg, #0d1a0e 0%, #0a140b 100%);
+      border: 1px solid rgba(44,199,110,0.3);
+      border-radius: 22px;
+      padding: 30px 26px 26px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 60px rgba(44,199,110,0.12);
+      animation: modalPop .35s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes modalPop {
+      from { transform: scale(0.9) translateY(14px); opacity: 0; }
+      to   { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .modal-check {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--green-dim);
+      border: 2px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px;
+      box-shadow: 0 0 28px rgba(44,199,110,0.4);
+      animation: ringPop .4s cubic-bezier(0.34,1.56,0.64,1) .1s both;
+    }
+    .modal-check svg {
+      width: 32px; height: 32px;
+      stroke: var(--green); fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .modal-eyebrow {
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 10px;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .modal-title {
+      font-size: 22px; font-weight: 900; color: #fff;
+      line-height: 1.2; margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .modal-title .accent {
+      color: var(--green);
+      text-shadow: 0 0 24px rgba(44,199,110,0.5);
+    }
+    .modal-desc {
+      font-size: 13.5px; color: rgba(200,230,205,0.7);
+      line-height: 1.6; margin-bottom: 24px;
+    }
+    .modal-desc strong { color: #fff; font-weight: 700; }
+    .modal-warn { color: var(--green); font-weight: 700; }
+    .modal-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%;
+      background: var(--green); color: #000;
+      border: none; border-radius: 14px;
+      padding: 16px 24px; font-size: 15.5px; font-weight: 800;
+      cursor: pointer; text-decoration: none;
+      transition: background .15s, transform .1s, box-shadow .15s;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 8px 28px rgba(44,199,110,0.4);
+    }
+    .modal-btn:hover { background: #28c864; transform: translateY(-1px); box-shadow: 0 12px 36px rgba(44,199,110,0.5); }
+    .modal-btn:active { transform: translateY(0); }
+    .modal-btn-arrow { display: inline-block; transition: transform .15s; }
+    .modal-btn:hover .modal-btn-arrow { transform: translateX(3px); }
+    .modal-close {
+      position: absolute; top: 14px; right: 14px;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.12); }
+    .modal-close svg { width: 14px; height: 14px; stroke: var(--muted); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
 </head>
 <body>
- 
-<!-- Ambience Lighting Setup -->
-<div class="hero-glow"></div>
-<div class="side-glow-l"></div>
-<div class="side-glow-r"></div>
- 
-<canvas id="bg-canvas"></canvas>
- 
-<div class="notif-container" id="notif-container"></div>
- 
-<div class="page">
- 
-  <section class="hero">
-    <!-- Centered Brand SVG Logo Header -->
-    <div class="brand-logo">
-      <!-- Icon/Emblem SVG -->
-      <svg viewBox="0 0 21 19" width="28px" height="25px" fill="#01D676">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5089 13.174V9.64425C17.5089 9.64425 17.5343 8.7864 16.3375 9.53703C15.8919 9.79873 15.2299 10.1587 15.2426 11.7659V13.1089C15.2426 13.1089 15.2682 16.0106 11.9834 16.0106H11.6651V16.7242C11.6656 16.8035 11.6498 16.8821 11.6189 16.9551C11.588 17.0281 11.5426 17.0941 11.4854 17.1488C11.4282 17.2036 11.3603 17.246 11.2861 17.2735C11.2119 17.3011 11.1328 17.3131 11.0538 17.3088H9.90798C9.90798 17.3088 9.34786 17.2961 9.34786 16.7676V16.0106H6.97968C6.97968 16.0106 5.85931 16.0055 5.85931 14.8195C5.85807 14.6715 5.88628 14.5248 5.94212 14.3878C5.99795 14.2508 6.08031 14.1263 6.18457 14.0215C6.28882 13.9167 6.41286 13.8338 6.54936 13.7775C6.68587 13.7212 6.83208 13.6927 6.97968 13.6936H11.8306C11.8306 13.6936 12.9382 13.737 12.9382 12.5242C12.9382 11.9115 12.6454 11.2898 11.7414 11.2898H1.42868C1.42868 11.2898 0.180946 11.2719 0.0663606 13.3476C0.0408971 14.0114 0.0791422 14.5667 0.435631 14.928C0.79212 15.2893 3.44028 17.9586 3.44028 17.9586C3.44028 17.9586 4.0005 18.4999 5.43919 18.4999H12.7599C12.7599 18.4999 17.5089 18.588 17.5089 13.8021V13.174ZM3.49125 5.826V9.35575C3.49125 9.35575 3.46581 10.2136 4.6626 9.46297C5.10821 9.20128 5.78294 8.84128 5.75748 7.23407V5.89111C5.75748 5.89111 5.73197 2.98944 9.01676 2.98944H9.34786V2.27584C9.3453 2.19705 9.35915 2.11859 9.38852 2.04547C9.41789 1.97235 9.46214 1.90618 9.51845 1.85116C9.57475 1.79615 9.64186 1.75352 9.71551 1.72597C9.78917 1.69842 9.86779 1.68655 9.94628 1.69115H11.0921C11.0921 1.69115 11.6523 1.70392 11.6523 2.23242V2.98944H14.0331C14.0331 2.98944 15.1535 2.99454 15.1535 4.18049C15.1547 4.32848 15.1266 4.47524 15.0708 4.61224C15.015 4.74923 14.9325 4.87374 14.8282 4.9785C14.724 5.08327 14.6001 5.16621 14.4636 5.22251C14.3271 5.2788 14.1807 5.30734 14.0331 5.30644H9.16957C9.16957 5.30644 8.07468 5.26304 8.07468 6.47579C8.07468 7.08855 8.35476 7.71023 9.25871 7.71023H19.5714C19.5714 7.71023 20.8192 7.72811 20.9338 5.65239C20.9592 4.98856 20.921 4.43325 20.5645 4.07198C20.2207 3.71198 17.5725 1.04138 17.5725 1.04138C17.5725 1.04138 16.9996 0.500111 15.5609 0.500111H8.24017C8.24017 0.500111 3.49125 0.412033 3.49125 5.19793V5.826Z"></path>
-      </svg>
-      <!-- Text/Brand SVG -->
-      <svg viewBox="0 0 137 16" width="100px" height="12px">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5002 0.329671H3.28374L0 15.6714H4.47618L5.64896 10.2146H12.6856L13.4478 6.59814H6.41114L6.99753 3.94617H14.7183L15.5002 0.329671ZM15.813 15.6714H20.289L21.3641 10.6747H23.2992L26.2703 15.6714H31.3132L27.834 10.1045C29.8473 9.42598 31.5283 8.04405 32.0756 5.50219C32.9356 1.44695 29.6713 0.329671 26.2312 0.329671H19.0968L15.813 15.6714ZM22.0678 7.38682L22.83 3.83604H25.6839C26.9544 3.83604 27.6972 4.42754 27.4431 5.61232C27.189 6.7971 26.192 7.38682 24.9215 7.38682H22.0678ZM49.6867 0.329671H37.5094L34.2257 15.6714H46.5593L47.302 12.165H39.4444L39.9722 9.66578H46.9697L47.7126 6.18072H40.7149L41.2232 3.83604H48.944L49.6867 0.329671ZM65.8124 0.329671H53.6351L50.3513 15.6714H62.685L63.4277 12.165H55.5701L56.0978 9.66578H63.0954L63.8383 6.18072H56.8602L57.3489 3.83604H65.0697L65.8124 0.329671Z" fill="#01D676"></path>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M67.0047 8.21989C65.8319 13.6997 69.9563 16 74.6083 16C76.3764 16.0009 78.1258 15.6726 79.7489 15.0355L80.5894 11.0904C79.4361 11.9448 77.7356 12.4279 75.996 12.4279C73.3573 12.4279 70.9726 11.2005 71.5981 8.21989C72.3213 4.88759 75.2728 3.55185 77.9506 3.55185C79.4948 3.55185 80.9414 4.01189 81.8209 4.80055L82.6417 0.965573C81.1778 0.309481 79.5633 -0.0211135 77.9312 0.00104475C73.3573 0.00104475 68.2557 2.43455 67.0047 8.21989ZM81.7035 15.6714H86.2969L87.7825 13.261H94.7995L95.2491 15.6714H99.8424L96.4806 0.329673H91.6527L81.7035 15.6714ZM89.8152 9.97307L92.5126 5.5466C92.8166 5.04933 93.0718 4.52863 93.275 3.99058C93.246 4.51165 93.2853 5.03399 93.3922 5.5466L94.174 9.97307H89.8152ZM104.045 4.51635C102.872 9.9944 111.844 9.25013 111.355 11.4634C111.199 12.2307 110.397 12.4936 108.619 12.4936C106.684 12.4936 104.573 12.0123 102.833 10.7618L102.012 14.5967C103.615 15.4955 105.765 16 108.208 16C111.922 16 115.206 14.9484 115.988 11.3106C117.161 5.87521 108.228 6.48802 108.638 4.49326C108.775 3.92485 109.362 3.52875 111.003 3.50744C112.978 3.48612 114.776 3.96748 116.027 4.95331L116.809 1.22846C115.499 0.461106 113.505 0.00104475 111.394 0.00104475C107.915 0.00104475 104.709 1.44694 104.045 4.51635ZM137 0.329673H132.543L131.273 6.20382H124.999L126.25 0.329673H121.773L118.49 15.6714H122.966L124.217 9.82032H130.511L129.24 15.6714H133.716L137 0.329673Z" fill="white"></path>
-      </svg>
-    </div>
-    <div class="badge">
-      <div class="bdot animate-pulse-dot"></div>
-      <span>Bono de $10 al registrarte</span>
-    </div>
-    <h1><span class="white">Gana por</span><br><span class="green">Jugar y Cobrar</span></h1>
-    <p class="sub">Crea tu cuenta, reclama tu <strong>bono instantáneo de $10</strong>, juega y empieza a cobrar hoy.</p>
-  </section>
- 
-  <div class="stats-row">
-    <div class="sr-item"><span class="val">$200–$500+</span><span class="label">Ganancias semanales</span></div>
-    <div class="sr-item"><span class="val">500K+</span><span class="label">Miembros</span></div>
-    <div class="sr-item"><span class="val">4.7★</span><span class="label">App Store</span></div>
-  </div>
- 
-  <!-- Main CTA Button -->
-  <a id="mainCtaBtn" href="https://go.dailyappflow.com/click" class="cta-btn animate-glow">
-    <span class="shimmer animate-shimmer"></span>
-    <span style="position:relative;z-index:1">EMPIEZA A GANAR AHORA</span>
-  </a>
- 
-  <div class="steps">
-    <div class="stp">
-      <div class="stp-n">1</div>
-      <div><b>Crea tu cuenta y selecciona 21+</b><div class="d">Las recompensas de juegos solo se desbloquean para miembros de 21+. Selecciónalo al registrarte.</div></div>
-    </div>
-    <div class="stp">
-      <div class="stp-n">2</div>
-      <div><b>Completa 2 ofertas para activar los juegos</b><div class="d">Un juego rápido o una encuesta. Activa las ganancias de juegos y todas las ofertas mejor pagadas.</div></div>
-    </div>
-    <div class="stp">
-      <div class="stp-n">3</div>
-      <div><b>Cobra al instante</b><div class="d">Juega cuando quieras. Retira por CashApp, PayPal, Zelle o Revolut — sin comisiones.</div></div>
+
+  <!-- Background glows -->
+  <div class="hero-glow"></div>
+  <div class="side-glow-l"></div>
+  <div class="side-glow-r"></div>
+
+  <!-- Particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <div class="toast-avatar" id="toast-avatar">$</div>
+    <div class="toast-text">
+      <div><strong id="toast-name">Isabella</strong> ganó <span class="toast-earn" id="toast-amount">+$6.22</span></div>
+      <div class="toast-meta" id="toast-meta">completó el bono del tutorial · hace 26s</div>
     </div>
   </div>
- 
-  <div class="proofs">
-    <h2>Pagos reales de esta hora</h2>
-    <div class="proof-grid">
-      <div class="payout-card">
-        <div class="pc-header"><span class="pc-method">Cash App</span><div class="pc-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Pagado</span></div></div>
-        <div class="pc-amount">$124</div><div class="pc-info">Sarah · Miami, FL · hace 11 min</div>
+
+
+  <!-- ══════════ SCREEN C — Offer ══════════ -->
+  <div id="screen-c" class="screen active">
+
+    <div class="sc-header">
+      <div class="sc-brand">
+        <div class="sc-logo">
+          <img src="https://i.imgur.com/d4rEH4U.png" alt="Freecash" />
+        </div>
+        <span class="sc-brand-text">Socio Oficial</span>
       </div>
-      <div class="payout-card">
-        <div class="pc-header"><span class="pc-method">PayPal</span><div class="pc-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Pagado</span></div></div>
-        <div class="pc-amount">$87</div><div class="pc-info">Mike · Austin, TX · hace 27 min</div>
-      </div>
-      <div class="payout-card">
-        <div class="pc-header"><span class="pc-method">Zelle</span><div class="pc-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Pagado</span></div></div>
-        <div class="pc-amount">$203</div><div class="pc-info">Tyler · Denver, CO · hace 4 min</div>
-      </div>
-      <div class="payout-card">
-        <div class="pc-header"><span class="pc-method">Cash App</span><div class="pc-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Pagado</span></div></div>
-        <div class="pc-amount">$109</div><div class="pc-info">Emma · Phoenix, AZ · hace 19 min</div>
-      </div>
-      <div class="payout-card">
-        <div class="pc-header"><span class="pc-method">ACH</span><div class="pc-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Pagado</span></div></div>
-        <div class="pc-amount">$312</div><div class="pc-info">Alex · Charlotte, NC · hace 8 min</div>
-      </div>
-      <div class="payout-card">
-        <div class="pc-header"><span class="pc-method">Revolut</span><div class="pc-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Pagado</span></div></div>
-        <div class="pc-amount">$142</div><div class="pc-info">Jordan · Seattle, WA · hace 33 min</div>
+      <div class="sc-meta">
+        <div class="sc-users">
+          <span class="pill-dot pulse"></span>
+          <strong>1.4M+</strong> <span>usuarios</span>
+        </div>
+        <div class="sc-flag">🇺🇸 EE.UU.</div>
       </div>
     </div>
-  </div>
- 
-  <div class="testimonials">
-    <h2>Gente real, dinero real</h2>
-    <div class="testimonial-scroll">
-      <div class="testimonial-card">
-        <div class="tc-header"><div class="tc-avatar">S</div><div><div class="tc-name">Sarah T.</div><div class="tc-loc">Miami, FL</div></div></div>
-        <p class="tc-quote">"Recibí mi bono de $10 al instante y cobré $124 el mismo día solo jugando. Esto de verdad funciona."</p>
+
+    <div class="page">
+
+      <!-- Big headline like reference -->
+      <div class="hero-headline">
+        <span class="line1">Gana Dinero</span>
+        <span class="line2">Por Jugar</span>
       </div>
-      <div class="testimonial-card">
-        <div class="tc-header"><div class="tc-avatar">M</div><div><div class="tc-name">Mike R.</div><div class="tc-loc">Austin, TX</div></div></div>
-        <p class="tc-quote">"Ya gané $428 esta semana. El mejor ingreso extra jugando que he encontrado."</p>
+      <p class="subtext" style="margin-bottom:26px;font-size:13px;">Descarga la app, regístrate y juega para recibir tu bono.</p>
+
+      <!-- Game carousel -->
+      <div class="game-card">
+        <span class="game-card-label">Juegos Destacados</span>
+        <div class="game-inner" id="game-inner">
+
+          <div class="game-slide active">
+            <img class="game-thumb" src="https://cdn.prod.website-files.com/66ba0cbc63210953b4fc73a8/66ba4dab628d3ffb9065bc2a_royal_match_page_king_robert%206.webp" alt="Royal Match" />
+            <div class="game-info">
+              <div class="game-name">Royal Match <span class="game-badge-pill">$390</span></div>
+              <div class="game-sub">Gana hasta $390 jugando.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$390</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://play-lh.googleusercontent.com/Uv8KIWsfsXZJDk2ypWzrc_MCMGY32MvieP8hH9pujaBGwKRr4z88FpLwNuC8e5UxjioOHx9PcZU3XchZNZ4JjQ=w240-h480-rw" alt="RAID: Shadow Legends" />
+            <div class="game-info">
+              <div class="game-name">RAID: Shadow Legends <span class="game-badge-pill">$393</span></div>
+              <div class="game-sub">Gana hasta $393 jugando.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$393</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7ujXG8cq_cU1dU7QWETBB1OVZFOrSuYFFF1R0vlNf3Q&s=10" alt="Call of Dragons" />
+            <div class="game-info">
+              <div class="game-name">Call of Dragons <span class="game-badge-pill">$799</span></div>
+              <div class="game-sub">Gana hasta $799 jugando.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$799</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://play-lh.googleusercontent.com/5MLgC2WWXcq1Pol8qRAXOKzIJY9qySkjF43DnWyd5F9fPj_heinHeIxvgIpPQwcaQ1w-mUzUmoP1Xeslf29irg=w240-h480-rw" alt="Dice Dreams" />
+            <div class="game-info">
+              <div class="game-name">Dice Dreams <span class="game-badge-pill">$155</span></div>
+              <div class="game-sub">Gana hasta $155 jugando.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$155</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://play-lh.googleusercontent.com/uRuDPQjLnKBD-1wNw4zpd8xHnzqfwEilY8gLYmvzYJQgguAsTd6nMC5Cxex0EisSH5ZzN6FKrcSqQeRKdCzeWw" alt="Magnet Miner" />
+            <div class="game-info">
+              <div class="game-name">Magnet Miner <span class="game-badge-pill">$200</span></div>
+              <div class="game-sub">Gana hasta $200 jugando.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$200</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTLqllEm3FbHNxqWQaYLwd_DjIPSgJkj6-cfSp0A9k4NwiTdeRIm10jBE&s=10" alt="Animals & Coins" />
+            <div class="game-info">
+              <div class="game-name">Animals & Coins <span class="game-badge-pill">$302</span></div>
+              <div class="game-sub">Gana hasta $302 jugando.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$302</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="game-dots" id="game-dots">
+          <div class="game-dot active"></div>
+          <div class="game-dot"></div>
+          <div class="game-dot"></div>
+          <div class="game-dot"></div>
+          <div class="game-dot"></div>
+          <div class="game-dot"></div>
+        </div>
       </div>
-      <div class="testimonial-card">
-        <div class="tc-header"><div class="tc-avatar">T</div><div><div class="tc-name">Tyler K.</div><div class="tc-loc">Denver, CO</div></div></div>
-        <p class="tc-quote">"Me llegó por CashApp en menos de 2 minutos. Increíble."</p>
+
+      <!-- Steps -->
+      <span class="section-eyebrow">Cómo empezar</span>
+      <div class="steps">
+        <div class="steps-connector"></div>
+
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Regístrate y crea tu cuenta</div>
+            <div class="step-desc">
+              Toma menos de 60 segundos — se requiere descargar la app.
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Juega 2 juegos para desbloquear tu bono</div>
+            <div class="step-desc">
+              Desde tu panel, elige tu primer juego y juega por <span class="hi">5–10 minutos</span>. Luego abre un <span class="hi">segundo juego diferente</span> y juega otros 5–10 minutos para desbloquear tus ganancias con el bono completo.
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Recibe tu pago</div>
+            <div class="step-desc">
+              <span class="hi">Pagos instantáneos:</span> PayPal, Cash App, criptomonedas, transferencia bancaria, Venmo y tarjetas de regalo.
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- Trust -->
+      <div class="trust-row">
+        <div class="trust-item"><span class="trust-green">★ Trustpilot</span>&nbsp;<span class="hl">4.8</span> · +251k reseñas</div>
+        <div class="trust-item">📱 <span class="hl">iOS y Android</span></div>
+        <div class="trust-item">No necesitas tarjeta de crédito</div>
+      </div>
+
+      <!-- Support -->
+      <div class="support-badge">
+        <svg viewBox="0 0 24 24"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
+        Soporte 24/7
+        <span class="support-dot"></span>
+      </div>
+
+      <footer>
+        <div class="footer-links">
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Términos de Uso</a>
+          <a href="#">Descargo de Responsabilidad</a>
+        </div>
+        <span class="footer-copy">© 2026 Todos los derechos reservados.</span>
+      </footer>
+
     </div>
   </div>
- 
-  <div class="live-activity">
-    <div class="la-left">
-      <span class="dot animate-pulse-dot"></span>
-      <span class="la-text"><strong id="live-count">36,236</strong> ganando ahora mismo</span>
+
+
+  <!-- Fixed CTA -->
+  <div class="fixed-cta" id="fixed-cta">
+    <div class="fixed-cta-inner">
+      <a href="javascript:void(0)" class="fixed-cta-btn" id="fixed-cta-btn">
+        <div class="fixed-cta-left">
+          <div class="fixed-cta-title">
+            <svg viewBox="0 0 24 24"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
+            Crear Cuenta Gratis
+          </div>
+          <div class="fixed-cta-sub"><strong>Pagos instantáneos:</strong> PayPal, Cash App, cripto y más.</div>
+        </div>
+        <span class="fixed-cta-badge">21+</span>
+      </a>
     </div>
-    <div class="la-right">El bono termina en <span class="timer" id="countdown">23:36</span></div>
   </div>
- 
-  <!-- Bottom CTA Button -->
-  <div class="bottom-cta">
-    <a id="bottomCtaBtn" href="https://go.dailyappflow.com/click" class="cta-btn animate-glow">
-      <span class="shimmer animate-shimmer"></span>
-      <span style="position:relative;z-index:1">OBTÉN $10 GRATIS + COBRA HOY</span>
-    </a>
+
+  <!-- CTA MODAL -->
+  <div class="modal-overlay" id="cta-modal">
+    <div class="modal-card">
+      <div class="modal-close" id="modal-close">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+      <div class="modal-check">
+        <svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+      </div>
+      <div class="modal-eyebrow">Consejo Rápido</div>
+      <div class="modal-title">Selecciona <span class="accent">21+</span> al registrarte</div>
+      <div class="modal-desc">
+        Esto desbloquea las <strong>ofertas de juegos que pagan más</strong> en Freecash. <span class="modal-warn">No te saltes este paso.</span>
+      </div>
+      <a href="https://tk.unlockbonusapp.com/click" class="modal-btn" id="modal-continue">Entendido <span class="modal-btn-arrow">→</span></a>
+    </div>
   </div>
- 
-</div>
- 
-<script>
-// ---- Canvas background ----
-(function () {
-  var canvas = document.getElementById('bg-canvas');
-  var ctx = canvas.getContext('2d');
-  var W, H, dots = [];
-  var EM = '1,214,118';
- 
-  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-  window.addEventListener('resize', resize);
-  resize();
- 
-  for (var i = 0; i < 18; i++) {
-    dots.push({ x: Math.random()*1000, y: Math.random()*2000, r: 1.5+Math.random()*2.5,
-      speed: .15+Math.random()*.25, opacity: .08+Math.random()*.14,
-      pulse: Math.random()*Math.PI*2, pulseSpeed: .008+Math.random()*.012 });
-  }
- 
-  var blobs = [
-    { x:.15, y:.2, r:180, opacity:.04 },
-    { x:.85, y:.55, r:140, opacity:.03 },
-    { x:.5,  y:.8, r:160, opacity:.035 }
-  ];
- 
-  function draw() {
-    ctx.clearRect(0,0,W,H);
-    blobs.forEach(function(b) {
-      var g = ctx.createRadialGradient(b.x*W,b.y*H,0,b.x*W,b.y*H,b.r);
-      g.addColorStop(0,'rgba('+EM+','+b.opacity+')');
-      g.addColorStop(1,'rgba('+EM+',0)');
-      ctx.fillStyle = g;
-      ctx.beginPath(); ctx.arc(b.x*W,b.y*H,b.r,0,Math.PI*2); ctx.fill();
+
+
+  <script>
+    /* ── PARTICLES ── */
+    (function(){
+      var c = document.getElementById('particles');
+      var cols = ['rgba(44,199,110,1)','rgba(60,210,120,1)','rgba(100,220,140,1)','rgba(255,255,255,1)'];
+      for(var i=0;i<10;i++){
+        var s=document.createElement('span');
+        var sz=2+Math.random()*4;
+        var col=cols[Math.floor(Math.random()*cols.length)];
+        var dur=14+Math.random()*18;
+        var delay=-(Math.random()*30);
+        var drift=(Math.random()*70-35)+'px';
+        s.className='particle';
+        s.style.cssText=[
+          'left:'+(Math.random()*100)+'%',
+          'width:'+sz+'px','height:'+sz+'px',
+          'background:'+col,
+          'opacity:'+(0.25+Math.random()*0.45),
+          'box-shadow:0 0 '+(sz*3)+'px '+col,
+          '--drift:'+drift,
+          'animation-duration:'+dur+'s',
+          'animation-delay:'+delay+'s'
+        ].join(';');
+        c.appendChild(s);
+      }
+    })();
+
+    /* ── GAME CAROUSEL ── */
+    (function(){
+      var slides=document.querySelectorAll('.game-slide');
+      var dots=document.querySelectorAll('.game-dot');
+      var cur=0;
+      function go(n){
+        slides[cur].classList.remove('active');
+        dots[cur].classList.remove('active');
+        cur=(n+slides.length)%slides.length;
+        slides[cur].classList.add('active');
+        dots[cur].classList.add('active');
+      }
+      setInterval(function(){go(cur+1);},2800);
+    })();
+
+    /* ── TOAST ── */
+    (function(){
+      var toasts=[
+        {name:'Dylan',   init:'D', amount:'+$2.66',  meta:'emparejó 5 seguidos · hace 8s'},
+        {name:'Isabella',init:'I', amount:'+$6.22',  meta:'completó el bono del tutorial · hace 26s'},
+        {name:'Marcus',  init:'M', amount:'+$14.50', meta:'terminó la misión de Royal Match · hace 1m'},
+        {name:'Sophie',  init:'S', amount:'+$31.00', meta:'retiró a PayPal · hace 2m'},
+        {name:'Carlos',  init:'C', amount:'+$9.75',  meta:'completó la instalación del juego · hace 3m'},
+      ];
+      var idx=0;
+      var el=document.getElementById('toast');
+      function show(){
+        var t=toasts[idx%toasts.length]; idx++;
+        document.getElementById('toast-avatar').textContent=t.init;
+        document.getElementById('toast-name').textContent=t.name;
+        document.getElementById('toast-amount').textContent=t.amount;
+        document.getElementById('toast-meta').textContent=t.meta;
+        el.classList.remove('show');
+        void el.offsetWidth;
+        el.classList.add('show');
+        setTimeout(function(){el.classList.remove('show');},4500);
+      }
+      show();
+      setInterval(show,7000);
+    })();
+
+    /* ── HELPERS ── */
+    function makeId(){
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
+        var r = Math.random()*16|0, v = c==='x' ? r : (r&0x3)|0x8;
+        return v.toString(16);
+      });
+    }
+
+    /* ── TIKTOK — ViewContent no load ── */
+    (function(){
+      try {
+        ttq.track('ViewContent', {
+          event_id:     makeId(),
+          content_type: 'lead',
+          content_id:   'freecash-landing',
+          value:        0.5,
+          currency:     'USD'
+        });
+      } catch(e) {}
+    })();
+
+    /* ── TIKTOK — 5 eventos no clique final (mantendo o redirect) ── */
+    function firePixelEvents(){
+      var eventNames = ['AddToCart','CompleteRegistration','SubmitForm','ClickButton','Purchase'];
+      eventNames.forEach(function(ev){
+        try {
+          ttq.track(ev, {
+            event_id:     makeId(),
+            content_type: 'lead',
+            content_id:   'freecash-cta',
+            value:        0.5,
+            currency:     'USD'
+          });
+        } catch(e) {}
+      });
+    }
+
+    /* ── REDIRECT ── */
+    function goToOffer(e){
+      e.preventDefault();
+      firePixelEvents();
+      window.location.href='https://tk.unlockbonusapp.com/click';
+    }
+
+    /* ── CTA MODAL ── */
+    var ctaModal = document.getElementById('cta-modal');
+    function openModal(e){
+      e.preventDefault();
+      ctaModal.classList.add('show');
+    }
+    function closeModal(){
+      ctaModal.classList.remove('show');
+    }
+
+    document.getElementById('fixed-cta-btn').addEventListener('click',openModal);
+    document.getElementById('modal-continue').addEventListener('click',goToOffer);
+    document.getElementById('modal-close').addEventListener('click',closeModal);
+    ctaModal.addEventListener('click',function(e){
+      if(e.target === ctaModal){ closeModal(); }
     });
-    dots.forEach(function(d) {
-      d.pulse += d.pulseSpeed;
-      var a = d.opacity*(.6+.4*Math.sin(d.pulse));
-      ctx.beginPath(); ctx.arc(d.x%W,d.y%H,d.r,0,Math.PI*2);
-      ctx.fillStyle = 'rgba('+EM+','+a+')'; ctx.fill();
-      var g2 = ctx.createRadialGradient(d.x%W,d.y%H,0,d.x%W,d.y%H,d.r*5);
-      g2.addColorStop(0,'rgba('+EM+','+(a*.3)+')');
-      g2.addColorStop(1,'rgba('+EM+',0)');
-      ctx.fillStyle = g2; ctx.beginPath(); ctx.arc(d.x%W,d.y%H,d.r*5,0,Math.PI*2); ctx.fill();
-      d.y -= d.speed;
-      if (d.y < -20) d.y = H+20;
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
- 
-// ---- Notifications ----
-var names   = ["Sarah","Mike","Tyler","Emma","Alex","Jordan","Chris","Mia","Jake","Olivia","Liam","Ava","Noah","Sophia","Ethan"];
-var cities  = ["Miami, FL","Austin, TX","Denver, CO","Phoenix, AZ","Charlotte, NC","Seattle, WA","Nashville, TN","Portland, OR","Atlanta, GA","San Diego, CA","Chicago, IL","Dallas, TX","Tampa, FL","Las Vegas, NV","Columbus, OH"];
-var methods = ["CashApp","PayPal","Zelle","ACH","Revolut"];
-var amounts = [47,59,72,87,94,112,124,138,142,167,189,203,247,278,312];
- 
-function createNotification() {
-  var name   = names[Math.floor(Math.random()*names.length)];
-  var city   = cities[Math.floor(Math.random()*cities.length)];
-  var method = methods[Math.floor(Math.random()*methods.length)];
-  var amount = amounts[Math.floor(Math.random()*amounts.length)];
-  var c = document.getElementById('notif-container');
-  if(!c) return;
-  var d = document.createElement('div');
-  d.className = 'notif';
-  d.innerHTML = '<div class="n-icon">$</div><div class="n-text"><strong>'+name+'</strong> de '+city+'<br>cobró <span class="green">$'+amount+'</span> por '+method+'</div>';
-  c.appendChild(d);
-  setTimeout(function(){ d.classList.add('show'); }, 50);
-  setTimeout(function(){ d.classList.remove('show'); setTimeout(function(){ d.remove(); }, 400); }, 3500);
-}
- 
-// ---- Countdown ----
-function startCountdown() {
-  var time = 23*60+47, el = document.getElementById('countdown');
-  setInterval(function(){
-    time--; if (time<=0) time=23*60+47;
-    var m=Math.floor(time/60), s=time%60;
-    if(el) el.textContent = m+':'+(s<10?'0':'')+s;
-  }, 1000);
-}
- 
-// ---- Live count fluctuation ----
-function startLiveCount() {
-  var base = 36236, el = document.getElementById('live-count');
-  setInterval(function(){
-    base += Math.floor(Math.random()*10) - 4;
-    if (base < 35000) base = 35800;
-    if (base > 38000) base = 37200;
-    if(el) el.textContent = base.toLocaleString();
-  }, 4000);
-}
- 
-window.addEventListener('load', function(){
-  setTimeout(createNotification, 2000);
-  setInterval(function(){ createNotification(); }, 6000+Math.random()*2000);
-  startCountdown();
-  startLiveCount();
-});
-</script>
+  </script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1}' crossorigin="anonymous"></script>
 </body>
 </html>
- 
