@@ -1,702 +1,999 @@
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-US">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>FreeCash | Gana por jugar</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
-<script src="https://go.dailyappflow.com/unilpclick.js?attribution=lastpaid&cookiedomain=&cookieduration=90&defaultcampaignid=&regviewonce=false"></script>
-<style>
-  :root{
-    --bg:#0a0e17;
-    --bg-2:#0c1320;
-    --card:#101a2c;
-    --card-2:#0d1626;
-    --line:rgba(255,255,255,.07);
-    --green:#46d77f;
-    --green-text:#5be183;
-    --green-1:#63e58c;
-    --green-2:#27c163;
-    --text:#ffffff;
-    --muted:#8c97a9;
-    --muted-2:#5f6b7d;
-    --gold:#f6c453;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    line-height:1.45;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{color:inherit;text-decoration:none}
-  .container{max-width:500px;margin:0 auto;padding:0 22px}
-  .green{color:var(--green-text)}
-  .muted{color:var(--muted)}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gana Dinero Jugando — Convierte Tu Pantalla en Dinero Real</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  /* landing-first: hide the page until the quiz + popup are done */
-  body:not(.revealed){overflow:hidden}
-  body:not(.revealed) header,
-  body:not(.revealed) main,
-  body:not(.revealed) #stickyCta,
-  body:not(.revealed) #toast{display:none !important}
+  <!-- TikTok Pixel -->
+  <script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+    ttq.load('D4DO8HRC77UCI3HO4RHG');
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
 
-  /* ---------- HEADER ---------- */
-  header{position:sticky;top:0;z-index:60;background:rgba(8,12,21,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .topbar{max-width:500px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 22px}
-  .logo{display:flex;align-items:center;gap:7px;font-weight:800;letter-spacing:.5px}
-  .logo svg{display:block}
-  .live-pill{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:#cbd5e1;background:rgba(70,215,127,.08);border:1px solid rgba(70,215,127,.25);padding:6px 11px;border-radius:999px;white-space:nowrap}
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 1.6s infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ---------- TICKER ---------- */
-  .ticker{overflow:hidden;border-bottom:1px solid var(--line);background:rgba(70,215,127,.03);white-space:nowrap}
-  .ticker-track{display:inline-flex;gap:34px;padding:9px 0;animation:scroll-x 32s linear infinite;will-change:transform}
-  .ticker:hover .ticker-track{animation-play-state:paused}
-  .ticker-item{font-size:12.5px;font-weight:600;color:#aeb8c7}
-  .ticker-item b{color:#dbe3ee;font-weight:700}
-  @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    :root {
+      --green:      #2cc76e;
+      --green-glow: rgba(44,199,110,0.55);
+      --green-dim:  rgba(44,199,110,0.12);
+      --green-dim2: rgba(44,199,110,0.07);
+      --amber:      #f59e0b;
+      --amber-dim:  rgba(245,158,11,0.12);
+      --bg:         #050e06;
+      --card:       rgba(13,26,14,0.85);
+      --border:     rgba(44,199,110,0.15);
+      --border2:    rgba(44,199,110,0.25);
+      --text:       #e8f0e9;
+      --muted:      #5a7a5e;
+      --font:       'Inter', -apple-system, system-ui, sans-serif;
+    }
 
-  /* ---------- BADGES ---------- */
-  .badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;letter-spacing:.4px;padding:7px 14px;border-radius:999px;text-transform:uppercase}
-  .badge-urgent{background:rgba(70,215,127,.08);border:1px solid rgba(70,215,127,.3);color:var(--green-text);box-shadow:0 0 24px rgba(70,215,127,.12)}
-  .badge-live{background:rgba(255,255,255,.04);border:1px solid var(--line);color:#cdd5e0}
-  .badge-outline{background:transparent;border:1px solid rgba(70,215,127,.4);color:var(--green-text)}
-  .badge-boost{background:transparent;color:var(--green-text);padding:0;font-size:13px}
-  .badge-gold{background:rgba(246,196,83,.08);border:1px solid rgba(246,196,83,.35);color:var(--gold)}
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
 
-  /* ---------- HERO ---------- */
-  .hero{text-align:center;padding:34px 0 10px}
-  h1{font-size:clamp(44px,12vw,60px);font-weight:800;line-height:.98;letter-spacing:-.02em;margin:20px 0 0}
-  .sub{color:var(--muted);font-size:15.5px;margin-top:18px}
-  .sub b{color:#e7ecf3}
+    /* ── HERO GRADIENT (like reference) ── */
+    .hero-glow {
+      pointer-events: none;
+      position: fixed;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 140%;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(44,199,110,0.28) 0%, rgba(20,80,30,0.18) 50%, transparent 100%);
+      filter: blur(10px);
+      z-index: 0;
+    }
+    .side-glow-l {
+      pointer-events: none;
+      position: fixed;
+      top: 35%; left: -100px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(44,199,110,0.14) 0%, transparent 70%);
+      filter: blur(40px);
+      z-index: 0;
+    }
+    .side-glow-r {
+      pointer-events: none;
+      position: fixed;
+      top: 60%; right: -100px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(30,120,60,0.18) 0%, transparent 70%);
+      filter: blur(40px);
+      z-index: 0;
+    }
 
-  /* ---------- OFFER CARD ---------- */
-  .offer-card{position:relative;margin:26px 0 0;padding:22px;border-radius:22px;
-    background:linear-gradient(180deg,#13202f 0%,#0c1525 100%);
-    border:1px solid rgba(70,215,127,.16);
-    box-shadow:0 0 60px rgba(70,215,127,.07),inset 0 1px 0 rgba(255,255,255,.03);
-    overflow:hidden}
-  .offer-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-  .offer-amount{font-size:46px;font-weight:800;color:var(--green-text);letter-spacing:-.02em;margin-top:18px;line-height:1}
-  .offer-amount span{font-size:30px}
-  .offer-sublabel{font-size:11.5px;font-weight:700;letter-spacing:1px;color:var(--muted-2);text-transform:uppercase;margin-top:8px}
-  .offer-icon{width:118px;height:118px;border-radius:26px;margin:22px auto 0;display:flex;align-items:center;justify-content:center;font-size:58px;line-height:1;box-shadow:0 14px 34px rgba(0,0,0,.4);transition:transform .35s,background .35s}
-  .offer-reward{font-size:30px;font-weight:800;color:var(--green-text);margin-top:16px}
-  .offer-hr{border:none;border-top:1px solid var(--line);margin:18px 0 14px}
-  .offer-now-label{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--muted-2);text-transform:uppercase}
-  .offer-game{font-size:19px;font-weight:800;margin-top:3px}
-  .offer-goal{font-size:14px;color:var(--muted);margin-top:1px}
-  .offer-foot{position:relative;min-height:42px;margin:9px 0 16px;display:flex;flex-direction:column;justify-content:center}
-  .offer-mini{position:absolute;left:0;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1}
-  .offer-seg{display:flex;gap:6px;flex:1}
-  .offer-seg i{height:4px;flex:1;border-radius:3px;background:rgba(255,255,255,.09);transition:.3s}
-  .offer-seg i.on{background:var(--green);box-shadow:0 0 8px rgba(70,215,127,.6)}
+    /* ── PARTICLES ── */
+    .particles {
+      pointer-events: none;
+      position: fixed; inset: 0;
+      overflow: hidden; z-index: 0;
+    }
+    .particle {
+      position: absolute; bottom: -20px;
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translate3d(0,0,0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translate3d(var(--drift), -110vh, 0); opacity: 0; }
+    }
 
-  /* ---------- BUTTONS ---------- */
-  .cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
-    background:linear-gradient(180deg,var(--green-1),var(--green-2));
-    color:#06210f;font-weight:800;font-size:18px;padding:18px;border:none;border-radius:999px;cursor:pointer;
-    box-shadow:0 8px 30px rgba(60,210,120,.35),0 0 0 1px rgba(120,255,170,.25) inset;
-    transition:transform .12s,box-shadow .2s}
-  .cta:hover{transform:translateY(-1px);box-shadow:0 12px 38px rgba(60,210,120,.5)}
-  .cta:active{transform:translateY(0)}
-  .cta-ghost{background:transparent;border:1px solid var(--line);color:#fff;box-shadow:none;font-size:16px}
-  .cta-ghost:hover{border-color:rgba(70,215,127,.4);box-shadow:none}
+    /* ── SCREEN TRANSITIONS ── */
+    .screen { display: none; }
+    .screen.active {
+      display: flex;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      animation: screenIn .4s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes screenIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    #screen-c.active {
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
 
-  .pay-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
-  .pay-label{font-size:11px;font-weight:700;letter-spacing:.8px;color:var(--muted-2);text-transform:uppercase}
-  .chip{font-size:12.5px;font-weight:700;background:rgba(255,255,255,.04);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:#cdd5e0}
+    .page {
+      width: 100%;
+      max-width: 460px;
+      padding: 52px 22px 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
 
-  /* ---------- SECTIONS ---------- */
-  section{padding:46px 0}
-  .eyebrow{font-size:12.5px;font-weight:800;letter-spacing:1.4px;color:var(--green-text);text-transform:uppercase}
-  h2{font-size:clamp(32px,8vw,40px);font-weight:800;letter-spacing:-.02em;line-height:1.02;margin-top:10px}
-  .lead{color:var(--muted);font-size:15px;margin-top:12px}
-  .lead b{color:#e7ecf3}
+    /* ── PILL BADGE ── */
+    .pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--green-dim);
+      border: 1px solid rgba(44,199,110,0.3);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 10.5px; font-weight: 700;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 26px;
+    }
+    .pill-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); flex-shrink: 0;
+    }
+    .pill-dot.pulse { animation: pulse 2s ease infinite; }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(44,199,110,0.5); }
+      50%      { box-shadow: 0 0 0 5px rgba(44,199,110,0); }
+    }
 
-  /* tiers */
-  .tier-card{margin-top:24px;padding:20px;border-radius:22px;background:radial-gradient(120% 80% at 50% 0%,rgba(70,215,127,.08),transparent 60%),linear-gradient(180deg,#101c2c,#0c1424);border:1px solid rgba(70,215,127,.16);box-shadow:0 0 60px rgba(70,215,127,.06)}
-  .tier{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-radius:16px;background:rgba(255,255,255,.025);border:1px solid var(--line);margin-bottom:12px;cursor:pointer;transition:.18s}
-  .tier:hover{border-color:rgba(70,215,127,.35);background:rgba(70,215,127,.04)}
-  .tier.featured{border-color:rgba(70,215,127,.5);background:rgba(70,215,127,.06)}
-  .tier-left{display:flex;flex-direction:column;gap:7px}
-  .tier-name{font-size:20px;font-weight:800}
-  .tier-tag{font-size:11px;font-weight:800;color:var(--gold);background:rgba(246,196,83,.1);border:1px solid rgba(246,196,83,.3);padding:4px 9px;border-radius:999px;width:fit-content;letter-spacing:.3px}
-  .tier-amt{font-size:30px;font-weight:800;color:var(--green-text)}
-  .tier-arrow{color:var(--muted-2);font-size:20px}
-  .withdraw-note{text-align:center;color:var(--muted-2);font-size:13px;margin-top:14px}
+    .subtext {
+      font-size: 14px; color: rgba(200,230,205,0.65);
+      line-height: 1.65; margin-bottom: 28px; max-width: 310px;
+    }
 
-  /* total paid */
-  .total-card{margin-top:0;padding:26px;text-align:center;border-radius:22px;background:linear-gradient(180deg,#101c2c,#0c1424);border:1px solid var(--line)}
-  .total-label{font-size:12px;font-weight:800;letter-spacing:1.2px;color:var(--green-text);text-transform:uppercase;display:flex;align-items:center;gap:8px;justify-content:center}
-  .total-num{font-size:clamp(42px,12vw,58px);font-weight:800;color:var(--green-text);letter-spacing:-.02em;line-height:1;margin-top:14px}
-  .total-sub{color:var(--muted);font-size:14px;margin-top:12px}
-  .total-sub b{color:#e7ecf3}
+    /* ── SCREEN C HEADER ── */
+    #screen-c { background: var(--bg); }
 
-  /* payouts grid */
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
-  .pcard{padding:16px;border-radius:16px;background:rgba(255,255,255,.025);border:1px solid var(--line)}
-  .pcard .ph{display:flex;align-items:center;gap:11px}
-  .pcard .pi{width:46px;height:46px;border-radius:12px;flex:none;display:flex;align-items:center;justify-content:center;font-size:23px;line-height:1}
-  .pcard .pn{font-weight:800;font-size:15px}
-  .pcard .pg{font-size:12px;color:var(--muted)}
-  .pcard .pr{font-size:21px;font-weight:800;color:var(--green-text);margin-top:12px}
+    .sc-header {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 460px;
+      padding: 16px 22px 0;
+      position: relative; z-index: 2;
+    }
+    .sc-brand { display: flex; align-items: center; gap: 9px; }
+    .sc-logo {
+      width: 34px; height: 34px; border-radius: 9px; overflow: hidden;
+      border: 1px solid var(--border2);
+      box-shadow: 0 0 20px rgba(44,199,110,0.2);
+    }
+    .sc-logo img { width: 100%; height: 100%; object-fit: cover; }
+    .sc-brand-text {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--green);
+    }
+    .sc-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+    .sc-users { display: flex; align-items: center; gap: 5px; font-size: 11px; }
+    .sc-users strong { color: #fff; font-weight: 700; }
+    .sc-users span { color: var(--muted); }
+    .sc-flag {
+      display: flex; align-items: center; gap: 4px;
+      border: 1px solid rgba(44,199,110,0.2);
+      background: rgba(44,199,110,0.06);
+      border-radius: 999px; padding: 2px 10px;
+      font-size: 10px; font-weight: 600; color: rgba(200,230,205,0.7);
+    }
 
-  /* phone mockup */
-  .phone{margin:26px auto 0;width:300px;max-width:88%;background:#05080f;border:8px solid #1a2435;border-radius:38px;padding:16px 14px 18px;box-shadow:0 30px 70px rgba(0,0,0,.55)}
-  .phone-status{display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:#c6cedb;padding:2px 6px 10px}
-  .wallet{background:linear-gradient(180deg,#54d784,#33bd6a);border-radius:18px;padding:18px;color:#06210f}
-  .wallet-label{font-size:11px;font-weight:800;letter-spacing:1px;opacity:.8}
-  .wallet-bal{font-size:36px;font-weight:800;margin-top:4px;line-height:1}
-  .wallet-foot{display:flex;justify-content:space-between;font-size:12.5px;font-weight:800;margin-top:12px}
-  .games-head{display:flex;justify-content:space-between;font-size:12px;font-weight:800;letter-spacing:.6px;color:var(--muted);margin:16px 4px 8px}
-  .games-head span:last-child{color:var(--green-text)}
-  .grow{display:flex;align-items:center;gap:11px;padding:11px;border-radius:13px;background:rgba(255,255,255,.03);margin-bottom:9px}
-  .grow .gi{width:40px;height:40px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;font-size:20px;line-height:1}
-  .grow .gn{font-weight:800;font-size:14px}
-  .grow .gg{font-size:11.5px;color:var(--muted)}
-  .grow .gr{margin-left:auto;font-weight:800;color:var(--green-text);font-size:16px}
+    /* ── SCREEN C PAGE ── */
+    #screen-c .page {
+      max-width: 460px;
+      padding: 20px 22px 110px;
+    }
 
-  /* features */
-  .feat{display:flex;gap:14px;align-items:flex-start;margin-top:22px}
-  .feat .fi{width:46px;height:46px;border-radius:13px;flex:none;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;background:rgba(70,215,127,.08);border:1px solid rgba(70,215,127,.18)}
-  .feat h3{font-size:18px;font-weight:800}
-  .feat p{color:var(--muted);font-size:14px;margin-top:3px}
+    /* Big hero headline */
+    .hero-headline {
+      font-size: clamp(38px, 10vw, 62px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .hero-headline .line1 { display: block; color: #fff; drop-shadow: 0 0 24px rgba(255,255,255,0.15); }
+    .hero-headline .line2 {
+      display: block;
+      color: var(--green);
+      text-shadow: 0 0 40px rgba(44,199,110,0.7), 0 0 80px rgba(44,199,110,0.35);
+    }
 
-  /* steps */
-  .step{display:flex;gap:14px;align-items:flex-start;padding:18px;border-radius:16px;background:rgba(255,255,255,.025);border:1px solid var(--line);margin-top:14px}
-  .step .sn{width:34px;height:34px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;background:linear-gradient(180deg,var(--green-1),var(--green-2));color:#06210f}
-  .step h3{font-size:17px;font-weight:800}
-  .step p{color:var(--muted);font-size:14px;margin-top:3px}
+    /* ── GAME CAROUSEL ── */
+    .game-card {
+      width: 100%; background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px; overflow: hidden;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      position: relative;
+    }
+    .game-card-label {
+      position: absolute; top: 10px; right: 12px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--green);
+      z-index: 2;
+    }
+    .game-inner { position: relative; height: 84px; }
+    .game-slide {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; gap: 14px; padding: 16px;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .6s ease, transform .6s ease;
+      pointer-events: none;
+    }
+    .game-slide.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .game-thumb {
+      width: 52px; height: 52px; border-radius: 13px;
+      object-fit: cover; flex-shrink: 0;
+      box-shadow: 0 0 24px rgba(44,199,110,0.4);
+    }
+    .game-info { flex: 1; text-align: left; min-width: 0; }
+    .game-name { font-weight: 700; font-size: 14.5px; color: #fff; margin-bottom: 2px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+    .game-badge-pill {
+      font-size: 10px; font-weight: 800;
+      background: var(--green); color: #000;
+      border-radius: 5px; padding: 1px 7px;
+      box-shadow: 0 0 10px rgba(44,199,110,0.6);
+    }
+    .game-sub { font-size: 12px; color: var(--muted); }
+    .game-earn { text-align: right; flex-shrink: 0; }
+    .game-amount {
+      font-size: 24px; font-weight: 900; color: var(--green);
+      text-shadow: 0 0 20px rgba(44,199,110,0.6);
+      line-height: 1;
+    }
+    .game-stars { display: flex; align-items: center; justify-content: flex-end; gap: 3px; font-size: 11px; color: var(--green); margin-top: 4px; }
+    .game-dots { display: flex; justify-content: center; gap: 4px; padding: 0 16px 12px; }
+    .game-dot {
+      height: 4px; border-radius: 4px;
+      background: rgba(44,199,110,0.2);
+      transition: width .3s, background .3s; width: 4px;
+    }
+    .game-dot.active { width: 16px; background: var(--green); }
 
-  /* testimonials */
-  .tcard{padding:20px;border-radius:18px;background:rgba(255,255,255,.025);border:1px solid var(--line);margin-top:16px}
-  .tcard .th{display:flex;align-items:center;gap:12px}
-  .tcard .ta{width:46px;height:46px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;color:#06210f;background:linear-gradient(180deg,#63e58c,#27c163)}
-  .tcard .tn{font-weight:800;font-size:16px;display:flex;align-items:center;gap:6px}
-  .tcard .tv{font-size:12.5px;color:var(--muted-2)}
-  .stars{color:var(--gold);margin-top:12px;letter-spacing:2px}
-  .tcard .tq{margin-top:10px;font-size:15px;color:#dbe3ee;line-height:1.55}
-  .paid-tag{display:inline-block;margin-top:14px;font-size:12.5px;font-weight:800;color:var(--green-text);background:rgba(70,215,127,.08);border:1px solid rgba(70,215,127,.2);padding:6px 12px;border-radius:999px}
+    /* ── ELIGIBLE BADGE ── */
+    .eligible-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      border: 1px solid rgba(44,199,110,0.35);
+      border-radius: 999px; padding: 6px 16px;
+      font-size: 10.5px; font-weight: 700;
+      color: var(--green); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .eligible-badge svg { width: 12px; height: 12px; stroke: var(--green); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
-  footer{padding:40px 0 130px;text-align:center;color:var(--muted-2);font-size:12.5px;border-top:1px solid var(--line)}
-  footer a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+    /* ── STEPS ── */
+    .section-eyebrow {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 16px; align-self: center;
+    }
+    .steps { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 36px; position: relative; }
+    .steps-connector {
+      position: absolute; left: 27px; top: 44px; bottom: 44px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--green) 0%, rgba(44,199,110,0.1) 100%);
+      opacity: 0.35;
+    }
+    .step-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 16px 16px;
+      display: flex; gap: 14px; align-items: center; text-align: left;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .step-num {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 15px; font-weight: 900; color: #000;
+      box-shadow: 0 0 20px rgba(44,199,110,0.65);
+      position: relative; z-index: 1;
+    }
+    .step-body { flex: 1; }
+    .step-title { font-weight: 700; font-size: 13.5px; color: #fff; margin-bottom: 5px; line-height: 1.4; }
+    .step-desc { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+    .step-desc .hi { color: var(--green); font-weight: 600; }
+    .step-desc .warn { color: var(--amber); font-weight: 600; }
+    .step-tag {
+      display: inline-block;
+      border: 1px solid rgba(44,199,110,0.28); border-radius: 6px;
+      padding: 3px 9px; font-size: 10px; font-weight: 700;
+      color: rgba(44,199,110,0.55); letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .step-bonus {
+      display: inline-block;
+      background: var(--green-dim);
+      border: 1px solid rgba(44,199,110,0.4);
+      border-radius: 6px; padding: 3px 10px;
+      font-size: 10px; font-weight: 800; color: var(--green);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      box-shadow: 0 0 14px rgba(44,199,110,0.3);
+    }
 
-  /* subtle "Terms and Conditions" link + popup */
-  .tc-link{display:inline-block;background:none;border:none;font-family:inherit;color:var(--muted-2);font-size:11px;letter-spacing:.2px;text-decoration:underline;text-underline-offset:2px;cursor:pointer;opacity:.55;padding:0;transition:opacity .15s,color .15s}
-  .tc-link:hover{opacity:1;color:var(--muted)}
-  .quiz-terms{margin:0 auto;padding:14px 24px calc(20px + env(safe-area-inset-bottom));text-align:center}
-  footer .tc-link{margin-top:12px}
-  .tc-wrap{position:fixed;inset:0;z-index:200;background:rgba(6,10,18,.6);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;padding:22px}
-  .tc-wrap.open{display:flex}
-  .tc-box{position:relative;width:100%;max-width:440px;max-height:80vh;overflow-y:auto;background:linear-gradient(180deg,#101e2e,#0a1220);border:1px solid var(--line);border-radius:20px;padding:26px 22px;box-shadow:0 24px 70px rgba(0,0,0,.6);animation:rise .35s cubic-bezier(.2,.8,.2,1)}
-  .tc-box h3{font-size:20px;font-weight:800}
-  .tc-box .tc-body{color:var(--muted);font-size:12.5px;line-height:1.65;margin-top:14px}
-  .tc-box .tc-body p+p{margin-top:10px}
-  .tc-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#cbd5e1;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    /* ── TRUST ROW ── */
+    .trust-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; flex-wrap: wrap;
+      padding: 13px 16px; margin-bottom: 28px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; width: 100%;
+      font-size: 11.5px; color: var(--muted);
+      backdrop-filter: blur(6px);
+    }
+    .trust-item { display: flex; align-items: center; gap: 4px; }
+    .trust-item .hl { color: #fff; font-weight: 700; }
+    .trust-green { color: var(--green); font-weight: 700; }
 
-  .check{color:#3b9dff}
+    /* ── IN-APP PURCHASE BONUS CARD ── */
+    .iap-card {
+      width: 100%;
+      background: linear-gradient(160deg, #1a1408 0%, #120e04 100%);
+      border: 1.5px solid rgba(245,158,11,0.3);
+      border-radius: 20px;
+      padding: 24px 20px 20px;
+      margin-bottom: 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(245,158,11,0.1), inset 0 1px 0 rgba(245,158,11,0.1);
+    }
+    .iap-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245,158,11,0.5), transparent);
+    }
+    .iap-top-label {
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 10px;
+    }
+    .iap-timer-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      border: 1.5px solid rgba(245,158,11,0.4);
+      border-radius: 999px; padding: 5px 14px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 18px;
+    }
+    .iap-timer-badge svg { width: 12px; height: 12px; stroke: var(--amber); }
+    .iap-range {
+      font-size: clamp(42px, 11vw, 58px);
+      font-weight: 900; line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--amber);
+      text-shadow: 0 0 40px rgba(245,158,11,0.4);
+      margin-bottom: 18px;
+    }
+    .iap-dash { color: rgba(245,158,11,0.5); }
+    .iap-hi {
+      background: linear-gradient(135deg, #f5c842, #e07a20);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .iap-divider {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 14px;
+    }
+    .iap-divider-line {
+      flex: 1; height: 1px;
+      background: rgba(245,158,11,0.2);
+    }
+    .iap-divider-text {
+      font-size: 9.5px; font-weight: 800;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amber); white-space: nowrap;
+    }
+    .iap-desc {
+      font-size: 13.5px; color: rgba(220,190,140,0.75);
+      line-height: 1.65; margin-bottom: 20px;
+    }
+    .iap-desc strong { color: #fff; font-weight: 700; }
+    .iap-hl { color: var(--amber); font-weight: 800; }
 
-  /* ---------- STICKY BOTTOM CTA ---------- */
-  .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:55;padding:14px 18px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(180deg,transparent,rgba(8,12,21,.96)35%);transform:translateY(120%);transition:transform .35s cubic-bezier(.2,.8,.2,1);pointer-events:none}
-  .sticky-cta.show{transform:translateY(0);pointer-events:auto}
-  .sticky-cta .inner{max-width:500px;margin:0 auto}
+    .iap-note {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      font-size: 11.5px; color: rgba(220,190,140,0.5);
+      font-weight: 500;
+    }
+    .iap-note svg { width: 13px; height: 13px; stroke: rgba(245,158,11,0.4); flex-shrink: 0; }
 
-  /* ---------- TOASTS ---------- */
-  .toast{position:fixed;left:18px;bottom:100px;z-index:58;display:flex;align-items:center;gap:12px;background:rgba(15,23,38,.96);border:1px solid var(--line);backdrop-filter:blur(8px);padding:12px 18px 12px 12px;border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.5);opacity:0;transform:translateY(14px) scale(.96);transition:.4s;max-width:330px}
-  .toast.show{opacity:1;transform:translateY(0) scale(1)}
-  .toast .av{width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;color:#06210f;background:linear-gradient(180deg,#63e58c,#27c163)}
-  .toast .tt{font-size:14px;color:#dbe3ee}
-  .toast .tt b{color:var(--green-text)}
+    /* ── SUPPORT ── */
+    .support-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border2); background: var(--card);
+      border-radius: 999px; padding: 8px 18px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #fff; margin-bottom: 16px;
+      backdrop-filter: blur(6px);
+    }
+    .support-badge svg { width: 15px; height: 15px; stroke: var(--green); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .support-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: pulse 2s ease infinite; }
 
-  /* ---------- MODAL / QUIZ ---------- */
-  .overlay{position:fixed;inset:0;z-index:100;background:linear-gradient(180deg,#0d1626,#080d16);display:none;flex-direction:column;overflow-y:auto}
-  .overlay.open{display:flex}
-  .quiz{flex:1;width:100%;background:radial-gradient(120% 50% at 50% 18%,rgba(70,215,127,.08),transparent 60%);display:flex;flex-direction:column}
-  .quiz-header{display:flex;flex-direction:column;align-items:center;gap:16px;padding:22px 22px 0}
-  .quiz-logo{display:flex;align-items:center;gap:7px;font-weight:800;letter-spacing:.5px;background:rgba(255,255,255,.03);border:1px solid var(--line);padding:8px 14px;border-radius:12px}
-  .quiz-logo svg{display:block}
-  .quiz-top{width:100%;max-width:920px;display:flex;align-items:center;gap:14px}
-  .quiz-bar{flex:1;height:8px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
-  .quiz-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green-1),var(--green-2));border-radius:999px;transition:width .4s}
-  .quiz-step{font-size:13px;font-weight:800;color:#cbd5e1}
-  .quiz-pct{font-size:13px;font-weight:800;color:#ff7eb6}
-  .qbody{flex:1;display:flex;flex-direction:column;justify-content:center;padding:22px}
-  .qbody.q-center{align-items:center}
-  .q-inner{width:100%}
-  .q-copy h2{font-size:clamp(30px,8vw,40px);line-height:1.02}
-  .q-opts{margin-top:26px;display:flex;flex-direction:column;gap:14px}
-  .q-opt{display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:16px;background:rgba(255,255,255,.025);border:1px solid var(--line);cursor:pointer;font-size:18px;font-weight:800;transition:.16s;text-align:left;color:#fff;width:100%}
-  .q-opt:hover{border-color:rgba(70,215,127,.45);background:rgba(70,215,127,.05);transform:translateY(-1px)}
-  .q-opt .qe{font-size:22px}
-  .q-opt .qarrow{margin-left:auto;color:var(--muted-2)}
-  .loader{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;gap:8px}
-  .spinner{width:78px;height:78px;border-radius:50%;border:6px solid rgba(70,215,127,.18);border-top-color:var(--green);animation:spin 1.6s linear infinite;margin-bottom:24px}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .loader h2{font-size:34px}
-  .loader p{color:var(--muted);margin-top:10px;font-size:15px}
-  /* desktop: the quiz fills the whole page in a two-pane layout */
-  @media(min-width:1024px){
-    .quiz-header{padding-top:30px;gap:22px}
-    .qbody{padding:40px 64px 72px}
-    .q-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:80px;align-items:center}
-    .q-copy h2{font-size:clamp(46px,4.6vw,66px);line-height:1.01}
-    .q-copy .lead{font-size:18px;max-width:440px}
-    .q-opts{margin-top:0}
-    .q-opt{padding:25px 30px;font-size:22px;border-radius:18px}
-    .q-opt .qe{font-size:28px}
-    .loader h2{font-size:clamp(42px,4.6vw,62px)}
-    .loader p{font-size:18px}
-    .spinner{width:100px;height:100px;border-width:7px}
-  }
+    /* ── FOOTER ── */
+    footer { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color .15s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 11.5px; color: rgba(44,199,110,0.15); }
 
-  /* spot reserved popup */
-  .sheet-wrap{position:fixed;inset:0;z-index:110;background:rgba(6,10,18,.5);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);display:none;align-items:flex-end;justify-content:center}
-  .sheet-wrap.open{display:flex}
-  .sheet{width:100%;max-width:460px;background:radial-gradient(120% 80% at 50% 0%,rgba(70,215,127,.14),transparent 55%),linear-gradient(180deg,#101e2e,#0a1220);border:1px solid rgba(70,215,127,.3);border-bottom:none;border-radius:26px 26px 0 0;padding:26px 24px calc(30px + env(safe-area-inset-bottom));box-shadow:0 -10px 60px rgba(70,215,127,.16);position:relative;animation:rise .4s cubic-bezier(.2,.8,.2,1)}
-  @keyframes rise{from{transform:translateY(100%)}to{transform:translateY(0)}}
-  .sheet-close{position:absolute;top:18px;right:18px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#cbd5e1;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-  .sheet h2{font-size:34px;margin-top:14px;line-height:1.02}
-  .sheet p{color:var(--muted);font-size:15px;margin-top:12px}
-  .sheet p b{color:#fff}
-  .timer-box{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding:16px 18px;border-radius:14px;border:1px solid rgba(246,196,83,.3);background:rgba(246,196,83,.05)}
-  .timer-box .tl{font-size:13px;font-weight:800;color:var(--gold);letter-spacing:.5px;text-transform:uppercase}
-  .timer-box .tv{font-size:30px;font-weight:800}
-  .sheet .cta{margin-top:20px}
-  .sheet-pass{display:block;text-align:center;margin-top:18px;color:var(--muted-2);font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+    /* ── FIXED CTA BAR ── */
+    .fixed-cta {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 40;
+      padding: 12px 16px 16px;
+      background: linear-gradient(to top, var(--bg) 40%, transparent);
+    }
+    .fixed-cta-inner {
+      max-width: 460px;
+      margin: 0 auto;
+    }
+    .fixed-cta-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; background: var(--green); color: #000;
+      border: none; border-radius: 18px; padding: 16px 20px;
+      cursor: pointer; text-decoration: none;
+      transition: background .15s, transform .1s;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 10px 40px rgba(44,199,110,0.55);
+      position: relative; overflow: hidden;
+    }
+    .fixed-cta-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.22) 50%, transparent 70%);
+      pointer-events: none;
+    }
+    .fixed-cta-btn:hover { background: #28c864; transform: translateY(-1px); }
+    .fixed-cta-btn:active { transform: translateY(0); }
+    .fixed-cta-left { text-align: left; position: relative; }
+    .fixed-cta-title { font-size: 15.5px; font-weight: 800; display: flex; align-items: center; gap: 7px; line-height: 1; }
+    .fixed-cta-title svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .fixed-cta-sub { font-size: 11px; font-weight: 500; opacity: 0.85; margin-top: 4px; }
+    .fixed-cta-badge {
+      font-size: 11px; font-weight: 800; flex-shrink: 0;
+      background: rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.22);
+      border-radius: 7px; padding: 5px 9px; position: relative;
+    }
 
-  @media(max-width:380px){ .grid{grid-template-columns:1fr} }
-</style>
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; left: 12px; top: 12px; z-index: 50;
+      display: none;
+      align-items: center; gap: 10px;
+      background: rgba(10,22,11,0.95);
+      border: 1px solid rgba(44,199,110,0.3);
+      border-radius: 999px;
+      padding: 8px 14px 8px 8px;
+      max-width: 260px;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.5);
+    }
+    .toast.show {
+      display: flex;
+      animation: toastIn .4s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes toastIn {
+      from { transform: translateX(-110%); opacity: 0; }
+      to   { transform: translateX(0); opacity: 1; }
+    }
+    .toast-avatar {
+      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #2cc76e, #16a34a);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900; color: #fff;
+      box-shadow: 0 0 14px rgba(44,199,110,0.5);
+    }
+    .toast-text { font-size: 12px; line-height: 1.35; min-width: 0; }
+    .toast-text strong { color: #fff; }
+    .toast-earn { color: var(--green); font-weight: 700; }
+    .toast-meta { font-size: 10px; color: var(--muted); }
+
+    /* ── SCREEN-C ENTRANCE ANIMATIONS ── */
+    #screen-c.active .sc-header      { animation: fadeUp .4s ease .05s both; }
+    #screen-c.active .hero-headline  { animation: fadeUp .5s cubic-bezier(0.22,1,0.36,1) .1s both; }
+    #screen-c.active .subtext        { animation: fadeUp .4s ease .2s both; }
+    #screen-c.active .game-card      { animation: fadeUp .4s ease .25s both; }
+    #screen-c.active .eligible-badge { animation: fadeUp .4s ease .3s both; }
+    #screen-c.active .section-eyebrow{ animation: fadeUp .4s ease .4s both; }
+    #screen-c.active .step-card:nth-child(2) { animation: fadeUp .4s ease .45s both; }
+    #screen-c.active .step-card:nth-child(3) { animation: fadeUp .4s ease .52s both; }
+    #screen-c.active .step-card:nth-child(4) { animation: fadeUp .4s ease .59s both; }
+    #screen-c.active .trust-row      { animation: fadeUp .4s ease .65s both; }
+    #screen-c.active .fixed-cta      { animation: slideUp .4s cubic-bezier(0.22,1,0.36,1) .7s both; }
+    @keyframes slideUp {
+      from { transform: translateY(60px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .particle, .pill-dot.pulse, .support-dot { animation: none; }
+      .fixed-cta-btn { transition: none; }
+    }
+
+    /* ── CTA MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(6px);
+      justify-content: center; align-items: center;
+      padding: 22px;
+      animation: modalFade .25s ease both;
+    }
+    .modal-overlay.show { display: flex; }
+    @keyframes modalFade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .modal-card {
+      width: 100%; max-width: 400px;
+      background: linear-gradient(160deg, #0d1a0e 0%, #0a140b 100%);
+      border: 1px solid rgba(44,199,110,0.3);
+      border-radius: 22px;
+      padding: 30px 26px 26px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 60px rgba(44,199,110,0.12);
+      animation: modalPop .35s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes modalPop {
+      from { transform: scale(0.9) translateY(14px); opacity: 0; }
+      to   { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .modal-check {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--green-dim);
+      border: 2px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px;
+      box-shadow: 0 0 28px rgba(44,199,110,0.4);
+      animation: ringPop .4s cubic-bezier(0.34,1.56,0.64,1) .1s both;
+    }
+    .modal-check svg {
+      width: 32px; height: 32px;
+      stroke: var(--green); fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .modal-eyebrow {
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 10px;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .modal-title {
+      font-size: 22px; font-weight: 900; color: #fff;
+      line-height: 1.2; margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .modal-title .accent {
+      color: var(--green);
+      text-shadow: 0 0 24px rgba(44,199,110,0.5);
+    }
+    .modal-desc {
+      font-size: 13.5px; color: rgba(200,230,205,0.7);
+      line-height: 1.6; margin-bottom: 24px;
+    }
+    .modal-desc strong { color: #fff; font-weight: 700; }
+    .modal-warn { color: var(--green); font-weight: 700; }
+    .modal-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%;
+      background: var(--green); color: #000;
+      border: none; border-radius: 14px;
+      padding: 16px 24px; font-size: 15.5px; font-weight: 800;
+      cursor: pointer; text-decoration: none;
+      transition: background .15s, transform .1s, box-shadow .15s;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 8px 28px rgba(44,199,110,0.4);
+    }
+    .modal-btn:hover { background: #28c864; transform: translateY(-1px); box-shadow: 0 12px 36px rgba(44,199,110,0.5); }
+    .modal-btn:active { transform: translateY(0); }
+    .modal-btn-arrow { display: inline-block; transition: transform .15s; }
+    .modal-btn:hover .modal-btn-arrow { transform: translateX(3px); }
+    .modal-close {
+      position: absolute; top: 14px; right: 14px;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.12); }
+    .modal-close svg { width: 14px; height: 14px; stroke: var(--muted); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="topbar">
-    <div class="logo">
-      <svg viewBox="0 0 21 19" width="22" height="20" fill="var(--green-text)" aria-label="Freecash"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5089 13.174V9.64425C17.5089 9.64425 17.5343 8.7864 16.3375 9.53703C15.8919 9.79873 15.2299 10.1587 15.2426 11.7659V13.1089C15.2426 13.1089 15.2682 16.0106 11.9834 16.0106H11.6651V16.7242C11.6656 16.8035 11.6498 16.8821 11.6189 16.9551C11.588 17.0281 11.5426 17.0941 11.4854 17.1488C11.4282 17.2036 11.3603 17.246 11.2861 17.2735C11.2119 17.3011 11.1328 17.3131 11.0538 17.3088H9.90798C9.90798 17.3088 9.34786 17.2961 9.34786 16.7676V16.0106H6.97968C6.97968 16.0106 5.85931 16.0055 5.85931 14.8195C5.85807 14.6715 5.88628 14.5248 5.94212 14.3878C5.99795 14.2508 6.08031 14.1263 6.18457 14.0215C6.28882 13.9167 6.41286 13.8338 6.54936 13.7775C6.68587 13.7212 6.83208 13.6927 6.97968 13.6936H11.8306C11.8306 13.6936 12.9382 13.737 12.9382 12.5242C12.9382 11.9115 12.6454 11.2898 11.7414 11.2898H1.42868C1.42868 11.2898 0.180946 11.2719 0.0663606 13.3476C0.0408971 14.0114 0.0791422 14.5667 0.435631 14.928C0.79212 15.2893 3.44028 17.9586 3.44028 17.9586C3.44028 17.9586 4.0005 18.4999 5.43919 18.4999H12.7599C12.7599 18.4999 17.5089 18.588 17.5089 13.8021V13.174ZM3.49125 5.826V9.35575C3.49125 9.35575 3.46581 10.2136 4.6626 9.46297C5.10821 9.20128 5.78294 8.84128 5.75748 7.23407V5.89111C5.75748 5.89111 5.73197 2.98944 9.01676 2.98944H9.34786V2.27584C9.3453 2.19705 9.35915 2.11859 9.38852 2.04547C9.41789 1.97235 9.46214 1.90618 9.51845 1.85116C9.57475 1.79615 9.64186 1.75352 9.71551 1.72597C9.78917 1.69842 9.86779 1.68655 9.94628 1.69115H11.0921C11.0921 1.69115 11.6523 1.70392 11.6523 2.23242V2.98944H14.0331C14.0331 2.98944 15.1535 2.99454 15.1535 4.18049C15.1547 4.32848 15.1266 4.47524 15.0708 4.61224C15.015 4.74923 14.9325 4.87374 14.8282 4.9785C14.724 5.08327 14.6001 5.16621 14.4636 5.22251C14.3271 5.2788 14.1807 5.30734 14.0331 5.30644H9.16957C9.16957 5.30644 8.07468 5.26304 8.07468 6.47579C8.07468 7.08855 8.35476 7.71023 9.25871 7.71023H19.5714C19.5714 7.71023 20.8192 7.72811 20.9338 5.65239C20.9592 4.98856 20.921 4.43325 20.5645 4.07198C20.2207 3.71198 17.5725 1.04138 17.5725 1.04138C17.5725 1.04138 16.9996 0.500111 15.5609 0.500111H8.24017C8.24017 0.500111 3.49125 0.412033 3.49125 5.19793V5.826Z"></path></svg>
-      <svg viewBox="0 0 137 16" width="84" height="10" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.5002 0.329671H3.28374L0 15.6714H4.47618L5.64896 10.2146H12.6856L13.4478 6.59814H6.41114L6.99753 3.94617H14.7183L15.5002 0.329671ZM15.813 15.6714H20.289L21.3641 10.6747H23.2992L26.2703 15.6714H31.3132L27.834 10.1045C29.8473 9.42598 31.5283 8.04405 32.0756 5.50219C32.9356 1.44695 29.6713 0.329671 26.2312 0.329671H19.0968L15.813 15.6714ZM22.0678 7.38682L22.83 3.83604H25.6839C26.9544 3.83604 27.6972 4.42754 27.4431 5.61232C27.189 6.7971 26.192 7.38682 24.9215 7.38682H22.0678ZM49.6867 0.329671H37.5094L34.2257 15.6714H46.5593L47.302 12.165H39.4444L39.9722 9.66578H46.9697L47.7126 6.18072H40.7149L41.2232 3.83604H48.944L49.6867 0.329671ZM65.8124 0.329671H53.6351L50.3513 15.6714H62.685L63.4277 12.165H55.5701L56.0978 9.66578H63.0954L63.8383 6.18072H56.8602L57.3489 3.83604H65.0697L65.8124 0.329671Z" fill="var(--green-text)"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M67.0047 8.21989C65.8319 13.6997 69.9563 16 74.6083 16C76.3764 16.0009 78.1258 15.6726 79.7489 15.0355L80.5894 11.0904C79.4361 11.9448 77.7356 12.4279 75.996 12.4279C73.3573 12.4279 70.9726 11.2005 71.5981 8.21989C72.3213 4.88759 75.2728 3.55185 77.9506 3.55185C79.4948 3.55185 80.9414 4.01189 81.8209 4.80055L82.6417 0.965573C81.1778 0.309481 79.5633 -0.0211135 77.9312 0.00104475C73.3573 0.00104475 68.2557 2.43455 67.0047 8.21989ZM81.7035 15.6714H86.2969L87.7825 13.261H94.7995L95.2491 15.6714H99.8424L96.4806 0.329673H91.6527L81.7035 15.6714ZM89.8152 9.97307L92.5126 5.5466C92.8166 5.04933 93.0718 4.52863 93.275 3.99058C93.246 4.51165 93.2853 5.03399 93.3922 5.5466L94.174 9.97307H89.8152ZM104.045 4.51635C102.872 9.9944 111.844 9.25013 111.355 11.4634C111.199 12.2307 110.397 12.4936 108.619 12.4936C106.684 12.4936 104.573 12.0123 102.833 10.7618L102.012 14.5967C103.615 15.4955 105.765 16 108.208 16C111.922 16 115.206 14.9484 115.988 11.3106C117.161 5.87521 108.228 6.48802 108.638 4.49326C108.775 3.92485 109.362 3.52875 111.003 3.50744C112.978 3.48612 114.776 3.96748 116.027 4.95331L116.809 1.22846C115.499 0.461106 113.505 0.00104475 111.394 0.00104475C107.915 0.00104475 104.709 1.44694 104.045 4.51635ZM137 0.329673H132.543L131.273 6.20382H124.999L126.25 0.329673H121.773L118.49 15.6714H122.966L124.217 9.82032H130.511L129.24 15.6714H133.716L137 0.329673Z" fill="var(--text)"></path></svg>
-    </div>
-    <div class="live-pill"><span class="dot"></span>En vivo · 12,847 jugando</div>
-  </div>
-  <div class="ticker"><div class="ticker-track" id="ticker"></div></div>
-</header>
+  <!-- Background glows -->
+  <div class="hero-glow"></div>
+  <div class="side-glow-l"></div>
+  <div class="side-glow-r"></div>
 
-<!-- HERO -->
-<main>
-<div class="container">
-  <div class="hero">
-    <span class="badge badge-urgent">🔥 Urgente · $15 desbloqueados</span>
-    <h1>Gana dinero por<br><span class="green">jugar.</span></h1>
+  <!-- Particles -->
+  <div class="particles" id="particles"></div>
 
-    <!-- ROTATING OFFER CARD -->
-    <div class="offer-card">
-      <div class="offer-row">
-        <span class="badge badge-live"><span class="dot"></span>Pagado hoy</span>
-        <span class="badge badge-outline">$25 al instalar</span>
-      </div>
-      <div class="offer-amount" id="liveAmount">$8,265 ↗</div>
-      <div class="offer-sublabel">Entre los jugadores de FreeCash · 24h</div>
-      <div class="offer-icon" id="offerIcon">🏎️</div>
-      <div class="offer-reward" id="offerReward">+$48.75</div>
-      <hr class="offer-hr"/>
-      <div class="offer-now-label">Jugando por dinero ahora</div>
-      <div class="offer-foot">
-        <div class="offer-mini" id="offerMini">🏎️</div>
-        <div class="offer-game" id="offerGame">Pulse Racer</div>
-        <div class="offer-goal" id="offerGoal">Gana 3 carreras</div>
-      </div>
-      <div class="offer-seg" id="offerSeg"></div>
-    </div>
-
-    <p class="sub"><b>Cubre esa fianza, rápido.</b> Descarga FreeCash, instala + juega 3 juegos <b>desde la app</b>, retira a <b>CashApp, Venmo o PayPal</b>.</p>
-
-    <div style="margin-top:22px"><a class="cta" href="https://tk.unlockbonusapp.com/click">Reclamar mis $15 ahora <span>→</span></a></div>
-
-    <div class="pay-row">
-      <span class="pay-label">Retira vía</span>
-      <span class="chip">💚 CashApp</span>
-      <span class="chip">💙 Venmo</span>
-      <span class="chip">🅿️ PayPal</span>
-      <span class="chip">🏦 Banco</span>
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <div class="toast-avatar" id="toast-avatar">$</div>
+    <div class="toast-text">
+      <div><strong id="toast-name">Isabella</strong> ganó <span class="toast-earn" id="toast-amount">+$6.22</span></div>
+      <div class="toast-meta" id="toast-meta">completó el bono del tutorial · hace 26s</div>
     </div>
   </div>
-</div>
 
-<!-- BOOST MODE -->
-<div class="container">
-  <section>
-    <span class="badge badge-boost">🔥 Modo Turbo · Solo hoy</span>
-    <h2>Juega y <span class="green">gana dinero.</span></h2>
-    <p class="lead">Descarga los juegos dentro de FreeCash y juega cada uno un par de minutos para desbloquear. <b>3 juegos ≈ 10 min.</b></p>
 
-    <div class="tier-card">
-      <div style="text-align:center;margin-bottom:18px"><span class="badge badge-gold">⚡ Termina en <span class="js-countdown">04:54</span></span></div>
-      <a class="tier" href="https://tk.unlockbonusapp.com/click">
-        <div class="tier-left"><div class="tier-name">Juega 1 juego</div></div>
-        <div class="tier-amt">$10</div>
+  <!-- ══════════ SCREEN C — Offer ══════════ -->
+  <div id="screen-c" class="screen active">
+
+    <div class="sc-header">
+      <div class="sc-brand">
+        <div class="sc-logo">
+          <img src="https://i.imgur.com/d4rEH4U.png" alt="Freecash" />
+        </div>
+        <span class="sc-brand-text">Socio Oficial</span>
+      </div>
+      <div class="sc-meta">
+        <div class="sc-users">
+          <span class="pill-dot pulse"></span>
+          <strong>1.4M+</strong> <span>usuarios</span>
+        </div>
+        <div class="sc-flag">🇺🇸 EE.UU.</div>
+      </div>
+    </div>
+
+    <div class="page">
+
+      <!-- Big headline like reference -->
+      <div class="hero-headline">
+        <span class="line1">Gana Dinero</span>
+        <span class="line2">Por Jugar</span>
+      </div>
+      <p class="subtext" style="margin-bottom:26px;font-size:13px;">Descarga la app, regístrate y juega para recibir tu bono.</p>
+
+      <!-- Game carousel -->
+      <div class="game-card">
+        <span class="game-card-label">Juegos Destacados</span>
+        <div class="game-inner" id="game-inner">
+
+          <div class="game-slide active">
+            <img class="game-thumb" src="https://cdn.prod.website-files.com/66ba0cbc63210953b4fc73a8/66ba4dab628d3ffb9065bc2a_royal_match_page_king_robert%206.webp" alt="Royal Match" />
+            <div class="game-info">
+              <div class="game-name">Royal Match <span class="game-badge-pill">$390</span></div>
+              <div class="game-sub">Gana hasta $390 jugando.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$390</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://play-lh.googleusercontent.com/Uv8KIWsfsXZJDk2ypWzrc_MCMGY32MvieP8hH9pujaBGwKRr4z88FpLwNuC8e5UxjioOHx9PcZU3XchZNZ4JjQ=w240-h480-rw" alt="RAID: Shadow Legends" />
+            <div class="game-info">
+              <div class="game-name">RAID: Shadow Legends <span class="game-badge-pill">$393</span></div>
+              <div class="game-sub">Gana hasta $393 jugando.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$393</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7ujXG8cq_cU1dU7QWETBB1OVZFOrSuYFFF1R0vlNf3Q&s=10" alt="Call of Dragons" />
+            <div class="game-info">
+              <div class="game-name">Call of Dragons <span class="game-badge-pill">$799</span></div>
+              <div class="game-sub">Gana hasta $799 jugando.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$799</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://play-lh.googleusercontent.com/5MLgC2WWXcq1Pol8qRAXOKzIJY9qySkjF43DnWyd5F9fPj_heinHeIxvgIpPQwcaQ1w-mUzUmoP1Xeslf29irg=w240-h480-rw" alt="Dice Dreams" />
+            <div class="game-info">
+              <div class="game-name">Dice Dreams <span class="game-badge-pill">$155</span></div>
+              <div class="game-sub">Gana hasta $155 jugando.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$155</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://play-lh.googleusercontent.com/uRuDPQjLnKBD-1wNw4zpd8xHnzqfwEilY8gLYmvzYJQgguAsTd6nMC5Cxex0EisSH5ZzN6FKrcSqQeRKdCzeWw" alt="Magnet Miner" />
+            <div class="game-info">
+              <div class="game-name">Magnet Miner <span class="game-badge-pill">$200</span></div>
+              <div class="game-sub">Gana hasta $200 jugando.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$200</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+          <div class="game-slide">
+            <img class="game-thumb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTLqllEm3FbHNxqWQaYLwd_DjIPSgJkj6-cfSp0A9k4NwiTdeRIm10jBE&s=10" alt="Animals & Coins" />
+            <div class="game-info">
+              <div class="game-name">Animals & Coins <span class="game-badge-pill">$302</span></div>
+              <div class="game-sub">Gana hasta $302 jugando.</div>
+            </div>
+            <div class="game-earn">
+              <div class="game-amount">$302</div>
+              <div class="game-stars">★ 5.0</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="game-dots" id="game-dots">
+          <div class="game-dot active"></div>
+          <div class="game-dot"></div>
+          <div class="game-dot"></div>
+          <div class="game-dot"></div>
+          <div class="game-dot"></div>
+          <div class="game-dot"></div>
+        </div>
+      </div>
+
+      <!-- Steps -->
+      <span class="section-eyebrow">Cómo empezar</span>
+      <div class="steps">
+        <div class="steps-connector"></div>
+
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Regístrate y crea tu cuenta</div>
+            <div class="step-desc">
+              Toma menos de 60 segundos — se requiere descargar la app.
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Juega 2 juegos para desbloquear tu bono</div>
+            <div class="step-desc">
+              Desde tu panel, elige tu primer juego y juega por <span class="hi">5–10 minutos</span>. Luego abre un <span class="hi">segundo juego diferente</span> y juega otros 5–10 minutos para desbloquear tus ganancias con el bono completo.
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Recibe tu pago</div>
+            <div class="step-desc">
+              <span class="hi">Pagos instantáneos:</span> PayPal, Cash App, criptomonedas, transferencia bancaria, Venmo y tarjetas de regalo.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust -->
+      <div class="trust-row">
+        <div class="trust-item"><span class="trust-green">★ Trustpilot</span>&nbsp;<span class="hl">4.8</span> · +251k reseñas</div>
+        <div class="trust-item">📱 <span class="hl">iOS y Android</span></div>
+        <div class="trust-item">No necesitas tarjeta de crédito</div>
+      </div>
+
+      <!-- Support -->
+      <div class="support-badge">
+        <svg viewBox="0 0 24 24"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
+        Soporte 24/7
+        <span class="support-dot"></span>
+      </div>
+
+      <footer>
+        <div class="footer-links">
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Términos de Uso</a>
+          <a href="#">Descargo de Responsabilidad</a>
+        </div>
+        <span class="footer-copy">© 2026 Todos los derechos reservados.</span>
+      </footer>
+
+    </div>
+  </div>
+
+
+  <!-- Fixed CTA -->
+  <div class="fixed-cta" id="fixed-cta">
+    <div class="fixed-cta-inner">
+      <a href="javascript:void(0)" class="fixed-cta-btn" id="fixed-cta-btn">
+        <div class="fixed-cta-left">
+          <div class="fixed-cta-title">
+            <svg viewBox="0 0 24 24"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
+            Crear Cuenta Gratis
+          </div>
+          <div class="fixed-cta-sub"><strong>Pagos instantáneos:</strong> PayPal, Cash App, cripto y más.</div>
+        </div>
+        <span class="fixed-cta-badge">21+</span>
       </a>
-      <a class="tier featured" href="https://tk.unlockbonusapp.com/click">
-        <div class="tier-left"><div class="tier-name">Juega 3 juegos</div><span class="tier-tag">🔥 El más elegido · ~10 min</span></div>
-        <div class="tier-amt">$30</div>
-      </a>
-      <a class="tier" href="https://tk.unlockbonusapp.com/click">
-        <div class="tier-left"><div class="tier-name">Juega 5 juegos</div></div>
-        <div class="tier-amt">$50</div>
-      </a>
-      <a class="cta" href="https://tk.unlockbonusapp.com/click" style="margin-top:6px">Desbloquear mi recompensa <span>→</span></a>
-      <p class="withdraw-note">Retira cuando quieras a CashApp, Venmo o PayPal.</p>
-    </div>
-  </section>
-</div>
-
-<!-- TOTAL PAID -->
-<div class="container">
-  <section style="padding-top:0">
-    <div class="total-card">
-      <div class="total-label"><span class="dot"></span>Total pagado · en vivo</div>
-      <div class="total-num" id="totalPaid">$38,403,075</div>
-      <div class="total-sub">…y sigue subiendo. <b id="paidToday">$8,265</b> pagados hoy.</div>
-    </div>
-  </section>
-</div>
-
-<!-- TODAY'S TOP PAYOUTS -->
-<div class="container">
-  <section style="padding-top:0">
-    <span class="eyebrow">📱 Dentro de la app FreeCash</span>
-    <h2>Las mejores pagas <span class="green">de hoy.</span></h2>
-    <p class="lead">Instala FreeCash → toca un juego para descargarlo → juega un par de min → la recompensa llega a tu billetera.</p>
-    <div class="grid" id="payGrid"></div>
-    <a class="cta" href="https://tk.unlockbonusapp.com/click" style="margin-top:22px">Descarga FreeCash <span>→</span></a>
-  </section>
-</div>
-
-<!-- REAL GAMES / PHONE -->
-<div class="container">
-  <section style="padding-top:0">
-    <span class="eyebrow">Dentro de la app</span>
-    <h2>Juegos reales. <span class="green">Lana real.</span></h2>
-    <p class="lead">Elige un juego, juega unos minutos, cobra.</p>
-
-    <div class="phone">
-      <div class="phone-status"><span>9:41</span><span>📶 🔋</span></div>
-      <div class="wallet">
-        <div class="wallet-label">SALDO DE LA BILLETERA</div>
-        <div class="wallet-bal">$127.42</div>
-        <div class="wallet-foot"><span>+$8.20 hoy</span><span>✓ Verificado</span></div>
-      </div>
-      <div class="games-head"><span>JUEGOS DE HOY</span><span>12 EN VIVO</span></div>
-      <div class="grow"><div class="gi" style="background:linear-gradient(135deg,#f5c542,#e0a020)">👑</div><div><div class="gn">Royal Match</div><div class="gg">Llega al nivel 8 · 3 min</div></div><div class="gr">+$50</div></div>
-      <div class="grow"><div class="gi" style="background:linear-gradient(135deg,#ff8a3d,#f25c2a)">🏎️</div><div><div class="gn">Pulse Racer</div><div class="gg">Gana 3 carreras · 3 min</div></div><div class="gr">+$40</div></div>
-      <div class="grow"><div class="gi" style="background:linear-gradient(135deg,#5aa9ff,#3d7ef2)">⚔️</div><div><div class="gn">Arena Clash</div><div class="gg">Sobrevive la ronda 5 · 4 min</div></div><div class="gr">+$35</div></div>
-      <div class="grow"><div class="gi" style="background:linear-gradient(135deg,#5be07f,#2bbf63)">🏰</div><div><div class="gn">Block Empire</div><div class="gg">Construye ciudad niv. 4 · 4 min</div></div><div class="gr">+$55</div></div>
-      <div class="grow"><div class="gi" style="background:linear-gradient(135deg,#c46bff,#e35cd0)">🃏</div><div><div class="gn">Solitaire Cash</div><div class="gg">Gana 5 manos · 3 min</div></div><div class="gr">+$30</div></div>
-    </div>
-
-    <div class="feat"><div class="fi">⚡</div><div><h3>Retira en minutos</h3><p>Primera paga en menos de 48 hrs. Después, al instante a CashApp / Venmo / PayPal.</p></div></div>
-    <div class="feat"><div class="fi">🎮</div><div><h3>Juegos reales, sin encuestas</h3><p>Match-3, carreras, tower-defense. De verdad divertidos.</p></div></div>
-    <div class="feat"><div class="fi">🔒</div><div><h3>100% gratis</h3><p>Sin depósito. Retira todo lo que ganes.</p></div></div>
-  </section>
-</div>
-
-<!-- HOW IT WORKS -->
-<div class="container">
-  <section style="padding-top:0">
-    <span class="eyebrow">Cómo funciona</span>
-    <h2>3 pasos. <span class="green">Dinero real.</span></h2>
-    <div class="step"><div class="sn">1</div><div><h3>Descarga FreeCash, gratis</h3><p>iOS y Android. 30 segundos.</p></div></div>
-    <div class="step"><div class="sn">2</div><div><h3>Toca un juego · instala + juega en la app</h3><p>Descarga los juegos desde FreeCash y juega cada uno ~3 min para desbloquear.</p></div></div>
-    <div class="step"><div class="sn">3</div><div><h3>Retira, cuando quieras</h3><p>CashApp, Venmo o PayPal. Primera paga en menos de 48 horas.</p></div></div>
-    <a class="cta" href="https://tk.unlockbonusapp.com/click" style="margin-top:24px">Gana por jugar <span>→</span></a>
-  </section>
-</div>
-
-<!-- TESTIMONIALS -->
-<div class="container">
-  <section style="padding-top:0">
-    <span class="eyebrow">Usuarios reales · Lana real</span>
-    <h2>Ya consiguieron la lana. <span class="green">Tú eres el siguiente.</span></h2>
-
-    <div class="tcard">
-      <div class="th"><div class="ta">M</div><div><div class="tn">Marcus J. <span class="check">✔</span></div><div class="tv">Verificado · Atlanta, GA</div></div></div>
-      <div class="stars">★★★★★</div>
-      <div class="tq">"Necesitaba lana para la fianza rápido. Jugué 3 juegos, me dieron $30 el mismo día. Una locura."</div>
-      <span class="paid-tag">$214 retirados</span>
-    </div>
-    <div class="tcard">
-      <div class="th"><div class="ta">D</div><div><div class="tn">Devon T. <span class="check">✔</span></div><div class="tv">Verificado · Brooklyn, NY</div></div></div>
-      <div class="stars">★★★★★</div>
-      <div class="tq">"Tenía mis dudas. Jugué los juegos, retiré a CashApp en 4 minutos. Me convenció."</div>
-      <span class="paid-tag">$248 retirados</span>
-    </div>
-    <div class="tcard">
-      <div class="th"><div class="ta">J</div><div><div class="tn">Jess L. <span class="check">✔</span></div><div class="tv">Verificado · Houston, TX</div></div></div>
-      <div class="stars">★★★★★</div>
-      <div class="tq">"Jugué 5 juegos un domingo, me cayeron $50. La semana de la renta ya no se siente igual."</div>
-      <span class="paid-tag">$320 retirados</span>
-    </div>
-
-    <a class="cta" href="https://tk.unlockbonusapp.com/click" style="margin-top:26px">Gana por jugar <span>→</span></a>
-  </section>
-</div>
-
-<footer>
-  © FreeCash 2026. Las ganancias mostradas son típicas para miembros activos y no están garantizadas.<br/>
-  <button type="button" class="tc-link" data-tc-open>Términos y Condiciones</button>
-</footer>
-</main>
-
-<!-- STICKY BOTTOM CTA -->
-<div class="sticky-cta" id="stickyCta">
-  <div class="inner"><a class="cta" href="https://tk.unlockbonusapp.com/click">Reclamar $15 · <span class="js-countdown">04:54</span> <span>→</span></a></div>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast"><div class="av" id="toastAv">T</div><div class="tt" id="toastText"><b>Tay R.</b> acaba de retirar $179.17</div></div>
-
-<!-- QUIZ MODAL (shown first — this is the landing) -->
-<div class="overlay open" id="quiz">
-  <div class="quiz">
-    <div class="quiz-header">
-      <div class="quiz-logo">
-        <svg viewBox="0 0 21 19" width="20" height="18" fill="var(--green-text)" aria-label="Freecash"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5089 13.174V9.64425C17.5089 9.64425 17.5343 8.7864 16.3375 9.53703C15.8919 9.79873 15.2299 10.1587 15.2426 11.7659V13.1089C15.2426 13.1089 15.2682 16.0106 11.9834 16.0106H11.6651V16.7242C11.6656 16.8035 11.6498 16.8821 11.6189 16.9551C11.588 17.0281 11.5426 17.0941 11.4854 17.1488C11.4282 17.2036 11.3603 17.246 11.2861 17.2735C11.2119 17.3011 11.1328 17.3131 11.0538 17.3088H9.90798C9.90798 17.3088 9.34786 17.2961 9.34786 16.7676V16.0106H6.97968C6.97968 16.0106 5.85931 16.0055 5.85931 14.8195C5.85807 14.6715 5.88628 14.5248 5.94212 14.3878C5.99795 14.2508 6.08031 14.1263 6.18457 14.0215C6.28882 13.9167 6.41286 13.8338 6.54936 13.7775C6.68587 13.7212 6.83208 13.6927 6.97968 13.6936H11.8306C11.8306 13.6936 12.9382 13.737 12.9382 12.5242C12.9382 11.9115 12.6454 11.2898 11.7414 11.2898H1.42868C1.42868 11.2898 0.180946 11.2719 0.0663606 13.3476C0.0408971 14.0114 0.0791422 14.5667 0.435631 14.928C0.79212 15.2893 3.44028 17.9586 3.44028 17.9586C3.44028 17.9586 4.0005 18.4999 5.43919 18.4999H12.7599C12.7599 18.4999 17.5089 18.588 17.5089 13.8021V13.174ZM3.49125 5.826V9.35575C3.49125 9.35575 3.46581 10.2136 4.6626 9.46297C5.10821 9.20128 5.78294 8.84128 5.75748 7.23407V5.89111C5.75748 5.89111 5.73197 2.98944 9.01676 2.98944H9.34786V2.27584C9.3453 2.19705 9.35915 2.11859 9.38852 2.04547C9.41789 1.97235 9.46214 1.90618 9.51845 1.85116C9.57475 1.79615 9.64186 1.75352 9.71551 1.72597C9.78917 1.69842 9.86779 1.68655 9.94628 1.69115H11.0921C11.0921 1.69115 11.6523 1.70392 11.6523 2.23242V2.98944H14.0331C14.0331 2.98944 15.1535 2.99454 15.1535 4.18049C15.1547 4.32848 15.1266 4.47524 15.0708 4.61224C15.015 4.74923 14.9325 4.87374 14.8282 4.9785C14.724 5.08327 14.6001 5.16621 14.4636 5.22251C14.3271 5.2788 14.1807 5.30734 14.0331 5.30644H9.16957C9.16957 5.30644 8.07468 5.26304 8.07468 6.47579C8.07468 7.08855 8.35476 7.71023 9.25871 7.71023H19.5714C19.5714 7.71023 20.8192 7.72811 20.9338 5.65239C20.9592 4.98856 20.921 4.43325 20.5645 4.07198C20.2207 3.71198 17.5725 1.04138 17.5725 1.04138C17.5725 1.04138 16.9996 0.500111 15.5609 0.500111H8.24017C8.24017 0.500111 3.49125 0.412033 3.49125 5.19793V5.826Z"></path></svg>
-        <svg viewBox="0 0 137 16" width="76" height="9" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.5002 0.329671H3.28374L0 15.6714H4.47618L5.64896 10.2146H12.6856L13.4478 6.59814H6.41114L6.99753 3.94617H14.7183L15.5002 0.329671ZM15.813 15.6714H20.289L21.3641 10.6747H23.2992L26.2703 15.6714H31.3132L27.834 10.1045C29.8473 9.42598 31.5283 8.04405 32.0756 5.50219C32.9356 1.44695 29.6713 0.329671 26.2312 0.329671H19.0968L15.813 15.6714ZM22.0678 7.38682L22.83 3.83604H25.6839C26.9544 3.83604 27.6972 4.42754 27.4431 5.61232C27.189 6.7971 26.192 7.38682 24.9215 7.38682H22.0678ZM49.6867 0.329671H37.5094L34.2257 15.6714H46.5593L47.302 12.165H39.4444L39.9722 9.66578H46.9697L47.7126 6.18072H40.7149L41.2232 3.83604H48.944L49.6867 0.329671ZM65.8124 0.329671H53.6351L50.3513 15.6714H62.685L63.4277 12.165H55.5701L56.0978 9.66578H63.0954L63.8383 6.18072H56.8602L57.3489 3.83604H65.0697L65.8124 0.329671Z" fill="var(--green-text)"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M67.0047 8.21989C65.8319 13.6997 69.9563 16 74.6083 16C76.3764 16.0009 78.1258 15.6726 79.7489 15.0355L80.5894 11.0904C79.4361 11.9448 77.7356 12.4279 75.996 12.4279C73.3573 12.4279 70.9726 11.2005 71.5981 8.21989C72.3213 4.88759 75.2728 3.55185 77.9506 3.55185C79.4948 3.55185 80.9414 4.01189 81.8209 4.80055L82.6417 0.965573C81.1778 0.309481 79.5633 -0.0211135 77.9312 0.00104475C73.3573 0.00104475 68.2557 2.43455 67.0047 8.21989ZM81.7035 15.6714H86.2969L87.7825 13.261H94.7995L95.2491 15.6714H99.8424L96.4806 0.329673H91.6527L81.7035 15.6714ZM89.8152 9.97307L92.5126 5.5466C92.8166 5.04933 93.0718 4.52863 93.275 3.99058C93.246 4.51165 93.2853 5.03399 93.3922 5.5466L94.174 9.97307H89.8152ZM104.045 4.51635C102.872 9.9944 111.844 9.25013 111.355 11.4634C111.199 12.2307 110.397 12.4936 108.619 12.4936C106.684 12.4936 104.573 12.0123 102.833 10.7618L102.012 14.5967C103.615 15.4955 105.765 16 108.208 16C111.922 16 115.206 14.9484 115.988 11.3106C117.161 5.87521 108.228 6.48802 108.638 4.49326C108.775 3.92485 109.362 3.52875 111.003 3.50744C112.978 3.48612 114.776 3.96748 116.027 4.95331L116.809 1.22846C115.499 0.461106 113.505 0.00104475 111.394 0.00104475C107.915 0.00104475 104.709 1.44694 104.045 4.51635ZM137 0.329673H132.543L131.273 6.20382H124.999L126.25 0.329673H121.773L118.49 15.6714H122.966L124.217 9.82032H130.511L129.24 15.6714H133.716L137 0.329673Z" fill="var(--text)"></path></svg>
-      </div>
-      <div class="quiz-top">
-        <span class="quiz-step" id="qStep">Paso 1/3</span>
-        <div class="quiz-bar"><i id="qBar" style="width:33%"></i></div>
-        <span class="quiz-pct" id="qPct">33%</span>
-      </div>
-    </div>
-
-    <!-- step 1 -->
-    <div class="qbody" data-q="1">
-      <div class="q-inner">
-        <div class="q-copy">
-          <span class="badge badge-outline" style="width:fit-content">🎮 Chequeo rápido</span>
-          <h2 style="margin-top:18px">Primero, ¿usas<br><span class="green">iPhone o Android?</span></h2>
-          <p class="lead">Te asignamos la versión correcta de la app. Toma 2 segundos.</p>
-        </div>
-        <div class="q-opts">
-          <button class="q-opt" data-next><span class="qe">📱</span> iPhone <span class="qarrow">→</span></button>
-          <button class="q-opt" data-next><span class="qe">🤖</span> Android <span class="qarrow">→</span></button>
-        </div>
-      </div>
-    </div>
-
-    <!-- step 2 -->
-    <div class="qbody" data-q="2" style="display:none">
-      <div class="q-inner">
-        <div class="q-copy">
-          <span class="badge badge-outline" style="width:fit-content">🎯 La última</span>
-          <h2 style="margin-top:18px">Si te cayeran <span class="green">$500 ahorita</span>, ¿en qué los usarías?</h2>
-          <p class="lead">No hay respuesta incorrecta. Solo te conectamos con la mejor opción para ganar.</p>
-        </div>
-        <div class="q-opts">
-          <button class="q-opt" data-next><span class="qe">⛓️</span> Fianza / abogado <span class="qarrow">→</span></button>
-          <button class="q-opt" data-next><span class="qe">🏠</span> Renta o cuentas <span class="qarrow">→</span></button>
-          <button class="q-opt" data-next><span class="qe">👟</span> Estilo: ropa, tenis, la cadena <span class="qarrow">→</span></button>
-          <button class="q-opt" data-next><span class="qe">🍼</span> Familia <span class="qarrow">→</span></button>
-          <button class="q-opt" data-next><span class="qe">💰</span> Lana extra: invertir, multiplicar, salir <span class="qarrow">→</span></button>
-        </div>
-      </div>
-    </div>
-
-    <!-- step 3 loading -->
-    <div class="qbody q-center" data-q="3" style="display:none">
-      <div class="loader">
-        <div class="spinner"></div>
-        <h2>Desbloqueando tu<br><span class="green">oferta de 3x…</span></h2>
-        <p>Buscando juegos que se ajusten a tu meta.</p>
-      </div>
-    </div>
-
-    <!-- subtle terms link, shown on every quiz step -->
-    <div class="quiz-terms"><button type="button" class="tc-link" data-tc-open>Términos y Condiciones</button></div>
-  </div>
-</div>
-
-<!-- 21+ AGE TIP SHEET (replaces the spot-reserved popup) -->
-<div class="sheet-wrap" id="sheet">
-  <div class="sheet">
-    <button class="sheet-close" id="sheetClose" aria-label="Cerrar">×</button>
-    <span class="badge badge-outline" style="width:fit-content">💡 Consejo rápido</span>
-    <h2>Selecciona <span class="green">21+</span> al registrarte</h2>
-    <p>Esto desbloquea las ofertas de juegos <b>mejor pagadas</b> en FreeCash. No saltes este paso.</p>
-    <a class="cta" id="sheetClaim" href="https://tk.unlockbonusapp.com/click" style="margin-top:20px">Entendido <span>→</span></a>
-    <span class="sheet-pass" id="sheetPass">No gracias, dejo pasar la lana</span>
-  </div>
-</div>
-
-<!-- TERMS & CONDITIONS POPUP -->
-<div class="tc-wrap" id="tcModal" aria-hidden="true">
-  <div class="tc-box" role="dialog" aria-modal="true" aria-label="Términos y Condiciones">
-    <button class="tc-close" id="tcClose" type="button" aria-label="Cerrar">×</button>
-    <h3>Términos &amp; Condiciones</h3>
-    <div class="tc-body">
-      <p>Esta página es un anuncio patrocinado y no es un artículo de noticias, reseña ni endoso.</p>
-      <p>Las recompensas las proporciona un socio externo independiente, no están garantizadas y varían según la finalización de los juegos y pasos requeridos dentro de la app. Los tiempos de pago, la elegibilidad, los juegos disponibles y los montos de recompensa pueden cambiar en cualquier momento sin previo aviso.</p>
-      <p>Los contadores en vivo, las cifras de pago y los testimonios mostrados son ilustrativos y no representan resultados típicos. La participación requiere usuarios mayores de 18 años.</p>
-      <p>FreeCash y todos los títulos de juegos son marcas comerciales de sus respectivos dueños; las referencias son solo para identificación y no implican afiliación ni endoso. Al continuar, aceptas los términos del proveedor de la oferta.</p>
     </div>
   </div>
-</div>
 
-<script>
-  /* =========================================================
-     OFFER LINK: where the "Claim" buttons send the visitor.
-     This points to the same dailyappflow tracker your other
-     page uses. Change it if this funnel needs a different URL.
-     ========================================================= */
-  const OFFER_URL = "https://tk.unlockbonusapp.com/click";
+  <!-- CTA MODAL -->
+  <div class="modal-overlay" id="cta-modal">
+    <div class="modal-card">
+      <div class="modal-close" id="modal-close">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+      <div class="modal-check">
+        <svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+      </div>
+      <div class="modal-eyebrow">Consejo Rápido</div>
+      <div class="modal-title">Selecciona <span class="accent">21+</span> al registrarte</div>
+      <div class="modal-desc">
+        Esto desbloquea las <strong>ofertas de juegos que pagan más</strong> en Freecash. <span class="modal-warn">No te saltes este paso.</span>
+      </div>
+      <a href="https://tk.unlockbonusapp.com/click" class="modal-btn" id="modal-continue">Entendido <span class="modal-btn-arrow">→</span></a>
+    </div>
+  </div>
 
-  /* ---------- data ---------- */
-  const GAMES = [
-    {name:"Royal Match",   goal:"Llega al Nivel 5",  reward:"+$54.20", emoji:"👑", bg:"linear-gradient(135deg,#f5c542,#e0a020)"},
-    {name:"Pulse Racer",   goal:"Gana 3 carreras",    reward:"+$48.75", emoji:"🏎️", bg:"linear-gradient(135deg,#ff8a3d,#f25c2a)"},
-    {name:"Arena Clash",   goal:"Sobrevive la ronda 5",reward:"+$39.40", emoji:"⚔️", bg:"linear-gradient(135deg,#5aa9ff,#3d7ef2)"},
-    {name:"Block Empire",  goal:"Construye ciudad niv. 4",reward:"+$46.85", emoji:"🏰", bg:"linear-gradient(135deg,#5be07f,#2bbf63)"},
-    {name:"Solitaire Cash",goal:"Gana 5 manos",    reward:"+$31.10", emoji:"🃏", bg:"linear-gradient(135deg,#c46bff,#e35cd0)"},
-    {name:"Crossy Road",   goal:"Salta y esquiva",    reward:"+$28.40", emoji:"🐔", bg:"linear-gradient(135deg,#4fd9c0,#34c3a8)"},
-  ];
-  const TICKER = [
-    "🍀|Tay R.|retiró $84.20","🔥|Jay D.|llegó a $250","💜|Kee B.|retiró $58.50",
-    "⚡|Marcus|acumuló $112 esta semana","🍀|Dre S.|retiró $40.00","🔥|Nay W.|llegó a $300",
-    "💜|Trell V.|retiró $65.75","🍀|Lex M.|retiró $217.29","🔥|Jess L.|llegó a $50",
-  ];
-  const NAMES = ["Tay R.","Lex M.","Dre S.","Marcus J.","Kee B.","Nay W.","Trell V.","Jay D.","Jess L.","Devon T."];
 
-  /* ---------- ticker ---------- */
-  (function(){
-    const row = TICKER.map(t=>{const[e,n,r]=t.split("|");return `<span class="ticker-item">${e} <b>${n}</b> ${r}</span>`}).join("");
-    document.getElementById("ticker").innerHTML = row+row;
-  })();
+  <script>
+    /* ── PARTICLES ── */
+    (function(){
+      var c = document.getElementById('particles');
+      var cols = ['rgba(44,199,110,1)','rgba(60,210,120,1)','rgba(100,220,140,1)','rgba(255,255,255,1)'];
+      for(var i=0;i<10;i++){
+        var s=document.createElement('span');
+        var sz=2+Math.random()*4;
+        var col=cols[Math.floor(Math.random()*cols.length)];
+        var dur=14+Math.random()*18;
+        var delay=-(Math.random()*30);
+        var drift=(Math.random()*70-35)+'px';
+        s.className='particle';
+        s.style.cssText=[
+          'left:'+(Math.random()*100)+'%',
+          'width:'+sz+'px','height:'+sz+'px',
+          'background:'+col,
+          'opacity:'+(0.25+Math.random()*0.45),
+          'box-shadow:0 0 '+(sz*3)+'px '+col,
+          '--drift:'+drift,
+          'animation-duration:'+dur+'s',
+          'animation-delay:'+delay+'s'
+        ].join(';');
+        c.appendChild(s);
+      }
+    })();
 
-  /* ---------- offer card rotation ---------- */
-  const seg = document.getElementById("offerSeg");
-  seg.innerHTML = GAMES.map(()=>"<i></i>").join("");
-  const segEls = seg.querySelectorAll("i");
-  let gi = 1, liveAmount = 8265;
-  function renderOffer(){
-    const g = GAMES[gi];
-    const icon = document.getElementById("offerIcon");
-    icon.textContent = g.emoji; icon.style.background = g.bg;
-    icon.style.transform="scale(.9)"; setTimeout(()=>icon.style.transform="scale(1)",60);
-    const mini = document.getElementById("offerMini");
-    mini.textContent = g.emoji; mini.style.background = g.bg;
-    document.getElementById("offerReward").textContent = g.reward;
-    document.getElementById("offerGame").textContent = g.name;
-    document.getElementById("offerGoal").textContent = g.goal;
-    segEls.forEach((s,i)=>s.classList.toggle("on", i===gi));
-    liveAmount += Math.floor(Math.random()*6)+2;
-    document.getElementById("liveAmount").innerHTML = "$"+liveAmount.toLocaleString()+" ↗";
-    document.getElementById("paidToday").textContent = "$"+liveAmount.toLocaleString();
-    gi = (gi+1)%GAMES.length;
-  }
-  renderOffer();
-  setInterval(renderOffer, 3000);
+    /* ── GAME CAROUSEL ── */
+    (function(){
+      var slides=document.querySelectorAll('.game-slide');
+      var dots=document.querySelectorAll('.game-dot');
+      var cur=0;
+      function go(n){
+        slides[cur].classList.remove('active');
+        dots[cur].classList.remove('active');
+        cur=(n+slides.length)%slides.length;
+        slides[cur].classList.add('active');
+        dots[cur].classList.add('active');
+      }
+      setInterval(function(){go(cur+1);},2800);
+    })();
 
-  /* ---------- total paid counter ---------- */
-  let total = 38403075;
-  setInterval(()=>{ total += Math.floor(Math.random()*40)+8; document.getElementById("totalPaid").textContent = "$"+total.toLocaleString(); }, 2500);
+    /* ── TOAST ── */
+    (function(){
+      var toasts=[
+        {name:'Dylan',   init:'D', amount:'+$2.66',  meta:'emparejó 5 seguidos · hace 8s'},
+        {name:'Isabella',init:'I', amount:'+$6.22',  meta:'completó el bono del tutorial · hace 26s'},
+        {name:'Marcus',  init:'M', amount:'+$14.50', meta:'terminó la misión de Royal Match · hace 1m'},
+        {name:'Sophie',  init:'S', amount:'+$31.00', meta:'retiró a PayPal · hace 2m'},
+        {name:'Carlos',  init:'C', amount:'+$9.75',  meta:'completó la instalación del juego · hace 3m'},
+      ];
+      var idx=0;
+      var el=document.getElementById('toast');
+      function show(){
+        var t=toasts[idx%toasts.length]; idx++;
+        document.getElementById('toast-avatar').textContent=t.init;
+        document.getElementById('toast-name').textContent=t.name;
+        document.getElementById('toast-amount').textContent=t.amount;
+        document.getElementById('toast-meta').textContent=t.meta;
+        el.classList.remove('show');
+        void el.offsetWidth;
+        el.classList.add('show');
+        setTimeout(function(){el.classList.remove('show');},4500);
+      }
+      show();
+      setInterval(show,7000);
+    })();
 
-  /* ---------- payouts grid ---------- */
-  document.getElementById("payGrid").innerHTML = GAMES.map(g=>`
-    <div class="pcard">
-      <div class="ph"><div class="pi" style="background:${g.bg}">${g.emoji}</div><div><div class="pn">${g.name}</div><div class="pg">${g.goal}</div></div></div>
-      <div class="pr">${g.reward}</div>
-    </div>`).join("");
+    /* ── HELPERS ── */
+    function makeId(){
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
+        var r = Math.random()*16|0, v = c==='x' ? r : (r&0x3)|0x8;
+        return v.toString(16);
+      });
+    }
 
-  /* ---------- countdown ---------- */
-  let remain = 4*60+54;
-  function fmt(s){const m=String(Math.floor(s/60)).padStart(2,"0");const ss=String(s%60).padStart(2,"0");return m+":"+ss;}
-  setInterval(()=>{ remain = remain>0 ? remain-1 : 4*60+54; document.querySelectorAll(".js-countdown").forEach(e=>e.textContent=fmt(remain)); }, 1000);
+    /* ── TIKTOK — ViewContent no load ── */
+    (function(){
+      try {
+        ttq.track('ViewContent', {
+          event_id:     makeId(),
+          content_type: 'lead',
+          content_id:   'freecash-landing',
+          value:        0.5,
+          currency:     'USD'
+        });
+      } catch(e) {}
+    })();
 
-  /* ---------- toasts ---------- */
-  const toast = document.getElementById("toast");
-  function showToast(){
-    const n = NAMES[Math.floor(Math.random()*NAMES.length)];
-    const amt = (Math.random()*200+40).toFixed(2);
-    document.getElementById("toastAv").textContent = n[0];
-    document.getElementById("toastText").innerHTML = `<b>${n}</b> acaba de retirar $${amt}`;
-    toast.classList.add("show");
-    setTimeout(()=>toast.classList.remove("show"), 4200);
-  }
-  setTimeout(showToast, 2500);
-  setInterval(showToast, 6500);
+    /* ── TIKTOK — 5 eventos no clique final (mantendo o redirect) ── */
+    function firePixelEvents(){
+      var eventNames = ['AddToCart','CompleteRegistration','SubmitForm','ClickButton','Purchase'];
+      eventNames.forEach(function(ev){
+        try {
+          ttq.track(ev, {
+            event_id:     makeId(),
+            content_type: 'lead',
+            content_id:   'freecash-cta',
+            value:        0.5,
+            currency:     'USD'
+          });
+        } catch(e) {}
+      });
+    }
 
-  /* ---------- sticky CTA on scroll ---------- */
-  const sticky = document.getElementById("stickyCta");
-  window.addEventListener("scroll", ()=>{
-    const past = window.scrollY > window.innerHeight*0.7;
-    const sheetOpen = document.getElementById("sheet").classList.contains("open");
-    const quizOpen = document.getElementById("quiz").classList.contains("open");
-    sticky.classList.toggle("show", past && !sheetOpen && !quizOpen);
-  }, {passive:true});
+    /* ── REDIRECT ── */
+    function goToOffer(e){
+      e.preventDefault();
+      firePixelEvents();
+      window.location.href='https://tk.unlockbonusapp.com/click';
+    }
 
-  /* ---------- quiz flow ---------- */
-  const quiz = document.getElementById("quiz");
-  const sheet = document.getElementById("sheet");
-  let step = 1;
-  function setStep(n){
-    document.querySelectorAll("#quiz [data-q]").forEach(el=>el.style.display = el.dataset.q==String(n) ? "" : "none");
-    const pct = n===1?33 : n===2?67 : 100;
-    document.getElementById("qStep").textContent = "Paso "+n+"/3";
-    document.getElementById("qBar").style.width = pct+"%";
-    document.getElementById("qPct").textContent = pct+"%";
-  }
-  function openQuiz(){ step=1; setStep(1); sheet.classList.remove("open"); quiz.classList.add("open"); sticky.classList.remove("show"); document.body.style.overflow="hidden"; quiz.scrollTop=0; }
-  function openSheet(){
-    quiz.classList.remove("open");
-    document.body.classList.add("revealed");   // render the page behind the popup so it shows through the blur
-    document.body.style.overflow="hidden";     // keep it locked while the popup is up
-    sheet.classList.add("open");
-  }
-  // backing out of the quiz is only allowed once the page has been revealed
-  function closeQuiz(){ quiz.classList.remove("open"); if(document.body.classList.contains("revealed")) document.body.style.overflow=""; }
-  // dismissing the spot-reserved popup reveals the "Gana por jugar" page for the first time
-  function dismissSheet(){
-    sheet.classList.remove("open");
-    document.body.classList.add("revealed");
-    document.body.style.overflow="";
-    window.scrollTo(0,0);
-  }
+    /* ── CTA MODAL ── */
+    var ctaModal = document.getElementById('cta-modal');
+    function openModal(e){
+      e.preventDefault();
+      ctaModal.classList.add('show');
+    }
+    function closeModal(){
+      ctaModal.classList.remove('show');
+    }
 
-  // Every CTA is an <a href> to OFFER_URL (so the tracking script can rewrite it).
-  // The quiz only advances via its own answer buttons (data-next).
-  document.querySelectorAll("#quiz [data-next]").forEach(b=>b.addEventListener("click", ()=>{
-    step++;
-    if(step<=3) setStep(step);
-    if(step===3) setTimeout(openSheet, 2600);
-  }));
+    document.getElementById('fixed-cta-btn').addEventListener('click',openModal);
+    document.getElementById('modal-continue').addEventListener('click',goToOffer);
+    document.getElementById('modal-close').addEventListener('click',closeModal);
+    ctaModal.addEventListener('click',function(e){
+      if(e.target === ctaModal){ closeModal(); }
+    });
+  </script>
 
-  /* ---------- terms & conditions popup ---------- */
-  const tcModal = document.getElementById("tcModal");
-  function openTC(){ tcModal.classList.add("open"); }
-  function closeTC(){ tcModal.classList.remove("open"); }
-  document.querySelectorAll("[data-tc-open]").forEach(el=>el.addEventListener("click", e=>{ e.preventDefault(); openTC(); }));
-  document.getElementById("tcClose").addEventListener("click", closeTC);
-  tcModal.addEventListener("click", e=>{ if(e.target===tcModal) closeTC(); });
-  document.addEventListener("keydown", e=>{ if(e.key==="Escape" && tcModal.classList.contains("open")) closeTC(); });
-
-  document.getElementById("sheetClose").addEventListener("click", dismissSheet);
-  document.getElementById("sheetPass").addEventListener("click", dismissSheet);
-  sheet.addEventListener("click", e=>{ if(e.target===sheet) dismissSheet(); });
-  quiz.addEventListener("click", e=>{ if(e.target===quiz && document.body.classList.contains("revealed")) closeQuiz(); });
-  document.addEventListener("keydown", e=>{
-    if(e.key!=="Escape") return;
-    if(sheet.classList.contains("open")) dismissSheet();
-    else if(quiz.classList.contains("open") && document.body.classList.contains("revealed")) closeQuiz();
-  });
-</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1}' crossorigin="anonymous"></script>
 </body>
 </html>
