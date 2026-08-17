@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choose your device</title>
+  <meta name="author" content="Lovable">
+  <meta property="og:title" content="Choose your device">
+  <meta property="og:description" content="Choose your device to continue with Shein Rewards.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@SHEIN">
+  <meta name="twitter:title" content="Choose your device">
+  <meta name="twitter:description" content="Choose your device to continue with Shein Rewards.">
+  <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/431f181e-97e5-4a10-b5ef-935ae3abc1ce/id-preview-482b02ac--725d9150-d48a-48f2-b6db-f1d193ee60dc.lovable.app-1785848693931.png">
+  <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/431f181e-97e5-4a10-b5ef-935ae3abc1ce/id-preview-482b02ac--725d9150-d48a-48f2-b6db-f1d193ee60dc.lovable.app-1785848693931.png">
+  <meta name="description" content="Choose your device to continue with Shein Rewards.">
+  <link rel="icon" type="image/png" href="https://img.icons8.com/color/512/shein.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap">
+
+  <style>
+    /* ============ Design tokens ============ */
+    :root {
+      --bg: #F7F4EC;
+      --fg: #1C1A16;
+      --primary: #141311;
+      --primary-rgb: 20, 19, 17;
+      --primary-foreground: #FFFDF7;
+      --muted-foreground: #7C7466;
+      --card: #FFFDF7;
+      --card-border: #E7E0D3;
+      --gold: 230, 187, 92;
+    }
+
+    /* ============ Base / reset ============ */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 45% at 50% -5%, rgba(var(--gold), .22) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 35% at 85% 110%, rgba(var(--gold), .10) 0%, transparent 60%);
+    }
+    h1, h2, h3, p, ol { margin: 0; }
+    ol { list-style: none; padding: 0; }
+    img { display: block; max-width: 100%; }
+    svg { display: inline-block; vertical-align: middle; }
+    button {
+      font: inherit;
+      color: inherit;
+      border: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ============ Custom components ============ */
+    .font-display {
+      font-family: Inter, system-ui, sans-serif;
+      letter-spacing: -0.02em;
+    }
+    .icon-tile {
+      background: var(--primary);
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,.18);
+    }
+    .card-panel,
+    .feature-tile {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      box-shadow:
+        0 1px 2px rgba(28, 26, 22, .05),
+        0 10px 30px -14px rgba(28, 26, 22, .18);
+    }
+    .feature-icon {
+      background: var(--primary);
+      color: var(--primary-foreground);
+    }
+    .badge-glow {
+      animation: badgePulse 2.6s ease-in-out infinite;
+    }
+    .glow-text {
+      text-shadow: 0 0 26px rgba(var(--gold), .65);
+    }
+    .glow-accent {
+      box-shadow:
+        0 4px 14px -4px rgba(0, 0, 0, .25),
+        0 14px 38px -10px rgba(var(--gold), .55);
+      transition: box-shadow .25s ease, transform .15s ease, background-color .2s ease;
+    }
+    .glow-accent:hover {
+      box-shadow:
+        0 4px 14px -4px rgba(0, 0, 0, .25),
+        0 18px 48px -8px rgba(var(--gold), .75);
+    }
+    @keyframes badgePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(var(--gold), .28), 0 4px 18px -6px rgba(var(--gold), .45); }
+      50%      { box-shadow: 0 0 0 7px rgba(var(--gold), 0),   0 4px 26px -6px rgba(var(--gold), .65); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .7s cubic-bezier(.22,.61,.36,1) both; }
+    .fade-up-1 { animation-delay: .05s; }
+    .fade-up-2 { animation-delay: .12s; }
+    .fade-up-3 { animation-delay: .19s; }
+    .fade-up-4 { animation-delay: .26s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+
+    /* ============ Display / flex / grid ============ */
+    .flex { display: flex; }
+    .inline-flex { display: inline-flex; }
+    .grid { display: grid; }
+    .block { display: block; }
+    .flex-col { flex-direction: column; }
+    .flex-wrap { flex-wrap: wrap; }
+    .flex-1 { flex: 1 1 0%; }
+    .items-center { align-items: center; }
+    .items-start { align-items: flex-start; }
+    .justify-center { justify-content: center; }
+    .justify-end { justify-content: end; }
+    .place-items-center { place-items: center; }
+    .min-w-0 { min-width: 0; }
+    .shrink-0 { flex-shrink: 0; }
+
+    /* ============ Sizing ============ */
+    .w-full { width: 100%; }
+    .h-full { height: 100%; }
+    .max-w-xl { max-width: 36rem; }
+    .min-h-screen { min-height: 100vh; }
+    .w-3\.5, .h-3\.5 { width: .875rem; height: .875rem; }
+    .w-4, .h-4 { width: 1rem; height: 1rem; }
+    .w-5, .h-5 { width: 1.25rem; height: 1.25rem; }
+    .w-6, .h-6 { width: 1.5rem; height: 1.5rem; }
+    .w-8, .h-8 { width: 2rem; height: 2rem; }
+    .w-11, .h-11 { width: 2.75rem; height: 2.75rem; }
+    .w-16, .h-16 { width: 4rem; height: 4rem; }
+
+    /* ============ Spacing ============ */
+    .gap-1 { gap: .25rem; }
+    .gap-1\.5 { gap: .375rem; }
+    .gap-2 { gap: .5rem; }
+    .gap-3 { gap: .75rem; }
+    .gap-4 { gap: 1rem; }
+    .space-y-3 > * + * { margin-top: .75rem; }
+    .mt-1 { margin-top: .25rem; }
+    .mt-2 { margin-top: .5rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-6 { margin-top: 1.5rem; }
+    .mt-7 { margin-top: 1.75rem; }
+    .mt-8 { margin-top: 2rem; }
+    .mt-10 { margin-top: 2.5rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .p-5 { padding: 1.25rem; }
+    .px-3 { padding-left: .75rem; padding-right: .75rem; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
+    .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .py-1 { padding-top: .25rem; padding-bottom: .25rem; }
+    .py-2 { padding-top: .5rem; padding-bottom: .5rem; }
+    .py-5 { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+    .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+    .pt-0\.5 { padding-top: .125rem; }
+
+    /* ============ Typography ============ */
+    .text-xs { font-size: .75rem; line-height: 1rem; }
+    .text-sm { font-size: .875rem; line-height: 1.4; }
+    .text-lg { font-size: 1.125rem; line-height: 1.5; }
+    .text-xl { font-size: 1.25rem; line-height: 1.4; }
+    .text-2xl { font-size: 1.5rem; line-height: 1.3; }
+    .text-4xl { font-size: 2.25rem; }
+    .text-\[11px\] { font-size: 11px; }
+    .text-\[13px\] { font-size: 13px; }
+    .font-bold { font-weight: 700; }
+    .font-extrabold { font-weight: 800; }
+    .uppercase { text-transform: uppercase; }
+    .tracking-tight { letter-spacing: -0.025em; }
+    .tracking-wide { letter-spacing: .025em; }
+    .tracking-\[0\.12em\] { letter-spacing: .12em; }
+    .tracking-\[0\.25em\] { letter-spacing: .25em; }
+    .leading-\[1\.1\] { line-height: 1.1; }
+    .text-center { text-align: center; }
+    .text-left { text-align: left; }
+    .text-right { text-align: right; }
+
+    /* ============ Colors ============ */
+    .text-primary { color: var(--primary); }
+    .text-primary-foreground { color: var(--primary-foreground); }
+    .text-muted-foreground { color: var(--muted-foreground); }
+    .bg-primary { background-color: var(--primary); }
+    .bg-primary\/10 { background-color: rgba(var(--primary-rgb), .10); }
+    .bg-primary\/15 { background-color: rgba(var(--primary-rgb), .15); }
+    .opacity-80 { opacity: .8; }
+    .fill-current { fill: currentColor; }
+
+    /* ============ Borders / radius / misc ============ */
+    .border { border-width: 1px; border-style: solid; }
+    .border-primary { border-color: var(--primary); }
+    .rounded-xl { border-radius: .75rem; }
+    .rounded-2xl { border-radius: 1rem; }
+    .rounded-full { border-radius: 9999px; }
+    .object-cover { object-fit: cover; }
+    .transition { transition: background-color .2s ease, box-shadow .25s ease, transform .15s ease; }
+    .hover\:bg-primary\/90:hover { background-color: rgba(var(--primary-rgb), .90); }
+    .active\:scale-\[0\.99\]:active { transform: scale(.99); }
+
+    /* ============ Device selector view ============ */
+    .row-tile {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 1px 2px rgba(28, 26, 22, .05), 0 8px 24px -14px rgba(28, 26, 22, .16);
+      transition: border-color .2s ease, box-shadow .25s ease, transform .15s ease;
+    }
+    .row-tile:hover {
+      border-color: #C9BFA9;
+      box-shadow: 0 2px 6px rgba(28, 26, 22, .08), 0 14px 32px -14px rgba(28, 26, 22, .25);
+      transform: translateY(-1px);
+    }
+    .row-tile:active { transform: scale(.99); }
+
+    .rounded-3xl { border-radius: 1.5rem; }
+    .p-4 { padding: 1rem; }
+    .p-8 { padding: 2rem; }
+    .py-1\.5 { padding-top: .375rem; padding-bottom: .375rem; }
+    .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+    .h-1\.5, .w-1\.5 { width: .375rem; height: .375rem; }
+    .h-12, .w-12 { width: 3rem; height: 3rem; }
+    .text-white { color: #fff; }
+    .tracking-\[0\.15em\] { letter-spacing: .15em; }
+    .shadow-\[0_0_8px_var\(--color-primary\)\] { box-shadow: 0 0 8px var(--primary); }
+
+    @media (min-width: 640px) {
+      .sm\:py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+      .sm\:text-5xl { font-size: 3rem; }
+      .sm\:p-10 { padding: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+<!-- ============ VIEW 1: seleção de dispositivo ============ -->
+<main id="view-device" class="flex min-h-screen items-center justify-center px-4 py-10">
+  <div class="card-panel w-full max-w-xl rounded-3xl p-8 sm:p-10 fade-up">
+    <div class="flex justify-center">
+      <span class="badge-glow inline-flex items-center gap-2 rounded-full border border-primary bg-primary/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-primary">
+        <span class="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_var(--color-primary)]"></span>
+        Limited time offer
+      </span>
+    </div>
+    <h1 class="font-display mt-7 text-center text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl">Which device are you using?</h1>
+    <p class="mt-4 text-center text-sm text-muted-foreground">Choose your device to continue</p>
+    <div class="mt-8 flex flex-col gap-3">
+      <button type="button" data-device="ios" class="row-tile flex items-center gap-4 rounded-2xl p-4 text-left">
+        <div class="icon-tile grid h-12 w-12 shrink-0 place-items-center rounded-xl text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smartphone h-6 w-6" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path></svg>
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="font-bold">iPhone / iOS</div>
+          <div class="text-xs text-muted-foreground">iOS devices</div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right h-5 w-5 shrink-0 text-primary" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+      </button>
+      <button type="button" data-device="android" class="row-tile flex items-center gap-4 rounded-2xl p-4 text-left">
+        <div class="icon-tile grid h-12 w-12 shrink-0 place-items-center rounded-xl text-white">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18a.4.4 0 0 0-.69-.4l-1.86 3.23a11.5 11.5 0 0 0-9.78 0L5.25 5.9a.4.4 0 0 0-.69.4L6.4 9.48A10.8 10.8 0 0 0 1 18h22a10.8 10.8 0 0 0-5.4-8.52zM7 15.25a1 1 0 1 1 1-1 1 1 0 0 1-1 1zm10 0a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"></path></svg>
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="font-bold">Android</div>
+          <div class="text-xs text-muted-foreground">Android devices</div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right h-5 w-5 shrink-0 text-primary" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+      </button>
+    </div>
+  </div>
+</main>
+
+<!-- ============ VIEW 2: lander ============ -->
+<main id="view-lander" class="flex min-h-screen items-start justify-center px-4 py-12 sm:py-16" style="display:none">
+  <div class="w-full max-w-xl">
+
+    <div class="flex items-center justify-center gap-3 fade-up fade-up-1">
+      <div class="icon-tile grid h-16 w-16 place-items-center rounded-2xl">
+        <img src="https://img.icons8.com/color/512/shein.png" alt="Shein" class="h-full w-full rounded-2xl object-cover">
+      </div>
+      <span class="text-sm text-muted-foreground">×</span>
+      <div class="feature-tile grid h-16 w-16 place-items-center rounded-2xl text-primary">
+        <svg viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"></path></svg>
+      </div>
+    </div>
+
+    <div class="mt-7 flex justify-center fade-up fade-up-1">
+      <span class="badge-glow inline-flex items-center gap-2 rounded-full border border-primary bg-primary/10 px-5 py-2 text-[13px] font-bold uppercase tracking-[0.12em] text-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check h-4 w-4" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+        You are eligible
+      </span>
+    </div>
+
+    <h1 class="font-display mt-7 text-center text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl fade-up fade-up-2">
+      Test games and get <span class="text-primary glow-text">Shein Giftcards</span>
+    </h1>
+
+    <div class="card-panel mt-6 rounded-2xl p-5 fade-up fade-up-2">
+      <h3 class="font-display text-center text-lg font-extrabold">Follow the steps below ⬇️</h3>
+      <ol class="mt-4 space-y-3 text-sm text-muted-foreground">
+        <li class="flex items-start gap-3">
+          <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">1</span>
+          <span class="pt-0.5">Download the Freecash app</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">2</span>
+          <span class="pt-0.5"><span class="font-bold text-primary">Sign up as 21+</span> to get the most $</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">3</span>
+          <span class="pt-0.5"><span class="font-bold text-primary">Download one game</span> and run it for 1 min to get your SHEIN giftcard immediately</span>
+        </li>
+      </ol>
+    </div>
+
+    <button type="button" data-cta class="glow-accent mt-6 flex w-full items-center justify-center gap-4 rounded-2xl bg-primary px-6 py-6 text-primary-foreground transition hover:bg-primary/90 active:scale-[0.99] fade-up fade-up-3">
+      <svg id="cta-icon-apple" viewBox="0 0 24 24" class="h-8 w-8" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53-1.71-2.52-3-7.14-1.25-10.25 1.01-1.76 2.66-2.87 4.52-2.9 1.32-.03 2.57.89 3.38.89.81 0 2.33-1.1 3.93-.94.67.03 2.55.27 3.76 2.04-.1.06-2.24 1.32-2.22 3.93.02 3.13 2.72 4.17 2.76 4.19-.03.12-.43 1.45-1.27 2.87M14.88 4.75c.72-.87 1.2-2.07 1.07-3.27-1.03.04-2.28.69-3.02 1.55-.66.76-1.24 1.98-1.09 3.16 1.16.09 2.34-.74 3.04-1.44z"></path></svg>
+      <svg id="cta-icon-android" viewBox="0 0 24 24" class="h-8 w-8" fill="currentColor" aria-hidden="true" style="display:none"><path d="M17.6 9.48l1.84-3.18a.4.4 0 0 0-.69-.4l-1.86 3.23a11.5 11.5 0 0 0-9.78 0L5.25 5.9a.4.4 0 0 0-.69.4L6.4 9.48A10.8 10.8 0 0 0 1 18h22a10.8 10.8 0 0 0-5.4-8.52zM7 15.25a1 1 0 1 1 1-1 1 1 0 0 1-1 1zm10 0a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"></path></svg>
+      <span class="text-left">
+        <span class="block font-display text-xl font-extrabold">Download &amp; Sign Up</span>
+        <span id="cta-subtitle" class="block text-sm opacity-80">App Store — iOS</span>
+      </span>
+    </button>
+
+    <div class="card-panel mt-8 rounded-2xl p-5 fade-up fade-up-3">
+      <div class="flex items-start gap-4">
+        <div class="feature-icon grid h-11 w-11 shrink-0 place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock h-5 w-5" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </div>
+        <div class="min-w-0">
+          <div class="flex flex-wrap items-center gap-3">
+            <h3 class="font-display text-lg font-extrabold">Activation Required</h3>
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-primary-foreground">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-triangle-alert h-3.5 w-3.5" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+              Important
+            </span>
+          </div>
+          <p class="mt-2 text-sm text-muted-foreground">New User? Download and complete your first task to activate your account and you get <span class="font-bold text-primary">$15</span> as a welcome bonus!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-tile mt-4 rounded-2xl p-5 fade-up fade-up-3">
+      <div class="flex items-center gap-4">
+        <div class="feature-icon grid h-11 w-11 shrink-0 place-items-center rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play h-5 w-5" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg>
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="flex flex-wrap items-center gap-3">
+            <h3 class="font-display text-lg font-extrabold">Shop &amp; Earn on Shein</h3>
+            <span class="rounded-full bg-primary/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-primary">$149/hour</span>
+          </div>
+          <p class="mt-1 text-sm text-muted-foreground">Earn $149 per hour completing tasks</p>
+        </div>
+        <div class="shrink-0 text-right">
+          <div class="font-display text-2xl font-extrabold text-primary">$149</div>
+          <div class="flex items-center justify-end gap-1 text-sm text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star h-3.5 w-3.5 fill-current" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+            5.0
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="mb-4 mt-10 text-center text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground fade-up fade-up-4">How it works</h2>
+    <div class="flex flex-col gap-4 fade-up fade-up-4">
+      <div class="feature-tile rounded-2xl p-5">
+        <div class="flex items-start gap-4">
+          <div class="feature-icon grid h-11 w-11 shrink-0 place-items-center rounded-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download h-5 w-5" aria-hidden="true"><path d="M12 15V3"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path></svg>
+          </div>
+          <div class="min-w-0">
+            <div class="font-display text-lg font-extrabold">Download the App</div>
+            <div class="mt-1 text-sm text-muted-foreground">Install Shein and create your account to unlock $10.</div>
+          </div>
+        </div>
+      </div>
+      <div class="feature-tile rounded-2xl p-5">
+        <div class="flex items-start gap-4">
+          <div class="feature-icon grid h-11 w-11 shrink-0 place-items-center rounded-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap h-5 w-5" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
+          </div>
+          <div class="min-w-0">
+            <div class="font-display text-lg font-extrabold">Complete 2-3 simple tasks</div>
+            <div class="mt-1 text-sm text-muted-foreground">Finish quick offers to unlock exclusive rewards.</div>
+          </div>
+        </div>
+      </div>
+      <div class="feature-tile rounded-2xl p-5">
+        <div class="flex items-start gap-4">
+          <div class="feature-icon grid h-11 w-11 shrink-0 place-items-center rounded-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users h-5 w-5" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+          </div>
+          <div class="min-w-0">
+            <div class="font-display text-lg font-extrabold">Get paid directly</div>
+            <div class="mt-1 text-sm text-muted-foreground">Redeem your points for a Shein gift card.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" data-cta class="glow-accent mt-8 flex w-full items-center justify-center gap-3 rounded-2xl bg-primary py-5 text-lg font-bold uppercase tracking-wide text-primary-foreground transition hover:bg-primary/90 active:scale-[0.99] fade-up fade-up-4">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rocket h-5 w-5" aria-hidden="true"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"></path><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"></path></svg>
+      Start now
+    </button>
+
+  </div>
+</main>
+
+<script>
+  /* ================================================================
+     CONFIG — troque pelos seus links de oferta / smartlink
+  ================================================================ */
+  var OFFER_URLS = {
+    ios:     "https://tk.unlockbonusapp.com/click", // tráfego iOS
+    android: "https://tk.unlockbonusapp.com/click"  // tráfego Android
+  };
+
+  var selectedDevice = null;
+
+  /* ================================================================
+     VIEW 1 → VIEW 2: seleção de dispositivo
+  ================================================================ */
+  function selectDevice(device) {
+    selectedDevice = device;
+
+    // CTA se adapta ao dispositivo escolhido
+    var appleIcon   = document.getElementById('cta-icon-apple');
+    var androidIcon = document.getElementById('cta-icon-android');
+    var subtitle    = document.getElementById('cta-subtitle');
+    if (device === 'android') {
+      appleIcon.style.display = 'none';
+      androidIcon.style.display = '';
+      subtitle.textContent = 'Google Play — Android';
+    } else {
+      appleIcon.style.display = '';
+      androidIcon.style.display = 'none';
+      subtitle.textContent = 'App Store — iOS';
+    }
+
+    document.getElementById('view-device').style.display = 'none';
+    document.getElementById('view-lander').style.display = '';
+    window.scrollTo(0, 0);
+  }
+
+  document.querySelectorAll('button[data-device]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      selectDevice(btn.getAttribute('data-device'));
+    });
+  });
+
+  /* ================================================================
+     CTAs — levam para a oferta do dispositivo escolhido
+  ================================================================ */
+  document.querySelectorAll('button[data-cta]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var url = OFFER_URLS[selectedDevice || 'ios'];
+      window.location.href = url;
+    });
+  });
+</script>
+</body>
+</html>
