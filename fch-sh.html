@@ -224,6 +224,89 @@
     .hover\:bg-primary\/90:hover { background-color: rgba(var(--primary-rgb), .90); }
     .active\:scale-\[0\.99\]:active { transform: scale(.99); }
 
+    /* ============ Popup Quick Tip ============ */
+    .popup-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(24, 22, 18, .58);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; visibility: hidden;
+      transition: opacity .25s ease, visibility .25s ease;
+    }
+    .popup-overlay.show { opacity: 1; visibility: visible; }
+    .popup-card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 30px 24px 24px;
+      max-width: 340px; width: 100%;
+      text-align: center;
+      box-shadow: 0 24px 70px -18px rgba(28, 26, 22, .45), 0 0 60px -18px rgba(var(--gold), .35);
+      transform: scale(.92) translateY(10px);
+      transition: transform .3s cubic-bezier(.22, .61, .36, 1);
+    }
+    .popup-overlay.show .popup-card { transform: scale(1) translateY(0); }
+    .popup-card::before {
+      content: ''; position: absolute; top: -55%; left: 50%; transform: translateX(-50%);
+      width: 150%; height: 90%;
+      background: radial-gradient(ellipse at center, rgba(var(--gold), .20) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .popup-close {
+      position: absolute; top: 14px; right: 14px; z-index: 2;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(28, 26, 22, .05); border: 1px solid var(--card-border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted-foreground); cursor: pointer;
+      font-size: 18px; line-height: 1;
+      transition: background .15s, color .15s;
+    }
+    .popup-close:hover { background: rgba(28, 26, 22, .1); color: var(--fg); }
+    .popup-icon {
+      position: relative;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: rgba(var(--gold), .16);
+      border: 1px solid rgba(var(--gold), .45);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      color: var(--primary);
+      box-shadow: 0 0 32px rgba(var(--gold), .35);
+    }
+    .popup-icon svg { width: 28px; height: 28px; }
+    .popup-badge {
+      position: relative; display: inline-block;
+      font-size: 10.5px; font-weight: 800;
+      color: #97742B; text-transform: uppercase; letter-spacing: .16em;
+      margin-bottom: 10px;
+    }
+    .popup-title {
+      position: relative; margin: 0 0 10px;
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 21px; font-weight: 900; color: var(--fg);
+      line-height: 1.25; letter-spacing: -.01em;
+    }
+    .popup-sub {
+      position: relative; margin: 0 0 22px;
+      font-size: 13.5px; color: var(--muted-foreground); line-height: 1.55;
+    }
+    .popup-title .hl, .popup-sub .hl { color: var(--primary); font-weight: 900; }
+    .popup-btn {
+      position: relative; display: block; width: 100%;
+      background: var(--primary); color: var(--primary-foreground);
+      font-weight: 800; font-size: 15px;
+      border: 0; border-radius: 14px; padding: 17px 20px;
+      text-decoration: none; text-align: center;
+      box-shadow: 0 4px 14px -4px rgba(0, 0, 0, .25), 0 14px 38px -10px rgba(var(--gold), .55);
+      transition: transform .15s ease, box-shadow .25s ease, background-color .2s ease;
+    }
+    .popup-btn:hover {
+      background: rgba(var(--primary-rgb), .90);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px -4px rgba(0, 0, 0, .25), 0 18px 48px -8px rgba(var(--gold), .75);
+    }
+
     /* ============ Device selector view ============ */
     .row-tile {
       background: var(--card);
@@ -430,6 +513,20 @@
   </div>
 </main>
 
+<!-- ============ POPUP: Quick Tip (aberto pelos CTAs) ============ -->
+<div id="popup-overlay" class="popup-overlay">
+  <div class="popup-card">
+    <button type="button" id="popup-close" class="popup-close" aria-label="Close">&times;</button>
+    <div class="popup-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path></svg>
+    </div>
+    <span class="popup-badge">Quick Tip</span>
+    <h3 class="popup-title">Select <span class="hl">21+</span> when you sign up</h3>
+    <p class="popup-sub">This unlocks the highest-paying game offers on <span class="hl">Freecash</span>. Don't skip this step.</p>
+    <a id="popup-cta" href="https://tk.unlockbonusapp.com/click" class="popup-btn">Got it &rarr;</a>
+  </div>
+</div>
+
 <script>
   /* ================================================================
      CONFIG — troque pelos seus links de oferta / smartlink
@@ -473,13 +570,30 @@
   });
 
   /* ================================================================
-     CTAs — levam para a oferta do dispositivo escolhido
+     CTAs — abrem o popup de Quick Tip (link final fica no "Got it")
   ================================================================ */
+  var popupOverlay = document.getElementById('popup-overlay');
+  var popupCta     = document.getElementById('popup-cta');
+
+  function openPopup() {
+    popupCta.href = OFFER_URLS[selectedDevice || 'ios'];
+    popupOverlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePopup() {
+    popupOverlay.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
   document.querySelectorAll('button[data-cta]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var url = OFFER_URLS[selectedDevice || 'ios'];
-      window.location.href = url;
-    });
+    btn.addEventListener('click', openPopup);
+  });
+
+  document.getElementById('popup-close').addEventListener('click', closePopup);
+
+  popupOverlay.addEventListener('click', function (e) {
+    if (e.target === popupOverlay) closePopup();
   });
 </script>
 </body>
