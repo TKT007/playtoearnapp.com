@@ -2251,7 +2251,7 @@
       border-color: rgba(196,181,253,.5);
       background: linear-gradient(180deg, rgba(139,92,246,.22), rgba(255,255,255,.04));
     }
-    .pc-quiz-option.dimmed { opacity: .45; cursor: pointer; }
+    .pc-quiz-option.dimmed { opacity: .45; pointer-events: none; }
 
     /* Se houver um número ímpar de opções no grid de 2 colunas, o último se expande */
     .pc-quiz-options:not(.vertical-stack) .pc-quiz-option:last-child:nth-child(odd) {
@@ -2426,7 +2426,7 @@
     /* ── ENCOURAGEMENT ── */
     .pc-quiz-encourage {
       background: linear-gradient(135deg, rgba(232,116,194,.24), rgba(107,45,217,.38) 55%, rgba(125,211,245,.2));
-      border: 1px solid rgba(196,181,253,.5);
+      border: 1px solid #fbbf24;
       border-radius: 18px;
       padding: 18px;
       display: flex;
@@ -3613,11 +3613,11 @@
         reward: 0.40
       },
       {
-        text: "Would you spend <span style=\"color:#b99cff;font-weight:900;\">$5–$10</span> to unlock offers that can earn you <span style=\"color:#b99cff;font-weight:900;\">10x more?</span>",
-        context: "Higher-tier game rewards typically require small in-app purchases. If you're comfortable spending a little, you can unlock some of the best earning opportunities in the app.",
+        text: "💰 Spend a Little, Earn a Lot",
+        context: "A small in-app purchase can unlock premium payout tiers that pay 5–10× more than standard offers.",
         isVerticalStack: true,
         opts: [
-          { title: "Yes — unlock faster earnings", sub: "Ready to maximize my earnings", icon: ICON_ZAP, badge: "RECOMMENDED", msg: "Perfect! We'll prioritize the top-tier offers that pay 10x more." },
+          { title: "Yes — unlock faster earnings", sub: "Ready to maximize my earnings", icon: ICON_ZAP, badge: "RECOMMENDED", msg: "Perfect! We'll prioritize the top-tier offers that can earn you 5-10x more." },
           { title: "Maybe — if the reward is worth it", sub: "Show me the opportunity first", icon: ICON_HELP, msg: "No problem — see the reward first, then decide." },
           { title: "No — stick to free offers", sub: "I prefer no upfront spending", icon: ICON_BAG, msg: "Got it! We'll match you with the best free offers available." }
         ],
@@ -3728,12 +3728,9 @@
         }
 
         el.addEventListener('click', function () {
-          if (selectedIndex === i) return;
+          if (selectedIndex !== null) return;
           selectedIndex = i;
           answers[current] = i;
-          Array.prototype.forEach.call(optionsWrap.children, function (c) {
-            c.classList.remove('selected', 'dimmed');
-          });
           el.classList.add('selected');
           Array.prototype.forEach.call(optionsWrap.children, function (c) {
             if (c !== el) c.classList.add('dimmed');
