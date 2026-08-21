@@ -2251,7 +2251,7 @@
       border-color: rgba(196,181,253,.5);
       background: linear-gradient(180deg, rgba(139,92,246,.22), rgba(255,255,255,.04));
     }
-    .pc-quiz-option.dimmed { opacity: .45; pointer-events: none; }
+    .pc-quiz-option.dimmed { opacity: .45; cursor: pointer; }
 
     /* Se houver um número ímpar de opções no grid de 2 colunas, o último se expande */
     .pc-quiz-options:not(.vertical-stack) .pc-quiz-option:last-child:nth-child(odd) {
@@ -3602,13 +3602,13 @@
         reward: 0.35
       },
       {
-        text: "How much time can you spend on your phone daily?",
+        text: "How much time do you have to play right now?",
         sub: "Be honest. It affects your estimate.",
         opts: [
-          { title: "15–30 minutes", sub: "A quick session before work", icon: ICON_COFFEE, msg: function () { return "Let's maximize your earnings toward <b>$" + earnGoal() + "+</b> in the next 5 – 30 minutes!"; } },
-          { title: "1–2 hours", sub: "Consistent daily side income", icon: ICON_CLOCK, msg: function () { return "Let's maximize your earnings toward <b>$" + earnGoal() + "+</b> in the next 30 – 60 minutes!"; } },
-          { title: "2–4 hours", sub: "Serious about supplemental income", icon: ICON_TREND, msg: function () { return "Let's maximize your earnings toward <b>$" + earnGoal() + "+</b> in the next 1 – 2 hours!"; } },
-          { title: "4+ hours", sub: "Treating this like a real hustle", icon: ICON_ZAP, msg: function () { return "Let's maximize your earnings toward <b>$" + earnGoal() + "+</b> in the next 2 – 4 hours!"; } }
+          { title: "5–15 minutes", sub: "Just a quick break", icon: ICON_COFFEE, msg: function () { return "Let's maximize your earnings toward <b>$" + earnGoal() + "+</b> in the next 5 – 15 minutes!"; } },
+          { title: "15–30 minutes", sub: "A solid short session", icon: ICON_CLOCK, msg: function () { return "Let's maximize your earnings toward <b>$" + earnGoal() + "+</b> in the next 15 – 30 minutes!"; } },
+          { title: "45–60 minutes", sub: "Time to get serious", icon: ICON_TREND, msg: function () { return "Let's maximize your earnings toward <b>$" + earnGoal() + "+</b> in the next 45 – 60 minutes!"; } },
+          { title: "60+ minutes", sub: "All-in gaming time", icon: ICON_ZAP, msg: function () { return "Let's maximize your earnings toward <b>$" + earnGoal() + "+</b> in the next 60+ minutes!"; } }
         ],
         reward: 0.40
       },
@@ -3728,9 +3728,12 @@
         }
 
         el.addEventListener('click', function () {
-          if (selectedIndex !== null) return;
+          if (selectedIndex === i) return;
           selectedIndex = i;
           answers[current] = i;
+          Array.prototype.forEach.call(optionsWrap.children, function (c) {
+            c.classList.remove('selected', 'dimmed');
+          });
           el.classList.add('selected');
           Array.prototype.forEach.call(optionsWrap.children, function (c) {
             if (c !== el) c.classList.add('dimmed');
