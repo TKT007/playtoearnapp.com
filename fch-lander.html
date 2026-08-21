@@ -1,0 +1,792 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#12131A" />
+    <title>FreeCash</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20146%20141%22%3E%3Cpath%20fill%3D%22%2301d676%22%20fill-rule%3D%22evenodd%22%20d%3D%22M13164.8%2C1190.28v-27.65s0.2-6.72-9.2-.84c-3.5%2C2.05-8.7%2C4.87-8.6%2C17.46v10.52s0.2%2C22.73-25.6%2C22.73h-2.5v5.59a4.557%2C4.557%2C0%2C0%2C1-4.8%2C4.58h-9s-4.4-.1-4.4-4.24v-5.93h-18.6s-8.8-.04-8.8-9.33a8.747%2C8.747%2C0%2C0%2C1%2C8.8-8.82h38.1s8.7%2C0.34%2C8.7-9.16c0-4.8-2.3-9.67-9.4-9.67h-81s-9.8-.14-10.7%2C16.12c-0.2%2C5.2.1%2C9.55%2C2.9%2C12.38s23.6%2C23.74%2C23.6%2C23.74%2C4.4%2C4.24%2C15.7%2C4.24h57.5s37.3%2C0.69%2C37.3-36.8v-4.92Zm-110.1-57.56v27.65s-0.2%2C6.72%2C9.2.84c3.5-2.05%2C8.8-4.87%2C8.6-17.46v-10.52s-0.2-22.73%2C25.6-22.73h2.6v-5.59a4.443%2C4.443%2C0%2C0%2C1%2C4.7-4.58h9s4.4%2C0.1%2C4.4%2C4.24v5.93h18.7s8.8%2C0.04%2C8.8%2C9.33a8.747%2C8.747%2C0%2C0%2C1-8.8%2C8.82h-38.2s-8.6-.34-8.6%2C9.16c0%2C4.8%2C2.2%2C9.67%2C9.3%2C9.67h81s9.8%2C0.14%2C10.7-16.12c0.2-5.2-.1-9.55-2.9-12.38-2.7-2.82-23.5-23.74-23.5-23.74s-4.5-4.24-15.8-4.24H13092s-37.3-.69-37.3%2C36.8v4.92Z%22%20transform%3D%22translate%28-13027.8%20-1091%29%22%2F%3E%3C%2Fsvg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #12131a;
+        --card: #1b1c29;
+        --secondary: #1e1f2e;
+        --green: #00d26a;
+        --muted: #a2a4b0;
+        --line: rgba(255, 255, 255, 0.08);
+        --font-display: "Poppins", "Inter", system-ui, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--bg);
+        color: #fff;
+        font-family: "Inter", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        padding-bottom: 150px;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      .bonus,
+      .cta,
+      .earnings strong,
+      .stat strong,
+      .row strong {
+        font-family: var(--font-display);
+      }
+      .page {
+        width: 100%;
+        max-width: 420px;
+        margin: auto;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        padding: 40px 20px 0;
+      }
+      body:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 384px;
+        background: linear-gradient(#00d26a1a, transparent);
+        pointer-events: none;
+        z-index: 0;
+      }
+      header,
+      main {
+        position: relative;
+        z-index: 1;
+      }
+      header {
+        text-align: center;
+        padding: 0 0 24px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 18px;
+      }
+      .eyebrow {
+        font-size: 12px;
+        color: #a2a4b0;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      .hero {
+        text-align: center;
+      }
+      .bonus {
+        display: inline-block;
+        margin: 0 0 12px;
+        padding: 5px 13px;
+        border: 1px solid #00d26a4d;
+        border-radius: 999px;
+        background: #00d26a1f;
+        color: var(--green);
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+      }
+      h1 {
+        position: relative;
+        margin: 2px 0 5px;
+        font-size: 48px;
+        line-height: 1.1;
+        letter-spacing: -2px;
+        font-weight: 900;
+      }
+      .hero h1:before {
+        content: "";
+        position: absolute;
+        inset: -9px;
+        background: #00d26a33;
+        filter: blur(22px);
+        border-radius: 50%;
+        z-index: -1;
+      }
+      .green {
+        color: var(--green);
+      }
+      .per-offer {
+        margin: 0 0 17px;
+        color: #ffffffe6;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .counter,
+      .ticker {
+        border: 1px solid #00d26a4d;
+        border-radius: 15px;
+        background: #00d26a12;
+        padding: 11px 16px;
+        font-size: 14px;
+      }
+      .counter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 0 5px #00d26a22;
+      }
+      .counter strong {
+        color: var(--green);
+      }
+      .counter span:last-child {
+        color: #ffffff99;
+      }
+      .ticker {
+        margin-top: 16px;
+        background: #1e1f2e80;
+        border-color: #ffffff0d;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        overflow: hidden;
+        white-space: nowrap;
+        color: #ffffffb3;
+        font-size: 12px;
+      }
+      .ticker b {
+        color: var(--green);
+        font-size: 10px;
+      }
+      .card {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: #1e1f2ecc;
+        padding: 24px;
+        overflow: hidden;
+        box-shadow: 0 24px 48px #0003;
+        backdrop-filter: blur(10px);
+      }
+      .card:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #00d26a80, transparent);
+      }
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+      }
+      .card h2 {
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+      .card p {
+        color: #a2a4b0;
+        font-size: 12px;
+        line-height: 1.65;
+        text-align: center;
+        margin: 0 auto 24px;
+        max-width: 290px;
+      }
+      .slider-wrap {
+        padding: 0 10px;
+        margin-bottom: 38px;
+      }
+      input[type="range"] {
+        width: 100%;
+        height: 8px;
+        appearance: none;
+        background: linear-gradient(90deg, var(--green) 20%, #0008 20%);
+        border-radius: 99px;
+        outline: 0;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        appearance: none;
+        width: 44px;
+        height: 44px;
+        border: 3px solid var(--bg);
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 15px #00d26a80;
+        cursor: grab;
+      }
+      input[type="range"]::-moz-range-thumb {
+        width: 38px;
+        height: 38px;
+        border: 3px solid var(--bg);
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 15px #00d26a80;
+      }
+      .range-labels {
+        display: flex;
+        justify-content: space-between;
+        color: #a2a4b0;
+        font-size: 9px;
+        font-weight: 800;
+        margin-top: 8px;
+      }
+      .earnings {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        margin-bottom: 18px;
+      }
+      .earnings small {
+        display: block;
+        color: #ffffff66;
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+      }
+      .earnings strong {
+        font-size: 26px;
+      }
+      .earnings .earned {
+        text-align: right;
+      }
+      .earnings .earned strong {
+        font-size: 38px;
+        color: var(--green);
+        text-shadow: 0 0 12px #00d26a66;
+      }
+      .divider {
+        height: 40px;
+        width: 1px;
+        background: #ffffff1a;
+      }
+      .meter {
+        height: 8px;
+        border-radius: 99px;
+        background: #ffffff0d;
+        overflow: hidden;
+        margin-bottom: 11px;
+      }
+      .meter i {
+        display: block;
+        width: 33%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #00d26acc, var(--green));
+        transition: width 0.25s ease;
+      }
+      .fineprint {
+        text-align: center;
+        color: #ffffffb3;
+        font-size: 11px;
+        line-height: 1.5;
+      }
+      .fineprint p {
+        margin: 5px auto;
+        max-width: none;
+      }
+      .fineprint b {
+        color: var(--green);
+      }
+      .mini {
+        background: #ffffff08;
+        border: 1px solid #00d26a30;
+        border-radius: 16px;
+        padding: 16px;
+        position: relative;
+        overflow: hidden;
+      }
+      .mini h3 {
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+      .mini p {
+        color: #ffffff80;
+        text-align: left;
+        margin: 0 0 11px;
+        max-width: none;
+        font-size: 12px;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 9px 12px;
+        margin: 6px 0;
+        border-radius: 12px;
+        background: #ffffff08;
+        border: 1px solid #ffffff0d;
+        color: #ffffff99;
+        font-size: 12px;
+      }
+      .row.hot {
+        background: #00d26a1f;
+        border-color: #00d26a40;
+      }
+      .row strong {
+        color: #00d26a;
+      }
+      .tag {
+        border-radius: 99px;
+        background: var(--green);
+        color: #000;
+        padding: 3px 6px;
+        font-size: 10px;
+        font-weight: 900;
+      }
+      .section-title {
+        font-size: 18px;
+        margin-bottom: 15px;
+      }
+      .step {
+        position: relative;
+        display: flex;
+        gap: 16px;
+        background: #1e1f2ecc;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 16px;
+        margin: 10px 0;
+        overflow: hidden;
+      }
+      .step:after {
+        content: attr(data-n);
+        position: absolute;
+        right: -3px;
+        top: -10px;
+        color: #ffffff0d;
+        font-size: 48px;
+        font-weight: 900;
+      }
+      .step .num {
+        color: var(--green);
+        font-size: 18px;
+        font-weight: 900;
+      }
+      .step h4 {
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+      .step p {
+        margin: 0;
+        color: #a2a4b0;
+        font-size: 12px;
+        line-height: 1.55;
+      }
+      .faq h3 {
+        font-size: 16px;
+        margin-bottom: 12px;
+      }
+      .question {
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        overflow: hidden;
+        margin: 8px 0;
+      }
+      .question button {
+        width: 100%;
+        border: 0;
+        background: #ffffff0a;
+        color: #fff;
+        text-align: left;
+        padding: 14px 16px;
+        font: 600 14px Poppins, Inter, sans-serif;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+      }
+      .question button span {
+        color: var(--green);
+        transition: transform 0.2s;
+      }
+      .answer {
+        display: none;
+        padding: 0 16px 15px;
+        background: #ffffff05;
+        color: #ffffff99;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+      .question.open .answer {
+        display: block;
+      }
+      .question.open button span {
+        transform: rotate(180deg);
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .stat {
+        border: 1px solid var(--line);
+        background: #1e1f2e;
+        border-radius: 16px;
+        padding: 16px 8px;
+        text-align: center;
+      }
+      .stat b {
+        display: block;
+        color: var(--green);
+        margin-bottom: 8px;
+      }
+      .stat b svg {
+        display: block;
+        margin: 0 auto;
+        width: 24px;
+        height: 24px;
+      }
+      .stat strong {
+        display: block;
+        font-size: 13px;
+      }
+      .stat small {
+        color: #a2a4b0;
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+      }
+      .bottom {
+        position: fixed;
+        z-index: 5;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-top: 1px solid var(--line);
+        background: #12131ae6;
+        backdrop-filter: blur(18px);
+        padding: 18px 20px calc(18px + env(safe-area-inset-bottom));
+        text-align: center;
+      }
+      .payments {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        color: #ffffff99;
+        font-size: 12px;
+        margin-bottom: 13px;
+      }
+      .payments svg {
+        vertical-align: -2px;
+        margin-right: 5px;
+      }
+      .section-title svg {
+        color: var(--green);
+        vertical-align: -4px;
+        margin-right: 2px;
+      }
+      .cta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        max-width: 420px;
+        margin: auto;
+        min-height: 56px;
+        border-radius: 16px;
+        background: var(--green);
+        color: #06150e;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 900;
+        box-shadow: 0 0 30px #00d26a40;
+      }
+      .bottom small {
+        display: block;
+        color: #a2a4b0;
+        font-size: 11px;
+        margin-top: 10px;
+        letter-spacing: 0.3px;
+      }
+      @media (max-width: 430px) {
+        .page {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        h1 {
+          font-size: 39px;
+        }
+        .card {
+          padding: 24px;
+        }
+        .bottom {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Freecash" viewBox="0 0 889.4 141" style="height:40px;width:auto;display:block"><defs><style>.fc-lg-g{fill:#01d676}.fc-lg-g,.fc-lg-w{fill-rule:evenodd}.fc-lg-w{fill:#fff}</style></defs><path id="Shape_42_copy_6" data-name="Shape 42 copy 6" class="fc-lg-g" d="M13164.8,1190.28v-27.65s0.2-6.72-9.2-.84c-3.5,2.05-8.7,4.87-8.6,17.46v10.52s0.2,22.73-25.6,22.73h-2.5v5.59a4.557,4.557,0,0,1-4.8,4.58h-9s-4.4-.1-4.4-4.24v-5.93h-18.6s-8.8-.04-8.8-9.33a8.747,8.747,0,0,1,8.8-8.82h38.1s8.7,0.34,8.7-9.16c0-4.8-2.3-9.67-9.4-9.67h-81s-9.8-.14-10.7,16.12c-0.2,5.2.1,9.55,2.9,12.38s23.6,23.74,23.6,23.74,4.4,4.24,15.7,4.24h57.5s37.3,0.69,37.3-36.8v-4.92Zm-110.1-57.56v27.65s-0.2,6.72,9.2.84c3.5-2.05,8.8-4.87,8.6-17.46v-10.52s-0.2-22.73,25.6-22.73h2.6v-5.59a4.443,4.443,0,0,1,4.7-4.58h9s4.4,0.1,4.4,4.24v5.93h18.7s8.8,0.04,8.8,9.33a8.747,8.747,0,0,1-8.8,8.82h-38.2s-8.6-.34-8.6,9.16c0,4.8,2.2,9.67,9.3,9.67h81s9.8,0.14,10.7-16.12c0.2-5.2-.1-9.55-2.9-12.38-2.7-2.82-23.5-23.74-23.5-23.74s-4.5-4.24-15.8-4.24H13092s-37.3-.69-37.3,36.8v4.92Z" transform="translate(-13027.8 -1091)"/><path id="FREE" class="fc-lg-g" d="M13295.6,1118.04h-62.5l-16.8,86.37h22.9l6-30.72h36l3.9-20.36h-36l3-14.93h39.5Zm1.6,86.37h22.9l5.5-28.13h9.9l15.2,28.13h25.8l-17.8-31.34c10.3-3.82,18.9-11.6,21.7-25.91,4.4-22.83-12.3-29.12-29.9-29.12H13314Zm32-46.64,3.9-19.99h14.6c6.5,0,10.3,3.33,9,10s-6.4,9.99-12.9,9.99h-14.6Zm141.3-39.73h-62.3l-16.8,86.37h63.1l3.8-19.74h-40.2l2.7-14.07h35.8l3.8-19.62h-35.8l2.6-13.2h39.5Zm82.5,0h-62.3l-16.8,86.37h63.1l3.8-19.74h-40.2l2.7-14.07h35.8l3.8-19.62h-35.7l2.5-13.2h39.5Z" transform="translate(-13027.8 -1091)"/><path id="CASH" class="fc-lg-w" d="M13559.1,1162.46c-6,30.85,15.1,43.8,38.9,43.8a66.228,66.228,0,0,0,26.3-5.43l4.3-22.21c-5.9,4.81-14.6,7.53-23.5,7.53-13.5,0-25.7-6.91-22.5-23.69,3.7-18.76,18.8-26.28,32.5-26.28,7.9,0,15.3,2.59,19.8,7.03l4.2-21.59a52.708,52.708,0,0,0-24.1-5.43C13591.6,1116.19,13565.5,1129.89,13559.1,1162.46Zm75.2,41.95h23.5l7.6-13.57h35.9l2.3,13.57h23.5l-17.2-86.37h-24.7Zm41.5-32.08,13.8-24.92a54.4,54.4,0,0,0,3.9-8.76,37.023,37.023,0,0,0,.6,8.76l4,24.92h-22.3Zm72.8-30.72c-6,30.84,39.9,26.65,37.4,39.11-0.8,4.32-4.9,5.8-14,5.8-9.9,0-20.7-2.71-29.6-9.75l-4.2,21.59c8.2,5.06,19.2,7.9,31.7,7.9,19,0,35.8-5.92,39.8-26.4,6-30.6-39.7-27.15-37.6-38.38,0.7-3.2,3.7-5.43,12.1-5.55,10.1-.12,19.3,2.59,25.7,8.14l4-20.97c-6.7-4.32-16.9-6.91-27.7-6.91C13768.4,1116.19,13752,1124.33,13748.6,1141.61Zm168.6-23.57h-22.8l-6.5,33.07h-32.1l6.4-33.07h-22.9l-16.8,86.37h22.9l6.4-32.94h32.2l-6.5,32.94h22.9Z" transform="translate(-13027.8 -1091)"/></svg>
+        </div>
+        <div class="eyebrow">Get Paid to Play — Real Cash, Real Fast</div>
+      </header>
+      <main>
+        <section class="hero">
+          <div class="bonus">🔥 Limited Bonus: New members get $10 free</div>
+          <h1>Up to <span class="green">$1,400</span></h1>
+          <p class="per-offer">per offer</p>
+          <div class="counter">
+            <i class="dot"></i><strong id="count">1,247</strong
+            ><span>people signed up today</span>
+          </div>
+          <div class="ticker">
+            <b>⚡ LIVE</b
+            ><span id="ticker">🎯 Mike cashed out $120 via PayPal</span>
+          </div>
+        </section>
+        <section class="card">
+          <h2>💰 Spend a Little, Earn a Lot</h2>
+          <p>
+            A small in-app purchase can unlock premium payout tiers that pay
+            <b style="color: #fff">5–10× more</b> than standard offers.
+          </p>
+          <div class="slider-wrap">
+            <input
+              id="spend"
+              type="range"
+              min="0"
+              max="500"
+              step="5"
+              value="100"
+            />
+            <div class="range-labels"><span>$0</span><span>$500</span></div>
+          </div>
+          <div class="earnings">
+            <div>
+              <small>You spend</small><strong id="spend-value">$100</strong>
+            </div>
+            <div class="divider"></div>
+            <div class="earned">
+              <small class="green">You could earn</small
+              ><strong id="earn">$396</strong>
+            </div>
+          </div>
+          <div class="meter"><i id="meter"></i></div>
+          <div class="fineprint">
+            <p>
+              <b>Even with $0 spent</b>, you earn <strong>$75</strong> just for
+              completing the offer.
+            </p>
+            <p>
+              Invest <strong>$350</strong> in premium offers & unlock up to
+              <strong>$1,200</strong> in rewards.
+            </p>
+          </div>
+        </section>
+        <section class="mini">
+          <h3>💡 Spend $5, Pocket $25–80 Back</h3>
+          <p>
+            Most top earners make a small in-app purchase on every offer — it
+            bumps them into the premium payout tier, and the extra earnings
+            <b style="color: #fff">more than cover the cost every time.</b>
+          </p>
+          <div class="row">
+            <span>Standard offer (no IAP)</span
+            ><strong style="color: #ffffff80">$15 – $40</strong>
+          </div>
+          <div class="row hot">
+            <span>Offer + $5 in-app purchase</span
+            ><strong>$55 – $95 <em class="tag">3–5×</em></strong>
+          </div>
+          <div class="row hot">
+            <span>Offer + $20 in-app purchase</span
+            ><strong>$150 – $220 <em class="tag">6–10×</em></strong>
+          </div>
+        </section>
+        <section>
+          <h3 class="section-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg> How to Earn</h3>
+          <div class="step" data-n="01">
+            <div class="num">1.</div>
+            <div>
+              <h4>Sign Up — Must Be 21+</h4>
+              <p>
+                Create your free account in under 2 minutes. You must be 21
+                years or older to qualify for offers.
+              </p>
+            </div>
+          </div>
+          <div class="step" data-n="02">
+            <div class="num">2.</div>
+            <div>
+              <h4>Complete an Offer</h4>
+              <p>
+                Download an app and complete its goal. No purchase is required —
+                premium offers pay more because the advertiser sets a higher
+                reward for them.
+              </p>
+            </div>
+          </div>
+          <div class="step" data-n="03">
+            <div class="num">3.</div>
+            <div>
+              <h4>Cash Out</h4>
+              <p>
+                Withdraw via PayPal, crypto, or gift cards. Minimum $5 payout.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section class="card">
+          <h2 style="text-align: left">
+            🎮 Unlock More Games & Bigger Rewards
+          </h2>
+          <p style="text-align: left; margin-left: 0">
+            Every game offer you complete unlocks new games to play and earn
+            from. The more you finish, the more opportunities appear.
+          </p>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              color: #00d26a;
+              font-weight: 800;
+              font-size: 11px;
+            "
+          >
+            <span>1</span><span>2</span><span>3</span><span>4</span
+            ><span>5</span><span>6</span>
+          </div>
+          <div class="meter" style="margin-top: 10px">
+            <i style="width: 100%"></i>
+          </div>
+          <p style="margin: 10px 0 0">
+            Complete <b style="color: #fff">6 offers</b> to reach the
+            highest-paying tier — where the most rewarding games and exclusive
+            offers await.
+          </p>
+        </section>
+        <section class="faq">
+          <h3>Common Questions</h3>
+          <div class="question">
+            <button>Is FreeCash legit? <span>⌄</span></button>
+            <div class="answer">
+              Yes. FreeCash has paid out over $300 million to more than 5
+              million members since 2019. They're rated Excellent on Trustpilot
+              with tens of thousands of verified reviews.
+            </div>
+          </div>
+          <div class="question">
+            <button>Do I need to spend money? <span>⌄</span></button>
+            <div class="answer">
+              No — creating an account is completely free, and every offer can
+              be completed without spending anything.
+            </div>
+          </div>
+          <div class="question">
+            <button>How do I actually get paid? <span>⌄</span></button>
+            <div class="answer">
+              Via PayPal, Bitcoin, Ethereum, Amazon gift cards, and 200+ other
+              options. Minimum cashout is just $5.
+            </div>
+          </div>
+          <div class="question">
+            <button>How long does it take to earn? <span>⌄</span></button>
+            <div class="answer">
+              Most users complete their first offer and cash out within 24–48
+              hours.
+            </div>
+          </div>
+        </section>
+        <section class="stats">
+          <div class="stat">
+            <b><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></b><strong>300M+</strong><small>Paid Out</small>
+          </div>
+          <div class="stat">
+            <b><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg></b><strong>5M+</strong><small>Members</small>
+          </div>
+          <div class="stat">
+            <b><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></b><strong>Excellent</strong><small>Trustpilot</small>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div class="bottom">
+      <div class="payments">
+        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path></svg> PayPal</span><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893-3.94-.694m5.155-6.2L8.29 4.26m5.908 1.042.348-1.97M7.48 20.364l3.126-17.727"></path></svg> Bitcoin</span><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"></rect><path d="M12 8v13"></path><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg> Gift Cards</span
+        ><span>+200</span>
+      </div>
+      <a class="cta" href="https://go.rwdtokapp.com/click"
+        >Claim My $10 Bonus &amp; Start →</a
+      ><small>No purchase required to join. Premium offers optional.</small>
+    </div>
+    <script>
+      const range = document.getElementById("spend"),
+        spend = document.getElementById("spend-value"),
+        earn = document.getElementById("earn"),
+        meter = document.getElementById("meter");
+      function update() {
+        const value = +range.value;
+        const earning =
+          value <= 0
+            ? 75
+            : value >= 350
+              ? 1200
+              : Math.round(75 + (1125 / 350) * value);
+        spend.textContent = "$" + value;
+        earn.textContent = "$" + earning;
+        meter.style.width = (earning / 1200) * 100 + "%";
+        range.style.background = `linear-gradient(90deg,#00d26a ${(value / 500) * 100}%,#0008 ${(value / 500) * 100}%)`;
+      }
+      range.addEventListener("input", update);
+      document
+        .querySelectorAll(".question button")
+        .forEach((button) =>
+          button.addEventListener("click", () =>
+            button.parentElement.classList.toggle("open"),
+          ),
+        );
+      const messages = [
+        "🎯 Mike cashed out $120 via PayPal",
+        "🔥 Sarah just earned $85 from Monopoly Go!",
+        "🎮 Emma unlocked the $1,400 tier",
+        "💰 Alex made $55 in 20 minutes on Bingo Blitz",
+      ];
+      let i = 0;
+      setInterval(() => {
+        i = (i + 1) % messages.length;
+        document.getElementById("ticker").textContent = messages[i];
+      }, 3500);
+      setInterval(() => {
+        document.getElementById("count").textContent = (
+          1247 + Math.floor((Date.now() / 10000) % 4)
+        ).toLocaleString();
+      }, 10000);
+      update();
+    </script>
+  </body>
+</html>
