@@ -1,0 +1,216 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Continue</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://analytics.tiktok.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- TikTok Pixel -->
+  <script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+    ttq.load('D9QKBRBC77U6RO6J1O6G');
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: linear-gradient(160deg, #fff5f0 0%, #ffffff 60%);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .icon-box {
+      width: 80px;
+      height: 80px;
+      background: #1a1a1a;
+      border-radius: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .icon-box svg {
+      width: 36px;
+      height: 36px;
+      color: #ffffff;
+    }
+
+    .title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #111111;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .title span { color: #1a1a1a; }
+
+    .subtitle {
+      font-size: 15px;
+      color: #666666;
+      text-align: center;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      max-width: 340px;
+    }
+
+    .cta-button {
+      background: #1a1a1a;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 900;
+      padding: 22px 0;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      width: 100%;
+      transition: background 0.2s ease, transform 0.1s ease, opacity 0.2s ease;
+    }
+
+    .cta-button:hover { background: #000000; }
+    .cta-button:active { transform: translateY(1px); opacity: 0.7; }
+    .cta-button:disabled { cursor: not-allowed; opacity: 0.7; }
+
+    .sub-text {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #1a1a1a;
+      text-align: center;
+    }
+
+    .fallback-text {
+      margin-top: 24px;
+      font-size: 13px;
+      color: #888888;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .fallback-text.visible { opacity: 1; }
+    .fallback-text a { color: #1a1a1a; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="icon-box">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+      </svg>
+    </div>
+
+    <h1 class="title">Open in <span>browser</span></h1>
+    <p class="subtitle">For the best experience, this page needs to open in your browser.</p>
+
+    <button class="cta-button" id="continueBtn">Continue →</button>
+    <p class="sub-text">Opens in Safari or Chrome</p>
+    <p class="fallback-text" id="fallback">Not working? <a href="#" id="fallback-link">Tap here</a></p>
+  </div>
+
+  <script>
+  (function () {
+
+    // ─── CONFIG ──────────────────────────────────────────────
+    var LANDING_BASE = 'https://max.mcpqclick.com/visit/04d7f43d-6021-41a7-b0ee-161709a9124e';
+    // 0 = redirect imediato ao carregar.
+    // Aumente (ex: 500) se quiser dar tempo pro pixel do TikTok disparar antes de sair.
+    var REDIRECT_DELAY_MS = 0;
+    // ─────────────────────────────────────────────────────────
+
+    var params   = new URLSearchParams(window.location.search);
+
+    // ViewContent — enquanto ainda está no WebView do TikTok
+    if (window.ttq) {
+      try { ttq.track('ViewContent', { content_name: 'Continue Page - Shein' }); } catch(e) {}
+    }
+
+    // Monta URL final: base + params da URL atual + params fixos da campanha
+    // Params a ignorar ao repassar (nao devem ir pro MaxConv visit)
+    var SKIP_PARAMS = { 'mc_tid': true, 'mc_cmp': true, 'debug': true };
+
+    function buildDestUrl() {
+      var url      = LANDING_BASE;
+      var hasQuery = url.indexOf('?') > -1;
+
+      // Repassa todos os params exceto mc_tid e mc_cmp
+      params.forEach(function(value, key) {
+        if (SKIP_PARAMS[key]) return;
+        url += (hasQuery ? '&' : '?') + encodeURIComponent(key) + '=' + encodeURIComponent(value);
+        hasQuery = true;
+      });
+
+      return url;
+    }
+
+    function proceed() {
+      window.location.href = buildDestUrl();
+    }
+
+    // ─── AUTO-REDIRECT ──────────────────────────────────────
+    // Redireciona sozinho assim que a página carrega, sem precisar de clique.
+    // ?debug=1 na URL desativa o redirect (pra inspecionar a página no browser).
+    function autoRedirect() {
+      proceed();
+      // Se por algum motivo a navegação não ocorrer, mostra o fallback manual
+      document.getElementById('fallback').classList.add('visible');
+    }
+
+    if (!params.get('debug')) {
+      setTimeout(autoRedirect, REDIRECT_DELAY_MS);
+    }
+
+    // ─── BOTÃO (fallback manual) ────────────────────────────
+    var btn     = document.getElementById('continueBtn');
+    var clicked = false;
+
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (clicked) return;   // anti double-click
+      clicked = true;
+
+      btn.textContent = 'Loading...';
+      btn.disabled    = true;
+
+      document.getElementById('fallback').classList.add('visible');
+
+      if (window.ttq) {
+        try { ttq.track('ClickButton', { content_name: 'Continue Button - Shein' }); } catch(e) {}
+      }
+
+      proceed();
+    });
+
+    // Fallback tap
+    document.getElementById('fallback-link').addEventListener('click', function(e) {
+      e.preventDefault();
+      proceed();
+    });
+
+  })();
+  </script>
+</body>
+</html>
