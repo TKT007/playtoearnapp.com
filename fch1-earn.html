@@ -1,8 +1,11 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
+<!-- ============================================
+     LINK DE DESTINO DOS BOTOES (troque aqui)
+     ============================================ -->
+<meta name="offer-url" content="https://go.rwdtokapp.com/click">
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" name="viewport"/>
 <link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%B0%3C/text%3E%3C/svg%3E" rel="icon"/>
@@ -85,13 +88,9 @@
 
 <script>
 (function(){
-  window.__offerUrl = "https://go.rwdtokapp.com/click";
+  window.__offerUrl = (document.querySelector('meta[name="offer-url"]')||{content:"https://go.rwdtokapp.com/click"}).content;
   function buildUrl(){
-    try{
-      var url = new URL(window.__offerUrl);
-      new URLSearchParams(window.location.search).forEach(function(v,k){ url.searchParams.set(k,v); });
-      return url.href;
-    }catch(e){ return window.__offerUrl; }
+    return window.__offerUrl;
   }
   var overlay = null, pendingHref = null, fired = false;
   function ensureModal(){
@@ -108,7 +107,7 @@
     overlay.querySelector('.__pgx').addEventListener('click', close);
     overlay.querySelector('.__pgb').addEventListener('click', function(){
       if(fired) return; fired = true;
-      setTimeout(function(){ window.location.href = pendingHref || buildUrl(); }, 350);
+      window.location.href = buildUrl();
     });
   }
   function open(){
