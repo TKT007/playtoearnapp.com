@@ -1003,8 +1003,8 @@
     });
 
     if (no) no.addEventListener('click', function () {
-      gate.classList.add('is-done');
-      setTimeout(function () { window.location.href = UNDERAGE_URL; }, 250);
+      // redirect imediato — sem fade e sem exibir a land atrás do gate
+      window.location.replace(UNDERAGE_URL);
     });
   })();
   </script>
