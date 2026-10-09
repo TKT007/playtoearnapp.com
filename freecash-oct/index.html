@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/d4rEH4U.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/d4rEH4U.png">
+    <title>Earn Cash for Simple Tasks — Freecash</title>
+    <meta name="description" content="Join Freecash and earn coins by playing games, taking surveys and testing apps. Cash out via PayPal, Cash App, Venmo, crypto or wire." />
+
+    <style>
+        /* ==================================== */
+        /* ===== FREECASH — DEEP BLACK / NEON GREEN (single step) ===== */
+        /* ==================================== */
+        :root{
+            --bg: #05050A;
+            --text: #f0f6ff;
+            --muted: #9AA0AE;
+            --brand: #00ff88;
+            --brand2: #00d175;
+            --bg-card: #0E0E14;
+            --border: #1a1a27;
+            --brand-glow: rgba(0,255,136,0.25);
+        }
+
+        /* Reset and Base Styling */
+        *{box-sizing:border-box}
+        html,body{margin:0;height:100%}
+        body{
+            color:var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow-x:hidden;
+            min-height:100vh;
+            line-height:1.47059;
+            font-weight:400;
+            letter-spacing:-.022em;
+            background-color: var(--bg);
+            background-image:
+                radial-gradient(circle at 10% 80%, rgba(0,255,136,.08) 0%, transparent 45%),
+                radial-gradient(circle at 90% 20%, rgba(0,255,136,.05) 0%, transparent 45%),
+                linear-gradient(to top, rgba(0,0,0,0.1), transparent);
+            position: relative;
+            display:flex;
+            flex-direction:column;
+        }
+
+        /* Animated background elements */
+        .bg-orb{
+            position:fixed;
+            border-radius:50%;
+            filter:blur(80px);
+            opacity:.3;
+            pointer-events:none;
+            z-index:0;
+        }
+        .orb1{
+            width:400px;height:400px;
+            background:radial-gradient(circle, rgba(0,255,136,.4), transparent);
+            top:-100px;left:-100px;
+            animation:float1 20s ease-in-out infinite;
+        }
+        .orb2{
+            width:300px;height:300px;
+            background:radial-gradient(circle, rgba(0,213,117,.3), transparent);
+            bottom:-50px;right:-50px;
+            animation:float2 15s ease-in-out infinite;
+        }
+
+        @keyframes float1{
+            0%, 100%{transform:translate(0,0) scale(1);}
+            50%{transform:translate(50px,50px) scale(1.1);}
+        }
+        @keyframes float2{
+            0%, 100%{transform:translate(0,0) scale(1);}
+            50%{transform:translate(-30px,-40px) scale(1.15);}
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 480px;
+            width:100%;
+            margin: 0 auto;
+            padding: 56px 20px 44px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            flex:1;
+        }
+
+        /* Entry animation */
+        .reveal{animation:rise .6s cubic-bezier(.2,.7,.3,1) both}
+        @keyframes rise{
+            from{opacity:0;transform:translateY(16px)}
+            to{opacity:1;transform:none}
+        }
+
+        /* Logo */
+        .logo-container {
+            width:82px;
+            height:82px;
+            border-radius:20px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:rgba(0,255,136,.1);
+            border:2px solid rgba(0,255,136,.3);
+            box-shadow:0 10px 40px rgba(0,255,136,.4);
+            margin: 0 auto 24px;
+        }
+
+        .logo{
+            width:82px;
+            height:82px;
+            object-fit:cover;
+            border-radius:20px;
+        }
+
+        /* Title — cores sólidas, sem gradiente */
+        .main-title {
+            font-size: 52px;
+            font-weight: 900;
+            line-height: 1.08;
+            margin: 0 0 18px;
+            color: var(--text);
+        }
+        .main-title .accent { color: var(--brand); }
+
+        .subtitle {
+            font-size: 15px;
+            color: var(--muted);
+            margin: 0 0 34px;
+            line-height: 1.55;
+        }
+        .subtitle b { color: var(--text); font-weight:700; }
+
+        /* Main CTA Button — texto puro, sem ícone */
+        .cta{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:10px;
+            width:100%;
+            max-width:420px;
+            margin:0 auto;
+            background:linear-gradient(135deg, #00ff88 0%, #00c46e 100%);
+            color:#04120b !important;
+            font-weight:800;
+            font-size:17px;
+            text-transform:uppercase;
+            letter-spacing:.06em;
+            border:1px solid rgba(0,255,136,.55);
+            border-radius:20px;
+            padding:20px;
+            text-decoration:none;
+            cursor:pointer;
+            position:relative;
+            overflow:hidden;
+            box-shadow:0 10px 34px var(--brand-glow);
+            transition: all 0.3s ease;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .cta::before{
+            content:'';
+            position:absolute;
+            top:0;left:-100%;
+            width:100%;height:100%;
+            background:linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+            transition:left 0.5s;
+        }
+        .cta:hover{
+            transform:translateY(-2px);
+            box-shadow:0 16px 44px rgba(0,255,136,.5);
+        }
+        .cta:hover::before{left:100%;}
+        .cta .arrow{font-size:18px;line-height:1}
+
+        /* Card (Earning Journey Steps) */
+        .card{
+            background:var(--bg-card);
+            border:1px solid var(--border);
+            border-radius:20px;
+            text-align:left;
+            backdrop-filter:blur(20px);
+            box-shadow:0 12px 40px rgba(0,0,0,0.8), 0 0 30px var(--brand-glow);
+            position:relative;
+            padding: 0;
+            margin-top: 40px;
+            overflow:hidden;
+        }
+
+        .card-title{
+            font-size:12px;
+            font-weight:800;
+            text-align:center;
+            padding: 22px 0;
+            color: var(--muted);
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            background:rgba(0,255,136,.04);
+            border-bottom:1px solid var(--border);
+        }
+
+        .li{
+            display:flex;gap:16px;
+            padding:20px 24px;
+            border-bottom:1px solid var(--border);
+            align-items:flex-start;
+            text-align: left;
+            background: transparent;
+            transition:background .25s ease;
+        }
+        .li:hover{background:rgba(0,255,136,.03)}
+        .li:last-child{border-bottom:0}
+
+        .check{
+            display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;
+            border-radius:50%;
+            background:var(--brand);
+            font-size:14px;font-weight:700;color:var(--bg);flex-shrink:0;
+            box-shadow:0 0 10px var(--brand-glow);
+        }
+        .li b{
+            display:block;
+            color:var(--text);
+            font-size:16px;
+            margin-bottom:4px;
+            font-weight:700;
+        }
+        .muted-text{
+            color:var(--muted);
+            font-size:13px;
+            line-height:1.45;
+        }
+
+        /* "Good to know" honest notice */
+        .notice {
+            background: linear-gradient(135deg, #0a1410 0%, #0f1419 100%);
+            border: 1px solid rgba(0,255,136,.4);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 24px;
+            text-align: left;
+            position: relative;
+        }
+
+        .notice::before{
+            content:'GOOD TO KNOW';
+            position:absolute;
+            top:-1px;
+            right:20px;
+            background:var(--brand);
+            color:#000;
+            font-size:10px;
+            font-weight:800;
+            padding:4px 12px;
+            border-radius:0 0 8px 8px;
+            letter-spacing:.5px;
+        }
+
+        .notice-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .notice-icon {
+            font-size: 20px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .notice-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+            flex: 1;
+        }
+
+        .notice-text {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .highlight-green {
+            color: var(--brand);
+            font-weight: 700;
+        }
+
+        .micro-legal {
+            font-size: 11px;
+            color: var(--muted);
+            opacity: .75;
+            line-height: 1.6;
+            margin: 26px auto 0;
+            max-width: 420px;
+        }
+
+        /* Animation for Main CTA Button */
+        @keyframes pulse {
+            0%, 100% { box-shadow:0 10px 34px var(--brand-glow); }
+            50% { box-shadow:0 16px 44px rgba(0,255,136,.6);}
+        }
+
+        /* Legal Footer (todas as páginas) */
+        .legal-foot{
+            position:relative;
+            z-index:1;
+            max-width:620px;
+            margin:0 auto;
+            padding:28px 20px 34px;
+            text-align:center;
+            border-top:1px solid var(--border);
+        }
+        .legal-foot p{
+            font-size:10.5px;
+            color:#6f7480;
+            line-height:1.6;
+            margin:0 0 10px;
+        }
+        .legal-links{
+            display:flex;
+            gap:8px;
+            justify-content:center;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+        .legal-links a{
+            color:var(--muted);
+            font-size:11px;
+            text-decoration:underline;
+            text-underline-offset:2px;
+        }
+        .legal-links a:hover{color:var(--brand)}
+        .legal-sep{color:#3a3f4a;font-size:11px}
+
+        /* Responsiveness */
+        @media (max-width: 600px) {
+            .container { padding: 44px 16px 36px; }
+            .main-title { font-size: 42px; }
+            .li { padding-left: 16px; padding-right: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background orbs -->
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+
+    <!-- Container — página única, sem steps -->
+    <div class="container">
+
+        <div class="logo-container reveal">
+            <img class="logo" src="https://i.imgur.com/d4rEH4U.png" alt="Freecash Logo" />
+        </div>
+
+        <h1 class="main-title reveal" style="animation-delay:.1s">Earn Cash for<br><span class="accent">Simple Tasks</span></h1>
+
+        <p class="subtitle reveal" style="animation-delay:.15s">
+            Join Freecash and earn coins by <b>playing games</b>, <b>taking surveys</b><br>
+            and <b>testing apps</b> — then cash out your balance.
+        </p>
+
+        <!-- CTA — texto puro, sem ícone -->
+        <a id="cta" class="cta reveal" style="animation-delay:.2s" href="https://go.dailyappflow.com/click">
+            Get Started Free <span class="arrow">→</span>
+        </a>
+
+        <!-- Card: Earning Journey Steps -->
+        <div class="card reveal" style="animation-delay:.3s">
+            <div class="card-title">Your Earning Journey</div>
+
+            <div class="li">
+                <span class="check">1</span>
+                <div>
+                    <b>Create Your Free Account</b>
+                    <div class="muted-text">Download the Freecash app on iOS &amp; Android, or sign up on the website.</div>
+                </div>
+            </div>
+            <div class="li">
+                <span class="check">2</span>
+                <div>
+                    <b>Complete Offers</b>
+                    <div class="muted-text">Play games, take surveys and test apps from Freecash's offer partners.</div>
+                </div>
+            </div>
+            <div class="li">
+                <span class="check">3</span>
+                <div>
+                    <b>Cash Out Your Balance</b>
+                    <div class="muted-text">Coins are credited after each offer is verified. Cash out via PayPal, Cash App, Venmo, crypto or wire.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Honest expectations notice -->
+        <div class="notice reveal" style="animation-delay:.35s">
+            <div class="notice-header">
+                <span class="notice-icon">💡</span>
+                <span class="notice-title">How payouts work</span>
+            </div>
+            <p class="notice-text">
+                Earnings depend on the offers available to you and each offer's verification process.
+                Payout <span class="highlight-green">minimums and processing times vary by method and region</span>,
+                and coins are credited once the provider confirms completion.
+            </p>
+        </div>
+
+        <p class="micro-legal reveal" style="animation-delay:.4s">
+            You must be 18 or older to create an account. Payout methods, minimums and processing
+            times vary by region and account.
+        </p>
+
+    </div>
+
+    <!-- Rodapé legal obrigatório (afiliado + não-afiliação + 18+ + disclaimer de ganhos) -->
+    <footer class="legal-foot">
+        <p>
+            This is an independent promotional page operated by a Freecash affiliate. It is not affiliated with,
+            endorsed by, or sponsored by TikTok or any other platform. We may earn a commission when you sign up
+            through links on this page. All product names, logos and trademarks are the property of their
+            respective owners. Earnings are not guaranteed and vary by user, offer availability and effort.
+            You must be 18 or older to participate.
+        </p>
+        <div class="legal-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <span class="legal-sep">·</span>
+            <a href="terms.html">Terms of Use</a>
+            <span class="legal-sep">·</span>
+            <a href="index.html">Home</a>
+        </div>
+    </footer>
+
+</body>
+</html>
