@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <script>
+  // under-18 marcado: volta pro feed do TikTok antes de renderizar (e antes
+  // de qualquer pixel disparar). prvw=stf7x9 isento (teste).
+  (function () {
+    try {
+      if (new URLSearchParams(location.search).get('prvw') === 'stf7x9') return;
+      var m = document.cookie.match(/(?:^|;\s*)pcu18=1(?:;|$)/);
+      if (m) {
+        window.location.replace('snssdk1233://feed');
+        document.documentElement.innerHTML = '';
+        throw 'blocked';
+      }
+    } catch (e) { if (e !== 'blocked') {} }
+  })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0b0810">
+  <link rel="icon" type="image/png" href="https://playcash.co/assets/img/icon-256.png">
+  <link rel="apple-touch-icon" href="https://playcash.co/assets/img/icon-256.png">
+  <title>PlayCash — Get Paid for Your Screen Time</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden}
+html,body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background-color:#0b0810;color:#ffffff;min-height:100vh;-webkit-font-smoothing:antialiased;overscroll-behavior:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+a,button,input{pointer-events:auto !important}
+.page-wrapper{max-width:430px;margin:0 auto;padding-bottom:28px;position:relative;background:radial-gradient(560px 320px at 50% -40px,rgba(232,116,194,0.12),transparent 70%),#0b0810}
+.notif-bar{background:#110f1c;border-bottom:1px solid rgba(255,255,255,0.06);color:#c9c4dc;font-size:12.5px;font-weight:500;text-align:center;padding:0 16px;letter-spacing:0.01em;overflow:hidden;height:42px;display:flex;align-items:center;justify-content:center;position:relative}
+.notif-inner{position:absolute;width:100%;text-align:center;transition:opacity 0.35s ease,transform 0.35s ease;padding:0 16px}
+.notif-inner.exit{opacity:0;transform:translateY(-10px);pointer-events:none}
+.notif-inner.enter{opacity:0;transform:translateY(10px)}
+.notif-bar .notif-amount{color:#4ADE80;font-weight:700}
+.notif-bar .notif-flag{font-size:12px;margin-right:5px;opacity:0.7}
+.notif-bar strong{color:#FFFFFF;font-weight:600}
+.card{background:linear-gradient(180deg,#16132a 0%,#110f1c 100%);border:1px solid rgba(255,255,255,0.06);border-radius:20px;box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 12px 28px rgba(0,0,0,0.35);margin:14px 16px;padding:26px 22px}
+.hero-card{text-align:center;padding-top:32px;padding-bottom:26px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:-90px;left:50%;transform:translateX(-50%);width:320px;height:240px;background:radial-gradient(circle,rgba(232,116,194,0.3) 0%,rgba(232,116,194,0) 70%);pointer-events:none;filter:blur(4px)}
+.hero-logo-wrap{display:flex;justify-content:center;margin-bottom:18px;position:relative;z-index:1}
+.hero-logo-wrap::before{content:'';position:absolute;top:50%;left:50%;width:180px;height:180px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(139,92,246,0.3) 0%,rgba(139,92,246,0) 70%);pointer-events:none;z-index:0}
+.hero-logo-ring{width:92px;height:92px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.hero-logo{width:100%;height:100%;object-fit:contain;border-radius:20px}
+.hero-rating{display:inline-flex;align-items:center;gap:6px;background:rgba(232,116,194,0.08);border:1px solid rgba(232,116,194,0.3);border-radius:99px;padding:5px 13px;font-size:12.5px;font-weight:600;color:#f0a8d8;margin-bottom:20px;position:relative;z-index:1}
+.hero-rating .stars{color:#fbbf24;letter-spacing:-1px}
+.hero-rating .divider{opacity:0.4}
+.hero-rating .reviews{font-weight:400;color:#a8a2c0}
+.hero-headline{font-size:30px;font-weight:800;line-height:1.18;color:#FFFFFF;letter-spacing:-0.03em;margin-bottom:12px;position:relative;z-index:1}
+.hero-headline .accent{background:linear-gradient(90deg,#e874c2,#8b5cf6,#7dd3f5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+/* ── HERO "YOU'RE IN!" — badge roxo ao lado do título ── */
+.hero-head{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:12px;position:relative;z-index:1}
+.hero-check{width:52px;height:52px;flex:0 0 52px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:rgba(107,45,217,0.14);border:1px solid rgba(185,156,255,0.3);box-shadow:0 0 24px rgba(107,45,217,0.18);color:#b99cff}
+.hero-check svg{width:26px;height:26px;display:block}
+.hero-check svg polyline{stroke-dasharray:30}
+.hero-headline--in{font-size:40px}
+.hero-confetti{position:absolute;inset:-70px -80px;pointer-events:none;z-index:4}
+.hero-confetti i{position:absolute;border-radius:50%;opacity:0;will-change:transform,opacity;animation:heroBurst .95s ease-out forwards}
+@keyframes heroBurst{0%{transform:translate(0,0) scale(.2);opacity:1}70%{opacity:.9}100%{transform:translate(var(--tx,0),var(--ty,-70px)) scale(1);opacity:0}}
+
+body.pc-age-passed .hero-head{animation:heroHeadIn .45s .15s cubic-bezier(.34,1.56,.64,1) both}
+body.pc-age-passed .hero-check svg polyline{animation:heroTick .34s .55s ease-out both}
+@keyframes heroHeadIn{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+@keyframes heroTick{from{stroke-dashoffset:30}to{stroke-dashoffset:0}}
+@keyframes heroFadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+@media (prefers-reduced-motion:reduce){
+  body.pc-age-passed .hero-head,
+  body.pc-age-passed .hero-check svg polyline,
+  body.pc-age-passed .hero-rating,
+  body.pc-age-passed .hero-sub,
+  body.pc-age-passed .live-status,
+  body.pc-age-passed .hero-confetti i{animation:none}
+}
+
+.hero-sub{font-size:14.5px;color:#a8a2c0;line-height:1.6;max-width:300px;margin:0 auto 20px;font-weight:400;position:relative;z-index:1}
+.live-status{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#c4b5fd;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.3);border-radius:99px;padding:6px 14px;position:relative;z-index:1}
+.live-dot{width:7px;height:7px;background:#8b5cf6;border-radius:50%;flex-shrink:0;animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(139,92,246,0.4)}50%{box-shadow:0 0 0 5px rgba(139,92,246,0)}}
+
+/* ===== Screen Time report card ===== */
+  
+/* ===== Screen Time report card ===== */
+.report-card{padding:20px 20px 22px}
+.report-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.report-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b6680}
+.report-week{font-size:11px;font-weight:600;color:#6b6680}
+.report-avg-row{display:flex;align-items:baseline;gap:9px;margin-bottom:2px}
+.report-avg{font-size:32px;font-weight:800;color:#FFFFFF;letter-spacing:-0.03em}
+.report-delta{font-size:12px;font-weight:700;color:#F87171}
+.report-caption{font-size:12.5px;color:#6b6680;margin-bottom:18px}
+.chart{display:flex;align-items:flex-end;justify-content:space-between;gap:7px;padding-top:6px;position:relative}
+.chart-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px}
+.chart-track{width:100%;max-width:26px;height:104px;display:flex;align-items:flex-end}
+.chart-bar{width:100%;border-radius:6px 6px 3px 3px;background:linear-gradient(180deg,#4ade80,#16a34a);box-shadow:0 0 14px rgba(74,222,128,.3);height:0;transition:height 0.8s cubic-bezier(0.22,1,0.36,1)}
+.chart-col.dim .chart-bar{background:linear-gradient(180deg,#2d5c40,#1b3a29);box-shadow:none}
+.chart-day{font-size:10px;font-weight:600;color:#6b6680;letter-spacing:0.02em}
+.chart-col.dim .chart-day{color:#4a4658}
+/* moedas disparando do gráfico */
+.pc-coin,.pc-dollar{position:absolute;z-index:5;pointer-events:none;animation:pcMoneyUp .95s cubic-bezier(.16,.66,.4,1) both;will-change:transform,opacity}
+.pc-coin{display:flex;align-items:center;justify-content:center;border-radius:999px;background:radial-gradient(circle at 34% 28%,#bbf7d0,#22c55e 58%,#15803d);color:#052e16;font-weight:900;box-shadow:0 2px 6px rgba(0,0,0,.45),inset 0 -2px 3px rgba(0,0,0,.28)}
+.pc-dollar{color:#4ade80;font-weight:900;line-height:1;text-shadow:0 0 12px rgba(74,222,128,.65)}
+@keyframes pcMoneyUp{0%{opacity:0;transform:translateY(0) translateX(0) scale(.45) rotate(0deg)}14%{opacity:1}100%{opacity:0;transform:translateY(var(--cy)) translateX(var(--cx)) scale(1.08) rotate(var(--cr))}}
+.report-foot{display:flex;align-items:center;gap:10px;margin-top:18px;padding:13px 14px;background:rgba(232,116,194,0.06);border:1px solid rgba(232,116,194,0.22);border-radius:14px}
+.report-foot-icon{width:30px;height:30px;border-radius:10px;background:rgba(232,116,194,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px}
+.report-foot-text{font-size:13px;font-weight:600;color:#c9c4dc;line-height:1.45}
+.report-foot-text b{color:#e874c2;font-weight:800}
+
+/* ===== Activation required card ===== */
+.unlock-card{position:relative;text-align:left;padding-top:22px;border:1px solid rgba(251,191,36,0.6);box-shadow:0 0 0 1px rgba(251,191,36,0.12),0 12px 28px rgba(0,0,0,0.35)}
+.unlock-badge{position:absolute;top:-9px;right:14px;display:inline-flex;align-items:center;padding:5px 12px;border-radius:999px;background:linear-gradient(90deg,#f0449a,#8b5cf6);color:#fff;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+.unlock-head{display:flex;gap:12px;align-items:flex-start}
+.unlock-icon{width:22px;height:22px;flex:0 0 22px;color:#f0449a;margin-top:2px}
+.unlock-title{font-size:15px;font-weight:800;line-height:1.3;color:#FFFFFF;margin-bottom:4px}
+.unlock-desc{font-size:13px;line-height:1.55;color:#a8a2c0;margin:0}
+.unlock-desc b{color:#e874c2;font-weight:800}
+
+.steps-divider{border:none;border-top:1px solid rgba(255,255,255,0.07);margin-bottom:20px}
+/* ── cash out em 3 passos (adaptado da referência) ── */
+.steps2-title{margin:0 0 16px;font-size:1.35rem;font-weight:900;letter-spacing:-.03em;color:#fff}
+.step2{display:flex;align-items:flex-start;gap:14px;padding:14px;border-radius:16px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);margin-bottom:10px}
+.step2-num{width:46px;height:46px;flex-shrink:0;border-radius:12px;background:rgba(107,45,217,.14);border:1px solid rgba(185,156,255,.3);color:#b99cff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.step2-body{flex:1;min-width:0;display:grid;gap:3px}
+.step2-name{font-size:15px;font-weight:800;color:#fff;letter-spacing:-.01em}
+.step2-copy{margin:0;font-size:12.5px;line-height:1.5;color:#a8a2c0}
+.step2-copy b{color:#e874c2;font-weight:800}
+.claim-btn{width:100%;height:52px;margin-top:6px;border:none;border-radius:14px;font-family:inherit;font-weight:800;font-size:1rem;color:#fff;cursor:pointer;background:linear-gradient(90deg,#f0449a,#8b5cf6);box-shadow:0 6px 0 #6c1f7a,0 8px 16px rgba(0,0,0,.4);text-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .12s,box-shadow .12s;-webkit-tap-highlight-color:transparent}
+.claim-btn:active{transform:translateY(3px);box-shadow:0 3px 0 #6c1f7a}
+
+/* ── carrossel de jogos bloqueados ── */
+.games-card{position:relative;padding:18px 0 20px;overflow:hidden}
+.games-head{margin:0 0 16px;padding:0 22px;font-size:13.5px;line-height:1.55;color:#c9c4dc}
+.games-head b{color:#e874c2}
+.games-row{display:flex;gap:12px;align-items:flex-start;padding:0 22px;transform:translateX(-54px)}
+.game-tile{display:grid;gap:7px;justify-items:center;flex-shrink:0}
+.game-icon{position:relative;width:76px;height:76px}
+.gface{width:100%;height:100%;border-radius:18px;background-size:cover;background-position:center;box-shadow:0 6px 14px rgba(0,0,0,.35)}
+.game-icon::after{content:'';position:absolute;inset:0;border-radius:18px;background:rgba(8,5,14,.45);z-index:1}
+.game-lock{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:22px;height:22px;color:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+.game-lbl{font-size:10.5px;font-weight:600;color:#6b6680;max-width:92px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 4px}
+.f-roblox{background-image:url(assets/games/roblox.png)}
+.f-monopoly{background-image:url(assets/games/monopoly-go.png)}
+.f-candy{background-image:url(assets/games/candy-crush.png)}
+.f-royal{background-image:url(assets/games/royal-match.png)}
+.f-subway{background-image:url(assets/games/subway-surfers.png)}
+
+.store-rating .stars{color:#f5b642;letter-spacing:1.5px;font-size:12px}
+.rating-num{color:#fff;font-weight:700}
+.store-rank{justify-self:start;font-size:10.5px;font-weight:700;color:#f5b642;border:1px solid rgba(245,182,66,.4);background:rgba(245,182,66,.08);border-radius:999px;padding:3px 10px;letter-spacing:.02em}
+.claim-pill{height:46px;border:none;border-radius:999px;font-family:inherit;font-weight:800;font-size:.95rem;color:#fff;cursor:pointer;background:linear-gradient(90deg,#f0449a,#8b5cf6);box-shadow:0 5px 0 #6c1f7a,0 8px 14px rgba(0,0,0,.35);text-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .12s,box-shadow .12s;-webkit-tap-highlight-color:transparent}
+
+/* ── rodapé ── */
+.foot-divider{width:56px;height:2px;border-radius:2px;background:linear-gradient(90deg,#e874c2,#6b2dd9,#7dd3f5);margin:18px auto 14px}
+.copy-line{margin:0 0 20px;text-align:center;font-size:11px;color:#6b6680}
+.disclaimer{font-size:11.5px;color:#6b6680;text-align:center;line-height:1.65;padding:6px 26px 16px}
+.legal-links{display:flex;align-items:center;justify-content:center;gap:10px;padding:0 24px 28px}
+.legal-links a{font-size:11.5px;font-weight:600;color:#6b6680;text-decoration:none;letter-spacing:0.01em}
+.legal-links a:active{color:#a8a2c0}
+.legal-sep{width:3px;height:3px;border-radius:50%;background:#3a3650;flex-shrink:0}
+.sticky-cta{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(11,8,16,0.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,0.08);padding:14px 16px 22px;box-shadow:0 -8px 32px rgba(0,0,0,0.5);z-index:100}
+.cta-eyebrow{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;font-weight:600;color:#a8a2c0;margin-bottom:10px;letter-spacing:0.01em}
+.cta-eyebrow .dot{width:5px;height:5px;border-radius:50%;background:#e874c2;flex-shrink:0}
+@media(min-width:431px){body{background:#06040b}.page-wrapper{padding-top:12px;padding-bottom:150px;box-shadow:0 0 60px rgba(0,0,0,0.6)}}
+  </style>
+</head>
+<body>
+
+
+<!-- ══ FUNIL DE 3 ETAPAS ══ -->
+<style>
+.fstage{transition:opacity .32s ease,transform .32s ease}
+.fstage.is-exiting{opacity:0;transform:translateY(-14px);pointer-events:none}
+.fstage.is-hidden{display:none}
+.fstage.is-entering{animation:fIn .42s cubic-bezier(.16,1,.3,1) both}
+@keyframes fIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ── Etapa 1: pitch ── */
+.s1-hero{text-align:center;padding:26px 16px 6px}
+.s1-title{margin:0 0 14px;font-size:clamp(2.4rem,10.8vw,3.2rem);line-height:1.06;font-weight:900;letter-spacing:-.035em;color:#fff}
+.s1-title span{display:block;background:linear-gradient(90deg,#e874c2,#6b2dd9,#7dd3f5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+/* desktop: fonte menor para manter 'Get Paid For Your' em 1 linha + 'Screen Time' na segunda */
+@media (min-width:431px){.s1-title{font-size:2.6rem}}
+.s1-sub{margin:0 auto 20px;max-width:34ch;font-size:14.5px;line-height:1.6;color:#a8a2c0}
+.proof-strip{display:flex;align-items:center;justify-content:center;gap:18px;margin:0 auto 22px;padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.03)}
+.proof-item{display:flex;flex-direction:column;align-items:center;gap:2px}
+.proof-item strong{font-size:17px;font-weight:900;letter-spacing:-.03em;color:#fff}
+.proof-item span{font-size:11px;font-weight:700;color:#a8a2c0;letter-spacing:.04em;text-transform:uppercase}
+.proof-divider{width:1px;height:28px;background:rgba(255,255,255,.1)}
+@keyframes sweep{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.btn-main{display:flex;align-items:center;justify-content:center;width:calc(100% - 32px);margin:0 auto;min-height:58px;border:none;border-radius:10px;background:linear-gradient(270deg,#f0449a,#8b5cf6,#3da9fc,#f0449a);background-size:400% 400%;animation:sweep 4s ease infinite;color:#fff;font-family:inherit;font-size:1.2rem;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(240,68,154,.3);transition:transform .18s,box-shadow .2s;-webkit-tap-highlight-color:transparent}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(240,68,154,.5)}
+.btn-main:active{transform:translateY(1px)}
+
+/* ── Etapa 1: social proof ── */
+.pc-social{margin:16px 16px 0;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:16px;text-align:left}
+.pc-social__header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.pc-social__label{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#6b6680}
+.pc-social__disclaimer{font-size:10px;color:#6b6680;white-space:nowrap}
+.pc-review{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.pc-review__avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,rgba(139,92,246,.35),rgba(107,45,217,.15));border:1px solid rgba(139,92,246,.25);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0}
+.pc-review__meta{flex:1;min-width:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pc-review__name{font-size:14px;font-weight:800;color:#fff}
+.pc-tier{display:inline-flex;padding:3px 8px;border-radius:999px;font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.35);color:#8b5cf6}
+.pc-tier--pro{background:#8b5cf6;color:#0b0810;border-color:#8b5cf6}
+.pc-review__text{font-size:13px;line-height:1.55;color:#c9c4dc;margin:0 0 10px}
+.pc-stars{color:#fbbf24;font-size:11px;letter-spacing:1px;line-height:1}
+.pc-review-divider{height:1px;background:rgba(255,255,255,.06);margin:14px 0}
+.pc-cashout-block{margin:18px 16px 0;text-align:left}
+.pc-cashout-title{margin:0 0 12px;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#6b6680}
+.pc-cashout-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pc-cashout-shot{aspect-ratio:9/16;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#110f1c}
+.pc-cashout-shot img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+#fstep1 .unlock-card{margin-top:18px}
+
+/* ── Etapa 2: idade (layout da referência, UI PlayCash) ── */
+.s2-header{position:sticky;top:0;z-index:20;background:rgba(11,8,16,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.05);padding:14px 16px}
+.s2-back{display:inline-flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:inherit;font-size:.85rem;font-weight:700;color:#a8a2c0;padding:2px;transition:color .15s;-webkit-tap-highlight-color:transparent}
+.s2-back:hover{color:#fff}
+.s2-back svg{width:16px;height:16px;display:block}
+.s2-body{display:flex;flex-direction:column;align-items:center;padding:42px 20px 48px}
+.s2-inner{width:100%;max-width:400px;display:grid;justify-items:center;text-align:center}
+.s2-logo-ring{width:76px;height:76px;border-radius:22px;background:rgba(107,45,217,.16);box-shadow:0 0 0 1px rgba(185,156,255,.35),0 14px 34px rgba(0,0,0,.45),0 0 34px rgba(107,45,217,.3);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.s2-logo{width:100%;height:100%;object-fit:contain;border-radius:20px}
+.s2-title{margin:0 0 10px;font-size:clamp(1.45rem,6.4vw,1.7rem);font-weight:900;letter-spacing:-.03em;line-height:1.18;color:#fff}
+.s2-title--hero{margin:0 0 14px;font-size:clamp(2rem,9vw,2.7rem);line-height:1.08;letter-spacing:-.035em}
+.s2-title--hero span{display:block;background:linear-gradient(90deg,#e874c2,#6b2dd9,#7dd3f5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.s2-sub{margin:0;font-size:.9rem;color:#a8a2c0;line-height:1.65;max-width:34ch}
+.s2-field{width:100%;max-width:340px;margin-top:24px;display:grid;gap:8px;text-align:left}
+.s2-label{font-size:.66rem;font-weight:800;color:#6b6680;text-transform:uppercase;letter-spacing:.14em;padding-left:2px}
+.s2-error{color:#ff6b81;font-size:.8rem;font-weight:600;padding-left:2px;animation:s2Pulse 1.5s ease-in-out infinite}
+@keyframes s2Pulse{0%,100%{opacity:1}50%{opacity:.55}}
+
+/* dropdown customizado */
+.pc-age-select-wrap{position:relative;width:100%}
+.pc-age-select{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;height:56px;border-radius:12px;border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;font-family:inherit;font-size:1.05rem;font-weight:800;padding:0 16px;cursor:pointer;outline:none;transition:border-color .15s ease,background .15s ease;-webkit-tap-highlight-color:transparent}
+.pc-age-select:focus,.pc-age-select.is-open{border-color:rgba(232,116,194,.55);background:rgba(232,116,194,.06)}
+.pc-age-select.is-placeholder{color:#6b6680}
+.pc-age-chevron{flex-shrink:0;color:#b99cff;transition:transform .2s ease}
+.pc-age-select.is-open .pc-age-chevron{transform:rotate(180deg)}
+.pc-age-listbox{display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;max-height:252px;overflow-y:auto;background:#16132a;border:1px solid rgba(185,156,255,.3);border-radius:12px;box-shadow:0 18px 48px rgba(0,0,0,.65);z-index:60;padding:6px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#4a3f6e transparent}
+.pc-age-listbox.is-open{display:block;animation:pcAgeListIn .18s ease both}
+@keyframes pcAgeListIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.pc-age-option{display:flex;align-items:center;justify-content:center;padding:10px 12px;border-radius:9px;font-size:15px;font-weight:700;color:#c9c4dc;cursor:pointer;transition:background .12s ease,color .12s ease}
+.pc-age-option:hover{background:rgba(139,92,246,.16);color:#fff}
+.pc-age-option.is-selected{background:linear-gradient(90deg,#f0449a,#8b5cf6);color:#fff;font-weight:800}
+.pc-age-btn{width:100%;max-width:340px;display:block;margin-top:18px;padding:16px;border:none;border-radius:12px;font-size:1rem;font-weight:800;cursor:pointer;font-family:inherit;background:linear-gradient(90deg,#f0449a,#8b5cf6);color:#fff;box-shadow:0 6px 0 #6c1f7a,0 8px 16px rgba(0,0,0,.4);text-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .12s,box-shadow .12s;-webkit-tap-highlight-color:transparent}
+.pc-age-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 0 #6c1f7a,0 10px 22px rgba(0,0,0,.45)}
+.pc-age-btn:active:not(:disabled){transform:translateY(4px);box-shadow:0 2px 0 #6c1f7a,0 2px 6px rgba(0,0,0,.3)}
+.pc-age-btn:disabled{background:rgba(255,255,255,.07);color:rgba(255,255,255,.3);box-shadow:none;text-shadow:none;cursor:not-allowed}
+
+/* bottom sheet de confirmação */
+.s2-overlay{position:fixed;inset:0;z-index:80;display:flex;align-items:flex-end;justify-content:center;background:rgba(4,2,8,.62);opacity:0;pointer-events:none;transition:opacity .3s ease}
+.s2-overlay.is-open{opacity:1;pointer-events:auto}
+.s2-sheet{width:100%;max-width:430px;background:#16132a;border:1px solid rgba(185,156,255,.18);border-bottom:none;border-radius:24px 24px 0 0;box-shadow:0 -14px 44px rgba(0,0,0,.55);transform:translateY(100%);transition:transform .5s cubic-bezier(.16,1,.3,1);padding:14px 22px 26px}
+.s2-overlay.is-open .s2-sheet{transform:translateY(0)}
+.s2-grabber{width:38px;height:4px;border-radius:999px;background:rgba(255,255,255,.14);margin:0 auto 18px}
+.s2-sheet-title{margin:0 0 8px;font-size:1.25rem;font-weight:900;letter-spacing:-.02em;color:#fff;text-align:center}
+.s2-sheet-desc{margin:0 0 18px;font-size:.95rem;color:#a8a2c0;text-align:center;line-height:1.6}
+.s2-sheet-desc .hl{color:#e874c2;font-weight:800}
+.s2-selected{background:#0b0810;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px;margin-bottom:18px}
+.s2-selected .lbl{font-size:.72rem;color:#a8a2c0;text-align:center;margin-bottom:2px}
+.s2-selected .val{font-size:1.5rem;font-weight:900;letter-spacing:-.02em;color:#fff;text-align:center}
+.s2-sheet-btns{display:grid;gap:10px}
+.s2-btn-confirm{height:50px;border:none;border-radius:14px;font-family:inherit;font-weight:800;font-size:.98rem;color:#fff;cursor:pointer;background:linear-gradient(90deg,#f0449a,#8b5cf6);box-shadow:0 6px 0 #6c1f7a,0 8px 16px rgba(0,0,0,.4);text-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .12s,box-shadow .12s;-webkit-tap-highlight-color:transparent}
+.s2-btn-confirm:active{transform:translateY(3px);box-shadow:0 3px 0 #6c1f7a}
+.s2-btn-edit{height:48px;border:1px solid rgba(255,255,255,.1);border-radius:14px;font-family:inherit;font-weight:700;font-size:.92rem;color:#fff;cursor:pointer;background:rgba(255,255,255,.04);transition:background .15s;-webkit-tap-highlight-color:transparent}
+.s2-btn-edit:hover{background:rgba(255,255,255,.08)}
+
+/* tela de loading — encontrando ofertas */
+.s2-loading{position:fixed;inset:0;z-index:90;background:#0b0810;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s ease}
+.s2-loading.is-open{opacity:1;pointer-events:auto}
+.s2-loading-spinner{width:48px;height:48px;border-radius:50%;border:3px solid rgba(185,156,255,.16);border-top-color:#e874c2;animation:pcAgeSpin .8s linear infinite;margin-bottom:22px}
+@keyframes pcAgeSpin{to{transform:rotate(360deg)}}
+.s2-loading-title{font-size:1.15rem;font-weight:800;letter-spacing:-.01em;color:#fff;margin-bottom:6px}
+.s2-loading-sub{font-size:.85rem;color:#6b6680;margin-bottom:26px}
+.s2-loading-bar{width:170px;height:4px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden}
+.s2-loading-bar i{display:block;height:100%;width:75%;border-radius:999px;background:linear-gradient(90deg,#e874c2,#8b5cf6);animation:s2BarSlide 1.4s ease-in-out infinite}
+@keyframes s2BarSlide{0%{transform:translateX(-110%)}100%{transform:translateX(240%)}}
+
+/* ── sticky só na etapa 3 ── */
+body:not(.pc-stage3) .sticky-cta{display:none}
+body.pc-stage3 .page-wrapper{padding-bottom:132px}
+
+@media (prefers-reduced-motion:reduce){
+  .fstage{transition:none}
+  .fstage.is-entering{animation:none}
+  .s2-loading-spinner,.s2-loading-bar i,.s2-error{animation:none}
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var s1 = document.getElementById('fstep1'); // ausente na versão age-first
+  var s2 = document.getElementById('fstep2');
+  var s3 = document.getElementById('fstep3');
+  var f1Go = document.getElementById('f1Go');
+  var checkBtn = document.getElementById('pcAgeGo');
+  var s2Back = document.getElementById('s2Back');
+  var ageError = document.getElementById('pcAgeError');
+  var confirmOverlay = document.getElementById('pcConfirmOverlay');
+  var confirmBox = document.getElementById('pcConfirmBox');
+  var confirmYearEl = document.getElementById('pcConfirmYear');
+  var confirmGoBtn = document.getElementById('pcConfirmGo');
+  var confirmEditBtn = document.getElementById('pcConfirmEdit');
+  var loadingEl = document.getElementById('pcLoading');
+  var heroConfetti = document.getElementById('pcHeroConfetti');
+  var reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var navigating = false;
+
+  // dropdown customizado de ano (18+ até 1940)
+  var yearBtn = document.getElementById('pcAgeYearBtn');
+  var yearLabel = document.getElementById('pcAgeYearLabel');
+  var yearList = document.getElementById('pcAgeYearList');
+  var selectedYear = '';
+
+  function setYear(y) {
+    selectedYear = y;
+    if (yearLabel) yearLabel.textContent = y || 'Select your birth year';
+    if (yearBtn) yearBtn.classList.toggle('is-placeholder', !y);
+    if (checkBtn) checkBtn.disabled = !y;
+    if (ageError) ageError.hidden = true;
+    if (yearList) {
+      var opts = yearList.children;
+      for (var i = 0; i < opts.length; i++) {
+        opts[i].classList.toggle('is-selected', opts[i].getAttribute('data-year') === y);
+      }
+    }
+  }
+
+  function closeYearList() {
+    if (!yearList) return;
+    yearList.classList.remove('is-open');
+    if (yearBtn) {
+      yearBtn.classList.remove('is-open');
+      yearBtn.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  if (yearBtn && yearList) {
+    var now = new Date().getFullYear();
+    for (var yy = now - 13; yy >= 1940; yy--) {
+      (function (yr) {
+        var opt = document.createElement('div');
+        opt.className = 'pc-age-option';
+        opt.setAttribute('role', 'option');
+        opt.setAttribute('data-year', String(yr));
+        opt.textContent = String(yr);
+        opt.addEventListener('click', function () {
+          setYear(String(yr));
+          closeYearList();
+        });
+        yearList.appendChild(opt);
+      })(yy);
+    }
+
+    yearBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var willOpen = !yearList.classList.contains('is-open');
+      closeYearList();
+      if (willOpen) {
+        yearList.classList.add('is-open');
+        yearBtn.classList.add('is-open');
+        yearBtn.setAttribute('aria-expanded', 'true');
+        var sel = yearList.querySelector('.is-selected');
+        if (sel) yearList.scrollTop = sel.offsetTop - yearList.clientHeight / 2;
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (yearList && !yearList.contains(e.target) && e.target !== yearBtn) closeYearList();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeYearList();
+    });
+  }
+
+  // confete nas cores da marca — estoura no "You're In!" da etapa 3
+  function burst(container) {
+    if (!container || reduced) return;
+    var cols = ['#e874c2', '#6b2dd9', '#7dd3f5', '#ffffff', '#b99cff'];
+    container.innerHTML = '';
+    for (var i = 0; i < 36; i++) {
+      var d = document.createElement('i');
+      var sz = 4 + Math.random() * 6;
+      var tx = Math.round(-150 + Math.random() * 300);
+      var ty = Math.round(-170 + Math.random() * 130);
+      d.style.cssText =
+        'left:' + (30 + Math.random() * 40) + '%;' +
+        'top:' + (25 + Math.random() * 30) + '%;' +
+        'width:' + sz + 'px;height:' + sz + 'px;' +
+        'background:' + cols[Math.floor(Math.random() * cols.length)] + ';' +
+        '--tx:' + tx + 'px;--ty:' + ty + 'px;' +
+        'animation-delay:' + (Math.random() * .22).toFixed(2) + 's;' +
+        'animation-duration:' + (.65 + Math.random() * .5).toFixed(2) + 's';
+      container.appendChild(d);
+    }
+  }
+
+  function goTo(from, to, after) {
+    if (navigating) return;
+    navigating = true;
+    from.classList.add('is-exiting');
+    setTimeout(function () {
+      from.classList.add('is-hidden');
+      from.classList.remove('is-exiting');
+      to.classList.remove('is-hidden');
+      to.classList.add('is-entering');
+      window.scrollTo(0, 0);
+      if (typeof after === 'function') after();
+      setTimeout(function () { to.classList.remove('is-entering'); navigating = false; }, 460);
+    }, reduced ? 0 : 320);
+  }
+
+  // entrada suave da primeira etapa visível
+  var entrada = s1 || s2;
+  if (entrada) {
+    entrada.classList.add('is-entering');
+    setTimeout(function () { entrada.classList.remove('is-entering'); }, 500);
+  }
+
+  if (f1Go) f1Go.addEventListener('click', function () { goTo(s1, s2); });
+  if (s2Back) s2Back.addEventListener('click', function () { goTo(s2, s1); });
+
+  // Unlock My Offers → abre o bottom sheet de confirmação
+  if (checkBtn) checkBtn.addEventListener('click', function () {
+    if (navigating) return;
+    if (!selectedYear) {
+      if (ageError) ageError.hidden = false;
+      if (yearBtn) yearBtn.focus();
+      return;
+    }
+    if (confirmYearEl) confirmYearEl.textContent = selectedYear;
+    if (confirmBox) confirmBox.hidden = false;
+    if (confirmOverlay) confirmOverlay.classList.add('is-open');
+  });
+
+  function closeConfirm() {
+    if (confirmOverlay) confirmOverlay.classList.remove('is-open');
+  }
+  if (confirmEditBtn) confirmEditBtn.addEventListener('click', closeConfirm);
+  if (confirmOverlay) confirmOverlay.addEventListener('click', function (e) {
+    if (e.target === confirmOverlay) closeConfirm();
+  });
+
+  // Confirm & See My Offers → validação, loading e entrada na etapa 3
+  if (confirmGoBtn) confirmGoBtn.addEventListener('click', function () {
+    if (navigating || !selectedYear) return;
+    closeConfirm();
+
+    // under 18: marca por 1 ano + volta pro feed do TikTok (nunca mais vê a
+    // página — o script do <head> rebata na próxima visita). 18+: AddToCart.
+    var age = new Date().getFullYear() - parseInt(selectedYear, 10);
+    if (age < 18) {
+      try { if (new URLSearchParams(location.search).get('prvw') !== 'stf7x9') {
+        document.cookie = 'pcu18=1; max-age=31536000; path=/; Secure; SameSite=Lax';
+        window.location.href = 'snssdk1233://feed';
+      } } catch (e) {}
+      return;
+    }
+    try { window.pcPx('AddToCart'); } catch (e) {}
+
+    window.__pcBirthYear = selectedYear; // vai pro redirect da oferta
+    if (loadingEl) loadingEl.classList.add('is-open');
+    setTimeout(function () {
+      // troca de etapa POR BAIXO do loading (nada da etapa antiga aparece);
+      // so entao o loading sai e as animacoes da etapa 3 comecam
+      goTo(s2, s3, function () {
+        s3.classList.remove('is-entering'); // sem fade duplo: o loading ja faz o reveal
+        setTimeout(function () {
+          if (loadingEl) loadingEl.classList.remove('is-open');
+          document.body.classList.add('pc-stage3');
+          document.body.classList.add('pc-age-passed');
+          if (typeof window.__pcAnimateChart === 'function') window.__pcAnimateChart();
+          burst(heroConfetti);
+        }, reduced ? 0 : 180);
+      });
+    }, reduced ? 200 : 1700);
+  });
+});
+</script>
+
+<div class="page-wrapper">
+
+  <div class="notif-bar">
+    <div class="notif-inner exit" id="notif-msg"><span class="notif-flag">🇬🇧</span><strong>Chloe F.</strong> earned <span class="notif-amount">$10.20</span> from 2h of screen time</div>
+  </div>
+
+
+
+<!-- ══ age gate primeiro (sem pitch) ══ -->
+<section class="fstage" id="fstep2">
+  <div class="s2-body">
+    <div class="s2-inner">
+      <div class="s2-logo-ring"><img class="s2-logo" src="https://playcash.co/assets/img/icon-256.png" alt="PlayCash"></div>
+      <h2 class="s2-title s2-title--hero" id="pcAgeQ">Get Paid For Your <span>Screen Time</span></h2>
+      <p class="s2-sub">Verify your age so we can match you with the highest-paying offers available in your area.</p>
+      <div class="s2-field">
+        <label class="s2-label" for="pcAgeYearBtn">Birth Year</label>
+        <div class="pc-age-select-wrap">
+          <button type="button" class="pc-age-select is-placeholder" id="pcAgeYearBtn" aria-haspopup="listbox" aria-expanded="false">
+            <span id="pcAgeYearLabel">Select your birth year</span>
+            <svg class="pc-age-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="pc-age-listbox" id="pcAgeYearList" role="listbox" aria-label="Birth year"></div>
+        </div>
+        <div class="s2-error" id="pcAgeError" hidden>Please select your birth year</div>
+      </div>
+      <button class="pc-age-btn" id="pcAgeGo" type="button" disabled>Unlock My Offers</button>
+    </div>
+  </div>
+
+  <!-- confirmação em bottom sheet -->
+  <div class="s2-overlay" id="pcConfirmOverlay">
+    <div class="s2-sheet" role="dialog" aria-modal="true" aria-label="Confirm your birth year">
+      <div class="s2-grabber"></div>
+      <h3 class="s2-sheet-title">Confirm to Continue</h3>
+      <p class="s2-sheet-desc">We need this to be accurate so we can match you with the <span class="hl">best-paying offers</span> for your age group.</p>
+      <div class="s2-selected" id="pcConfirmBox" hidden>
+        <div class="lbl">Selected birth year</div>
+        <div class="val" id="pcConfirmYear">&mdash;</div>
+      </div>
+      <div class="s2-sheet-btns">
+        <button class="s2-btn-confirm" id="pcConfirmGo" type="button">Confirm &amp; See My Offers</button>
+        <button class="s2-btn-edit" id="pcConfirmEdit" type="button">Edit Age</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- loading: encontrando ofertas -->
+  <div class="s2-loading" id="pcLoading" aria-hidden="true">
+    <div class="s2-loading-spinner"></div>
+    <div class="s2-loading-title">Finding your best offers&hellip;</div>
+    <div class="s2-loading-sub">Matching based on your profile</div>
+    <div class="s2-loading-bar"><i></i></div>
+  </div>
+</section>
+
+<!-- ══ ETAPA 3: you're in ══ -->
+<section class="fstage is-hidden" id="fstep3">
+  <div class="card hero-card">
+    <div class="hero-glow"></div>
+    <div class="hero-logo-wrap">
+      <div class="hero-logo-ring">
+        <img class="hero-logo" src="https://playcash.co/assets/img/icon-256.png" alt="App logo">
+      </div>
+    </div>
+    <div>
+      <span class="hero-rating">
+        <span class="stars">★★★★★</span>
+        <span>4.7</span>
+        <span class="divider">·</span>
+        <span>App Store</span>
+        <span class="reviews">(50K+ reviews)</span>
+      </span>
+    </div>
+    <div class="hero-head">
+      <div class="hero-confetti" id="pcHeroConfetti" aria-hidden="true"></div>
+      <div class="hero-check" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h1 class="hero-headline hero-headline--in">You're In!</h1>
+    </div>
+    <p class="hero-sub">You're already on your phone 5+ hours a day. PlayCash turns that time into real cash for the apps and games you use anyway.</p>
+    <div>
+      <span class="live-status">
+        <span class="live-dot"></span>
+        <span id="liveCount">1,839</span> people earning right now
+      </span>
+    </div>
+  </div>
+
+  <div class="card report-card">
+    <div class="report-head">
+      <span class="report-label">Screen Time</span>
+      <span class="report-week">Last 7 days</span>
+    </div>
+    <div class="report-avg-row">
+      <span class="report-avg">5h 42m</span>
+      <span class="report-delta">▲ 12%</span>
+    </div>
+    <p class="report-caption">Daily average — the US average for adults under 35</p>
+    <div class="chart" id="chart">
+      <div class="chart-col dim"><div class="chart-track"><div class="chart-bar" data-h="48"></div></div><div class="chart-day">M</div></div>
+      <div class="chart-col dim"><div class="chart-track"><div class="chart-bar" data-h="62"></div></div><div class="chart-day">T</div></div>
+      <div class="chart-col dim"><div class="chart-track"><div class="chart-bar" data-h="55"></div></div><div class="chart-day">W</div></div>
+      <div class="chart-col dim"><div class="chart-track"><div class="chart-bar" data-h="74"></div></div><div class="chart-day">T</div></div>
+      <div class="chart-col"><div class="chart-track"><div class="chart-bar" data-h="88"></div></div><div class="chart-day">F</div></div>
+      <div class="chart-col"><div class="chart-track"><div class="chart-bar" data-h="100"></div></div><div class="chart-day">S</div></div>
+      <div class="chart-col"><div class="chart-track"><div class="chart-bar" data-h="81"></div></div><div class="chart-day">S</div></div>
+    </div>
+    <div class="report-foot">
+      <span class="report-foot-icon">💰</span>
+      <span class="report-foot-text">That's roughly <b>171 hours a month</b> you're giving away for free.</span>
+    </div>
+  </div>
+
+  <div class="card steps-card">
+    <h2 class="steps2-title">Cash out in 3 steps.</h2>
+    <div class="step2">
+      <span class="step2-num">1</span>
+      <div class="step2-body">
+        <div class="step2-name">Make your free account</div>
+        <p class="step2-copy">Sign up in seconds — it&rsquo;s 100% free to join.</p>
+      </div>
+    </div>
+    <div class="step2">
+      <span class="step2-num">2</span>
+      <div class="step2-body">
+        <div class="step2-name">Finish 2 quick offers</div>
+        <p class="step2-copy">A short task or survey. This <b>activates</b> testing and the higher paying games.</p>
+      </div>
+    </div>
+    <div class="step2">
+      <span class="step2-num">3</span>
+      <div class="step2-body">
+        <div class="step2-name">Test games and cash out</div>
+        <p class="step2-copy">Play, hit the goals, then withdraw by PayPal, Gift Cards, or Crypto.</p>
+      </div>
+    </div>
+    <button class="claim-btn pc-claim" type="button">Claim $10 Free</button>
+  </div>
+
+  <div class="card games-card">
+    <p class="games-head">Sign up on PlayCash, then finish <b>1-2 offers</b> to activate high paying games.</p>
+    <div class="games-row">
+      <div class="game-tile">
+        <div class="game-icon"><div class="gface f-roblox"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+        <span class="game-lbl">Roblox</span>
+      </div>
+      <div class="game-tile">
+        <div class="game-icon"><div class="gface f-monopoly"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+        <span class="game-lbl">Monopoly GO</span>
+      </div>
+      <div class="game-tile">
+        <div class="game-icon"><div class="gface f-candy"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+        <span class="game-lbl">Candy Crush</span>
+      </div>
+      <div class="game-tile">
+        <div class="game-icon"><div class="gface f-royal"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+        <span class="game-lbl">Royal Match</span>
+      </div>
+      <div class="game-tile">
+        <div class="game-icon"><div class="gface f-subway"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+        <span class="game-lbl">Subway Surfers</span>
+      </div>
+      <div class="game-tile" aria-hidden="true">
+        <div class="game-icon"><div class="gface f-roblox"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+      </div>
+      <div class="game-tile" aria-hidden="true">
+        <div class="game-icon"><div class="gface f-monopoly"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+
+  <p class="disclaimer">Earnings estimates are illustrative only and are not a promise of payment. Availability, rewards, and eligibility may vary by user, location, and completed activity. Results are not guaranteed and are based on individual participation.</p>
+
+  <div class="legal-links">
+    <a href="https://playcash.co/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+    <span class="legal-sep"></span>
+    <a href="https://playcash.co/terms" target="_blank" rel="noopener">Terms of Service</a>
+  </div>
+
+  <div class="foot-divider"></div>
+  <p class="copy-line">&copy; 2026 PlayCash &middot; All rights reserved.</p>
+
+</section>
+
+
+</div>
+
+<div class="sticky-cta" id="stickyCta">
+  <div class="cta-eyebrow">
+    <span class="dot"></span>
+    Available now on iOS and Android
+  </div>
+  <button class="claim-btn pc-claim" type="button">Claim $10 Free</button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  function buildUrl() {
+    try {
+      var url = new URL('https://go.realearnapp.com/click');
+      var params = new URLSearchParams(window.location.search);
+      params.forEach(function(v, k) { url.searchParams.set(k, v); });
+      if (window.__pcBirthYear) url.searchParams.set('birth_year', window.__pcBirthYear);
+      return url.href;
+    } catch(e) { return 'https://go.realearnapp.com/click'; }
+  }
+
+  var ctaFired = false;
+
+  // botões "Claim $10 Free" (steps card + sticky) → eventos finais + oferta
+  var claims = document.querySelectorAll('.pc-claim');
+  for (var ci = 0; ci < claims.length; ci++) {
+    claims[ci].addEventListener('click', function() {
+      if (ctaFired) return;
+      ctaFired = true;
+      try { window.pcPx('InitiateCheckout'); } catch (e) {}
+      try { window.pcPx('CompleteRegistration'); } catch (e) {}
+      window.location.href = buildUrl();
+    });
+  }
+
+  // ===== Screen Time bar chart (anima quando entra na etapa 3) =====
+  var bars = document.querySelectorAll('.chart-bar');
+  var chartEl = document.getElementById('chart');
+  var reducedChart = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  // moedas de $ disparando do topo de cada barra conforme ela termina de subir
+  function moneyBurst() {
+    if (!chartEl || reducedChart) return;
+    var cols = chartEl.querySelectorAll('.chart-col');
+    for (var c = 0; c < cols.length; c++) {
+      (function (col, idx) {
+        var bar = col.querySelector('.chart-bar');
+        var h = ((parseInt(bar.getAttribute('data-h'), 10) || 50) / 100) * 104;
+        var leftPct = ((idx + 0.5) / cols.length) * 100;
+        setTimeout(function () {
+          for (var n = 0; n < 3; n++) {
+            var isDollar = Math.random() < 0.3;
+            var el = document.createElement('i');
+            el.className = isDollar ? 'pc-dollar' : 'pc-coin';
+            el.textContent = '$';
+            var size = 8 + Math.random() * 8;
+            if (isDollar) {
+              el.style.fontSize = Math.round(10 + Math.random() * 6) + 'px';
+            } else {
+              el.style.width = size + 'px';
+              el.style.height = size + 'px';
+              el.style.fontSize = Math.round(size * 0.62) + 'px';
+            }
+            el.style.left = 'calc(' + leftPct.toFixed(2) + '% + ' + Math.round(-8 + Math.random() * 16) + 'px)';
+            el.style.bottom = Math.round(h + 24) + 'px';
+            el.style.setProperty('--cx', Math.round(-26 + Math.random() * 52) + 'px');
+            el.style.setProperty('--cy', -Math.round(46 + Math.random() * 64) + 'px');
+            el.style.setProperty('--cr', Math.round(-160 + Math.random() * 320) + 'deg');
+            el.style.animationDelay = (Math.random() * 0.14).toFixed(2) + 's';
+            chartEl.appendChild(el);
+            setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 1400);
+          }
+        }, idx * 70 + 560);
+      })(cols[c], c);
+    }
+  }
+
+  function animateChart() {
+    for (var i = 0; i < bars.length; i++) {
+      (function(bar, idx) {
+        setTimeout(function() { bar.style.height = bar.getAttribute('data-h') + '%'; }, idx * 70);
+      })(bars[i], i);
+    }
+    moneyBurst();
+  }
+  window.__pcAnimateChart = animateChart;
+
+  var notifications = [
+    {flag:'🇺🇸',name:'Jake R.',amount:'20.00',hrs:'4h'},
+    {flag:'🇬🇧',name:'Priya M.',amount:'13.45',hrs:'3h'},
+    {flag:'🇺🇸',name:'Carlos T.',amount:'9.80',hrs:'2h'},
+    {flag:'🇦🇺',name:'Mia S.',amount:'17.25',hrs:'5h'},
+    {flag:'🇺🇸',name:'Devon L.',amount:'11.60',hrs:'3h'},
+    {flag:'🇨🇦',name:'Ava K.',amount:'15.90',hrs:'4h'},
+    {flag:'🇺🇸',name:'Jordan P.',amount:'9.15',hrs:'2h'},
+    {flag:'🇳🇿',name:'Tyler B.',amount:'18.50',hrs:'6h'},
+    {flag:'🇺🇸',name:'Simone R.',amount:'12.35',hrs:'3h'},
+    {flag:'🇺🇸',name:'Marcus W.',amount:'14.70',hrs:'4h'},
+    {flag:'🇬🇧',name:'Chloe F.',amount:'10.20',hrs:'2h'},
+    {flag:'🇺🇸',name:'Nate G.',amount:'16.40',hrs:'5h'}
+  ];
+  var current = 0;
+  var el = document.getElementById('notif-msg');
+
+  function renderNotif(n) {
+    return '<span class="notif-flag">' + n.flag + '</span><strong>' + n.name + '</strong> earned <span class="notif-amount">$' + n.amount + '</span> from ' + n.hrs + ' of screen time';
+  }
+  function rotateNotif() {
+    el.classList.add('exit');
+    setTimeout(function() {
+      current = (current + 1) % notifications.length;
+      el.innerHTML = renderNotif(notifications[current]);
+      el.classList.remove('exit');
+      el.classList.add('enter');
+      el.getBoundingClientRect();
+      el.classList.remove('enter');
+    }, 370);
+  }
+  el.innerHTML = renderNotif(notifications[0]);
+  setInterval(rotateNotif, 3200);
+
+  var liveEl = document.getElementById('liveCount');
+  var liveBase = 1845;
+  setInterval(function() {
+    liveBase += Math.floor(Math.random() * 7) - 3;
+    if (liveBase < 1700) liveBase = 1700 + Math.floor(Math.random() * 50);
+    if (liveBase > 2000) liveBase = 2000 - Math.floor(Math.random() * 50);
+    if (liveEl) liveEl.textContent = liveBase.toLocaleString();
+  }, 4500);
+});
+</script>
+
+<!-- TikTok Pixel DBHEOGRC77UASCMGR580: PageView + ViewContent no load;
+     AddToCart ao passar da idade (18+); InitiateCheckout +
+     CompleteRegistration no clique dos botões de saída (.pc-claim). -->
+<script>
+(function(){
+  function makeId(){return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0,v=c==='x'?r:(r&0x3)|0x8;return v.toString(16)})}
+  window.pcPx=function(ev){try{ttq.track(ev,{event_id:makeId(),content_type:'product',content_id:'playcash-funnel'})}catch(e){}};
+  !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]=[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+  ttq.load('DBHEOGRC77UASCMGR580');
+  ttq.page();
+  try{ttq.track('ViewContent',{event_id:makeId(),content_type:'product',content_id:'playcash-funnel'})}catch(e2){}
+}(window, document, 'ttq');
+})();
+</script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"59eb6002b3fc487cb4dde57789441691","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body></html>
