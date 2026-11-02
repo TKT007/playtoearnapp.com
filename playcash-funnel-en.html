@@ -136,7 +136,8 @@ body.pc-age-passed .hero-check svg polyline{animation:heroTick .34s .55s ease-ou
 .games-card{position:relative;padding:18px 0 20px;overflow:hidden}
 .games-head{margin:0 0 16px;padding:0 22px;font-size:13.5px;line-height:1.55;color:#c9c4dc}
 .games-head b{color:#e874c2}
-.games-row{display:flex;gap:12px;align-items:flex-start;padding:0 22px;transform:translateX(-54px)}
+.games-row{display:flex;gap:12px;width:max-content;animation:pcRoll 26s linear infinite;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+@keyframes pcRoll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .game-tile{display:grid;gap:7px;justify-items:center;flex-shrink:0}
 .game-icon{position:relative;width:76px;height:76px}
 .gface{width:100%;height:100%;border-radius:18px;background-size:cover;background-position:center;box-shadow:0 6px 14px rgba(0,0,0,.35)}
@@ -290,6 +291,7 @@ body.pc-stage3 .page-wrapper{padding-bottom:132px}
   .fstage{transition:none}
   .fstage.is-entering{animation:none}
   .s2-loading-spinner,.s2-loading-bar i,.s2-error{animation:none}
+  .games-row{animation:none}
 }
 </style>
 
@@ -631,16 +633,16 @@ document.addEventListener('DOMContentLoaded', function () {
     <p class="games-head">Sign up on PlayCash, then finish <b>1-2 offers</b> to activate high paying games.</p>
     <div class="games-row">
       <div class="game-tile">
-        <div class="game-icon"><div class="gface f-roblox"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
-        <span class="game-lbl">Roblox</span>
+        <div class="game-icon"><div class="gface f-candy"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+        <span class="game-lbl">Candy Crush</span>
       </div>
       <div class="game-tile">
         <div class="game-icon"><div class="gface f-monopoly"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
         <span class="game-lbl">Monopoly GO</span>
       </div>
       <div class="game-tile">
-        <div class="game-icon"><div class="gface f-candy"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
-        <span class="game-lbl">Candy Crush</span>
+        <div class="game-icon"><div class="gface f-roblox"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+        <span class="game-lbl">Roblox</span>
       </div>
       <div class="game-tile">
         <div class="game-icon"><div class="gface f-royal"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
@@ -650,11 +652,25 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="game-icon"><div class="gface f-subway"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
         <span class="game-lbl">Subway Surfers</span>
       </div>
-      <div class="game-tile" aria-hidden="true">
-        <div class="game-icon"><div class="gface f-roblox"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+      <div class="game-tile">
+        <div class="game-icon"><div class="gface f-candy"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+        <span class="game-lbl">Candy Crush</span>
       </div>
-      <div class="game-tile" aria-hidden="true">
+      <div class="game-tile">
         <div class="game-icon"><div class="gface f-monopoly"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+        <span class="game-lbl">Monopoly GO</span>
+      </div>
+      <div class="game-tile">
+        <div class="game-icon"><div class="gface f-roblox"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+        <span class="game-lbl">Roblox</span>
+      </div>
+      <div class="game-tile">
+        <div class="game-icon"><div class="gface f-royal"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+        <span class="game-lbl">Royal Match</span>
+      </div>
+      <div class="game-tile">
+        <div class="game-icon"><div class="gface f-subway"></div><svg class="game-lock" viewBox="0 0 24 24" fill="none"><path d="M7 10V7.5A5 5 0 0117 7.5V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/></svg></div>
+        <span class="game-lbl">Subway Surfers</span>
       </div>
     </div>
   </div>
