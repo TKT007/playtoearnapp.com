@@ -860,6 +860,39 @@ ttq.page();
     window.PC_AUTH_REDIRECT_BASE_URL = "https:\/\/playcash.co";
     window.__PC_LANDER = {"landerKey":"quiz","pagePath":"/quiz","hostBucket":"try","webGuid":"b6d9cf520dc4501738081476f8218162","platform":"web","isLoggedIn":false,"next":"/earn","authHref":"https://track.tryappstoday.com/click","ctaHref":"https://track.tryappstoday.com/click","ctaLabel":"Claim My Spot","ctaAuthOpen":false,"finalAction":"link","scrollAppsflyerUrl":"","androidScrollAppsflyerUrl":"","requestUri":"/quiz","inParams":[]};
   </script>
+  <script>
+  // CTA override → download bridge, carrying affid / s2 / s3 from the incoming URL
+  (function () {
+    try {
+      var q = new URLSearchParams(window.location.search);
+      var url = new URL('https://download.playcash.co/bridge?r=1');
+      ['affid', 's2', 's3'].forEach(function (k) {
+        var v = q.get(k);
+        if (v !== null && v !== '') url.searchParams.set(k, v);
+      });
+      var bridge = url.toString();
+      window.__PC_LANDER.ctaHref = bridge;
+      window.__PC_LANDER.authHref = bridge;
+
+      // safety net: rewrite any anchor still pointing to the old offer links
+      function rewriteLegacyCtas() {
+        try {
+          document.querySelectorAll('a[href]').forEach(function (a) {
+            var h = a.getAttribute('href') || '';
+            if (h.indexOf('track.tryappstoday.com') !== -1 || h.indexOf('go.rrewarddrop.com') !== -1) {
+              a.setAttribute('href', bridge);
+            }
+          });
+        } catch (e) {}
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () { setTimeout(rewriteLegacyCtas, 300); });
+      } else {
+        setTimeout(rewriteLegacyCtas, 300);
+      }
+    } catch (e) {}
+  })();
+  </script>
 
     <style>
     :root {
