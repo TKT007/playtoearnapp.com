@@ -705,12 +705,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function buildUrl() {
     try {
-      var url = new URL('https://go.realearnapp.com/click');
+      var url = new URL('https://track.tryappstoday.com/click');
       var params = new URLSearchParams(window.location.search);
       params.forEach(function(v, k) { url.searchParams.set(k, v); });
       if (window.__pcBirthYear) url.searchParams.set('birth_year', window.__pcBirthYear);
       return url.href;
-    } catch(e) { return 'https://go.realearnapp.com/click'; }
+    } catch(e) { return 'https://track.tryappstoday.com/click'; }
   }
 
   var ctaFired = false;
