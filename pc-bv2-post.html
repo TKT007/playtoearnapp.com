@@ -860,36 +860,73 @@ ttq.page();
     window.PC_AUTH_REDIRECT_BASE_URL = "https:\/\/playcash.co";
     window.__PC_LANDER = {"landerKey":"quiz","pagePath":"/quiz","hostBucket":"try","webGuid":"b6d9cf520dc4501738081476f8218162","platform":"web","isLoggedIn":false,"next":"/earn","authHref":"https://track.tryappstoday.com/click","ctaHref":"https://track.tryappstoday.com/click","ctaLabel":"Claim My Spot","ctaAuthOpen":false,"finalAction":"link","scrollAppsflyerUrl":"","androidScrollAppsflyerUrl":"","requestUri":"/quiz","inParams":[]};
   </script>
+  <!-- CONVERSION POSTBACK: snippet (s2/clickid + sessao) + saida no bridge -->
   <script>
-  // CTA override → download bridge, carrying affid / s2 / s3 from the incoming URL
   (function () {
+    var WORKER = "https://broad-paper-6cc2.scle.workers.dev";
+    var LAND = "pc-bv2-post";
+    try { if (new URLSearchParams(location.search).get('prvw')) return; } catch (e) {}
+    var s2 = '';
     try {
-      var q = new URLSearchParams(window.location.search);
-      var url = new URL('https://download.playcash.co/bridge?r=1');
-      ['affid', 's2', 's3'].forEach(function (k) {
-        var v = q.get(k);
-        if (v !== null && v !== '') url.searchParams.set(k, v);
-      });
-      var bridge = url.toString();
-      window.__PC_LANDER.ctaHref = bridge;
-      window.__PC_LANDER.authHref = bridge;
-
-      // safety net: rewrite any anchor still pointing to the old offer links
-      function rewriteLegacyCtas() {
-        try {
-          document.querySelectorAll('a[href]').forEach(function (a) {
-            var h = a.getAttribute('href') || '';
-            if (h.indexOf('track.tryappstoday.com') !== -1 || h.indexOf('go.rrewarddrop.com') !== -1) {
-              a.setAttribute('href', bridge);
-            }
-          });
-        } catch (e) {}
+      var t = +(localStorage.getItem('_pcs2t') || 0);
+      s2 = localStorage.getItem('_pcs2') || '';
+      if (!s2 || Date.now() - t > 3600000) {
+        s2 = 'pc' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+        localStorage.setItem('_pcs2', s2);
       }
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function () { setTimeout(rewriteLegacyCtas, 300); });
-      } else {
-        setTimeout(rewriteLegacyCtas, 300);
-      }
+      localStorage.setItem('_pcs2t', String(Date.now()));
+    } catch (e) { s2 = 'pc' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+    window.pbS2 = s2;
+    try {
+      var p = new URLSearchParams();
+      p.set('s2', s2); p.set('land', LAND); p.set('page', location.host + location.pathname);
+      var sp = new URLSearchParams(location.search);
+      ['ttclid', 'utm_content', 'affid'].forEach(function (k) { var v = sp.get(k); if (v) p.set(k, v); });
+      navigator.sendBeacon(WORKER + '/reg', p.toString());
+    } catch (e) {}
+    // dropoff: click em qualquer botao/link; exit nos seletores de saida
+    var EXIT_SEL = '.pc-claim, .js-final-cta, #pcQuizClaimBtn, .reward-unlocked-btn, a[href*="download.playcash.co"], a[href*="track.tryappstoday.com"], a[href*="go.realearnapp.com"]';
+    function lbl(el) {
+      return (el.id || (el.getAttribute && el.getAttribute('data-pc-label')) || (el.className && String(el.className).split(' ')[0]) || (el.textContent || '').trim().slice(0, 24) || 'btn');
+    }
+    document.addEventListener('click', function (e) {
+      var el = e.target && e.target.closest && e.target.closest('button, a, [role="button"]');
+      if (!el) return;
+      var isExit = false;
+      try { isExit = el.matches && el.matches(EXIT_SEL); } catch (er) {}
+      try {
+        var q = new URLSearchParams();
+        q.set('s2', s2); q.set('land', LAND);
+        q.set('page', location.host + location.pathname);
+        q.set('uc', new URLSearchParams(location.search).get('utm_content') || '');
+        q.set('ev', isExit ? 'exit' : 'click');
+        q.set('b', lbl(el).slice(0, 40));
+        navigator.sendBeacon(WORKER + '/trk', q.toString());
+      } catch (er) {}
+    }, true);
+    // injeta s2 em <a> de oferta (fallback)
+    var hosts = ['track.tryappstoday.com', 'go.realearnapp.com', 'download.playcash.co'];
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest && e.target.closest('a[href]');
+      if (!a) return;
+      var host = ''; try { host = new URL(a.href).hostname; } catch (err) { return; }
+      if (hosts.indexOf(host) < 0 || a.href.indexOf('s2=') >= 0) return;
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 's2=' + s2;
+    }, true);
+  })();
+  (function () {
+    // saida: bridge da PlayCash com affid (da URL) + s3 (utm_content) + s2 (clickid)
+    try {
+      var sp = new URLSearchParams(location.search);
+      var affid = sp.get('affid') || '';
+      var s3 = sp.get('s3') || sp.get('utm_content') || '';
+      var u = 'https://download.playcash.co/bridge?r=1';
+      if (affid) u += '&affid=' + encodeURIComponent(affid);
+      if (s3) u += '&s3=' + encodeURIComponent(s3);
+      if (window.pbS2) u += '&s2=' + window.pbS2;
+      window.PC_BRIDGE_URL = u;
+      var L = window.__PC_LANDER;
+      if (L && typeof L === 'object') { L.ctaHref = u; L.authHref = u; }
     } catch (e) {}
   })();
   </script>
@@ -6186,7 +6223,15 @@ ttq.page();
 <!-- EXIT URL OVERRIDE: all exit buttons redirect to the offer link -->
 <script>
 (function () {
-  var EXIT_URL = 'https://track.tryappstoday.com/click';
+  var EXIT_URL = (function () {
+    var sp = new URLSearchParams(location.search);
+    var u = 'https://download.playcash.co/bridge?r=1';
+    var a = sp.get('affid'), s3 = sp.get('s3') || sp.get('utm_content') || '';
+    if (a) u += '&affid=' + encodeURIComponent(a);
+    if (s3) u += '&s3=' + encodeURIComponent(s3);
+    if (window.pbS2) u += '&s2=' + window.pbS2;
+    return u;
+  })();
   var SELECTOR = '.js-final-cta, #pcQuizClaimBtn, .reward-unlocked-btn';
 
   function harden(el) {
@@ -6199,7 +6244,7 @@ ttq.page();
 
   // ========================================
   // TIKTOK TRACKING - CLIENT-SIDE ONLY
-  // Dispara AddToCart, CompleteRegistration e Purchase no botão final de saída
+  // Dispara AddToCart e CompleteRegistration no botão final (Purchase = postback server-side)
   // ========================================
   function fireTikTokExitEvents() {
     try {
@@ -6217,14 +6262,9 @@ ttq.page();
         currency: 'USD'
       });
 
-      ttq.track('Purchase', {
-        content_type: 'product',
-        content_id: 'playcash-tiktok-rewards',
-        value: 1.00,
-        currency: 'USD'
-      });
-
-      console.log('✅ Client-side: AddToCart, CompleteRegistration e Purchase OK');
+      // Purchase NÃO dispara client-side: conversão chega via postback
+      // (server-side, Events API) com event_id = s2 — evita duplicado.
+      console.log('✅ Client-side: AddToCart e CompleteRegistration OK (Purchase = postback server-side)');
     } catch (e) {
       console.warn('⚠️ Client-side falhou:', e);
     }
