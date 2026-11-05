@@ -114,7 +114,7 @@ body.pc-age-passed .hero-check svg polyline{animation:heroTick .34s .55s ease-ou
 .step2-name{font-size:15px;font-weight:800;color:#fff;letter-spacing:-.01em}
 .step2-copy{margin:0;font-size:12.5px;line-height:1.5;color:#a8a2c0}
 .step2-copy b{color:#e874c2;font-weight:800}
-.claim-btn{width:100%;height:52px;margin-top:6px;border:none;border-radius:14px;font-family:inherit;font-weight:800;font-size:1rem;color:#fff;cursor:pointer;background:linear-gradient(90deg,#f0449a,#8b5cf6);box-shadow:0 6px 0 #6c1f7a,0 8px 16px rgba(0,0,0,.4);text-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .12s,box-shadow .12s;-webkit-tap-highlight-color:transparent}
+.claim-btn{display:flex;align-items:center;justify-content:center;text-decoration:none;width:100%;height:52px;margin-top:6px;border:none;border-radius:14px;font-family:inherit;font-weight:800;font-size:1rem;color:#fff;cursor:pointer;background:linear-gradient(90deg,#f0449a,#8b5cf6);box-shadow:0 6px 0 #6c1f7a,0 8px 16px rgba(0,0,0,.4);text-shadow:0 1px 4px rgba(0,0,0,.2);transition:transform .12s,box-shadow .12s;-webkit-tap-highlight-color:transparent}
 .claim-btn:active{transform:translateY(3px);box-shadow:0 3px 0 #6c1f7a}
 
 /* ── locked games carousel ── */
@@ -179,6 +179,29 @@ body.pc-age-passed .hero-check svg polyline{animation:heroTick .34s .55s ease-ou
       navigator.sendBeacon(WORKER + '/reg', p.toString());
     } catch (e) {}
     var hosts = ['track.tryappstoday.com', 'go.realearnapp.com', 'download.playcash.co'];
+    // dropoff: click em qualquer botao/link; exit nos seletores de saida
+    var EXIT_SEL = '.pc-claim, a[href*="download.playcash.co"], a[href*="track.tryappstoday.com"], a[href*="go.realearnapp.com"]';
+    function trklbl(el) {
+      return (el.id || (el.getAttribute && el.getAttribute('data-pc-label')) || (el.className && String(el.className).split(' ')[0]) || (el.textContent || '').trim().slice(0, 24) || 'btn');
+    }
+    function trk(ev, x) {
+      try {
+        var q = new URLSearchParams();
+        q.set('s2', s2); q.set('land', LAND);
+        q.set('page', location.host + location.pathname);
+        q.set('uc', new URLSearchParams(location.search).get('utm_content') || '');
+        q.set('ev', ev);
+        if (x) for (var k in x) q.set(k, x[k]);
+        navigator.sendBeacon(WORKER + '/trk', q.toString());
+      } catch (e) {}
+    }
+    document.addEventListener('click', function (e) {
+      var el = e.target && e.target.closest && e.target.closest('button, a, [role="button"]');
+      if (!el) return;
+      var isExit = false;
+      try { isExit = el.matches && el.matches(EXIT_SEL); } catch (er) {}
+      trk(isExit ? 'exit' : 'click', { b: trklbl(el).slice(0, 40) });
+    }, true);
     document.addEventListener('click', function (e) {
       var a = e.target && e.target.closest && e.target.closest('a[href]');
       if (!a) return;
@@ -470,7 +493,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <p class="step2-copy">Play, hit the goals, then withdraw by PayPal, Gift Cards, or Crypto.</p>
       </div>
     </div>
-    <button class="claim-btn pc-claim" type="button">Claim $10 Free</button>
+    <a class="claim-btn pc-claim" href="#">Claim $10 Free</a>
   </div>
 
   <div class="card games-card">
@@ -541,7 +564,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <span class="dot"></span>
     Available now on iOS and Android
   </div>
-  <button class="claim-btn pc-claim" type="button">Claim $10 Free</button>
+  <a class="claim-btn pc-claim" href="#">Claim $10 Free</a>
 </div>
 
 <script>
@@ -562,7 +585,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // "Claim $10 Free" buttons (steps card + sticky) → final events + offer
   var claims = document.querySelectorAll('.pc-claim');
   for (var ci = 0; ci < claims.length; ci++) {
-    claims[ci].addEventListener('click', function() {
+    claims[ci].addEventListener('click', function(e) {
+      e.preventDefault();
       if (ctaFired) return;
       ctaFired = true;
       try { window.pcPx('AddToCart'); } catch (e) {}
@@ -570,6 +594,12 @@ document.addEventListener('DOMContentLoaded', function() {
       try { window.pcPx('CompleteRegistration'); } catch (e) {}
       window.location.href = buildUrl();
     });
+  }
+
+  // seta href dos .pc-claim para o link aparecer no hover
+  var claimLinks = document.querySelectorAll('a.pc-claim');
+  for (var li = 0; li < claimLinks.length; li++) {
+    try { claimLinks[li].href = buildUrl(); } catch (e) {}
   }
 
   // ===== Screen Time bar chart (animates on stage 3 entry) =====
